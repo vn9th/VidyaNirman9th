@@ -37,9 +37,115 @@
     .nav-mobile{display:none}
     @media(max-width:800px){.layout{grid-template-columns:1fr!important}.sidebar{position:static!important}.nav-desktop{display:none}.nav-mobile{display:flex}.hero-title{font-size:2.3rem}}
     @media print{body.printing-certificate *{visibility:hidden!important}body.printing-certificate #certificatePaper,body.printing-certificate #certificatePaper *{visibility:visible!important}body.printing-certificate #certificatePaper{display:block!important;position:absolute;inset:0 auto auto 0;width:100%;margin:0!important;min-height:90vh;box-shadow:none!important;break-inside:avoid}body.printing-certificate{background:#fff!important}.no-print{display:none!important}}
+
+    /* VN Academy information architecture refresh */
+    html{scroll-padding-top:105px}
+    .academy-kicker{display:inline-flex;align-items:center;gap:.55rem;padding:.55rem .9rem;border:1px solid rgba(212,175,55,.35);border-radius:999px;background:rgba(212,175,55,.07);color:#f7d979;font-size:.68rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    .academy-command{background:linear-gradient(135deg,rgba(39,5,12,.98),rgba(12,2,5,.98));border:1px solid rgba(212,175,55,.28);box-shadow:0 18px 55px rgba(0,0,0,.22)}
+    .command-link{display:flex;align-items:center;gap:.55rem;padding:.72rem .9rem;border:1px solid rgba(212,175,55,.16);border-radius:12px;color:#f9e7b0;font-size:.76rem;font-weight:700;transition:.2s ease}
+    .command-link:hover{transform:translateY(-2px);border-color:rgba(255,215,0,.7);background:rgba(212,175,55,.08);color:#fff2bd}
+    .section-heading{display:flex;align-items:center;gap:.8rem;margin-bottom:1.2rem}
+    .section-index{display:grid;place-items:center;width:2.25rem;height:2.25rem;flex:0 0 2.25rem;border:1px solid rgba(212,175,55,.4);border-radius:12px;background:rgba(212,175,55,.08);color:#f7d979;font:800 .72rem 'Plus Jakarta Sans',sans-serif}
+    .identity-card{background:linear-gradient(145deg,rgba(39,5,12,.9),rgba(13,2,5,.96));border:1px solid rgba(212,175,55,.25);border-radius:18px;padding:1.15rem}
+    .identity-rule{height:1px;background:linear-gradient(90deg,transparent,rgba(212,175,55,.55),transparent)}
+    .academy-section{scroll-margin-top:105px}
+    .sidebar{max-height:calc(100vh - 7rem);overflow:auto}
+    .sidebar::-webkit-scrollbar{width:5px}.sidebar::-webkit-scrollbar-thumb{background:#6b4d1c;border-radius:9px}
+    .lesson-link{line-height:1.45}
+    .gold-card{transition:border-color .22s ease,box-shadow .22s ease,transform .22s ease}
+    .gold-card:focus-within{border-color:rgba(255,215,0,.65)}
+    @media(max-width:800px){.sidebar{max-height:none}.academy-command{border-radius:18px}.command-link{justify-content:center;min-height:44px}.hero-title{line-height:1.12}}
+    @media(prefers-reduced-motion:no-preference){.reveal-in{animation:vnRise .65s both}.reveal-delay-1{animation-delay:.08s}.reveal-delay-2{animation-delay:.16s}.reveal-delay-3{animation-delay:.24s}@keyframes vnRise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}}
+    /* Animated coding atmosphere */
+    .code-atmosphere{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;opacity:.72}
+    .code-grid{position:absolute;inset:-30%;background-image:linear-gradient(rgba(212,175,55,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.055) 1px,transparent 1px);background-size:54px 54px;transform:perspective(700px) rotateX(58deg) scale(1.8);transform-origin:center;animation:gridDrift 28s linear infinite;mask-image:linear-gradient(to bottom,transparent 0%,#000 28%,#000 78%,transparent 100%)}
+    .code-rain{position:absolute;white-space:nowrap;font:600 11px/1.8 ui-monospace,monospace;letter-spacing:.18em;color:rgba(255,215,0,.16);text-shadow:0 0 16px rgba(212,175,55,.16);animation:codeDrift 34s linear infinite}
+    .code-rain-one{top:22%;left:-35%;transform:rotate(-8deg)}
+    .code-rain-two{bottom:20%;left:-45%;color:rgba(105,190,255,.13);animation-duration:42s;animation-direction:reverse}
+    .code-orb{position:absolute;width:260px;height:260px;border:1px solid rgba(212,175,55,.12);border-radius:50%;box-shadow:inset 0 0 65px rgba(212,175,55,.04),0 0 70px rgba(212,175,55,.04);animation:orbFloat 12s ease-in-out infinite}
+    .orb-one{top:12%;right:-100px}.orb-two{bottom:-150px;left:8%;width:340px;height:340px;animation-delay:-5s}
+    @keyframes gridDrift{from{background-position:0 0}to{background-position:0 108px}}
+    @keyframes codeDrift{from{translate:0 0}to{translate:75% 0}}
+    @keyframes orbFloat{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(-18px,24px,0) scale(1.05)}}
+    body>*:not(.code-atmosphere):not(.academy-intro){position:relative}
+    .academy-intro{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;overflow:hidden;background:radial-gradient(ellipse at 50% 45%,#3b0810 0%,#160207 48%,#080104 100%);color:#fff9e6;transition:opacity .75s ease,visibility .75s ease}
+    .academy-intro::before,.academy-intro::after{content:"";position:absolute;width:62vw;height:62vw;max-width:780px;max-height:780px;border:1px solid rgba(212,175,55,.22);border-radius:50%;animation:introOrbit 18s linear infinite}
+    .academy-intro::after{width:76vw;height:76vw;border-style:dashed;opacity:.45;animation-direction:reverse;animation-duration:32s}
+    .academy-intro.is-leaving{opacity:0;visibility:hidden;pointer-events:none}
+    .intro-scan{position:absolute;inset:0;background:linear-gradient(transparent 49.8%,rgba(255,215,0,.045) 50%,transparent 50.3%);background-size:100% 8px;opacity:.45;pointer-events:none}
+    .intro-content{position:relative;z-index:1;text-align:center;padding:24px;animation:introRise 1s cubic-bezier(.2,.8,.2,1) both}
+    .intro-mark{width:66px;height:66px;display:grid;place-items:center;margin:0 auto 22px;border:1px solid rgba(255,215,0,.65);border-radius:20px;color:#ffd700;font-size:27px;box-shadow:0 0 38px rgba(212,175,55,.18);transform:rotate(-6deg)}
+    .intro-overline{font-size:10px;letter-spacing:.34em;color:#e8c65d;font-weight:800}
+    .intro-content h1{font-size:clamp(2.1rem,6vw,4.8rem);font-weight:900;letter-spacing:.07em;margin-top:14px;text-shadow:0 8px 35px rgba(0,0,0,.5)}
+    .intro-content h1 span{color:#ffd700}
+    .intro-subtitle{margin-top:12px;color:#e7d9bd;font-size:clamp(.85rem,2vw,1.05rem);letter-spacing:.06em}
+    .intro-loader{height:2px;width:min(260px,65vw);margin:30px auto 24px;background:rgba(255,255,255,.12);overflow:hidden}
+    .intro-loader span{display:block;height:100%;width:35%;background:linear-gradient(90deg,transparent,#ffd700,transparent);animation:loaderSweep 1.5s ease-in-out infinite}
+    .intro-enter{border:1px solid rgba(255,215,0,.55);border-radius:999px;padding:12px 24px;color:#220308;background:linear-gradient(110deg,#f4d36b,#d4af37);font-size:11px;font-weight:900;letter-spacing:.16em;box-shadow:0 8px 28px rgba(212,175,55,.18);transition:transform .2s,box-shadow .2s}
+    .intro-enter:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(212,175,55,.3)}
+    .intro-skip-hint{margin-top:16px;color:rgba(255,249,230,.48);font-size:10px;letter-spacing:.1em}
+    @keyframes introRise{from{opacity:0;transform:translateY(22px) scale(.97);filter:blur(5px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+    @keyframes introOrbit{to{transform:rotate(360deg)}}
+    @keyframes loaderSweep{from{transform:translateX(-120%)}to{transform:translateX(360%)}}
+    /* Persistent light theme. The editor and code samples remain intentionally dark for contrast. */
+    html[data-theme="light"] body{background:#f4f6fb!important;color:#182033!important}
+    html[data-theme="light"] .code-atmosphere{opacity:.32}
+    html[data-theme="light"] .code-grid{background-image:linear-gradient(rgba(65,90,130,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(65,90,130,.07) 1px,transparent 1px)}
+    html[data-theme="light"] .code-rain{color:rgba(75,105,150,.13);text-shadow:none}
+    html[data-theme="light"] header.sticky{background:rgba(248,250,255,.92)!important;border-color:#d7deeb!important;color:#1d2940}
+    html[data-theme="light"] header a,html[data-theme="light"] header nav{color:#25314a}
+    html[data-theme="light"] .gold-card,html[data-theme="light"] .identity-card{background:linear-gradient(145deg,#fff,#f2f5fb)!important;border-color:#d6deeb!important;box-shadow:0 8px 26px rgba(28,45,75,.07)!important;color:#182033}
+    html[data-theme="light"] .academy-command{background:linear-gradient(135deg,#fff,#edf2fb)!important;border-color:#d6deeb!important;box-shadow:0 14px 35px rgba(28,45,75,.08)}
+    html[data-theme="light"] .command-link,html[data-theme="light"] .lesson-link{color:#283650;border-color:#d6deeb;background:#f8faff}
+    html[data-theme="light"] .lesson-link:hover,html[data-theme="light"] .lesson-link.active{background:#e8edf8;border-color:#b28a25;color:#17233a}
+    html[data-theme="light"] .pill{background:#fff;color:#624b12;border-color:#c6a64c}
+    html[data-theme="light"] .text-slate-100,html[data-theme="light"] .text-slate-200,html[data-theme="light"] .text-slate-300,html[data-theme="light"] .text-slate-400{color:#46536b!important}
+    html[data-theme="light"] .text-amber-100,html[data-theme="light"] .text-amber-200{color:#634b12!important}
+    html[data-theme="light"] .text-amber-300{color:#876719!important}
+    html[data-theme="light"] .text-sky-300{color:#17618d!important}
+    html[data-theme="light"] .text-orange-300{color:#9a4a18!important}
+    html[data-theme="light"] .text-yellow-300{color:#876719!important}
+    html[data-theme="light"] .text-violet-300{color:#6842a0!important}
+    html[data-theme="light"] .text-emerald-200{color:#176443!important}
+    html[data-theme="light"] .bg-black\\/20,html[data-theme="light"] .bg-black\\/50{background:rgba(225,231,242,.72)!important}
+    html[data-theme="light"] .bg-\\[\\#160207\\]{background:#e9eef7!important}
+    html[data-theme="light"] input:not([type="checkbox"]),html[data-theme="light"] select{background:#fff!important;color:#1d2940!important;border-color:#cbd5e1!important}
+    html[data-theme="light"] textarea{color:#fef3c7}
+    html[data-theme="light"] .border-amber-500\\/20,html[data-theme="light"] .border-amber-500\\/30{border-color:#d5deeb!important}
+    html[data-theme="light"] .identity-rule{background:linear-gradient(90deg,transparent,#c6a64c,transparent)}
+    html[data-theme="light"] .academy-kicker{background:#fff;border-color:#d9c27d;color:#785b16}
+    html[data-theme="light"] .gold-text{background:linear-gradient(135deg,#795b16,#b28a25 55%,#674a10);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    html[data-theme="light"] .codebox{background:#090103;border-color:#6f4e19}
+    html[data-theme="light"] .codebox pre{color:#ffe8a1}
+    html[data-theme="light"] .sidebar .bg-\\[\\#160207\\]{background:#e9eef7!important}
+    html[data-theme="light"] #aiMessages{background:#f5f7fb}
+    html[data-theme="light"] #aiMessages>div{background:#fff!important;color:#26334b!important}
+    html[data-theme="light"] .preview{background:#fff;color:#222}
+    @media(prefers-reduced-motion:reduce){.code-grid,.code-rain,.code-orb,.academy-intro::before,.academy-intro::after,.intro-loader span{animation:none!important}.intro-content{animation:none!important}.academy-intro{transition:none}}
+    @media(max-width:600px){.code-rain{font-size:9px}.intro-content h1{letter-spacing:.025em}.academy-intro::before{width:90vw;height:90vw}.academy-intro::after{width:110vw;height:110vw}}
+
+
   </style>
 </head>
 <body class="jali min-h-screen">
+  <div class="code-atmosphere" aria-hidden="true">
+    <div class="code-grid"></div>
+    <div class="code-rain code-rain-one">&lt;html&gt;　const app = true;　0101　function build() { }　&lt;/css&gt;</div>
+    <div class="code-rain code-rain-two">010010　display: grid;　&lt;script&gt;　let ideas = [];　npm run create</div>
+    <div class="code-orb orb-one"></div><div class="code-orb orb-two"></div>
+  </div>
+  <section id="academyIntro" class="academy-intro" aria-label="VN Coding Academy introduction">
+    <div class="intro-scan"></div>
+    <div class="intro-content">
+      <div class="intro-mark"><i class="fa-solid fa-terminal"></i></div>
+      <p class="intro-overline">VIDYA NIRMAN PRESENTS</p>
+      <h1 class="font-cinzel">VN <span>CODING</span> ACADEMY</h1>
+      <p class="intro-subtitle">Initialize your ideas. Build what’s next.</p>
+      <div class="intro-loader"><span></span></div>
+      <button id="enterAcademy" type="button" class="intro-enter">ENTER ACADEMY <i class="fa-solid fa-arrow-right ml-2"></i></button>
+      <p class="intro-skip-hint">Your learning workspace is ready</p>
+    </div>
+  </section>
   <header class="sticky top-0 z-50 border-b border-amber-500/30 bg-[#0F0103]/95 backdrop-blur-md">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
       <a href="index.html" class="flex items-center gap-3">
@@ -47,19 +153,21 @@
         <div><div class="font-cinzel font-black tracking-wider text-lg gold-text">VIDYA NIRMAN</div><div class="text-[10px] text-amber-300 tracking-widest">CODING ACADEMY</div></div>
       </a>
       <nav class="nav-desktop flex items-center gap-5 text-xs font-bold uppercase tracking-wide">
-        <a class="hover:text-amber-300" href="index.html">Home</a><a class="hover:text-amber-300" href="#learn">Lessons</a><a class="hover:text-amber-300" href="#playground">Live Lab</a><a class="hover:text-amber-300" href="#projects">Projects</a><a class="hover:text-amber-300" href="#practice">Practice</a><a class="hover:text-amber-300" href="#ai-tutor">AI Tutor</a><a class="hover:text-amber-300" href="#certificate">Certificate</a>
+        <a class="hover:text-amber-300" href="index.html">Home</a><a class="hover:text-amber-300" href="#learn">Lesson Plan</a><a class="hover:text-amber-300" href="#playground">Live Lab</a><a class="hover:text-amber-300" href="#projects">Projects</a><a class="hover:text-amber-300" href="#practice">Practice</a><a class="hover:text-amber-300" href="#ai-tutor">AI Tutor</a><a class="hover:text-amber-300" href="#certificate">Certificate</a><a class="hover:text-amber-300" href="#about-academy">About VN</a>
       </nav>
-      <div class="flex items-center gap-2"><button id="mobileMenuBtn" class="pill nav-mobile" type="button" aria-expanded="false" aria-controls="mobileMenu"><i class="fa-solid fa-bars"></i><span class="sr-only">Open menu</span></button><a href="index.html" class="pill"><i class="fa-solid fa-arrow-left mr-1"></i> Homepage</a></div>
+      <div class="flex items-center gap-2"><button id="themeToggle" class="pill" type="button" aria-label="Switch to light mode" title="Switch theme"><i class="fa-solid fa-sun"></i><span class="hidden sm:inline ml-1">Light mode</span></button><button id="mobileMenuBtn" class="pill nav-mobile" type="button" aria-expanded="false" aria-controls="mobileMenu"><i class="fa-solid fa-bars"></i><span class="sr-only">Open menu</span></button><a href="index.html" class="pill"><i class="fa-solid fa-arrow-left mr-1"></i> Homepage</a></div>
     </div>
-    <nav id="mobileMenu" class="hidden border-t border-amber-500/20 px-4 py-3 md:hidden" aria-label="Mobile navigation"><div class="flex flex-wrap gap-2 text-xs"><a class="pill" href="#learn">Lessons</a><a class="pill" href="#playground">Live Lab</a><a class="pill" href="#courses">Courses</a><a class="pill" href="#practice">Quiz</a><a class="pill" href="#ai-tutor">AI Tutor</a><a class="pill" href="#certificate">Certificate</a></div></nav>
+    <nav id="mobileMenu" class="hidden border-t border-amber-500/20 px-4 py-3 md:hidden" aria-label="Mobile navigation"><div class="flex flex-wrap gap-2 text-xs"><a class="pill" href="#learn">Lesson Plan</a><a class="pill" href="#playground">Live Lab</a><a class="pill" href="#courses">Courses</a><a class="pill" href="#practice">Quiz</a><a class="pill" href="#ai-tutor">AI Tutor</a><a class="pill" href="#certificate">Certificate</a><a class="pill" href="#about-academy">About VN</a></div></nav>
   </header>
 
   <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
     <section class="text-center max-w-4xl mx-auto py-8 sm:py-14">
-      <span class="inline-flex items-center gap-2 rounded-full border border-violet-400/40 bg-violet-500/10 px-4 py-2 text-xs text-violet-200 font-bold uppercase tracking-wider"><i class="fa-solid fa-code"></i> Beginner friendly • Free lessons</span>
+      <span class="academy-kicker"><i class="fa-solid fa-code"></i> A learning initiative by Vidya Nirman</span>
       <h1 class="hero-title font-cinzel text-4xl sm:text-6xl font-black gold-text mt-6">VN CODING ACADEMY</h1>
-      <p class="text-amber-200 text-lg sm:text-xl mt-4 font-semibold">Coding zero se seekho — simple Hinglish mein.</p>
-      <p class="text-slate-300 text-sm leading-7 max-w-2xl mx-auto mt-4">Website ka structure HTML banata hai, design CSS deta hai, aur interactivity JavaScript se aati hai. Har lesson mein explanation, code example, output aur practice milegi.</p>
+      <p class="text-amber-200 text-lg sm:text-xl mt-4 font-semibold">Learn with clarity. Build with confidence.</p>
+      <p class="text-slate-300 text-sm leading-7 max-w-2xl mx-auto mt-4">Coding zero se seekho — simple Hinglish mein. HTML, CSS, JavaScript aur Python ko structured lessons, hands-on practice aur real mini-projects ke through samjho.</p>
+      <div class="identity-rule max-w-xs mx-auto mt-7"></div>
+      <p class="text-[10px] uppercase tracking-[.28em] text-amber-300/80 mt-4">Curiosity · Knowledge · Creation</p>
       <div class="flex flex-wrap justify-center gap-3 mt-7"><a href="#learn" class="rounded-xl bg-gradient-to-r from-amber-400 to-yellow-600 px-5 py-3 text-sm font-black text-[#220308]"><i class="fa-solid fa-play mr-2"></i>Start Learning</a><a href="#playground" class="rounded-xl border border-amber-500/40 px-5 py-3 text-sm font-bold text-amber-200 hover:bg-amber-500/10"><i class="fa-solid fa-flask mr-2"></i>Try Live Code Lab</a><a href="#practice" class="rounded-xl border border-amber-500/40 px-5 py-3 text-sm font-bold text-amber-200 hover:bg-amber-500/10">Practice Questions</a></div>
     </section>
 
@@ -70,6 +178,21 @@
     </section>
 
     <div class="gold-card rounded-2xl p-4 mb-6 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between"><div><p class="text-sm font-bold text-amber-100">Your learning dashboard</p><p class="text-xs text-slate-400 mt-1">Lessons ko mark karo aur apni progress track karo.</p></div><div class="flex-1 max-w-md"><div class="flex justify-between text-xs text-amber-200 mb-2"><span id="lessonProgressLabel">Lessons completed</span><span id="lessonProgressCount">0 / 10</span></div><div class="h-2 rounded-full bg-black/50 overflow-hidden"><div id="lessonProgressBar" class="h-full bg-gradient-to-r from-amber-400 to-yellow-600" style="width:0%"></div></div></div></div>
+    <section class="academy-command rounded-2xl p-4 sm:p-5 mb-8 reveal-in" aria-label="Academy navigation">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+        <div><p class="text-[10px] uppercase tracking-[.22em] text-amber-400 font-black">Academy command centre</p><h2 class="font-cinzel text-lg sm:text-xl font-bold text-amber-100 mt-1">Choose your next step</h2></div>
+        <span class="text-[11px] text-slate-400">One place for learning, building and progress</span>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+        <a class="command-link" href="#courses"><i class="fa-solid fa-route text-amber-300"></i> Learning paths</a>
+        <a class="command-link" href="#learn"><i class="fa-solid fa-book-open text-amber-300"></i> Lesson Plan</a>
+        <a class="command-link" href="#playground"><i class="fa-solid fa-terminal text-amber-300"></i> Code lab</a>
+        <a class="command-link" href="#practice"><i class="fa-solid fa-trophy text-amber-300"></i> Practice</a>
+        <a class="command-link" href="#projects"><i class="fa-solid fa-rocket text-amber-300"></i> Projects</a>
+        <a class="command-link" href="#ai-tutor"><i class="fa-solid fa-robot text-amber-300"></i> VN AI Tutor</a>
+      </div>
+    </section>
+
     <section class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8" aria-label="Academy features">
       <a href="#playground" class="gold-card rounded-xl p-4 hover:-translate-y-0.5 transition"><div class="text-amber-300 text-xl"><i class="fa-solid fa-terminal"></i></div><p class="font-bold text-sm mt-2">Live Code Lab</p><p class="text-[11px] text-slate-400 mt-1">Write · Run · Preview</p></a>
       <a href="#courses" class="gold-card rounded-xl p-4 hover:-translate-y-0.5 transition"><div class="text-sky-300 text-xl"><i class="fa-solid fa-graduation-cap"></i></div><p class="font-bold text-sm mt-2">4 Learning Paths</p><p class="text-[11px] text-slate-400 mt-1">HTML, CSS, JS, Python</p></a>
@@ -77,10 +200,23 @@
       <a href="#ai-tutor" class="gold-card rounded-xl p-4 hover:-translate-y-0.5 transition"><div class="text-violet-300 text-xl"><i class="fa-solid fa-robot"></i></div><p class="font-bold text-sm mt-2">VN AI Tutor</p><p class="text-[11px] text-slate-400 mt-1">Ask coding questions</p></a>
     </section>
 
+<section class="gold-card rounded-2xl p-5 sm:p-6 mb-6" aria-label="10 lesson learning plan">
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-4">
+        <div><p class="text-[10px] uppercase tracking-[.22em] text-amber-400 font-black">THE LEARNING JOURNEY</p><h2 class="font-cinzel text-xl font-bold text-amber-100 mt-1">Your 10-Lesson Plan</h2><p class="text-sm text-slate-400 mt-1">Follow the sequence from your first webpage to interactive JavaScript.</p></div>
+        <span class="text-xs text-amber-200 border border-amber-400/30 rounded-full px-3 py-1">Beginner → Builder</span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <a href="#lesson1" class="rounded-xl border border-amber-400/20 bg-black/20 p-4 hover:border-amber-300/60 transition"><p class="text-xs font-bold text-amber-300">STAGE 01 · LESSONS 01–03</p><p class="font-semibold text-slate-100 mt-1">HTML Foundations</p><p class="text-xs text-slate-400 mt-1">Build page structure, add text, links and images.</p></a>
+        <a href="#lesson4" class="rounded-xl border border-amber-400/20 bg-black/20 p-4 hover:border-amber-300/60 transition"><p class="text-xs font-bold text-sky-300">STAGE 02 · LESSONS 04–05</p><p class="font-semibold text-slate-100 mt-1">CSS Design</p><p class="text-xs text-slate-400 mt-1">Style pages and create clean content cards.</p></a>
+        <a href="#lesson6" class="rounded-xl border border-amber-400/20 bg-black/20 p-4 hover:border-amber-300/60 transition"><p class="text-xs font-bold text-yellow-300">STAGE 03 · LESSONS 06–10</p><p class="font-semibold text-slate-100 mt-1">JavaScript &amp; Interaction</p><p class="text-xs text-slate-400 mt-1">Use variables, events, forms, functions and conditions.</p></a>
+      </div>
+    </section>
+
     <div id="learn" class="layout grid grid-cols-[260px_minmax(0,1fr)] gap-6 items-start">
+          <div class="section-heading col-span-full"><span class="section-index">01</span><div><p class="text-[10px] uppercase tracking-[.2em] text-amber-400 font-black">LESSON CONTENT</p><p class="text-xs text-slate-400 mt-1">Work through the lessons in the order shown in your plan</p></div></div>
       <aside class="sidebar sticky top-24 gold-card rounded-2xl p-4">
-        <h2 class="font-cinzel font-bold text-amber-200 mb-3"><i class="fa-solid fa-list-ol mr-2"></i>Lesson Map</h2>
-        <a class="lesson-link active" href="#lesson1">01 · Your first webpage</a><a class="lesson-link mt-2" href="#lesson2">02 · Headings & paragraphs</a><a class="lesson-link mt-2" href="#lesson3">03 · Links & images</a><a class="lesson-link mt-2" href="#lesson4">04 · CSS styling</a><a class="lesson-link mt-2" href="#lesson5">05 · CSS cards</a><a class="lesson-link mt-2" href="#lesson6">06 · JavaScript variables</a><a class="lesson-link mt-2" href="#lesson7">07 · Button interaction</a><a class="lesson-link mt-2" href="#lesson8">08 · Responsive design</a><a class="lesson-link mt-2" href="#lesson9">09 · Forms & inputs</a><a class="lesson-link mt-2" href="#lesson10">10 · Functions & conditions</a><a class="lesson-link mt-2" href="#playground">🧪 Live Code Lab</a><a class="lesson-link mt-2" href="#projects">🚀 Mini projects</a><a class="lesson-link mt-2" href="#courses">📚 More courses</a><a class="lesson-link mt-2" href="#ai-tutor">🤖 AI tutor</a><a class="lesson-link mt-2" href="#certificate">🏅 Certificate</a><a class="lesson-link mt-2" href="#cheatsheet">⚡ Quick cheat sheet</a>
+        <h2 class="font-cinzel font-bold text-amber-200 mb-3"><i class="fa-solid fa-list-ol mr-2"></i>Lesson Plan &amp; Map</h2>
+        <a class="lesson-link active" href="#lesson1">01 · Your first webpage</a><a class="lesson-link mt-2" href="#lesson2">02 · Headings & paragraphs</a><a class="lesson-link mt-2" href="#lesson3">03 · Links & images</a><a class="lesson-link mt-2" href="#lesson4">04 · CSS styling</a><a class="lesson-link mt-2" href="#lesson5">05 · CSS cards</a><a class="lesson-link mt-2" href="#lesson6">06 · JavaScript variables</a><a class="lesson-link mt-2" href="#lesson7">07 · Button interaction</a><a class="lesson-link mt-2" href="#lesson8">08 · Responsive design</a><a class="lesson-link mt-2" href="#lesson9">09 · Forms & inputs</a><a class="lesson-link mt-2" href="#lesson10">10 · Functions & conditions</a><a class="lesson-link mt-2" href="#playground">🧪 Live Code Lab</a><a class="lesson-link mt-2" href="#projects">🚀 Mini projects</a><a class="lesson-link mt-2" href="#courses">📚 More courses</a><a class="lesson-link mt-2" href="#ai-tutor">🤖 AI tutor</a><a class="lesson-link mt-2" href="#certificate">🏅 Certificate</a><a class="lesson-link mt-2" href="#cheatsheet">⚡ Quick cheat sheet</a><a class="lesson-link mt-2" href="#about-academy">🏛️ About the Academy</a>
         <div class="mt-5 rounded-xl bg-[#160207] border border-amber-500/20 p-3"><p class="text-xs text-amber-200 font-bold">Learning tip</p><p class="text-[11px] text-slate-300 leading-5 mt-1">Code ko sirf copy mat karo. Har line change karke dekho ki output kaise badalta hai.</p></div>
       </aside>
 
@@ -236,6 +372,7 @@ console.log(checkMarks(78));</code></pre></div>
         </section>
 
         <section id="playground" class="gold-card rounded-2xl p-5 sm:p-7">
+          <div class="section-heading"><span class="section-index">02</span><div><p class="text-[10px] uppercase tracking-[.2em] text-amber-400 font-black">HANDS-ON WORKSHOP</p><p class="text-xs text-slate-400 mt-1">Experiment in the live code lab</p></div></div>
           <span class="text-[10px] font-black tracking-widest text-emerald-300">INTERACTIVE WORKSHOP</span><h2 class="font-cinzel text-2xl font-bold text-amber-100 mt-2">Live Code Lab</h2>
           <p class="text-sm text-slate-300 leading-7 mt-3">Yahin code badlo aur <b class="text-amber-200">Run Preview</b> dabao. HTML, CSS aur JavaScript ek hi mini editor mein test kar sakte ho. Ye preview tumhare code ko isolated iframe mein chalata hai; apna code hi run karo.</p>
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-5">
@@ -261,6 +398,7 @@ console.log(checkMarks(78));</code></pre></div>
         </section>
 
         <section id="projects" class="gold-card rounded-2xl p-5 sm:p-7">
+          <div class="section-heading"><span class="section-index">03</span><div><p class="text-[10px] uppercase tracking-[.2em] text-amber-400 font-black">BUILD & CREATE</p><p class="text-xs text-slate-400 mt-1">Turn concepts into projects</p></div></div>
           <span class="text-[10px] font-black tracking-widest text-violet-300">BUILD SOMETHING REAL</span><h2 class="font-cinzel text-2xl font-bold text-amber-100 mt-2">Mini Project Roadmap</h2><p class="text-sm text-slate-300 mt-3 leading-7">Concept samajhne ka best tareeka chhote projects banana hai. Ek project complete karne ke baad hi next level par jao.</p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-5">
             <article class="rounded-xl border border-amber-500/20 p-4"><div class="text-2xl">👋</div><h3 class="font-bold text-amber-100 mt-2">01 · Personal intro card</h3><p class="text-xs text-slate-300 mt-2 leading-5">HTML headings, image, paragraph aur CSS card design use karo.</p><span class="pill inline-block mt-3">Beginner</span></article>
@@ -271,8 +409,8 @@ console.log(checkMarks(78));</code></pre></div>
           <div class="mt-5 rounded-xl bg-[#160207] border border-amber-500/20 p-4"><h3 class="font-bold text-amber-200">Project checklist</h3><div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-3 text-sm"><label class="flex gap-2 items-start"><input type="checkbox" class="project-check mt-1 accent-amber-400"> Page structure complete</label><label class="flex gap-2 items-start"><input type="checkbox" class="project-check mt-1 accent-amber-400"> CSS design added</label><label class="flex gap-2 items-start"><input type="checkbox" class="project-check mt-1 accent-amber-400"> Mobile layout checked</label><label class="flex gap-2 items-start"><input type="checkbox" class="project-check mt-1 accent-amber-400"> Buttons tested</label></div><p id="projectProgress" class="text-xs text-amber-200 mt-3">Project progress: 0/4</p></div>
         </section>
 
-
-        <section id="courses" class="gold-card rounded-2xl p-5 sm:p-7">
+<section id="courses" class="gold-card rounded-2xl p-5 sm:p-7">
+          <div class="section-heading"><span class="section-index">04</span><div><p class="text-[10px] uppercase tracking-[.2em] text-amber-400 font-black">LEARNING PATHS</p><p class="text-xs text-slate-400 mt-1">Choose a structured path</p></div></div>
           <span class="text-[10px] font-black tracking-widest text-sky-300">CHOOSE YOUR LEARNING PATH</span>
           <h2 class="font-cinzel text-2xl font-bold text-amber-100 mt-2">Course Explorer</h2>
           <p class="text-sm text-slate-300 mt-3 leading-7">Apni pasand ka topic search karo. Har path mein short concept, example aur ek practice task hai. Python browser ke is HTML lab mein execute nahi hota; use local Python interpreter ya trusted online Python environment mein run karna hoga.</p>
@@ -289,7 +427,11 @@ for step in range(1, 4):
           </div><p id="courseSearchStatus" class="text-xs text-slate-400 mt-3" aria-live="polite">Showing all 6 learning paths.</p>
         </section>
 
+
+        
+
         <section id="ai-tutor" class="gold-card rounded-2xl p-5 sm:p-7">
+          <div class="section-heading"><span class="section-index">05</span><div><p class="text-[10px] uppercase tracking-[.2em] text-amber-400 font-black">PERSONAL LEARNING SUPPORT</p><p class="text-xs text-slate-400 mt-1">Ask the VN AI Coding Tutor</p></div></div>
           <span class="text-[10px] font-black tracking-widest text-violet-300">YOUR CODING STUDY PARTNER</span><h2 class="font-cinzel text-2xl font-bold text-amber-100 mt-2"><i class="fa-solid fa-robot mr-2"></i>VN AI Coding Tutor</h2>
           <p class="text-sm text-slate-300 mt-3 leading-7">Hinglish mein sawaal poochho: error samjhao, code review karo, ya practice problem do. Ye feature tumhare existing Vidya Nirman AI backend ko use karta hai. Agar backend unavailable ho ya CORS/API issue aaye, to neeche error message milega; API key kabhi is HTML file mein mat daalna.</p>
           <div class="flex flex-wrap gap-2 mt-4"><button class="pill ai-prompt" type="button" data-prompt="Explain HTML, CSS and JavaScript using a simple real-life example in Hinglish.">Explain basics</button><button class="pill ai-prompt" type="button" data-prompt="Give me one beginner JavaScript challenge. Do not reveal the solution until I ask.">Give me a challenge</button><button class="pill ai-prompt" type="button" data-prompt="Teach me Python variables and loops in simple Hinglish with a short example.">Learn Python</button></div>
@@ -299,6 +441,7 @@ for step in range(1, 4):
         </section>
 
         <section id="certificate" class="gold-card rounded-2xl p-5 sm:p-7">
+          <div class="section-heading"><span class="section-index">06</span><div><p class="text-[10px] uppercase tracking-[.2em] text-amber-400 font-black">ACHIEVEMENTS</p><p class="text-xs text-slate-400 mt-1">Recognise your learning progress</p></div></div>
           <span class="text-[10px] font-black tracking-widest text-amber-300">CELEBRATE YOUR PROGRESS</span><h2 class="font-cinzel text-2xl font-bold text-amber-100 mt-2">Course Completion Certificate</h2>
           <p class="text-sm text-slate-300 mt-3 leading-7">Apna naam aur course choose karo. Certificate generate karne se pehle kam se kam 8 of 10 core lessons complete karna hoga. Ye locally generated learning certificate hai, official/accredited credential nahi hai.</p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4"><div><label for="certName" class="block text-xs text-amber-200 font-bold mb-2">Student name</label><input id="certName" maxlength="60" class="w-full rounded-xl border border-amber-500/30 bg-[#100206] p-3 text-sm text-amber-50" placeholder="Your full name"></div><div><label for="certCourse" class="block text-xs text-amber-200 font-bold mb-2">Course</label><select id="certCourse" class="w-full rounded-xl border border-amber-500/30 bg-[#100206] p-3 text-sm text-amber-50"><option>Web Development Basics</option><option>HTML Foundations</option><option>CSS Design Studio</option><option>JavaScript Essentials</option><option>Python Starter</option></select></div></div>
@@ -307,17 +450,21 @@ for step in range(1, 4):
         </section>
 
         <section id="cheatsheet" class="gold-card rounded-2xl p-5 sm:p-7">
+          <div class="section-heading"><span class="section-index">07</span><div><p class="text-[10px] uppercase tracking-[.2em] text-amber-400 font-black">QUICK REFERENCE</p><p class="text-xs text-slate-400 mt-1">Revise the essentials</p></div></div>
           <span class="text-[10px] font-black tracking-widest text-amber-300">QUICK REVISION</span><h2 class="font-cinzel text-2xl font-bold text-amber-100 mt-2">Coding Cheat Sheet</h2>
           <div class="overflow-x-auto mt-4"><table class="w-full text-sm text-left"><thead><tr class="text-amber-200 border-b border-amber-500/30"><th class="py-3 pr-4">Topic</th><th class="py-3 pr-4">Example</th><th class="py-3">Use</th></tr></thead><tbody class="text-slate-300"><tr class="border-b border-amber-500/10"><td class="py-3 pr-4">HTML heading</td><td class="py-3 pr-4"><code>&lt;h1&gt;Title&lt;/h1&gt;</code></td><td class="py-3">Heading</td></tr><tr class="border-b border-amber-500/10"><td class="py-3 pr-4">HTML link</td><td class="py-3 pr-4"><code>&lt;a href="..."&gt;</code></td><td class="py-3">Navigation</td></tr><tr class="border-b border-amber-500/10"><td class="py-3 pr-4">CSS colour</td><td class="py-3 pr-4"><code>color: red;</code></td><td class="py-3">Text colour</td></tr><tr class="border-b border-amber-500/10"><td class="py-3 pr-4">CSS spacing</td><td class="py-3 pr-4"><code>padding: 16px;</code></td><td class="py-3">Inner space</td></tr><tr class="border-b border-amber-500/10"><td class="py-3 pr-4">JS variable</td><td class="py-3 pr-4"><code>const name = "A";</code></td><td class="py-3">Store a value</td></tr><tr><td class="py-3 pr-4">JS condition</td><td class="py-3 pr-4"><code>if (score &gt; 5) { ... }</code></td><td class="py-3">Make a decision</td></tr></tbody></table></div>
         </section>
 
-        <section id="practice" class="gold-card rounded-2xl p-5 sm:p-7">
+<section id="practice" class="gold-card rounded-2xl p-5 sm:p-7">
+          <div class="section-heading"><span class="section-index">08</span><div><p class="text-[10px] uppercase tracking-[.2em] text-amber-400 font-black">KNOWLEDGE CHECK</p><p class="text-xs text-slate-400 mt-1">Test what you have learned</p></div></div>
           <span class="text-[10px] font-black tracking-widest text-amber-300">CODING KNOWLEDGE CHECK</span><h2 class="font-cinzel text-2xl font-bold text-amber-100 mt-2">50-Question Coding Challenge</h2>
           <p class="text-sm text-slate-300 mt-3 leading-7">HTML, CSS, JavaScript, Python aur web basics. 10, 20 ya saare 50 questions choose karo. Answers end mein reveal honge, taaki pehle khud try kar sako.</p>
           <div class="flex flex-wrap gap-3 items-end mt-4"><div><label for="quizCount" class="block text-xs text-amber-200 mb-2">Questions</label><select id="quizCount" class="rounded-xl border border-amber-500/30 bg-[#100206] p-3 text-sm text-amber-50"><option value="10">Quick practice · 10</option><option value="20">Focused practice · 20</option><option value="50">Full challenge · 50</option></select></div><button id="startQuiz" class="rounded-xl bg-gradient-to-r from-amber-400 to-yellow-600 px-5 py-3 text-sm font-black text-[#220308]">Start quiz</button><button id="restartQuiz" class="pill" type="button">Restart / reshuffle</button></div>
           <div id="quizArea" class="mt-5 rounded-xl border border-amber-500/20 p-4 sm:p-5"><p class="text-sm text-slate-300">Press “Start quiz” to begin. You can review your answers at the end.</p></div>
           <p id="quizFinal" class="mt-4 text-sm text-amber-200" aria-live="polite"></p>
         </section>
+
+        
 
         <section class="rounded-2xl border border-violet-400/30 bg-violet-500/10 p-5 sm:p-7">
           <h2 class="font-cinzel text-xl font-bold text-violet-200"><i class="fa-solid fa-flag-checkered mr-2"></i>Your first mini challenge</h2>
@@ -326,7 +473,34 @@ for step in range(1, 4):
         </section>
       </div>
     </div>
-    <footer class="text-center text-xs text-slate-500 py-12">© 2026 Vidya Nirman · VN Coding Academy <span class="mx-2">•</span><a class="text-amber-300 hover:underline" href="index.html">Back to Homepage</a></footer>
+
+    <section id="about-academy" class="gold-card rounded-2xl p-5 sm:p-7 mt-8 academy-section">
+      <div class="section-heading"><span class="section-index">09</span><div><p class="text-[10px] uppercase tracking-[.2em] text-amber-400 font-black">THE INSTITUTION</p><p class="text-xs text-slate-400 mt-1">A learning initiative by Vidya Nirman</p></div></div>
+      <div class="grid lg:grid-cols-[1.15fr_.85fr] gap-6 items-center">
+        <div><p class="font-cinzel text-2xl sm:text-3xl font-black gold-text">Knowledge that builds capability.</p>
+          <p class="text-sm text-slate-300 leading-7 mt-4">Vidya Nirman Coding Academy is built around a simple belief: students learn technology best when concepts are clear, practice is consistent and ideas become real projects. This academy brings lessons, experimentation and guided learning together in one place.</p>
+          <p class="text-[10px] tracking-[.2em] uppercase text-amber-300 mt-5">Learn today. Create tomorrow.</p>
+        </div>
+        <div class="rounded-2xl border border-amber-500/20 bg-black/20 p-5">
+          <p class="text-[10px] uppercase tracking-[.2em] text-amber-400 font-black">Our promise</p>
+          <div class="space-y-4 mt-4">
+            <div class="flex gap-3"><i class="fa-solid fa-book-open text-amber-300 mt-1"></i><div><p class="text-sm font-bold text-amber-100">Clear learning</p><p class="text-xs text-slate-400 mt-1">Simple explanations and structured lessons.</p></div></div>
+            <div class="flex gap-3"><i class="fa-solid fa-laptop-code text-amber-300 mt-1"></i><div><p class="text-sm font-bold text-amber-100">Practical creation</p><p class="text-xs text-slate-400 mt-1">Learn by experimenting and building.</p></div></div>
+            <div class="flex gap-3"><i class="fa-solid fa-seedling text-amber-300 mt-1"></i><div><p class="text-sm font-bold text-amber-100">Student-first growth</p><p class="text-xs text-slate-400 mt-1">Progress at your own pace, one concept at a time.</p></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="identity-rule my-7"></div>
+      <p class="text-[10px] uppercase tracking-[.22em] text-amber-400 font-black text-center mb-4">The people behind the academy</p>
+      <div class="grid sm:grid-cols-3 gap-3">
+        <article class="identity-card text-center"><div class="w-11 h-11 mx-auto rounded-full border border-amber-400/50 grid place-items-center text-amber-300"><i class="fa-solid fa-crown"></i></div><h3 class="font-cinzel font-bold text-amber-100 mt-3">Anmol Tiwari</h3><p class="text-[10px] uppercase tracking-[.2em] text-amber-300 mt-1">Founder</p></article>
+        <article class="identity-card text-center"><div class="w-11 h-11 mx-auto rounded-full border border-amber-400/50 grid place-items-center text-amber-300"><i class="fa-solid fa-compass"></i></div><h3 class="font-cinzel font-bold text-amber-100 mt-3">Amrit Singh</h3><p class="text-[10px] uppercase tracking-[.2em] text-amber-300 mt-1">Co-Founder</p></article>
+        <article class="identity-card text-center"><div class="w-11 h-11 mx-auto rounded-full border border-amber-400/50 grid place-items-center text-amber-300"><i class="fa-solid fa-pen-nib"></i></div><h3 class="font-cinzel font-bold text-amber-100 mt-3">Aryaman Mishra</h3><p class="text-[10px] uppercase tracking-[.2em] text-amber-300 mt-1">Designer</p></article>
+      </div>
+      <p class="text-[10px] text-slate-500 text-center mt-5">Vidya Nirman is an independent educational initiative. Course certificates are learning acknowledgements, not accredited qualifications.</p>
+    </section>
+
+    <footer class="text-center text-xs text-slate-500 py-12">© 2026 Vidya Nirman · VN Coding Academy · Learn today, create tomorrow <span class="mx-2">•</span><a class="text-amber-300 hover:underline" href="index.html">Back to Homepage</a></footer>
   </main>
   <script>
     document.querySelectorAll('.copy-code').forEach(button => {
@@ -506,6 +680,50 @@ for step in range(1, 4):
     printCert.addEventListener('click',()=>{if(certificatePaper.classList.contains('hidden'))return;document.body.classList.add('printing-certificate');window.print();document.body.classList.remove('printing-certificate');});
 
   </script>
+
+<script>
+  // VN Coding Academy: theme preference + lightweight intro transition.
+  (() => {
+    const root = document.documentElement;
+    const themeButton = document.getElementById('themeToggle');
+    const intro = document.getElementById('academyIntro');
+    const enterButton = document.getElementById('enterAcademy');
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let savedTheme = 'dark';
+    try { savedTheme = localStorage.getItem('vnCodingTheme') || 'dark'; } catch (_) {}
+    function applyTheme(theme) {
+      const light = theme === 'light';
+      root.dataset.theme = light ? 'light' : 'dark';
+      if (themeButton) {
+        themeButton.innerHTML = light
+          ? '<i class="fa-solid fa-moon"></i><span class="hidden sm:inline ml-1">Dark mode</span>'
+          : '<i class="fa-solid fa-sun"></i><span class="hidden sm:inline ml-1">Light mode</span>';
+        themeButton.setAttribute('aria-label', light ? 'Switch to dark mode' : 'Switch to light mode');
+        themeButton.title = light ? 'Switch to dark mode' : 'Switch to light mode';
+      }
+    }
+    applyTheme(savedTheme);
+    themeButton?.addEventListener('click', () => {
+      const next = root.dataset.theme === 'light' ? 'dark' : 'light';
+      applyTheme(next);
+      try { localStorage.setItem('vnCodingTheme', next); } catch (_) {}
+    });
+    const leaveIntro = () => {
+      if (!intro || intro.classList.contains('is-leaving')) return;
+      intro.classList.add('is-leaving');
+      try { sessionStorage.setItem('vnAcademyIntroSeen', '1'); } catch (_) {}
+      window.setTimeout(() => intro.remove(), prefersReduced ? 50 : 850);
+    };
+    enterButton?.addEventListener('click', leaveIntro);
+    let alreadySeen = false;
+    try { alreadySeen = sessionStorage.getItem('vnAcademyIntroSeen') === '1'; } catch (_) {}
+    if (alreadySeen || prefersReduced) {
+      leaveIntro();
+    } else {
+      window.setTimeout(leaveIntro, 3200);
+    }
+  })();
+</script>
 
 <!-- Vidya Nirman shared account session: same-domain pages -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
