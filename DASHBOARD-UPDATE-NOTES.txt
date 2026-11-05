@@ -1,0 +1,11 @@
+VIDYA NIRMAN COMPLETE UPGRADE — CHANGE NOTES
+
+Updated: index.html, dashboard.html, global-learning.js, sw.js
+Added: exam-centre.html, README-COMPLETE-UPGRADE-HINGLISH.txt
+
+Homepage: additive hero animation, direct dashboard/study/exam CTAs, learning feature summary, Exam Prep navigation. Original sections and ad placements retained.
+Dashboard: activity overview, quick learning toolkit, activity milestones, local daily checklist, note search, existing notes/history/streak/activity views.
+Exam centre: links to existing subject and Grand Quest quiz pages.
+Tracker: reads the homepage AI messages[] user prompt when a supported response is returned.
+
+Limitations: data remains browser-local; no cloud sync, verified course completion, official quiz scores, production deployment or physical-device QA is claimed.

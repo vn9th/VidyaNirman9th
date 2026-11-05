@@ -1,5 +1,5 @@
 /* Vidya Nirman offline shell. Large videos and third-party APIs are intentionally not cached. */
-const CACHE='vidya-nirman-shell-v1';const CORE=['./','./index.html','./study-hub.html','./dashboard.html','./auth.html','./logo.png','./vn-icon-192.png','./vn-icon-512.png','./manifest.webmanifest'];
+const CACHE='vidya-nirman-shell-v4';const CORE=['./','./index.html','./study-hub.html','./dashboard.html','./exam-centre.html','./mock-exam.html','./auth.html','./logo.png','./vn-icon-192.png','./vn-icon-512.png','./manifest.webmanifest'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('vidya-nirman-shell-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',e=>{const r=e.request;if(r.method!=='GET')return;const u=new URL(r.url);if(u.origin!==self.location.origin)return;if(/\.(mp4|webm|mov|pdf|zip)$/i.test(u.pathname))return;e.respondWith(fetch(r).then(res=>{if(res.ok&&r.mode==='navigate')caches.open(CACHE).then(c=>c.put(r,res.clone()));return res}).catch(async()=>{const hit=await caches.match(r);if(hit)return hit;if(r.mode==='navigate')return caches.match('./index.html');throw new Error('Offline resource unavailable')}))});

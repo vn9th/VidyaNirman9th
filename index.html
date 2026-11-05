@@ -160,6 +160,36 @@
             background: #FFD700;
         }
     </style>
+
+<style id="vn-homepage-transformation">
+/* VN HOMEPAGE TRANSFORMATION — additive styling; original theme and sections retained */
+#home{isolation:isolate;background:radial-gradient(ellipse at 50% 15%,rgba(145,55,48,.23),transparent 48%),linear-gradient(180deg,rgba(18,2,7,.12),rgba(18,2,7,.68))}
+#home:before,#home:after{content:"";position:absolute;z-index:-1;pointer-events:none;border-radius:50%;filter:blur(2px)}
+#home:before{width:390px;height:390px;left:-180px;top:8%;border:1px solid rgba(244,190,88,.18);box-shadow:0 0 90px rgba(180,91,44,.12),inset 0 0 70px rgba(180,91,44,.08);animation:vnOrbit 22s linear infinite}
+#home:after{width:280px;height:280px;right:-120px;bottom:3%;border:1px solid rgba(244,190,88,.16);box-shadow:0 0 80px rgba(180,91,44,.12);animation:vnOrbit 28s linear infinite reverse}
+#home h1{animation:vnHeroRise .9s both;text-shadow:0 8px 40px rgba(224,165,68,.15)}
+#home h1+p{animation:vnHeroRise .9s .12s both}
+#home p.max-w-2xl{animation:vnHeroRise .9s .22s both}
+#home .vn-home-cta{animation:vnHeroRise .9s .3s both}
+#home .vn-quick-card{position:relative;overflow:hidden;min-height:76px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+#home .vn-quick-card:after{content:"";position:absolute;inset:auto -40% -80% -40%;height:90%;background:radial-gradient(ellipse,rgba(247,192,83,.13),transparent 68%);transition:transform .35s}
+#home .vn-quick-card:hover:after{transform:translateY(-35%)}
+.vn-home-cta{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin:0 auto 22px}
+.vn-home-cta a{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 20px;border-radius:14px;font-size:12px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;transition:transform .2s,box-shadow .2s}
+.vn-home-cta a:hover{transform:translateY(-3px)}
+.vn-home-cta .primary{background:linear-gradient(120deg,#ffe39a,#c58a2d);color:#1b0905;box-shadow:0 12px 35px rgba(220,166,61,.2)}
+.vn-home-cta .secondary{border:1px solid rgba(244,190,88,.45);background:rgba(55,12,22,.7);color:#ffe9b8}
+.vn-home-proof{max-width:850px;margin:0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;text-align:left}
+.vn-home-proof article{border:1px solid rgba(230,189,97,.2);background:linear-gradient(145deg,rgba(53,13,24,.78),rgba(20,4,9,.72));border-radius:15px;padding:13px 15px;backdrop-filter:blur(12px)}
+.vn-home-proof strong{display:block;color:#ffe0a0;font-size:12px;margin-bottom:4px}
+.vn-home-proof span{display:block;color:#cbb9b4;font-size:10px;line-height:1.5}
+.vn-section-kicker{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(230,189,97,.25);background:rgba(230,189,97,.07);padding:7px 12px;border-radius:99px;color:#f4d58f;font-size:10px;font-weight:900;letter-spacing:.13em;text-transform:uppercase}
+@keyframes vnHeroRise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes vnOrbit{to{transform:rotate(360deg)}}
+@media(max-width:640px){#home{padding-top:28px;padding-bottom:42px}#home .vn-home-proof{grid-template-columns:1fr;max-width:440px}#home .vn-home-proof article{padding:11px 13px}#home .vn-home-cta a{flex:1 1 145px;padding:12px 13px;font-size:10px}}
+@media(prefers-reduced-motion:reduce){#home h1,#home h1+p,#home p.max-w-2xl,#home .vn-home-cta,#home:before,#home:after{animation:none!important}}
+</style>
+
 </head>
 <body class="relative min-h-screen jali-pattern selection:bg-amber-500 selection:text-red-950">
 
@@ -206,6 +236,7 @@
                 <a href="#home" class="text-amber-100 hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-house text-amber-400"></i> Home</a>
                 <a href="#portals" class="text-amber-100 hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-book-open text-amber-400"></i> Learning Portals</a>
                 <a href="coding.html" class="text-amber-100 hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-code text-amber-400"></i> Coding Academy</a>
+                <a href="exam-centre.html" class="text-amber-100 hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-clipboard-check text-amber-400"></i> Exam Prep</a>
                 <a href="#quests" class="text-amber-100 hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-trophy text-amber-400"></i> Quest Arenas</a>
                 <a href="#directory" class="text-amber-100 hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-list-check text-amber-400"></i> Direct Links</a>
                 <a href="#founders" class="text-amber-100 hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-users text-amber-400"></i> Founders</a>
@@ -214,6 +245,10 @@
 
             <!-- Grand Quest Action Button -->
             <div class="flex items-center gap-3">
+                <a href="dashboard.html" class="hidden sm:inline-flex items-center gap-2 px-3 py-2 rounded-full border border-amber-400/40 bg-amber-500/10 text-amber-100 font-black text-xs uppercase tracking-wider hover:bg-amber-500/20 transition-all">
+                    <i class="fa-solid fa-gauge-high text-amber-400"></i>
+                    <span>Dashboard</span>
+                </a>
                 <a href="grand-quest.html" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-600 text-slate-950 font-black text-xs uppercase tracking-wider shadow-lg shadow-amber-500/25 hover:scale-105 transition-all">
                     <i class="fa-solid fa-crown text-amber-950"></i>
                     <span>Grand Quest</span>
@@ -228,8 +263,10 @@
         <!-- Mobile Navigation Drawer -->
         <div id="mobileMenu" class="hidden lg:hidden bg-[#180206] border-b border-amber-500/30 px-6 py-4 space-y-3">
             <a href="#home" class="mobile-link block text-amber-100 hover:text-amber-400 py-1 font-semibold"><i class="fa-solid fa-house mr-2 text-amber-400"></i> Home</a>
+            <a href="dashboard.html" class="mobile-link block text-amber-100 hover:text-amber-400 py-1 font-semibold"><i class="fa-solid fa-gauge-high mr-2 text-amber-400"></i> Student Dashboard</a>
             <a href="#portals" class="mobile-link block text-amber-100 hover:text-amber-400 py-1 font-semibold"><i class="fa-solid fa-book-open mr-2 text-amber-400"></i> Learning Portals</a>
             <a href="coding.html" class="mobile-link block text-amber-100 hover:text-amber-400 py-1 font-semibold"><i class="fa-solid fa-code mr-2 text-amber-400"></i> Coding Academy</a>
+            <a href="exam-centre.html" class="mobile-link block text-amber-100 hover:text-amber-400 py-1 font-semibold"><i class="fa-solid fa-clipboard-check mr-2 text-amber-400"></i> Exam Preparation</a>
             <a href="#quests" class="mobile-link block text-amber-100 hover:text-amber-400 py-1 font-semibold"><i class="fa-solid fa-trophy mr-2 text-amber-400"></i> Quest Arenas</a>
             <a href="grand-quest.html" class="mobile-link block text-amber-300 font-bold py-1"><i class="fa-solid fa-crown mr-2 text-amber-400"></i> GRAND-QUEST Championship</a>
             <a href="#directory" class="mobile-link block text-amber-100 hover:text-amber-400 py-1 font-semibold"><i class="fa-solid fa-list-check mr-2 text-amber-400"></i> Portal Directory</a>
@@ -428,7 +465,7 @@
                             <span>Open Vidyanirman Bio</span>
                             <i class="fa-solid fa-arrow-right"></i>
                         </a>
-                        <button onclick="openPortalModal('VIDYANIRMAN BIO', 'vidyanirman-bio.html', 'Class 9th Biology Learning Portal featuring Cell Organelles, Tissues, and Bio Concept Maps.')" class="w-full py-2 px-3 rounded-lg bg-amber-950/60 text-amber-300 text-[11px] font-semibold hover:bg-amber-900/60 transition-colors">
+                        <button onclick="openPortalModal('VIDYANIRMAN BIO', 'vidyanirman_bio_class_9th_interactive_biology_portal.html', 'Class 9th Biology Learning Portal featuring Cell Organelles, Tissues, and Bio Concept Maps.')" class="w-full py-2 px-3 rounded-lg bg-amber-950/60 text-amber-300 text-[11px] font-semibold hover:bg-amber-900/60 transition-colors">
                             <i class="fa-solid fa-circle-info mr-1"></i> Preview Portal Details
                         </button>
                     </div>
@@ -458,7 +495,7 @@
                             <span>Open Vidyanirman Physics</span>
                             <i class="fa-solid fa-arrow-right"></i>
                         </a>
-                        <button onclick="openPortalModal('VIDYANIRMAN PHYSICS', 'vidyanirman-physics.html', 'Class 9th Physics Learning Portal with Kinematics, Dynamics, and Gravitation modules.')" class="w-full py-2 px-3 rounded-lg bg-amber-950/60 text-amber-300 text-[11px] font-semibold hover:bg-amber-900/60 transition-colors">
+                        <button onclick="openPortalModal('VIDYANIRMAN PHYSICS', 'physics.html', 'Class 9th Physics Learning Portal with Kinematics, Dynamics, and Gravitation modules.')" class="w-full py-2 px-3 rounded-lg bg-amber-950/60 text-amber-300 text-[11px] font-semibold hover:bg-amber-900/60 transition-colors">
                             <i class="fa-solid fa-circle-info mr-1"></i> Preview Portal Details
                         </button>
                     </div>
@@ -488,7 +525,7 @@
                             <span>Open Vidyanirman Chem</span>
                             <i class="fa-solid fa-arrow-right"></i>
                         </a>
-                        <button onclick="openPortalModal('VIDYANIRMAN CHEMISTRY', 'vidyanirman-chemistry.html', 'Class 9th Chemistry Learning Portal covering Atoms, Molecules, and Mole Concept.')" class="w-full py-2 px-3 rounded-lg bg-amber-950/60 text-amber-300 text-[11px] font-semibold hover:bg-amber-900/60 transition-colors">
+                        <button onclick="openPortalModal('VIDYANIRMAN CHEMISTRY', 'Chem.html', 'Class 9th Chemistry Learning Portal covering Atoms, Molecules, and Mole Concept.')" class="w-full py-2 px-3 rounded-lg bg-amber-950/60 text-amber-300 text-[11px] font-semibold hover:bg-amber-900/60 transition-colors">
                             <i class="fa-solid fa-circle-info mr-1"></i> Preview Portal Details
                         </button>
                     </div>
@@ -697,7 +734,7 @@
                                     <i class="fa-solid fa-dna text-emerald-400"></i> VIDYANIRMAN BIO
                                 </td>
                                 <td class="py-4 px-6"><span class="bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded text-[10px] font-bold">LEARNING PORTAL</span></td>
-                                <td class="py-4 px-6 font-mono text-amber-300/80">vidyanirman-bio.html</td>
+                                <td class="py-4 px-6 font-mono text-amber-300/80">vidyanirman_bio_class_9th_interactive_biology_portal.html</td>
                                 <td class="py-4 px-6 text-right">
                                     <a href="vidyanirman_bio_class_9th_interactive_biology_portal.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-900/60 border border-emerald-500/40 text-emerald-200 font-bold hover:bg-emerald-600 hover:text-white transition-all text-[11px]">
                                         Launch <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
@@ -710,7 +747,7 @@
                                     <i class="fa-solid fa-atom text-cyan-400"></i> VIDYANIRMAN PHYSICS
                                 </td>
                                 <td class="py-4 px-6"><span class="bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded text-[10px] font-bold">LEARNING PORTAL</span></td>
-                                <td class="py-4 px-6 font-mono text-amber-300/80">vidyanirman-physics.html</td>
+                                <td class="py-4 px-6 font-mono text-amber-300/80">physics.html</td>
                                 <td class="py-4 px-6 text-right">
                                     <a href="physics.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-900/60 border border-cyan-500/40 text-cyan-200 font-bold hover:bg-cyan-600 hover:text-white transition-all text-[11px]">
                                         Launch <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
@@ -723,7 +760,7 @@
                                     <i class="fa-solid fa-flask text-amber-400"></i> VIDYANIRMAN CHEMISTRY
                                 </td>
                                 <td class="py-4 px-6"><span class="bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded text-[10px] font-bold">LEARNING PORTAL</span></td>
-                                <td class="py-4 px-6 font-mono text-amber-300/80">vidyanirman-chemistry.html</td>
+                                <td class="py-4 px-6 font-mono text-amber-300/80">Chem.html</td>
                                 <td class="py-4 px-6 text-right">
                                     <a href="Chem.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-900/60 border border-amber-500/40 text-amber-200 font-bold hover:bg-amber-600 hover:text-white transition-all text-[11px]">
                                         Launch <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
@@ -935,7 +972,7 @@
                 <div>
                     <h4 class="font-cinzel text-amber-200 font-bold mb-3 text-sm">Quest Arenas</h4>
                     <ul class="space-y-2">
-                        <li><a href="Bio quest.html" class="hover:text-amber-400 transition-colors">BIO-QUEST</a></li>
+                        <li><a href="bio-quest.html" class="hover:text-amber-400 transition-colors">BIO-QUEST</a></li>
                         <li><a href="physics-quest.html" class="hover:text-amber-400 transition-colors">PHYSICS-QUEST</a></li>
                         <li><a href="chemistry-quest.html" class="hover:text-amber-400 transition-colors">CHEMISTRY-QUEST</a></li>
                         <li><a href="grand-quest.html" class="text-amber-300 font-bold hover:underline">GRAND-QUEST Championship</a></li>

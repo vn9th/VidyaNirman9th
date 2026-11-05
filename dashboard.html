@@ -1,24 +1,267 @@
 <!doctype html>
-<html lang="en"><head>
-<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#220308"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Student Dashboard | Vidya Nirman</title><link rel="icon" href="logo.png"><script src="https://cdn.tailwindcss.com"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="auth-config.js"></script>
-<style>:root{color-scheme:dark}body{margin:0;background:radial-gradient(circle at top,#43101a,#170207 56%,#0f0103);color:#fff9e6;font-family:'Plus Jakarta Sans',Arial,sans-serif}.gold{color:#ffd700}.panel{background:rgba(28,5,10,.82);border:1px solid rgba(212,175,55,.35);border-radius:20px}.btn{border:1px solid #b48a2b;background:linear-gradient(135deg,#ffd700,#d4af37);color:#220308;font-weight:800;border-radius:12px;padding:10px 14px}.muted{border:1px solid #765521;background:#2b0b12;color:#fff3c4;border-radius:12px;padding:9px 12px}.field{width:100%;background:#19060a;border:1px solid #785521;border-radius:12px;padding:12px;color:#fff9e6;box-sizing:border-box}.small{color:#d8c9ad;font-size:.85rem}.item{padding:12px;border:1px solid #6d4920;border-radius:12px;background:#1b060a;overflow-wrap:anywhere}a{color:#ffdf75}</style></head>
-<body><header class="max-w-6xl mx-auto px-4 py-6 flex items-center gap-3"><img src="logo.png" class="w-12 h-12 object-contain" alt="Vidya Nirman"><div><div class="gold font-black tracking-wide">VIDYA NIRMAN</div><div class="small">Student dashboard · आपका learning space</div></div><a class="ml-auto muted" href="index.html">← Back to website</a></header>
-<main class="max-w-6xl mx-auto px-4 pb-12"><section class="panel p-5 md:p-7 mb-5"><div class="flex flex-wrap gap-3 items-center"><div class="flex-1"><p class="gold text-sm font-bold">WELCOME BACK</p><h1 id="welcome" class="text-2xl md:text-3xl font-black">Your learning, in one place</h1><p id="account" class="small mt-2">Checking your account…</p></div><a id="login-link" class="btn" href="auth.html?next=dashboard.html">Sign in / Create account</a></div><p id="sync-note" class="small mt-4">Your activity and notes are stored in this browser. Sign-in works across site pages; cloud sync requires the optional database setup described in the ZIP guide.</p></section>
-<section class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5"><div class="panel p-4"><div class="small">Pages visited</div><div id="visits-count" class="gold text-3xl font-black mt-2">0</div></div><div class="panel p-4"><div class="small">Quiz interactions</div><div id="quiz-count" class="gold text-3xl font-black mt-2">0</div></div><div class="panel p-4"><div class="small">AI study chats</div><div id="ai-count" class="gold text-3xl font-black mt-2">0</div></div><div class="panel p-4"><div class="small">Saved notes</div><div id="notes-count" class="gold text-3xl font-black mt-2">0</div></div></section>
-<section class="grid lg:grid-cols-2 gap-5"><div class="panel p-5"><h2 class="text-xl font-extrabold gold mb-3">📝 Saved notes</h2><form id="note-form" class="space-y-3"><input id="note-subject" class="field" placeholder="Subject / chapter (e.g. Biology — Cell)" maxlength="80"><textarea id="note-text" class="field" rows="4" maxlength="12000" required placeholder="Write your revision notes here…"></textarea><button class="btn" type="submit">Save note</button></form><div id="notes-list" class="space-y-2 mt-4"></div></div>
-<div class="panel p-5"><h2 class="text-xl font-extrabold gold mb-3">📚 Learning progress</h2><div id="progress-list" class="space-y-2"></div><h3 class="font-bold mt-5 mb-2">Recent quiz activity</h3><div id="quiz-list" class="space-y-2"></div></div>
-<div class="panel p-5"><h2 class="text-xl font-extrabold gold mb-3">🤖 AI study history</h2><p class="small mb-3">Recent questions and replies recorded when the website's AI chat is used.</p><div id="ai-list" class="space-y-2"></div></div><div class="panel p-5"><h2 class="text-xl font-extrabold gold mb-3">🕘 Recently opened pages</h2><div id="visit-list" class="space-y-2"></div><div class="flex flex-wrap gap-2 mt-5"><button id="clear-quiz" class="muted" type="button">Clear quiz history</button><button id="clear-ai" class="muted" type="button">Clear AI history</button></div><p class="small mt-4">Progress counts page visits and recorded interactions; it does not claim to measure chapter completion or quiz correctness unless the quiz itself provides that data.</p></div></section>
-<footer class="small text-center mt-8">Vidya Nirman · Built to support your Class 9 learning journey</footer></main>
-<script src="global-learning.js"></script><script>
-(()=>{const $=id=>document.getElementById(id); const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); const nice=t=>{try{return new Date(t).toLocaleString()}catch{return t||''}};
-function data(){return window.VN_LEARNING?window.VN_LEARNING.getData():{visits:[],quiz:[],ai:[],notes:[]}}
-function render(){const d=data(); ['visits','quiz','ai','notes'].forEach(k=>$(k+'-count').textContent=(d[k]||[]).length); $('notes-list').innerHTML=(d.notes||[]).slice(0,12).map(n=>`<article class="item"><div class="flex gap-2"><b class="gold flex-1">${esc(n.subject||'General')}</b><button class="small" data-del-note="${esc(n.id)}">Delete</button></div><p class="whitespace-pre-wrap mt-2">${esc(n.text)}</p><div class="small mt-2">${esc(nice(n.at))}</div></article>`).join('')||'<p class="small">No notes saved yet. Add your first revision note above.</p>';
-$('visit-list').innerHTML=(d.visits||[]).slice(0,8).map(v=>`<div class="item"><b>${esc(v.title||v.page)}</b><div class="small">${esc(v.page)} · ${esc(nice(v.at))}</div></div>`).join('')||'<p class="small">Open a lesson page to begin tracking visits.</p>';
-$('progress-list').innerHTML=Object.entries((d.visits||[]).reduce((a,v)=>{a[v.page]=(a[v.page]||0)+1;return a},{})).sort((a,b)=>b[1]-a[1]).slice(0,8).map(([p,c])=>`<div class="item flex justify-between gap-3"><span>${esc(p)}</span><b class="gold">${c} visit${c===1?'':'s'}</b></div>`).join('')||'<p class="small">Your visited pages will appear here.</p>';
-$('quiz-list').innerHTML=(d.quiz||[]).slice(0,8).map(q=>`<div class="item"><b>${esc(q.title||q.page)}</b><div>${esc(q.action||'Quiz page opened')}</div><div class="small">${esc(nice(q.at))}</div></div>`).join('')||'<p class="small">Visit a quiz page and interact with its controls to see activity here.</p>';
-$('ai-list').innerHTML=(d.ai||[]).slice(0,8).map(a=>`<article class="item"><div class="small">${esc(a.page)} · ${esc(nice(a.at))}</div><p class="mt-2"><b class="gold">You asked:</b> ${esc(a.question||'(question not detected)')}</p><p class="mt-2"><b>AI reply:</b> ${esc(a.answer||'(reply format not detected)')}</p></article>`).join('')||'<p class="small">Your AI study conversations will appear here when compatible chat responses are detected.</p>';
-}
-$('note-form').addEventListener('submit',e=>{e.preventDefault();const ok=window.VN_LEARNING.saveNote($('note-text').value,$('note-subject').value||'General');if(ok){$('note-text').value='';$('note-subject').value='';render();}});document.addEventListener('click',e=>{const id=e.target?.getAttribute?.('data-del-note');if(id){window.VN_LEARNING.deleteNote(id);render();}});$('clear-quiz').onclick=()=>{if(confirm('Clear saved quiz activity from this browser?')){window.VN_LEARNING.clearHistory('quiz');render();}};$('clear-ai').onclick=()=>{if(confirm('Clear saved AI history from this browser?')){window.VN_LEARNING.clearHistory('ai');render();}};window.addEventListener('vn-learning-updated',render);render();
-const url=window.VN_SUPABASE_URL,key=window.VN_SUPABASE_ANON_KEY;if(window.supabase?.createClient&&url?.startsWith('https://')&&key&&!key.includes('PASTE_YOUR_')){const c=window.supabase.createClient(url,key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage:window.localStorage}});c.auth.getSession().then(({data})=>{const u=data.session?.user;if(u){$('welcome').textContent='Welcome, '+(u.user_metadata?.full_name||u.user_metadata?.name||'learner')+'!';$('account').textContent=u.email||'Signed in';$('login-link').textContent='Account active';$('login-link').href='#';$('sync-note').textContent='Signed in successfully. Your current notes/history are saved locally in this browser; cloud sync is not enabled in this version.'}else{$('account').textContent='You are browsing as a guest. Sign in to use your shared account across pages.'}}).catch(()=>$('account').textContent='Learning dashboard ready.');}else{$('account').textContent='Learning dashboard ready. Configure Supabase to use sign-in.'}
-})();</script><script>if('serviceWorker'in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));</script>
-</body></html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#160308">
+  <meta name="description" content="Your personal Vidya Nirman learning dashboard. Continue lessons, review activity, save notes and explore learning portals.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <title>Student Dashboard | Vidya Nirman</title>
+  <link rel="icon" href="logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="auth-config.js"></script>
+  <style>
+    :root{color-scheme:dark;--gold:#e6bd61;--gold2:#ffd978;--ink:#120307;--panel:rgba(35,8,15,.82);--line:rgba(230,189,97,.2)}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 12% 0%,#4b1422 0,transparent 38%),radial-gradient(ellipse at 90% 18%,#32101c 0,transparent 32%),linear-gradient(145deg,#160308,#0c0205 70%);color:#fff8e9;font-family:'Plus Jakarta Sans',Arial,sans-serif}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.17;background-image:radial-gradient(rgba(230,189,97,.45) .7px,transparent .7px);background-size:25px 25px;mask-image:linear-gradient(to bottom,#000,transparent 78%)}
+    a{color:inherit;text-decoration:none}
+    .brand{font-family:Cinzel,serif;letter-spacing:.11em}
+    .glass{background:linear-gradient(145deg,rgba(55,14,25,.88),rgba(22,5,11,.88));border:1px solid var(--line);box-shadow:0 18px 55px rgba(0,0,0,.2);backdrop-filter:blur(16px)}
+    .gold{color:var(--gold2)}
+    .muted{color:#cbb9b4}
+    .eyebrow{font-size:.69rem;letter-spacing:.17em;text-transform:uppercase;color:#d8ad55;font-weight:800}
+    .btn-gold{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;padding:.72rem 1rem;border-radius:13px;background:linear-gradient(135deg,#ffe18b,#c99939);color:#251006;font-weight:800;box-shadow:0 8px 24px #d49b2d22;transition:transform .2s,filter .2s}
+    .btn-gold:hover{transform:translateY(-2px);filter:brightness(1.07)}
+    .btn-quiet{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.68rem .9rem;border:1px solid rgba(230,189,97,.27);border-radius:12px;background:#ffffff08;color:#ffedc3;font-weight:700}
+    .panel{border:1px solid var(--line);background:rgba(28,7,13,.72);border-radius:19px}
+    .field{width:100%;background:#16060b;border:1px solid #76502c;border-radius:12px;padding:12px;color:#fff8e9;outline:none}
+    .field:focus{border-color:#e6bd61;box-shadow:0 0 0 3px #e6bd6122}
+    .tile{border:1px solid rgba(230,189,97,.18);background:linear-gradient(145deg,#2a0b14,#18050b);border-radius:17px;transition:transform .2s,border-color .2s}
+    .tile:hover{transform:translateY(-3px);border-color:rgba(255,217,120,.6)}
+    .small{font-size:.78rem;color:#cbb9b4}
+    .item{padding:12px;border:1px solid rgba(230,189,97,.18);border-radius:13px;background:#17060b;overflow-wrap:anywhere}
+    .bar{height:7px;border-radius:99px;background:#ffffff12;overflow:hidden}.bar>span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#b98532,#ffe18b)}
+    .week-col{display:flex;flex-direction:column;align-items:center;justify-content:end;gap:7px;min-width:0;flex:1}
+    .week-bar{width:min(24px,70%);min-height:4px;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,#ffe18b,#9b5e29)}
+    button{cursor:pointer}
+
+    .tool-card{display:block;padding:16px;border:1px solid rgba(230,189,97,.2);border-radius:16px;background:linear-gradient(145deg,#2a0b14,#18050b);transition:transform .2s,border-color .2s}.tool-card:hover{transform:translateY(-3px);border-color:rgba(255,217,120,.65)}
+    .badge-card{padding:12px;border:1px solid rgba(230,189,97,.2);border-radius:14px;background:#17060b}.badge-card.locked{opacity:.48;filter:saturate(.4)}
+    .check-row{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid rgba(230,189,97,.16);border-radius:12px;background:#17060b;font-size:13px}.check-row input{accent-color:#e6bd61;width:17px;height:17px}
+    .search-field{width:100%;background:#16060b;border:1px solid #76502c;border-radius:12px;padding:11px 12px;color:#fff8e9;outline:none}.search-field:focus{border-color:#e6bd61;box-shadow:0 0 0 3px #e6bd6122}
+    @media(max-width:520px){.mobile-stack{flex-direction:column;align-items:stretch}.brand{font-size:.92rem}.stat-number{font-size:1.7rem}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+<header class="relative z-10 border-b border-amber-300/10 bg-[#100207]/75 backdrop-blur-xl">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center gap-3">
+    <a href="index.html" class="flex items-center gap-3 min-w-0">
+      <img src="logo.png" alt="Vidya Nirman logo" class="w-11 h-11 object-contain">
+      <span class="min-w-0"><span class="brand block text-sm sm:text-base font-extrabold gold">VIDYA NIRMAN</span><span class="block text-[10px] sm:text-xs muted">Your personal learning space</span></span>
+    </a>
+    <nav class="ml-auto flex items-center gap-2">
+      <a href="study-hub.html" class="btn-quiet text-xs sm:text-sm">Study Hub</a>
+      <a href="exam-centre.html" class="btn-quiet text-xs sm:text-sm">Exam Prep</a>
+      <a href="index.html" class="btn-quiet text-xs sm:text-sm">← Website</a>
+    </nav>
+  </div>
+</header>
+
+<main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-7 sm:py-10">
+  <section class="glass rounded-3xl p-5 sm:p-8 mb-5 overflow-hidden relative">
+    <div class="absolute -right-16 -top-20 w-64 h-64 rounded-full border border-amber-300/10"></div>
+    <div class="absolute -right-7 -top-11 w-44 h-44 rounded-full border border-amber-300/10"></div>
+    <div class="relative flex flex-wrap items-center gap-5">
+      <div class="flex-1 min-w-[230px]">
+        <p class="eyebrow" id="greeting">YOUR LEARNING JOURNEY</p>
+        <h1 id="welcome" class="text-2xl sm:text-4xl font-extrabold mt-2">Welcome to your dashboard</h1>
+        <p id="account" class="muted mt-2 text-sm">Checking your account…</p>
+        <div class="flex flex-wrap gap-2 mt-5">
+          <a href="study-hub.html" class="btn-gold">Continue learning <span aria-hidden="true">→</span></a>
+          <a href="auth.html?next=dashboard.html" id="login-link" class="btn-quiet">Sign in / Create account</a>
+        </div>
+      </div>
+      <div class="panel p-4 sm:p-5 min-w-[190px]">
+        <p class="eyebrow">Learning streak</p>
+        <div class="flex items-end gap-2 mt-2"><span id="streak-count" class="text-4xl font-extrabold gold">0</span><span class="muted text-sm mb-1">active days</span></div>
+        <p id="streak-caption" class="small mt-1">Your recent activity will appear here.</p>
+      </div>
+    </div>
+    <div class="mt-6 border-t border-amber-200/10 pt-4 grid sm:grid-cols-[1fr_auto] gap-3 items-center">
+      <div><p id="sync-note" class="small">Your learning data stays on this device unless you choose to enable cloud sync. AI chat text is never uploaded by this sync feature.</p><p id="cloud-sync-status" class="small mt-2" role="status" aria-live="polite">Local-only mode</p></div>
+      <div class="flex flex-wrap gap-2"><button id="cloud-sync-btn" class="btn-gold" type="button">Enable cloud sync</button><button id="cloud-sync-now" class="btn-quiet" type="button">Sync now</button></div>
+    </div>
+  </section>
+
+  <section class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-5" aria-label="Learning overview">
+    <article class="panel p-4"><p class="small">Pages visited</p><p id="visits-count" class="stat-number text-3xl font-extrabold gold mt-2">0</p><p class="small mt-1">Learning activity</p></article>
+    <article class="panel p-4"><p class="small">Quiz interactions</p><p id="quiz-count" class="stat-number text-3xl font-extrabold gold mt-2">0</p><p class="small mt-1">Recorded actions</p></article>
+    <article class="panel p-4"><p class="small">AI study chats</p><p id="ai-count" class="stat-number text-3xl font-extrabold gold mt-2">0</p><p class="small mt-1">Captured conversations</p></article>
+    <article class="panel p-4"><p class="small">Saved notes</p><p id="notes-count" class="stat-number text-3xl font-extrabold gold mt-2">0</p><p class="small mt-1">Personal revision notes</p></article>
+  </section>
+
+  <section class="mb-7">
+    <div class="flex items-end justify-between gap-3 mb-3"><div><p class="eyebrow">Explore your classroom</p><h2 class="text-xl sm:text-2xl font-extrabold mt-1">Your learning portals</h2></div><span class="small">Quick access</span></div>
+    <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3" id="portal-grid">
+      <a class="tile p-4" href="study-hub.html"><span class="text-2xl">📚</span><b class="block mt-3">Study Hub</b><span class="small block mt-1">Revision and study tools</span></a>
+      <a class="tile p-4" href="coding.html"><span class="text-2xl">💻</span><b class="block mt-3">Coding Academy</b><span class="small block mt-1">Lessons and practice</span></a>
+      <a class="tile p-4" href="physics.html"><span class="text-2xl">⚛️</span><b class="block mt-3">VN Physics</b><span class="small block mt-1">Explore physics</span></a>
+      <a class="tile p-4" href="Chem.html"><span class="text-2xl">🧪</span><b class="block mt-3">VN Chemistry</b><span class="small block mt-1">Chemistry learning</span></a>
+      <a class="tile p-4" href="vidyanirman_bio_class_9th_interactive_biology_portal.html"><span class="text-2xl">🧬</span><b class="block mt-3">VN Biology</b><span class="small block mt-1">Biology lessons</span></a>
+      <a class="tile p-4" href="social-science-portal.html"><span class="text-2xl">🌍</span><b class="block mt-3">Social Science</b><span class="small block mt-1">History and geography</span></a>
+    </div>
+  </section>
+
+  <section class="grid lg:grid-cols-5 gap-4 mb-5">
+    <div class="glass rounded-2xl p-5 lg:col-span-3">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-4"><div><p class="eyebrow">Your consistency</p><h2 class="text-lg font-extrabold mt-1">Activity this week</h2></div><span class="small">Based on recorded page visits</span></div>
+      <div id="week-bars" class="flex items-end gap-2 h-32" aria-label="Weekly learning activity"></div>
+    </div>
+    <div class="glass rounded-2xl p-5 lg:col-span-2">
+      <p class="eyebrow">Recently explored</p><h2 class="text-lg font-extrabold mt-1 mb-3">Continue where you left off</h2>
+      <div id="progress-list" class="space-y-2"></div>
+    </div>
+  </section>
+
+  <section class="glass rounded-2xl p-5 mb-5">
+    <div class="flex flex-wrap items-end justify-between gap-3 mb-4"><div><p class="eyebrow">Your learning toolkit</p><h2 class="text-xl font-extrabold mt-1">Pick up where you want to grow</h2></div><span class="small">Shortcuts to existing Vidya Nirman portals</span></div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+      <a class="tool-card" href="study-hub.html"><div class="text-2xl">📅</div><b class="gold block mt-2">Daily Study Planner</b><span class="small block mt-1">Plan a session, use focus tools and revise.</span></a>
+      <a class="tool-card" href="exam-centre.html"><div class="text-2xl">📝</div><b class="gold block mt-2">Exam Preparation</b><span class="small block mt-1">Open Biology, Physics, Chemistry and Grand Quests.</span></a>
+      <a class="tool-card" href="coding.html"><div class="text-2xl">💻</div><b class="gold block mt-2">Coding Academy</b><span class="small block mt-1">Continue the existing coding lessons and projects.</span></a>
+      <a class="tool-card" href="index.html#vnAiChatPanel"><div class="text-2xl">🤖</div><b class="gold block mt-2">VN AI Study Assistant</b><span class="small block mt-1">Open the website AI assistant.</span></a>
+    </div>
+  </section>
+
+  <section class="grid lg:grid-cols-5 gap-4 mb-5">
+    <div class="glass rounded-2xl p-5 lg:col-span-3">
+      <div class="flex items-center justify-between gap-2 mb-3"><div><p class="eyebrow">Activity milestones</p><h2 class="text-lg font-extrabold mt-1">Your learning achievements</h2></div><span class="small">Based on recorded activity</span></div>
+      <div id="achievement-list" class="grid grid-cols-2 sm:grid-cols-4 gap-2"></div>
+      <p class="small mt-3">These are activity milestones, not official course-completion certificates or verified exam scores.</p>
+    </div>
+    <div class="glass rounded-2xl p-5 lg:col-span-2">
+      <p class="eyebrow">Today's checklist</p><h2 class="text-lg font-extrabold mt-1 mb-3">A small study plan</h2>
+      <div id="daily-checklist" class="space-y-2"></div><p class="small mt-3">Checklist is saved only in this browser.</p>
+    </div>
+  </section>
+
+  <section class="grid lg:grid-cols-2 gap-4">
+    <div class="glass rounded-2xl p-5">
+      <div class="flex items-center justify-between gap-2 mb-3"><h2 class="text-lg font-extrabold gold">📝 My saved notes</h2><span class="small">Stored on this device</span></div>
+      <form id="note-form" class="space-y-3">
+        <input id="note-subject" class="field" placeholder="Subject / chapter (e.g. Biology — Cell)" maxlength="80" aria-label="Note subject">
+        <textarea id="note-text" class="field" rows="4" maxlength="12000" required placeholder="Write your revision notes here…" aria-label="Revision note"></textarea>
+        <button class="btn-gold" type="submit">＋ Save note</button>
+      </form>
+      <input id="note-search" class="search-field mt-3" type="search" placeholder="Search saved notes by subject or text…" aria-label="Search saved notes">
+      <div id="notes-list" class="space-y-2 mt-3"></div>
+    </div>
+    <div class="glass rounded-2xl p-5">
+      <h2 class="text-lg font-extrabold gold mb-3">🏆 Recent quiz activity</h2>
+      <div id="quiz-list" class="space-y-2"></div>
+      <div class="border-t border-amber-200/10 mt-5 pt-4">
+        <div class="flex items-center justify-between gap-2"><h3 class="font-bold">🤖 AI study history</h3><span class="small">Recent chats</span></div>
+        <div id="ai-list" class="space-y-2 mt-3"></div>
+      </div>
+    </div>
+    <div class="glass rounded-2xl p-5 lg:col-span-2">
+      <div class="flex flex-wrap items-center justify-between gap-3"><div><p class="eyebrow">Your account activity</p><h2 class="text-lg font-extrabold mt-1">Recently opened pages</h2></div><div class="flex flex-wrap gap-2"><button id="clear-quiz" class="btn-quiet text-xs" type="button">Clear quiz history</button><button id="clear-ai" class="btn-quiet text-xs" type="button">Clear AI history</button></div></div>
+      <div id="visit-list" class="grid sm:grid-cols-2 gap-2 mt-4"></div>
+      <p class="small mt-4">Accuracy note: this dashboard counts recorded visits and interactions. It does not label a chapter as completed or invent quiz marks. Those features can be connected when each learning portal records verified completion and scores.</p>
+    </div>
+  </section>
+  <footer class="text-center small py-8">VIDYA NIRMAN · सा विद्या या विमुक्तये</footer>
+</main>
+
+<script src="global-learning.js"></script>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const nice = value => { try { return new Date(value).toLocaleString(); } catch { return value || ''; } };
+  const read = () => window.VN_LEARNING ? window.VN_LEARNING.getData() : {visits:[],quiz:[],ai:[],notes:[]};
+  const empty = message => `<p class="small">${esc(message)}</p>`;
+  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+  function renderWeek(visits) {
+    const now = new Date(); const start = new Date(now); start.setDate(now.getDate()-6); start.setHours(0,0,0,0);
+    const counts = Array(7).fill(0);
+    visits.forEach(v => { const date = new Date(v.at); date.setHours(0,0,0,0); const diff = Math.round((date-start)/86400000); if(diff>=0&&diff<7) counts[diff]++; });
+    const max = Math.max(1,...counts);
+    $('week-bars').innerHTML = counts.map((count,i) => `<div class="week-col"><span class="small">${count || ''}</span><div class="week-bar" style="height:${Math.max(4,(count/max)*76)}px;opacity:${count?1:.3}"></div><span class="small">${days[new Date(start.getTime()+i*86400000).getDay()]}</span></div>`).join('');
+  }
+  function renderAchievements(visits, quiz) {
+    const items=[
+      {icon:'🌱',name:'First step',hint:'Open a learning page',ok:visits.length>=1},
+      {icon:'📚',name:'Explorer',hint:'Record 5 page visits',ok:visits.length>=5},
+      {icon:'🧭',name:'Regular learner',hint:'Record 20 page visits',ok:visits.length>=20},
+      {icon:'🎯',name:'First practice',hint:'Try a quiz interaction',ok:quiz.length>=1},
+      {icon:'🏅',name:'Practice habit',hint:'Record 10 quiz interactions',ok:quiz.length>=10},
+      {icon:'🔥',name:'3-day streak',hint:'Be active on 3 days in a row',ok:streakDays(visits)>=3},
+      {icon:'📝',name:'Note keeper',hint:'Save a revision note',ok:(read().notes||[]).length>=1},
+      {icon:'🤖',name:'AI learner',hint:'Capture an AI exchange',ok:(read().ai||[]).length>=1}
+    ];
+    $('achievement-list').innerHTML=items.map(x=>`<div class="badge-card ${x.ok?'':'locked'}"><div class="text-2xl">${x.icon}</div><b class="gold block text-xs mt-2">${x.name}</b><span class="small block mt-1">${x.hint}</span><span class="small block mt-2">${x.ok?'✓ Unlocked':'Not yet'}</span></div>`).join('');
+  }
+  function streakDays(visits){const dates=new Set(visits.map(v=>{const x=new Date(v.at);x.setHours(0,0,0,0);return x.getTime()}));let cur=new Date();cur.setHours(0,0,0,0);if(!dates.has(cur.getTime()))cur.setDate(cur.getDate()-1);let n=0;while(dates.has(cur.getTime())){n++;cur.setDate(cur.getDate()-1)}return n}
+  function renderChecklist(){
+    const key='vn-dashboard-checklist-v1', defaults=['Review one chapter summary','Practise one quiz','Save one useful revision note'];let saved={};try{saved=JSON.parse(localStorage.getItem(key)||'{}')}catch{}
+    $('daily-checklist').innerHTML=defaults.map((label,i)=>`<label class="check-row"><input type="checkbox" data-plan="${i}" ${saved[i]?'checked':''}><span>${label}</span></label>`).join('');
+  }
+  function render() {
+    const d = read(); const visits=d.visits||[], quiz=d.quiz||[], ai=d.ai||[], notes=d.notes||[];
+    $('visits-count').textContent=visits.length; $('quiz-count').textContent=quiz.length; $('ai-count').textContent=ai.length; $('notes-count').textContent=notes.length;
+    const activeDates = new Set(visits.map(v => { const x=new Date(v.at); x.setHours(0,0,0,0); return x.getTime(); }));
+    const cursor = new Date(); cursor.setHours(0,0,0,0);
+    if (!activeDates.has(cursor.getTime())) cursor.setDate(cursor.getDate()-1);
+    let streak = 0;
+    while (activeDates.has(cursor.getTime())) { streak++; cursor.setDate(cursor.getDate()-1); }
+    $('streak-count').textContent=streak;
+    $('streak-caption').textContent=streak ? `${streak} consecutive active day${streak===1?'':'s'}` : 'Open a learning portal to start a new streak.';
+    renderWeek(visits);
+    renderAchievements(visits,quiz);
+    renderChecklist();
+    const term=($('note-search')?.value||'').trim().toLowerCase();
+    const filteredNotes=notes.filter(n=>!term||String(n.subject||'').toLowerCase().includes(term)||String(n.text||'').toLowerCase().includes(term));
+    $('notes-list').innerHTML=filteredNotes.slice(0,12).map(n=>`<article class="item"><div class="flex items-center gap-2"><b class="gold flex-1">${esc(n.subject||'General')}</b><button class="small underline" data-del-note="${esc(n.id)}" type="button">Delete</button></div><p class="whitespace-pre-wrap mt-2 text-sm">${esc(n.text)}</p><div class="small mt-2">${esc(nice(n.at))}</div></article>`).join('')||empty(term?'No notes match this search.':'No saved notes yet. Add your first revision note above.');
+    $('visit-list').innerHTML=visits.slice(0,8).map(v=>`<article class="item"><b>${esc(v.title||v.page)}</b><div class="small mt-1">${esc(v.page)} · ${esc(nice(v.at))}</div></article>`).join('')||empty('Your recently opened pages will appear here.');
+    const pageCounts=visits.reduce((a,v)=>{a[v.page]=(a[v.page]||0)+1;return a;},{});
+    $('progress-list').innerHTML=Object.entries(pageCounts).sort((a,b)=>b[1]-a[1]).slice(0,5).map(([page,count])=>`<a class="item flex justify-between items-center gap-3" href="${esc(page)}"><span class="text-sm break-all">${esc(page)}</span><span class="gold text-sm font-bold whitespace-nowrap">${count} visit${count===1?'':'s'} →</span></a>`).join('')||empty('No learning activity recorded yet. Choose a portal above to begin.');
+    $('quiz-list').innerHTML=quiz.slice(0,5).map(q=>`<article class="item"><b>${esc(q.title||q.page)}</b><p class="text-sm mt-1">${esc(q.action||'Quiz interaction')}</p>${Number.isFinite(Number(q.score))&&Number.isFinite(Number(q.total))&&Number(q.total)>0?`<p class="gold text-sm mt-1 font-bold">Score: ${Number(q.score)} / ${Number(q.total)} (${Math.round(Number(q.percentage)||0)}%)</p>`:''}<p class="small mt-1">${esc(nice(q.at))}</p></article>`).join('')||empty('No quiz interactions recorded yet.');
+    $('ai-list').innerHTML=ai.slice(0,4).map(a=>`<article class="item"><p class="small">${esc(a.page)} · ${esc(nice(a.at))}</p><p class="text-sm mt-2"><b class="gold">You asked:</b> ${esc(a.question||'(question not detected)')}</p><p class="text-sm mt-2"><b>AI reply:</b> ${esc(a.answer||'(reply format not detected)')}</p></article>`).join('')||empty('Your captured AI study conversations will appear here when the chat response format is compatible.');
+  }
+  const syncButton=$('cloud-sync-btn'),syncNowButton=$('cloud-sync-now'),syncStatus=$('cloud-sync-status');
+  function refreshCloudControls(){const state=window.VN_LEARNING?.getSyncStatus?.();if(!state)return;syncButton.textContent=state.enabled?'Cloud sync enabled':'Enable cloud sync';syncStatus.textContent=state.status||'Local-only mode';}
+  syncButton.addEventListener('click',async()=>{syncButton.disabled=true;syncButton.textContent='Connecting…';await window.VN_LEARNING?.enableCloudSync?.();refreshCloudControls();syncButton.disabled=false;});
+  syncNowButton.addEventListener('click',async()=>{syncNowButton.disabled=true;syncNowButton.textContent='Syncing…';await window.VN_LEARNING?.syncNow?.();refreshCloudControls();syncNowButton.disabled=false;syncNowButton.textContent='Sync now';});
+  window.addEventListener('vn-cloud-sync-status',e=>{syncStatus.textContent=e.detail?.status||'Cloud sync status updated';refreshCloudControls();});
+  refreshCloudControls();
+  $('note-search').addEventListener('input',render);
+  $('daily-checklist').addEventListener('change',e=>{const box=e.target;if(!box.matches('[data-plan]'))return;const key='vn-dashboard-checklist-v1';let saved={};try{saved=JSON.parse(localStorage.getItem(key)||'{}')}catch{}saved[box.dataset.plan]=box.checked;try{localStorage.setItem(key,JSON.stringify(saved))}catch{}});
+  $('note-form').addEventListener('submit',e=>{e.preventDefault();const ok=window.VN_LEARNING?.saveNote($('note-text').value,$('note-subject').value||'General');if(ok){$('note-text').value='';$('note-subject').value='';render();}});
+  document.addEventListener('click',e=>{const id=e.target?.getAttribute?.('data-del-note');if(id&&window.VN_LEARNING){window.VN_LEARNING.deleteNote(id);render();}});
+  $('clear-quiz').addEventListener('click',()=>{if(confirm('Clear saved quiz activity from this browser?')){window.VN_LEARNING?.clearHistory('quiz');render();}});
+  $('clear-ai').addEventListener('click',()=>{if(confirm('Clear saved AI history from this browser?')){window.VN_LEARNING?.clearHistory('ai');render();}});
+  window.addEventListener('vn-learning-updated',render); render();
+
+  const url=window.VN_SUPABASE_URL,key=window.VN_SUPABASE_ANON_KEY;
+  if(window.supabase?.createClient&&url?.startsWith('https://')&&key&&!key.includes('PASTE_YOUR_')){
+    const client=window.supabase.createClient(url,key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage:window.localStorage}});
+    client.auth.getSession().then(({data,error})=>{
+      if(error) throw error;
+      const user=data.session?.user;
+      if(user){
+        const name=user.user_metadata?.full_name||user.user_metadata?.name||user.email?.split('@')[0]||'learner';
+        $('welcome').textContent=`Welcome back, ${name}!`;
+        $('account').textContent=user.email||'Signed in to your Vidya Nirman account';
+        $('login-link').textContent='Account active'; $('login-link').href='auth.html';
+        $('sync-note').textContent='You are signed in. Choose Enable cloud sync to copy learning visits, quiz interactions and saved notes to your private account. AI chat text stays local.';
+      } else {
+        $('account').textContent='Guest mode · Sign in to use your Vidya Nirman account across site pages.';
+      }
+    }).catch(()=>{$('account').textContent='Dashboard ready · Account status could not be checked right now.';});
+  } else {
+    $('account').textContent='Guest mode · Supabase sign-in is not configured on this page.';
+  }
+  const hour=new Date().getHours(); $('greeting').textContent=hour<12?'GOOD MORNING · YOUR LEARNING JOURNEY':hour<17?'GOOD AFTERNOON · YOUR LEARNING JOURNEY':'GOOD EVENING · YOUR LEARNING JOURNEY';
+})();
+</script>
+<script>if('serviceWorker'in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));</script>
+</body>
+</html>
