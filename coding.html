@@ -36,6 +36,63 @@
     .preview{background:#fff;color:#222;border-radius:12px;padding:18px;min-height:90px}
     .nav-mobile{display:none}
     @media(max-width:800px){.layout{grid-template-columns:1fr!important}.sidebar{position:static!important}.nav-desktop{display:none}.nav-mobile{display:flex}.hero-title{font-size:2.3rem}}
+
+    /* Mobile-first layout corrections */
+    @media(max-width:800px){
+      .academy-header-inner{gap:8px;padding-left:12px;padding-right:12px}
+      .academy-header-inner>a:first-child{gap:8px;min-width:0;flex:1}
+      .academy-header-inner>a:first-child>div:first-child{width:38px;height:38px;flex:0 0 38px}
+      .academy-header-inner>a:first-child>div:last-child{min-width:0}
+      .academy-header-inner>a:first-child .font-cinzel{font-size:clamp(12px,3.5vw,16px);white-space:nowrap}
+      .academy-header-inner>a:first-child .text-\[10px\]{font-size:8px;letter-spacing:.12em}
+      .academy-header-inner>div:last-child{gap:6px;flex:0 0 auto}
+      .academy-header-inner .pill{min-height:42px;padding:8px 10px}
+      .home-nav-link span{display:none}
+      .home-nav-link .mr-1{margin-right:0}
+      .nav-mobile{display:flex;align-items:center;justify-content:center}
+      .nav-desktop{display:none!important}
+      .layout{grid-template-columns:minmax(0,1fr)!important}
+      .sidebar{position:static!important;width:100%;max-height:none}
+      .academy-command{padding:14px}
+      .command-link{min-width:0;min-height:46px;padding:10px 8px;font-size:11px;text-align:center}
+      .academy-section,.gold-card{min-width:0}
+      .codebox{max-width:100%}
+      .codebox pre{max-width:100%;padding:14px;font-size:12px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+      #labCode{min-width:0;width:100%;font-size:12px;overflow-x:auto}
+      #labPreview{min-width:0;width:100%;min-height:300px}
+      #aiMessages{max-width:100%;overflow-wrap:anywhere}
+      .section-heading{align-items:flex-start}
+      .section-heading>div{min-width:0}
+      .preview{max-width:100%;overflow-wrap:anywhere}
+      .lesson-link{min-height:42px}
+    }
+    @media(max-width:420px){
+      .academy-header-inner{padding-top:10px;padding-bottom:10px}
+      .academy-header-inner .pill{padding:7px 9px;font-size:11px}
+      .academy-header-inner>a:first-child>div:first-child{width:34px;height:34px;flex-basis:34px}
+      .academy-header-inner>a:first-child .font-cinzel{font-size:11px;letter-spacing:.04em}
+      .academy-header-inner>a:first-child .text-\[10px\]{font-size:7px}
+      .home-nav-link{display:none}
+      main{padding-left:12px!important;padding-right:12px!important}
+      .hero-title{font-size:clamp(1.75rem,9vw,2.3rem)!important;overflow-wrap:anywhere}
+      .academy-kicker{font-size:9px;letter-spacing:.1em;padding:8px 10px}
+      .academy-command .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .gold-card.rounded-2xl{border-radius:16px}
+      .gold-card.p-5{padding:14px}
+      .gold-card.p-5.sm\:p-7{padding:14px}
+      .intro-content{padding:18px}
+      .intro-content h1{font-size:clamp(1.65rem,8vw,2.1rem)}
+      .intro-overline{letter-spacing:.2em}
+      .intro-subtitle{font-size:13px}
+      .quiz-answer{overflow-wrap:anywhere}
+    }
+    @media(max-width:360px){
+      .academy-header-inner>a:first-child .font-cinzel{font-size:10px}
+      .academy-header-inner>div:last-child{gap:4px}
+      #themeToggle{padding:7px 8px}
+      .academy-command .grid{grid-template-columns:1fr}
+    }
+
     @media print{body.printing-certificate *{visibility:hidden!important}body.printing-certificate #certificatePaper,body.printing-certificate #certificatePaper *{visibility:visible!important}body.printing-certificate #certificatePaper{display:block!important;position:absolute;inset:0 auto auto 0;width:100%;margin:0!important;min-height:90vh;box-shadow:none!important;break-inside:avoid}body.printing-certificate{background:#fff!important}.no-print{display:none!important}}
 
     /* VN Academy information architecture refresh */
@@ -147,7 +204,7 @@
     </div>
   </section>
   <header class="sticky top-0 z-50 border-b border-amber-500/30 bg-[#0F0103]/95 backdrop-blur-md">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
+    <div class="academy-header-inner max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
       <a href="index.html" class="flex items-center gap-3">
         <div class="w-11 h-11 rounded-full border-2 border-amber-400 overflow-hidden bg-[#220308]"><img src="logo.png" alt="Vidya Nirman logo" class="w-full h-full object-cover"></div>
         <div><div class="font-cinzel font-black tracking-wider text-lg gold-text">VIDYA NIRMAN</div><div class="text-[10px] text-amber-300 tracking-widest">CODING ACADEMY</div></div>
@@ -155,7 +212,7 @@
       <nav class="nav-desktop flex items-center gap-5 text-xs font-bold uppercase tracking-wide">
         <a class="hover:text-amber-300" href="index.html">Home</a><a class="hover:text-amber-300" href="#learn">Lesson Plan</a><a class="hover:text-amber-300" href="#playground">Live Lab</a><a class="hover:text-amber-300" href="#projects">Projects</a><a class="hover:text-amber-300" href="#practice">Practice</a><a class="hover:text-amber-300" href="#ai-tutor">AI Tutor</a><a class="hover:text-amber-300" href="#certificate">Certificate</a><a class="hover:text-amber-300" href="#about-academy">About VN</a>
       </nav>
-      <div class="flex items-center gap-2"><button id="themeToggle" class="pill" type="button" aria-label="Switch to light mode" title="Switch theme"><i class="fa-solid fa-sun"></i><span class="hidden sm:inline ml-1">Light mode</span></button><button id="mobileMenuBtn" class="pill nav-mobile" type="button" aria-expanded="false" aria-controls="mobileMenu"><i class="fa-solid fa-bars"></i><span class="sr-only">Open menu</span></button><a href="index.html" class="pill"><i class="fa-solid fa-arrow-left mr-1"></i> Homepage</a></div>
+      <div class="flex items-center gap-2"><button id="themeToggle" class="pill" type="button" aria-label="Switch to light mode" title="Switch theme"><i class="fa-solid fa-sun"></i><span class="hidden sm:inline ml-1">Light mode</span></button><button id="mobileMenuBtn" class="pill nav-mobile" type="button" aria-expanded="false" aria-controls="mobileMenu"><i class="fa-solid fa-bars"></i><span class="sr-only">Open menu</span></button><a href="index.html" class="pill home-nav-link" aria-label="Back to homepage"><i class="fa-solid fa-arrow-left mr-1"></i><span>Homepage</span></a></div>
     </div>
     <nav id="mobileMenu" class="hidden border-t border-amber-500/20 px-4 py-3 md:hidden" aria-label="Mobile navigation"><div class="flex flex-wrap gap-2 text-xs"><a class="pill" href="#learn">Lesson Plan</a><a class="pill" href="#playground">Live Lab</a><a class="pill" href="#courses">Courses</a><a class="pill" href="#practice">Quiz</a><a class="pill" href="#ai-tutor">AI Tutor</a><a class="pill" href="#certificate">Certificate</a><a class="pill" href="#about-academy">About VN</a></div></nav>
   </header>
