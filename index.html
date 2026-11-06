@@ -1184,10 +1184,10 @@
     </script>
 
 <style id="vn-ai-premium-styles">
-#vnAiLauncher{position:fixed;right:22px;bottom:22px;z-index:10000;display:flex;align-items:center;gap:9px;background:linear-gradient(135deg,#ffe39a,#d4af37 58%,#b8860b);color:#220308;border:1px solid #fff0a6;border-radius:999px;padding:13px 18px;font-weight:900;box-shadow:0 10px 34px #d4af3755;cursor:pointer;transition:transform .2s}
+#vnAiLauncher{position:fixed;left:22px;right:auto;bottom:22px;z-index:10000;display:flex;align-items:center;gap:9px;background:linear-gradient(135deg,#ffe39a,#d4af37 58%,#b8860b);color:#220308;border:1px solid #fff0a6;border-radius:999px;padding:13px 18px;font-weight:900;box-shadow:0 10px 34px #d4af3755;cursor:pointer;transition:transform .2s}
 #vnAiLauncher:hover{transform:translateY(-3px)}
 .vn-ai-launch-icon{width:30px;height:30px;display:grid;place-items:center;border-radius:50%;background:#220308;color:#ffd978}
-#vnAiChatPanel{position:fixed;right:22px;bottom:88px;z-index:10000;width:min(430px,calc(100vw - 28px));height:min(650px,calc(100dvh - 112px));min-height:420px;display:none;flex-direction:column;background:linear-gradient(160deg,#21060d,#100105 72%);border:1px solid #d4af37;border-radius:22px;overflow:hidden;box-shadow:0 24px 85px #000d;color:#fff9e6}
+#vnAiChatPanel{position:fixed;left:22px;right:auto;bottom:88px;z-index:10000;width:min(430px,calc(100vw - 28px));height:min(650px,calc(100dvh - 112px));min-height:420px;display:none;flex-direction:column;background:linear-gradient(160deg,#21060d,#100105 72%);border:1px solid #d4af37;border-radius:22px;overflow:hidden;box-shadow:0 24px 85px #000d;color:#fff9e6}
 #vnAiChatPanel.vn-open{display:flex}
 .vn-ai-head{padding:15px 16px;background:linear-gradient(120deg,#4a0c17,#1b0309);border-bottom:1px solid #d4af3755;display:flex;align-items:center;justify-content:space-between;gap:10px}
 .vn-ai-brand{display:flex;align-items:center;gap:10px}.vn-ai-brand-mark{width:38px;height:38px;flex:0 0 38px;border:1px solid #d4af37;border-radius:50%;display:grid;place-items:center;color:#ffd700;background:#26070d}
@@ -1215,7 +1215,7 @@
 #vnAiInput:focus{border-color:#ffd700}#vnAiSend{width:43px;height:42px;flex:0 0 43px;background:linear-gradient(135deg,#ffe39a,#d4af37);color:#220308;border-radius:12px;font-weight:900;cursor:pointer}
 #vnAiSend:disabled{opacity:.55;cursor:wait}.vn-ai-footnote{padding:0 13px 9px;background:#100105;color:#9d8b6e;font-size:9px;text-align:center}
 .vn-ai-retry{display:block;margin-top:8px;border:1px solid #d4af3770;background:#35101a;color:#ffe39a;border-radius:8px;padding:6px 10px;font-size:10px;font-weight:800;cursor:pointer}
-@media(max-width:480px){#vnAiLauncher{right:14px;bottom:82px;padding:11px 14px}#vnAiChatPanel{right:10px;bottom:135px;width:calc(100vw - 20px);height:min(620px,calc(100dvh - 160px));min-height:390px;border-radius:18px}.vn-ai-head{padding:12px}.vn-ai-messages{padding:12px 10px}}
+@media(max-width:480px){#vnAiLauncher{left:14px;right:auto;bottom:calc(76px + env(safe-area-inset-bottom));padding:11px 14px}#vnAiChatPanel{left:10px;right:auto;bottom:calc(130px + env(safe-area-inset-bottom));width:calc(100vw - 20px);height:min(620px,calc(100dvh - 160px));min-height:390px;border-radius:18px}.vn-ai-head{padding:12px}.vn-ai-messages{padding:12px 10px}}
 @media(prefers-reduced-motion:reduce){.vn-ai-typing i{animation:none!important}}
 </style>
 <button id="vnAiLauncher" type="button" aria-controls="vnAiChatPanel" aria-expanded="false"><span class="vn-ai-launch-icon"><i class="fa-solid fa-sparkles" aria-hidden="true"></i></span><span>Ask Vidya AI</span></button>
