@@ -190,8 +190,40 @@
 @media(prefers-reduced-motion:reduce){#home h1,#home h1+p,#home p.max-w-2xl,#home .vn-home-cta,#home:before,#home:after{animation:none!important}}
 </style>
 
+<style id="vn-intro-styles">
+#vnIntroScreen{position:fixed;inset:0;z-index:200000;background:radial-gradient(ellipse at 50% 45%,#3b1017 0%,#170307 48%,#090103 100%);display:grid;place-items:center;overflow:hidden;color:#fff5dc;opacity:1;visibility:visible;transition:opacity .8s ease,visibility .8s ease}
+#vnIntroScreen.vn-intro-exit{opacity:0;visibility:hidden;pointer-events:none}
+#vnIntroScreen:before{content:"";position:absolute;inset:-50%;background:linear-gradient(rgba(212,175,55,.075) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.075) 1px,transparent 1px);background-size:48px 48px;transform:perspective(700px) rotateX(58deg) scale(1.6);transform-origin:center 65%;mask-image:linear-gradient(transparent,#000 25%,#000 75%,transparent);animation:vnGridDrift 16s linear infinite}
+#vnIntroScreen:after{content:"";position:absolute;width:min(75vw,620px);aspect-ratio:1;border:1px solid #d4af3738;border-radius:50%;box-shadow:0 0 90px #d4af3712,inset 0 0 80px #d4af3710;animation:vnIntroOrbit 24s linear infinite}
+.vn-intro-content{position:relative;z-index:2;width:min(90vw,620px);text-align:center;padding:28px}
+.vn-intro-emblem{width:clamp(112px,20vw,164px);aspect-ratio:1;margin:0 auto 28px;position:relative;display:grid;place-items:center;filter:drop-shadow(0 0 25px #d4af3750)}
+.vn-intro-emblem:before,.vn-intro-emblem:after{content:"";position:absolute;inset:-13px;border:1px solid #e7c66c88;transform:rotate(45deg);animation:vnEmblemSpin 18s linear infinite}
+.vn-intro-emblem:after{inset:-25px;border-color:#d4af3745;animation-duration:28s;animation-direction:reverse}
+.vn-intro-logo{width:78%;height:78%;object-fit:contain;border-radius:50%;border:2px solid #d4af37;background:#220308;box-shadow:0 0 0 7px #d4af3714,0 0 45px #d4af3745;animation:vnLogoReveal 1.4s cubic-bezier(.2,.8,.2,1) both}
+.vn-intro-kicker{font:700 10px 'Plus Jakarta Sans',sans-serif;letter-spacing:.42em;text-transform:uppercase;color:#e8c878;margin-bottom:13px}
+.vn-intro-title{font:900 clamp(27px,6vw,48px) 'Cinzel',serif;letter-spacing:.12em;background:linear-gradient(110deg,#fff4c8,#d4af37 48%,#fff0b3);background-clip:text;-webkit-background-clip:text;color:transparent}
+.vn-intro-subtitle{font:600 clamp(12px,2.5vw,16px) 'Noto Serif Devanagari',serif;color:#f2dca4;margin-top:9px}
+.vn-intro-rule{width:min(270px,70%);height:1px;margin:27px auto 18px;background:linear-gradient(90deg,transparent,#d4af37,transparent)}
+.vn-intro-status{font:600 10px 'Plus Jakarta Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#d9c7a2;min-height:16px}
+.vn-intro-progress{height:4px;width:min(300px,76%);margin:13px auto 0;border-radius:9px;background:#ffffff18;overflow:hidden;border:1px solid #d4af3730}
+#vnIntroProgressFill{height:100%;width:0;background:linear-gradient(90deg,#9b6b20,#ffe7a0,#d4af37);box-shadow:0 0 15px #ffd75e;transition:width .08s linear}
+.vn-intro-bottom{margin-top:25px;color:#a99578;font:600 9px 'Plus Jakarta Sans',sans-serif;letter-spacing:.22em}
+#vnIntroEnter{margin-top:24px;border:1px solid #d4af37;border-radius:999px;padding:11px 23px;background:linear-gradient(120deg,#ffe39a,#c58a2d);color:#21080a;font:900 10px 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;cursor:pointer;box-shadow:0 8px 28px #d4af3725;transition:transform .2s,box-shadow .2s}
+#vnIntroEnter:hover{transform:translateY(-2px);box-shadow:0 12px 35px #d4af3750}
+@keyframes vnGridDrift{to{background-position:0 48px,48px 0}}@keyframes vnIntroOrbit{to{transform:rotate(360deg)}}@keyframes vnEmblemSpin{to{transform:rotate(405deg)}}@keyframes vnLogoReveal{from{opacity:0;transform:scale(.72) rotateY(35deg)}to{opacity:1;transform:scale(1) rotateY(0)}}
+@media(max-width:480px){.vn-intro-content{padding:16px}.vn-intro-kicker{letter-spacing:.25em}.vn-intro-bottom{letter-spacing:.12em}}
+@media(prefers-reduced-motion:reduce){#vnIntroScreen:before,#vnIntroScreen:after,.vn-intro-emblem:before,.vn-intro-emblem:after,.vn-intro-logo{animation:none!important}}
+</style>
 </head>
 <body class="relative min-h-screen jali-pattern selection:bg-amber-500 selection:text-red-950">
+<div id="vnIntroScreen" role="dialog" aria-label="Welcome to Vidya Nirman">
+<div class="vn-intro-content"><div class="vn-intro-emblem"><img class="vn-intro-logo" src="logo.png" alt="Vidya Nirman logo"></div>
+<div class="vn-intro-kicker">A Digital Gurukul Experience</div><div class="vn-intro-title">VIDYA NIRMAN</div>
+<div class="vn-intro-subtitle">विद्या निर्माण · सा विद्या या विमुक्तये</div><div class="vn-intro-rule"></div>
+<div class="vn-intro-status" id="vnIntroStatus" aria-live="polite">Preparing your learning experience · 0%</div>
+<div class="vn-intro-progress" id="vnIntroProgress" role="progressbar" aria-label="Intro progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="vnIntroProgressFill"></div></div>
+<button id="vnIntroEnter" type="button">ENTER VIDYA NIRMAN →</button><div class="vn-intro-bottom">LEARN · BUILD · EXCEL</div></div></div>
+
 
     <!-- Floating Golden Spark & Ember Particles Canvas -->
     <canvas id="emberCanvas" class="fixed inset-0 pointer-events-none z-0 opacity-70"></canvas>
@@ -1344,6 +1376,9 @@
         }
         lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
     }, false);
+</script>
+<script id="vn-intro-controller">
+(()=>{const screen=document.getElementById('vnIntroScreen'),fill=document.getElementById('vnIntroProgressFill'),status=document.getElementById('vnIntroStatus'),bar=document.getElementById('vnIntroProgress'),enter=document.getElementById('vnIntroEnter');if(!screen||!fill||!status||!bar||!enter)return;let start=performance.now(),done=false;const close=()=>{if(done)return;done=true;screen.classList.add('vn-intro-exit');document.body.style.overflow='';setTimeout(()=>screen.remove(),900)};enter.addEventListener('click',close);document.body.style.overflow='hidden';const tick=now=>{if(done)return;const p=Math.min(100,Math.round((now-start)/5000*100));fill.style.width=p+'%';bar.setAttribute('aria-valuenow',String(p));status.textContent=p<100?'Preparing your learning experience · '+p+'%':'Your learning journey is ready · 100%';if(p>=100)close();else requestAnimationFrame(tick)};requestAnimationFrame(tick)})();
 </script>
 </body>
 </html>
