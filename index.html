@@ -1183,137 +1183,96 @@
         });
     </script>
 
-<!-- Vidya Nirman AI Chat Section -->
-<style>
-  #vnAiLauncher{position:fixed;right:22px;bottom:22px;z-index:10000;background:linear-gradient(135deg,#FFD700,#D4AF37);color:#220308;border:1px solid #fff0a6;border-radius:999px;padding:14px 19px;font-weight:900;box-shadow:0 8px 30px #d4af374d;cursor:pointer}
-  #vnAiChatPanel{position:fixed;right:22px;bottom:84px;z-index:10000;width:min(390px,calc(100vw - 28px));height:min(580px,calc(100vh - 120px));display:none;flex-direction:column;background:#160207;border:1px solid #D4AF37;border-radius:18px;overflow:hidden;box-shadow:0 20px 70px #000b;color:#FFF9E6}
-  #vnAiChatPanel.vn-open{display:flex}
-  .vn-ai-head{padding:15px;background:linear-gradient(120deg,#3B0810,#170207);border-bottom:1px solid #D4AF3766;display:flex;align-items:center;justify-content:space-between}
-  .vn-ai-messages{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
-  .vn-ai-msg{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5;font-size:13px;padding:10px 12px;border-radius:12px;max-width:92%}
-  .vn-ai-user{align-self:flex-end;background:#D4AF37;color:#220308}
-  .vn-ai-bot{align-self:flex-start;background:#2b0a10;border:1px solid #D4AF3738;color:#FFF9E6}
-  .vn-ai-prompts{display:flex;gap:6px;padding:0 12px 8px 12px;flex-wrap:wrap;background:#100105}
-  .vn-prompt-btn{font-size:11px;background:#2b0a10;border:1px solid #D4AF3755;color:#FFD700;padding:5px 9px;border-radius:6px;cursor:pointer;transition:all 0.2s}
-  .vn-prompt-btn:hover{background:#3B0810;border-color:#FFD700}
-  .vn-ai-form{display:flex;gap:8px;padding:12px;border-top:1px solid #D4AF3744;background:#100105}
-  #vnAiInput{min-width:0;flex:1;background:#24070d;color:#fff9e6;border:1px solid #8e6d24;border-radius:10px;padding:10px;font-size:13px;outline:none}
-  #vnAiSend{background:linear-gradient(135deg,#FFD700,#D4AF37);color:#220308;border-radius:10px;padding:0 14px;font-weight:900;cursor:pointer}
-  #vnAiSend:disabled{opacity:.55;cursor:wait}
-  @media(max-width:480px){#vnAiLauncher{right:14px;bottom:14px}#vnAiChatPanel{right:14px;bottom:75px}}
+<style id="vn-ai-premium-styles">
+#vnAiLauncher{position:fixed;right:22px;bottom:22px;z-index:10000;display:flex;align-items:center;gap:9px;background:linear-gradient(135deg,#ffe39a,#d4af37 58%,#b8860b);color:#220308;border:1px solid #fff0a6;border-radius:999px;padding:13px 18px;font-weight:900;box-shadow:0 10px 34px #d4af3755;cursor:pointer;transition:transform .2s}
+#vnAiLauncher:hover{transform:translateY(-3px)}
+.vn-ai-launch-icon{width:30px;height:30px;display:grid;place-items:center;border-radius:50%;background:#220308;color:#ffd978}
+#vnAiChatPanel{position:fixed;right:22px;bottom:88px;z-index:10000;width:min(430px,calc(100vw - 28px));height:min(650px,calc(100dvh - 112px));min-height:420px;display:none;flex-direction:column;background:linear-gradient(160deg,#21060d,#100105 72%);border:1px solid #d4af37;border-radius:22px;overflow:hidden;box-shadow:0 24px 85px #000d;color:#fff9e6}
+#vnAiChatPanel.vn-open{display:flex}
+.vn-ai-head{padding:15px 16px;background:linear-gradient(120deg,#4a0c17,#1b0309);border-bottom:1px solid #d4af3755;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.vn-ai-brand{display:flex;align-items:center;gap:10px}.vn-ai-brand-mark{width:38px;height:38px;flex:0 0 38px;border:1px solid #d4af37;border-radius:50%;display:grid;place-items:center;color:#ffd700;background:#26070d}
+.vn-ai-brand-title{font:800 13px 'Cinzel',serif;letter-spacing:.08em;color:#ffd978}.vn-ai-brand-sub{font-size:10px;color:#d9cda7;margin-top:3px}
+.vn-ai-head-actions{display:flex;gap:6px}.vn-ai-icon-btn{width:32px;height:32px;border:1px solid #d4af3744;border-radius:9px;background:#26070d;color:#f4d58f;cursor:pointer}
+.vn-ai-toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 13px;background:#150208;border-bottom:1px solid #d4af3725}
+.vn-ai-language{display:flex;gap:4px;padding:3px;border:1px solid #8e6d244f;border-radius:999px;background:#0e0104}
+.vn-ai-language button{border:0;border-radius:999px;padding:6px 10px;background:transparent;color:#cbb99b;font-size:10px;font-weight:800;cursor:pointer}
+.vn-ai-language button[aria-pressed="true"]{background:linear-gradient(120deg,#ffe39a,#d4af37);color:#220308}
+.vn-ai-service-label{font-size:9px;color:#c7b58d;letter-spacing:.08em;text-transform:uppercase}
+.vn-ai-messages{flex:1;overflow:auto;padding:15px 13px;display:flex;flex-direction:column;gap:11px;scroll-behavior:smooth}
+.vn-ai-welcome{padding:14px;border:1px solid #d4af3740;border-radius:15px;background:linear-gradient(145deg,#35101a,#1a050b)}
+.vn-ai-welcome strong{display:block;color:#ffe2a0;font:700 12px 'Cinzel',serif;margin-bottom:6px}.vn-ai-welcome p{font-size:12px;line-height:1.65;color:#e8dcc2;margin:0}
+.vn-ai-msg{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.65;font-size:12px;padding:11px 13px;border-radius:14px;max-width:94%}
+.vn-ai-user{align-self:flex-end;background:linear-gradient(135deg,#ffe39a,#d4af37);color:#220308;border-bottom-right-radius:5px}
+.vn-ai-bot{align-self:flex-start;background:#2b0a10;border:1px solid #d4af3738;color:#fff9e6;border-bottom-left-radius:5px}
+.vn-ai-msg-label{display:block;margin-bottom:4px;font-size:9px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;opacity:.72}
+.vn-ai-typing{display:flex;gap:5px;min-height:20px}.vn-ai-typing i{width:6px;height:6px;border-radius:50%;background:#e8c66b;animation:vnAiBounce .9s infinite ease-in-out}
+.vn-ai-typing i:nth-child(2){animation-delay:.12s}.vn-ai-typing i:nth-child(3){animation-delay:.24s}
+@keyframes vnAiBounce{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-5px);opacity:1}}
+.vn-ai-prompts{display:flex;gap:6px;padding:8px 12px 10px;flex-wrap:wrap;background:#100105;border-top:1px solid #d4af3725}
+.vn-prompt-btn{font-size:10px;background:#2b0a10;border:1px solid #d4af3755;color:#ffe19a;padding:7px 9px;border-radius:999px;cursor:pointer}
+.vn-ai-form{display:flex;align-items:flex-end;gap:8px;padding:11px 12px 12px;border-top:1px solid #d4af3744;background:#100105}
+#vnAiInput{min-width:0;flex:1;max-height:110px;resize:none;background:#24070d;color:#fff9e6;border:1px solid #8e6d24;border-radius:12px;padding:11px 12px;font:12px/1.5 'Plus Jakarta Sans',sans-serif;outline:none}
+#vnAiInput:focus{border-color:#ffd700}#vnAiSend{width:43px;height:42px;flex:0 0 43px;background:linear-gradient(135deg,#ffe39a,#d4af37);color:#220308;border-radius:12px;font-weight:900;cursor:pointer}
+#vnAiSend:disabled{opacity:.55;cursor:wait}.vn-ai-footnote{padding:0 13px 9px;background:#100105;color:#9d8b6e;font-size:9px;text-align:center}
+.vn-ai-retry{display:block;margin-top:8px;border:1px solid #d4af3770;background:#35101a;color:#ffe39a;border-radius:8px;padding:6px 10px;font-size:10px;font-weight:800;cursor:pointer}
+@media(max-width:480px){#vnAiLauncher{right:14px;bottom:82px;padding:11px 14px}#vnAiChatPanel{right:10px;bottom:135px;width:calc(100vw - 20px);height:min(620px,calc(100dvh - 160px));min-height:390px;border-radius:18px}.vn-ai-head{padding:12px}.vn-ai-messages{padding:12px 10px}}
+@media(prefers-reduced-motion:reduce){.vn-ai-typing i{animation:none!important}}
 </style>
-
-<button id="vnAiLauncher" type="button" aria-controls="vnAiChatPanel" aria-expanded="false"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> Ask Vidya AI</button>
-
-<section id="vnAiChatPanel" role="dialog" aria-label="Vidya Nirman AI study assistant">
-  <div class="vn-ai-head">
-    <div>
-      <div style="font-weight:900;color:#FFD700;font-family:Cinzel,serif">VIDYA NIRMAN AI</div>
-      <div style="font-size:11px;color:#d9cda7;margin-top:3px">Class 9 • Study Assistant</div>
-    </div>
-    <button id="vnAiClose" type="button" aria-label="Close chat" style="color:#FFD700;font-size:23px;padding:0 4px">×</button>
-  </div>
-  
-  <div id="vnAiMessages" class="vn-ai-messages" aria-live="polite">
-    <div class="vn-ai-msg vn-ai-bot">Namaste! 🙏 Main Vidya Nirman AI hoon. Chapter explanations, science concepts, numericals aur practice MCQs ke baare mein poochho.</div>
-  </div>
-
-  <!-- Quick Action Buttons -->
-  <div class="vn-ai-prompts">
-    <button type="button" class="vn-prompt-btn" onclick="sendQuickPrompt('Is chapter/topic ka short summary banao:')">📝 Summary</button>
-    <button type="button" class="vn-prompt-btn" onclick="sendQuickPrompt('Is topic par 5 Important MCQs pucho with answers:')">❓ MCQs</button>
-    <button type="button" class="vn-prompt-btn" onclick="sendQuickPrompt('Isse bilkul aasan bhasha mein real-life example ke saath samjhaon:')">💡 Simple Explanation</button>
-  </div>
-
-  <form id="vnAiForm" class="vn-ai-form">
-    <input id="vnAiInput" maxlength="4000" autocomplete="off" placeholder="Apna study question likho…" aria-label="Your question" required>
-    <button id="vnAiSend" type="submit">Send</button>
-  </form>
+<button id="vnAiLauncher" type="button" aria-controls="vnAiChatPanel" aria-expanded="false"><span class="vn-ai-launch-icon"><i class="fa-solid fa-sparkles" aria-hidden="true"></i></span><span>Ask Vidya AI</span></button>
+<section id="vnAiChatPanel" role="dialog" aria-label="Vidya Nirman AI study assistant" aria-modal="false">
+<div class="vn-ai-head"><div class="vn-ai-brand"><div class="vn-ai-brand-mark"><i class="fa-solid fa-graduation-cap"></i></div><div><div class="vn-ai-brand-title">VIDYA NIRMAN AI</div><div class="vn-ai-brand-sub">Your Class 9 learning companion</div></div></div>
+<div class="vn-ai-head-actions"><button id="vnAiNewChat" class="vn-ai-icon-btn" type="button" aria-label="Start a new chat" title="New chat"><i class="fa-solid fa-rotate-left"></i></button><button id="vnAiClose" class="vn-ai-icon-btn" type="button" aria-label="Close chat"><i class="fa-solid fa-xmark"></i></button></div></div>
+<div class="vn-ai-toolbar"><div class="vn-ai-language" role="group" aria-label="AI response language"><button type="button" data-vn-language="hinglish" aria-pressed="true">Hinglish</button><button type="button" data-vn-language="english" aria-pressed="false">English</button></div><span class="vn-ai-service-label">✦ Study assistant</span></div>
+<div id="vnAiMessages" class="vn-ai-messages" aria-live="polite"><div class="vn-ai-welcome"><strong>Namaste! Welcome to Vidya AI 🙏</strong><p>Ask me to explain a Class 9 topic, solve a numerical step by step, make revision notes, or prepare practice questions. Choose your response language above.</p></div></div>
+<div class="vn-ai-prompts" aria-label="Study tools">
+<button type="button" class="vn-prompt-btn" data-vn-prompt="Explain this topic step by step with a simple real-life example: ">✦ Explain</button>
+<button type="button" class="vn-prompt-btn" data-vn-prompt="Create concise revision notes with key definitions and important points for: ">📝 Notes</button>
+<button type="button" class="vn-prompt-btn" data-vn-prompt="Create 5 Class 9 level MCQs. Ask one at a time and wait for my answer. Topic: ">❓ Practice MCQs</button>
+<button type="button" class="vn-prompt-btn" data-vn-prompt="Create 8 flashcards with a question and short answer for: ">⚡ Flashcards</button>
+<button type="button" class="vn-prompt-btn" data-vn-prompt="Create a realistic 7-day revision plan with short daily study sessions for: ">📅 Revision plan</button>
+</div>
+<form id="vnAiForm" class="vn-ai-form"><textarea id="vnAiInput" rows="1" maxlength="4000" autocomplete="off" placeholder="Ask your study question…" aria-label="Your question" required></textarea><button id="vnAiSend" type="submit" aria-label="Send message" title="Send"><i class="fa-solid fa-arrow-up"></i></button></form>
+<div class="vn-ai-footnote">Check important answers with your textbook or teacher.</div>
 </section>
-
-<script>
+<script id="vn-ai-controller">
 (() => {
-  const API_URL = 'https://vidya-nirman-ai.onrender.com/api/chat';
-  const launcher = document.getElementById('vnAiLauncher');
-  const panel = document.getElementById('vnAiChatPanel');
-  const close = document.getElementById('vnAiClose');
-  const form = document.getElementById('vnAiForm');
-  const input = document.getElementById('vnAiInput');
-  const send = document.getElementById('vnAiSend');
-  const messages = document.getElementById('vnAiMessages');
-  
-  // Chat memory array
-  const messagesHistory = [];
-
-  function toggle(open) { 
-    panel.classList.toggle('vn-open', open); 
-    launcher.setAttribute('aria-expanded', String(open)); 
-    if(open) input.focus(); 
-  }
-
-  launcher.addEventListener('click', () => toggle(!panel.classList.contains('vn-open')));
-  close.addEventListener('click', () => toggle(false));
-
-  function addMessage(text, role) { 
-    const el = document.createElement('div'); 
-    el.className = 'vn-ai-msg ' + (role === 'user' ? 'vn-ai-user' : 'vn-ai-bot'); 
-    el.textContent = text; 
-    messages.appendChild(el); 
-    messages.scrollTop = messages.scrollHeight; 
-    return el; 
-  }
-
-  // Quick Action Button Function
-  window.sendQuickPrompt = function(promptText) {
-    input.value = promptText + " ";
-    input.focus();
-  };
-
-  form.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const message = input.value.trim(); 
-    if (!message || send.disabled) return;
-    
-    addMessage(message, 'user'); 
-    input.value = ''; 
-    send.disabled = true; 
-    send.textContent = '…';
-    
-    // User ka message memory mein add kar rahe hain
-    messagesHistory.push({ role: 'user', content: message });
-
-    const pending = addMessage('Soch raha hoon…', 'assistant');
-    try {
-      // Backend ko complete memory array bhej rahe hain
-      const response = await fetch(API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: messagesHistory })
-      });
-      
-      let data = {}; 
-      try { data = await response.json(); } catch (_) {}
-      
-      if (!response.ok) throw new Error(data.error || 'Request failed (' + response.status + ').');
-      if (typeof data.answer !== 'string' || !data.answer.trim()) throw new Error('AI se jawab nahi mila.');
-      
-      pending.textContent = data.answer;
-      
-      // AI ka response memory mein store kar rahe hain
-      messagesHistory.push({ role: 'assistant', content: data.answer });
-
-    } catch (error) {
-      pending.textContent = 'Maaf karna, abhi AI connect nahi ho pa raha. ' + error.message;
-    } finally { 
-      send.disabled = false; 
-      send.textContent = 'Send'; 
-      input.focus(); 
-      messages.scrollTop = messages.scrollHeight; 
-    }
-  });
+ const API_URL='https://vidya-nirman-ai.onrender.com/api/chat';
+ const launcher=document.getElementById('vnAiLauncher'),panel=document.getElementById('vnAiChatPanel'),close=document.getElementById('vnAiClose'),newChat=document.getElementById('vnAiNewChat'),form=document.getElementById('vnAiForm'),input=document.getElementById('vnAiInput'),send=document.getElementById('vnAiSend'),messages=document.getElementById('vnAiMessages');
+ const languageButtons=Array.from(document.querySelectorAll('[data-vn-language]')),promptButtons=Array.from(document.querySelectorAll('[data-vn-prompt]'));
+ if(!launcher||!panel||!form||!input||!send||!messages)return;
+ const history=[];let language='hinglish',busy=false,lastPrompt='';
+ const scroll=()=>{messages.scrollTop=messages.scrollHeight};
+ function toggle(open){panel.classList.toggle('vn-open',open);launcher.setAttribute('aria-expanded',String(open));if(open)input.focus()}
+ launcher.addEventListener('click',()=>toggle(!panel.classList.contains('vn-open')));close.addEventListener('click',()=>toggle(false));
+ function setLanguage(next){language=next==='english'?'english':'hinglish';languageButtons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.vnLanguage===language)))}
+ languageButtons.forEach(b=>b.addEventListener('click',()=>setLanguage(b.dataset.vnLanguage)));
+ function welcome(){messages.innerHTML='';const box=document.createElement('div');box.className='vn-ai-welcome';const h=document.createElement('strong'),p=document.createElement('p');h.textContent='Namaste! Welcome to Vidya AI 🙏';p.textContent='Ask me to explain a Class 9 topic, solve a numerical step by step, make revision notes, or prepare practice questions. Choose your response language above.';box.append(h,p);messages.appendChild(box)}
+ function addMessage(content,role){const box=document.createElement('div'),label=document.createElement('span'),body=document.createElement('div');box.className='vn-ai-msg '+(role==='user'?'vn-ai-user':'vn-ai-bot');label.className='vn-ai-msg-label';label.textContent=role==='user'?'You':'Vidya AI';body.textContent=content;box.append(label,body);messages.appendChild(box);scroll();return box}
+ function typing(){const box=document.createElement('div');box.className='vn-ai-msg vn-ai-bot';box.innerHTML='<span class="vn-ai-msg-label">Vidya AI</span><span class="vn-ai-typing"><i></i><i></i><i></i></span>';messages.appendChild(box);scroll();return box}
+ function setBusy(v){busy=v;send.disabled=v;send.innerHTML=v?'<i class="fa-solid fa-circle-notch fa-spin"></i>':'<i class="fa-solid fa-arrow-up"></i>'}
+ function instruction(lang){return lang==='english'?'Respond in clear, simple English suitable for a Class 9 student. Keep technical terms accurate.':'Respond in friendly Hinglish using simple Hindi in Roman script mixed with clear English academic terms. Keep the explanation suitable for a Class 9 student.'}
+ async function ask(question,retry){if(!question||busy)return;lastPrompt=question;if(!retry){addMessage(question,'user');history.push({role:'user',content:question,language:language});if(history.length>18)history.splice(0,history.length-18)}
+ const pending=typing();setBusy(true);const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),45000);
+ try{
+  const payload=history.map(item=>({role:item.role,content:item.role==='user'?instruction(item.language)+'\n\n'+item.content:item.content}));
+  const response=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:payload}),signal:controller.signal});
+  let data={};try{data=await response.json()}catch(_){}
+  if(!response.ok)throw new Error(data&&typeof data.error==='string'?data.error:'Request failed ('+response.status+').');
+  if(!data||typeof data.answer!=='string'||!data.answer.trim())throw new Error('The AI service returned an empty answer. Please try again.');
+  pending.remove();addMessage(data.answer,'assistant');history.push({role:'assistant',content:data.answer});if(history.length>18)history.splice(0,history.length-18);
+ }catch(error){
+  pending.remove();let detail=error&&error.name==='AbortError'?'The request took too long. Please try again.':(error&&error.message?error.message:'Unable to reach the AI service.');
+  if(detail==='Failed to fetch'||detail==='NetworkError when attempting to fetch resource.')detail='Could not reach the AI service. Check your internet connection and try again.';
+  const bubble=addMessage('Sorry, I could not complete that request. '+detail,'assistant'),retryButton=document.createElement('button');retryButton.type='button';retryButton.className='vn-ai-retry';retryButton.textContent='↻ Try again';retryButton.addEventListener('click',()=>ask(lastPrompt,true));bubble.appendChild(retryButton);
+ }finally{clearTimeout(timer);setBusy(false);input.focus();scroll()}
+ }
+ form.addEventListener('submit',event=>{event.preventDefault();const question=input.value.trim();if(!question||busy)return;input.value='';input.style.height='auto';ask(question,false)});
+ input.addEventListener('keydown',event=>{if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();form.requestSubmit()}});
+ input.addEventListener('input',()=>{input.style.height='auto';input.style.height=Math.min(input.scrollHeight,110)+'px'});
+ promptButtons.forEach(b=>b.addEventListener('click',()=>{input.value=b.dataset.vnPrompt||'';input.focus();input.setSelectionRange(input.value.length,input.value.length);input.style.height='auto';input.style.height=Math.min(input.scrollHeight,110)+'px'}));
+ newChat.addEventListener('click',()=>{if(busy)return;history.length=0;lastPrompt='';welcome();input.value='';input.style.height='auto';input.focus()});
 })();
 </script>
-
 
 <!-- Vidya Nirman shared account session: same-domain pages -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
