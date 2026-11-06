@@ -1233,7 +1233,7 @@
 <button type="button" class="vn-prompt-btn" data-vn-prompt="Create a realistic 7-day revision plan with short daily study sessions for: ">📅 Revision plan</button>
 </div>
 <form id="vnAiForm" class="vn-ai-form"><textarea id="vnAiInput" rows="1" maxlength="4000" autocomplete="off" placeholder="Ask your study question…" aria-label="Your question" required></textarea><button id="vnAiSend" type="submit" aria-label="Send message" title="Send"><i class="fa-solid fa-arrow-up"></i></button></form>
-<div class="vn-ai-footnote">Check important answers with your textbook or teacher.</div>
+<div class="vn-ai-footnote">Chats auto-save on this device · New Chat clears the saved conversation · Check important answers with your textbook or teacher.</div>
 </section>
 <script id="vn-ai-controller">
 (() => {
@@ -1241,18 +1241,24 @@
  const launcher=document.getElementById('vnAiLauncher'),panel=document.getElementById('vnAiChatPanel'),close=document.getElementById('vnAiClose'),newChat=document.getElementById('vnAiNewChat'),form=document.getElementById('vnAiForm'),input=document.getElementById('vnAiInput'),send=document.getElementById('vnAiSend'),messages=document.getElementById('vnAiMessages');
  const languageButtons=Array.from(document.querySelectorAll('[data-vn-language]')),promptButtons=Array.from(document.querySelectorAll('[data-vn-prompt]'));
  if(!launcher||!panel||!form||!input||!send||!messages)return;
- const history=[];let language='hinglish',busy=false,lastPrompt='';
+ const STORAGE_KEY='vn_vidya_ai_chat_v1';
+ let history=[];let language='hinglish',busy=false,lastPrompt='';
+ try{const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');if(Array.isArray(saved))history=saved.filter(x=>x&&['user','assistant'].includes(x.role)&&typeof x.content==='string').slice(-18)}catch(_){history=[]}
+ function persist(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(history.slice(-18)))}catch(_){}}
+
  const scroll=()=>{messages.scrollTop=messages.scrollHeight};
+ restoreHistory();
  function toggle(open){panel.classList.toggle('vn-open',open);launcher.setAttribute('aria-expanded',String(open));if(open)input.focus()}
  launcher.addEventListener('click',()=>toggle(!panel.classList.contains('vn-open')));close.addEventListener('click',()=>toggle(false));
  function setLanguage(next){language=next==='english'?'english':'hinglish';languageButtons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.vnLanguage===language)))}
  languageButtons.forEach(b=>b.addEventListener('click',()=>setLanguage(b.dataset.vnLanguage)));
  function welcome(){messages.innerHTML='';const box=document.createElement('div');box.className='vn-ai-welcome';const h=document.createElement('strong'),p=document.createElement('p');h.textContent='Namaste! Welcome to Vidya AI 🙏';p.textContent='Ask me to explain a Class 9 topic, solve a numerical step by step, make revision notes, or prepare practice questions. Choose your response language above.';box.append(h,p);messages.appendChild(box)}
  function addMessage(content,role){const box=document.createElement('div'),label=document.createElement('span'),body=document.createElement('div');box.className='vn-ai-msg '+(role==='user'?'vn-ai-user':'vn-ai-bot');label.className='vn-ai-msg-label';label.textContent=role==='user'?'You':'Vidya AI';body.textContent=content;box.append(label,body);messages.appendChild(box);scroll();return box}
+ function restoreHistory(){if(!history.length)return;messages.innerHTML='';history.forEach(item=>addMessage(item.content,item.role==='user'?'user':'assistant'))}
  function typing(){const box=document.createElement('div');box.className='vn-ai-msg vn-ai-bot';box.innerHTML='<span class="vn-ai-msg-label">Vidya AI</span><span class="vn-ai-typing"><i></i><i></i><i></i></span>';messages.appendChild(box);scroll();return box}
  function setBusy(v){busy=v;send.disabled=v;send.innerHTML=v?'<i class="fa-solid fa-circle-notch fa-spin"></i>':'<i class="fa-solid fa-arrow-up"></i>'}
  function instruction(lang){return lang==='english'?'Respond in clear, simple English suitable for a Class 9 student. Keep technical terms accurate.':'Respond in friendly Hinglish using simple Hindi in Roman script mixed with clear English academic terms. Keep the explanation suitable for a Class 9 student.'}
- async function ask(question,retry){if(!question||busy)return;lastPrompt=question;if(!retry){addMessage(question,'user');history.push({role:'user',content:question,language:language});if(history.length>18)history.splice(0,history.length-18)}
+ async function ask(question,retry){if(!question||busy)return;lastPrompt=question;if(!retry){addMessage(question,'user');history.push({role:'user',content:question,language:language});if(history.length>18)history.splice(0,history.length-18);persist()}
  const pending=typing();setBusy(true);const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),45000);
  try{
   const payload=history.map(item=>({role:item.role,content:item.role==='user'?instruction(item.language)+'\n\n'+item.content:item.content}));
@@ -1260,7 +1266,7 @@
   let data={};try{data=await response.json()}catch(_){}
   if(!response.ok)throw new Error(data&&typeof data.error==='string'?data.error:'Request failed ('+response.status+').');
   if(!data||typeof data.answer!=='string'||!data.answer.trim())throw new Error('The AI service returned an empty answer. Please try again.');
-  pending.remove();addMessage(data.answer,'assistant');history.push({role:'assistant',content:data.answer});if(history.length>18)history.splice(0,history.length-18);
+  pending.remove();addMessage(data.answer,'assistant');history.push({role:'assistant',content:data.answer});if(history.length>18)history.splice(0,history.length-18);persist();
  }catch(error){
   pending.remove();let detail=error&&error.name==='AbortError'?'The request took too long. Please try again.':(error&&error.message?error.message:'Unable to reach the AI service.');
   if(detail==='Failed to fetch'||detail==='NetworkError when attempting to fetch resource.')detail='Could not reach the AI service. Check your internet connection and try again.';
@@ -1271,7 +1277,7 @@
  input.addEventListener('keydown',event=>{if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();form.requestSubmit()}});
  input.addEventListener('input',()=>{input.style.height='auto';input.style.height=Math.min(input.scrollHeight,110)+'px'});
  promptButtons.forEach(b=>b.addEventListener('click',()=>{input.value=b.dataset.vnPrompt||'';input.focus();input.setSelectionRange(input.value.length,input.value.length);input.style.height='auto';input.style.height=Math.min(input.scrollHeight,110)+'px'}));
- newChat.addEventListener('click',()=>{if(busy)return;history.length=0;lastPrompt='';welcome();input.value='';input.style.height='auto';input.focus()});
+ newChat.addEventListener('click',()=>{if(busy)return;history.length=0;persist();lastPrompt='';welcome();input.value='';input.style.height='auto';input.focus()});
 })();
 </script>
 
