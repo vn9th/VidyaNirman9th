@@ -447,6 +447,37 @@ console.log(checkMarks(78));</code></pre></div>
 </div><div class="min-w-0"><div class="flex items-center justify-between mb-2"><label class="text-xs font-bold text-amber-200">LIVE PREVIEW</label><span class="text-[10px] text-emerald-300">Isolated iframe</span></div><iframe id="labPreview" title="Live code preview" sandbox="allow-scripts" referrerpolicy="no-referrer" class="w-full min-h-[390px] rounded-xl bg-white border border-amber-500/30"></iframe>
 <div class="rounded-xl border border-amber-500/20 bg-[#090103] mt-3 overflow-hidden"><div class="flex items-center justify-between px-3 py-2 border-b border-amber-500/20"><span class="text-xs font-bold text-amber-200">Console output</span><button id="clearLabConsole" class="text-[10px] text-slate-400 hover:text-amber-200" type="button">Clear</button></div><pre id="labConsole" class="p-3 min-h-[76px] max-h-[170px] overflow-auto whitespace-pre-wrap break-words text-[11px] text-emerald-200 font-mono" aria-live="polite">Run your project to see console messages here.</pre></div><p class="text-xs text-slate-400 mt-2">Preview is sandboxed. Network access and server-side execution are not part of this browser lab.</p></div></div></section>
 
+
+<section id="student-showcase" class="gold-card rounded-2xl p-5 sm:p-7">
+  <div class="section-heading"><span class="section-index">04</span><div><p class="text-[10px] uppercase tracking-[.2em] text-amber-400 font-black">STUDENT CREATIONS</p><p class="text-xs text-slate-400 mt-1">Build it · Save it · Showcase it</p></div></div>
+  <div class="flex flex-wrap items-start justify-between gap-3 mt-2"><div><span class="text-[10px] font-black tracking-widest text-emerald-300">VN PROJECT SHOWCASE</span><h2 class="font-cinzel text-2xl sm:text-3xl font-bold text-amber-100 mt-2">Student Coding Portfolio</h2><p class="text-sm text-slate-300 mt-3 leading-7 max-w-2xl">Apne Coding Studio projects ko ek personal portfolio mein collect karo. Project description, tech stack, live demo link aur source snapshot add kar sakte ho.</p></div><div class="pill"><i class="fa-solid fa-laptop-code mr-2"></i><span id="portfolioCount">0 projects</span></div></div>
+  <div class="rounded-xl border border-amber-500/20 bg-[#160207] p-4 sm:p-5 mt-5">
+    <div class="flex flex-wrap justify-between items-center gap-2"><h3 class="font-bold text-amber-100"><i class="fa-solid fa-id-card text-amber-300 mr-2"></i>Your portfolio profile</h3><span class="text-[10px] text-slate-400">Saved on this device</span></div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+      <label class="text-xs text-amber-200 font-bold">Display name<input id="portfolioStudentName" maxlength="50" class="w-full mt-2 rounded-xl border border-amber-500/30 bg-[#100206] p-3 text-sm text-amber-50" placeholder="Your name"></label>
+      <label class="text-xs text-amber-200 font-bold">Portfolio headline<input id="portfolioHeadline" maxlength="90" class="w-full mt-2 rounded-xl border border-amber-500/30 bg-[#100206] p-3 text-sm text-amber-50" placeholder="Class 9 student · Front-end learner"></label>
+    </div>
+    <div class="flex flex-wrap gap-2 mt-3"><button id="savePortfolioProfile" type="button" class="pill">Save profile</button><button id="exportPortfolio" type="button" class="pill"><i class="fa-solid fa-download mr-1"></i>Export portfolio HTML</button></div>
+    <p id="portfolioProfileStatus" class="text-[11px] text-emerald-200 mt-2" role="status">Your portfolio profile is private to this browser until you export and share it.</p>
+  </div>
+  <div class="rounded-xl border border-amber-500/20 p-4 sm:p-5 mt-4">
+    <h3 class="font-bold text-amber-100"><i class="fa-solid fa-plus-circle text-amber-300 mr-2"></i>Add a project</h3>
+    <p class="text-xs text-slate-400 mt-1">Tip: pehle VN Coding Studio mein project banao, phir uska snapshot portfolio mein save karo.</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+      <label class="text-xs text-amber-200 font-bold">Project title<input id="portfolioProjectTitle" maxlength="60" class="w-full mt-2 rounded-xl border border-amber-500/30 bg-[#100206] p-3 text-sm text-amber-50" placeholder="e.g. Interactive Study Planner" required></label>
+      <label class="text-xs text-amber-200 font-bold">Tech stack<input id="portfolioProjectTech" maxlength="100" class="w-full mt-2 rounded-xl border border-amber-500/30 bg-[#100206] p-3 text-sm text-amber-50" placeholder="HTML, CSS, JavaScript"></label>
+    </div>
+    <label class="block text-xs text-amber-200 font-bold mt-3">What does your project do?<textarea id="portfolioProjectDescription" maxlength="320" rows="3" class="w-full mt-2 rounded-xl border border-amber-500/30 bg-[#100206] p-3 text-sm text-amber-50" placeholder="Describe the problem it solves and what you learned…"></textarea></label>
+    <label class="block text-xs text-amber-200 font-bold mt-3">Demo link (optional)<input id="portfolioProjectLink" type="url" maxlength="500" class="w-full mt-2 rounded-xl border border-amber-500/30 bg-[#100206] p-3 text-sm text-amber-50" placeholder="https://your-demo.example"></label>
+    <label class="flex items-start gap-2 text-xs text-slate-300 mt-4"><input id="portfolioIncludeSource" type="checkbox" checked class="mt-0.5 accent-amber-400"><span>Include current VN Coding Studio HTML/CSS/JS as a downloadable source snapshot</span></label>
+    <div class="flex flex-wrap items-center gap-3 mt-4"><button id="addPortfolioProject" type="button" class="rounded-xl bg-gradient-to-r from-amber-400 to-yellow-600 px-5 py-3 text-sm font-black text-[#220308]">Add to my portfolio</button><span id="portfolioFormStatus" class="text-xs text-amber-200" role="status">Up to 30 projects can be saved on this device.</span></div>
+  </div>
+  <div class="flex flex-wrap items-end justify-between gap-2 mt-6"><div><p class="text-[10px] uppercase tracking-[.2em] text-amber-400 font-black">YOUR WORK</p><h3 class="font-cinzel text-xl font-bold text-amber-100 mt-1">Portfolio projects</h3></div><span class="text-[10px] text-slate-400">Manage and export your work</span></div>
+  <div id="portfolioProjects" class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4" aria-live="polite"><div class="rounded-xl border border-dashed border-amber-500/30 p-5 text-sm text-slate-400">Your projects will appear here after you add them.</div></div>
+  <div class="rounded-xl border border-amber-500/20 bg-[#160207] p-4 mt-5"><p class="text-xs font-bold text-amber-200"><i class="fa-solid fa-lightbulb mr-2"></i>Starter inspiration</p><div class="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-3"><button type="button" class="pill text-left" data-portfolio-starter="profile">👤 Profile card <span class="block text-[10px] text-slate-400 mt-1">HTML + CSS</span></button><button type="button" class="pill text-left" data-portfolio-starter="counter">🔢 Interactive counter <span class="block text-[10px] text-slate-400 mt-1">JavaScript</span></button><button type="button" class="pill text-left" data-portfolio-starter="todo">✅ Study task list <span class="block text-[10px] text-slate-400 mt-1">DOM + events</span></button></div></div>
+  <p class="text-[10px] text-slate-500 mt-4 leading-5">Privacy note: this first version stores your portfolio in this browser only. It does not upload student work publicly or to a server. Export the HTML portfolio when you are ready to share it. Do not add private contact details or passwords.</p>
+</section>
+
 <section id="coding-challenges" class="gold-card rounded-2xl p-5 sm:p-7"><div class="section-heading"><span class="section-index">03</span><div><p class="text-[10px] uppercase tracking-[.2em] text-amber-400 font-black">PRACTICE ARENA</p><p class="text-xs text-slate-400 mt-1">Build, test and improve</p></div></div><h2 class="font-cinzel text-2xl font-bold text-amber-100 mt-2">Coding Challenges</h2><p class="text-sm text-slate-300 mt-3 leading-7">Challenge load karo, TODOs complete karo aur basic checks run karo. Preview mein final behaviour khud test karo.</p><div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-5"><article class="rounded-xl border border-amber-500/20 p-4"><span class="pill">Level 1 · HTML/CSS</span><h3 class="font-bold text-amber-100 mt-3">Personal Profile Card</h3><p class="text-xs text-slate-300 mt-2">Build a profile card with heading, paragraph and styling.</p><button class="pill mt-4 challenge-load" data-challenge="profile" type="button">Load challenge</button></article><article class="rounded-xl border border-amber-500/20 p-4"><span class="pill">Level 2 · JavaScript</span><h3 class="font-bold text-amber-100 mt-3">Interactive Counter</h3><p class="text-xs text-slate-300 mt-2">Make a counter with an increment button.</p><button class="pill mt-4 challenge-load" data-challenge="counter" type="button">Load challenge</button></article><article class="rounded-xl border border-amber-500/20 p-4"><span class="pill">Level 3 · JavaScript</span><h3 class="font-bold text-amber-100 mt-3">Mini Calculator</h3><p class="text-xs text-slate-300 mt-2">Read two numbers, add them and display the result.</p><button class="pill mt-4 challenge-load" data-challenge="calculator" type="button">Load challenge</button></article></div><div class="mt-4 rounded-xl border border-amber-500/20 bg-[#160207] p-4"><div class="flex flex-wrap items-center justify-between gap-3"><div><p class="text-xs font-bold text-amber-200">Your challenge check</p><p id="challengeStatus" class="text-xs text-slate-300 mt-1" role="status">Load a challenge to begin.</p></div><button id="checkChallenge" class="rounded-xl bg-gradient-to-r from-amber-400 to-yellow-600 px-4 py-3 text-xs font-black text-[#220308]" type="button">Check solution</button></div><div id="challengeChecklist" class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-3 text-xs text-slate-300"></div></div></section>
 
 <section id="projects" class="gold-card rounded-2xl p-5 sm:p-7">
@@ -752,6 +783,70 @@ for step in range(1, 4):
     certGate();
     generateCert.addEventListener('click',()=>{const name=document.getElementById('certName').value.trim();if(completedLessons.length<8){certGate();return;}if(!name){certStatus.textContent='Please enter your name first.';document.getElementById('certName').focus();return;}document.getElementById('certStudentDisplay').textContent=name;document.getElementById('certCourseDisplay').textContent=document.getElementById('certCourse').value;document.getElementById('certDateDisplay').textContent='Completed on '+new Date().toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'});document.getElementById('certIdDisplay').textContent='VN-CA-'+new Date().getFullYear()+'-'+Math.random().toString(36).slice(2,8).toUpperCase();certificatePaper.classList.remove('hidden');printCert.disabled=false;certStatus.textContent='Certificate generated. Use Print / Save as PDF to keep a copy.';certificatePaper.scrollIntoView({behavior:'smooth',block:'center'});});
     printCert.addEventListener('click',()=>{if(certificatePaper.classList.contains('hidden'))return;document.body.classList.add('printing-certificate');window.print();document.body.classList.remove('printing-certificate');});
+
+  
+    // VN Project Showcase: student portfolio stored locally on this device.
+    (() => {
+      const key='vnStudentPortfolioV1',profileKey='vnStudentPortfolioProfileV1';
+      const $=id=>document.getElementById(id);
+      const escapeText=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+      const safeUrl=value=>{try{const u=new URL(String(value||''));return u.protocol==='https:'||u.protocol==='http:'?u.href:''}catch{return ''}};
+      const read=()=>{try{const x=JSON.parse(localStorage.getItem(key)||'[]');return Array.isArray(x)?x.filter(p=>p&&typeof p==='object').slice(0,30):[]}catch{return []}};
+      const readProfile=()=>{try{const x=JSON.parse(localStorage.getItem(profileKey)||'{}');return x&&typeof x==='object'?x:{}}catch{return {}}};
+      const save=items=>{try{localStorage.setItem(key,JSON.stringify(items));return true}catch{return false}};
+      const saveProfile=profile=>{try{localStorage.setItem(profileKey,JSON.stringify(profile));return true}catch{return false}};
+      const profile=readProfile();
+      $('portfolioStudentName').value=profile.name||'';
+      $('portfolioHeadline').value=profile.headline||'';
+      function downloadFile(filename,content,type='text/html'){
+        const blob=new Blob([content],{type:type+';charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+        a.href=url;a.download=filename;a.hidden=true;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+      }
+      function render(){
+        const projects=read(),host=$('portfolioProjects');
+        $('portfolioCount').textContent=projects.length+' project'+(projects.length===1?'':'s');
+        if(!projects.length){host.innerHTML='<div class="md:col-span-2 rounded-xl border border-dashed border-amber-500/30 p-5 text-sm text-slate-400">No projects yet. Add your first creation above and start building your portfolio.</div>';return}
+        host.innerHTML=projects.map((p,i)=>{
+          const link=safeUrl(p.link),hasSource=typeof p.source==='string'&&p.source.length>0;
+          return '<article class="rounded-xl border border-amber-500/25 bg-[#160207] p-4 flex flex-col min-w-0"><div class="flex items-start justify-between gap-2"><span class="pill">PROJECT '+String(i+1).padStart(2,'0')+'</span><span class="text-[10px] text-slate-500">'+escapeText(p.date||'Saved locally')+'</span></div><h4 class="font-bold text-amber-100 text-lg mt-3 break-words">'+escapeText(p.title||'Untitled project')+'</h4><p class="text-xs text-amber-200 mt-1">'+escapeText(p.tech||'Tech stack not specified')+'</p><p class="text-sm text-slate-300 mt-3 leading-6 whitespace-pre-wrap break-words flex-1">'+escapeText(p.description||'No description added yet.')+'</p><div class="flex flex-wrap gap-2 mt-4">'+(link?'<a class="pill" href="'+escapeText(link)+'" target="_blank" rel="noopener noreferrer">Open demo ↗</a>':'')+(hasSource?'<button type="button" class="pill" data-source="'+i+'">Download source</button>':'')+'<button type="button" class="pill" data-remove="'+i+'">Remove</button></div></article>';
+        }).join('');
+      }
+      $('savePortfolioProfile').addEventListener('click',()=>{
+        const p={name:$('portfolioStudentName').value.trim().slice(0,50),headline:$('portfolioHeadline').value.trim().slice(0,90)};
+        if(!saveProfile(p)){$('portfolioProfileStatus').textContent='Browser storage is full or unavailable. Export your work and free some space.';return}
+        $('portfolioProfileStatus').textContent='Portfolio profile saved on this device.';
+      });
+      $('addPortfolioProject').addEventListener('click',()=>{
+        const title=$('portfolioProjectTitle').value.trim(),description=$('portfolioProjectDescription').value.trim(),tech=$('portfolioProjectTech').value.trim(),rawLink=$('portfolioProjectLink').value.trim();
+        if(!title){$('portfolioFormStatus').textContent='Please add a project title.';$('portfolioProjectTitle').focus();return}
+        if(rawLink&&!safeUrl(rawLink)){$('portfolioFormStatus').textContent='Please use a valid http:// or https:// demo link.';$('portfolioProjectLink').focus();return}
+        const projects=read();if(projects.length>=30){$('portfolioFormStatus').textContent='Portfolio limit reached (30 projects). Remove an old project to add another.';return}
+        let source='';if($('portfolioIncludeSource').checked){try{source=typeof combinedCode==='function'?combinedCode():''}catch{}}
+        const item={id:'p'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),title:title.slice(0,60),description:description.slice(0,320),tech:tech.slice(0,100),link:safeUrl(rawLink),source:source.slice(0,180000),date:new Date().toLocaleDateString()};
+        projects.unshift(item);if(!save(projects)){$('portfolioFormStatus').textContent='Could not save: browser storage may be full. Try without the source snapshot.';return}
+        $('portfolioProjectTitle').value='';$('portfolioProjectDescription').value='';$('portfolioProjectTech').value='';$('portfolioProjectLink').value='';
+        $('portfolioFormStatus').textContent='Project added to your local portfolio.';render();
+      });
+      $('portfolioProjects').addEventListener('click',event=>{
+        const sourceButton=event.target.closest('[data-source]'),removeButton=event.target.closest('[data-remove]');
+        if(sourceButton){const p=read()[Number(sourceButton.dataset.source)];if(p?.source)downloadFile((p.title||'vn-project').replace(/[^a-z0-9_-]+/gi,'-').slice(0,50)+'.html',p.source);return}
+        if(removeButton){const i=Number(removeButton.dataset.remove),items=read();if(!Number.isInteger(i)||i<0||i>=items.length)return;items.splice(i,1);if(save(items))render()}
+      });
+      $('exportPortfolio').addEventListener('click',()=>{
+        const projects=read(),p=readProfile(),cards=projects.map((x,i)=>{
+          const href=safeUrl(x.link);
+          return '<article class="card"><small>PROJECT '+(i+1)+'</small><h2>'+escapeText(x.title)+'</h2><b>'+escapeText(x.tech||'')+'</b><p>'+escapeText(x.description||'')+'</p>'+(href?'<a href="'+escapeText(href)+'" target="_blank" rel="noopener noreferrer">Open project demo ↗</a>':'')+'</article>';
+        }).join('');
+        const html='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+escapeText(p.name||'Student')+' | Coding Portfolio</title><style>body{margin:0;padding:32px;font:16px/1.6 Arial,sans-serif;background:#12050a;color:#fff4dc}main{max-width:900px;margin:auto}h1{color:#f3cd72}.card{padding:22px;margin:16px 0;border:1px solid #98752e;border-radius:16px;background:#250b14}.card small,.card b{color:#f3cd72}a{color:#ffdf8c}</style></head><body><main><p>VIDYA NIRMAN · STUDENT PORTFOLIO</p><h1>'+escapeText(p.name||'Student Developer')+'</h1><p>'+escapeText(p.headline||'Student coder and creator')+'</p><h2>Projects</h2>'+(cards||'<p>No projects added yet.</p>')+'<footer>Created with VN Coding Academy · Student learning portfolio</footer></main></body></html>';
+        downloadFile('vidya-nirman-student-portfolio.html',html);
+        $('portfolioProfileStatus').textContent='Portfolio HTML exported. Open the downloaded file to review and share it.';
+      });
+      document.querySelectorAll('[data-portfolio-starter]').forEach(button=>button.addEventListener('click',()=>{
+        const select=$('labStarter');select.value=button.dataset.portfolioStarter;select.dispatchEvent(new Event('change',{bubbles:true}));
+        document.getElementById('labCode').scrollIntoView({behavior:'smooth',block:'center'});
+      }));
+      render();
+    })();
 
   </script>
 
