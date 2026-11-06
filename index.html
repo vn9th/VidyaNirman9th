@@ -1199,6 +1199,12 @@
 .vn-ai-language button{border:0;border-radius:999px;padding:6px 10px;background:transparent;color:#cbb99b;font-size:10px;font-weight:800;cursor:pointer}
 .vn-ai-language button[aria-pressed="true"]{background:linear-gradient(120deg,#ffe39a,#d4af37);color:#220308}
 .vn-ai-service-label{font-size:9px;color:#c7b58d;letter-spacing:.08em;text-transform:uppercase}
+.vn-ai-context{display:grid;grid-template-columns:75px minmax(0,1fr);gap:6px 9px;align-items:center;padding:9px 13px;background:#1a050b;border-bottom:1px solid #d4af3725}
+.vn-ai-context label{font-size:8px;font-weight:900;letter-spacing:.1em;color:#cbb98f}
+.vn-ai-context select,.vn-ai-context input{min-width:0;width:100%;border:1px solid #8e6d2455;border-radius:8px;background:#26070d;color:#fff4d5;padding:7px 9px;font:10px 'Plus Jakarta Sans',sans-serif;outline:none}
+.vn-ai-context select:focus,.vn-ai-context input:focus{border-color:#ffd700}
+.vn-ai-context input::placeholder{color:#a99578}
+
 .vn-ai-messages{flex:1;overflow:auto;padding:15px 13px;display:flex;flex-direction:column;gap:11px;scroll-behavior:smooth}
 .vn-ai-welcome{padding:14px;border:1px solid #d4af3740;border-radius:15px;background:linear-gradient(145deg,#35101a,#1a050b)}
 .vn-ai-welcome strong{display:block;color:#ffe2a0;font:700 12px 'Cinzel',serif;margin-bottom:6px}.vn-ai-welcome p{font-size:12px;line-height:1.65;color:#e8dcc2;margin:0}
@@ -1223,7 +1229,7 @@
 <section id="vnAiChatPanel" role="dialog" aria-label="Vidya Nirman AI study assistant" aria-modal="false">
 <div class="vn-ai-head"><div class="vn-ai-brand"><div class="vn-ai-brand-mark vn-ai-brand-orb" aria-hidden="true"><i class="fa-solid fa-brain"></i><span>✦</span></div><div><div class="vn-ai-brand-title">VIDYA NIRMAN AI</div><div class="vn-ai-brand-sub">Your Class 9 learning companion</div></div></div>
 <div class="vn-ai-head-actions"><button id="vnAiNewChat" class="vn-ai-icon-btn" type="button" aria-label="Start a new chat" title="New chat"><i class="fa-solid fa-rotate-left"></i></button><button id="vnAiClose" class="vn-ai-icon-btn" type="button" aria-label="Close chat"><i class="fa-solid fa-xmark"></i></button></div></div>
-<div class="vn-ai-toolbar"><div class="vn-ai-language" role="group" aria-label="AI response language"><button type="button" data-vn-language="hinglish" aria-pressed="true">Hinglish</button><button type="button" data-vn-language="english" aria-pressed="false">English</button></div><span class="vn-ai-service-label">✦ Study assistant</span></div>
+<div class="vn-ai-toolbar"><div class="vn-ai-language" role="group" aria-label="AI response language"><button type="button" data-vn-language="hinglish" aria-pressed="true">Hinglish</button><button type="button" data-vn-language="english" aria-pressed="false">English</button></div><span class="vn-ai-service-label">✦ Study assistant</span></div><div class="vn-ai-context"><label for="vnAiSubject">SUBJECT</label><select id="vnAiSubject" aria-label="Study subject"><option value="">Choose subject</option><option>Science</option><option>Mathematics</option><option>Social Science</option><option>English</option><option>Hindi</option><option>Computer / Coding</option></select><label for="vnAiChapter">CHAPTER / TOPIC</label><input id="vnAiChapter" type="text" maxlength="100" placeholder="e.g. Motion, Tissues, The French Revolution" autocomplete="off"></div>
 <div id="vnAiMessages" class="vn-ai-messages" aria-live="polite"><div class="vn-ai-welcome"><strong>Namaste! Welcome to Vidya AI 🙏</strong><p>Ask me to explain a Class 9 topic, solve a numerical step by step, make revision notes, or prepare practice questions. Choose your response language above.</p></div></div>
 <div class="vn-ai-prompts" aria-label="Study tools">
 <button type="button" class="vn-prompt-btn" data-vn-prompt="Explain this topic step by step with a simple real-life example: ">✦ Explain</button>
@@ -1240,6 +1246,12 @@
  const API_URL='https://vidya-nirman-ai.onrender.com/api/chat';
  const launcher=document.getElementById('vnAiLauncher'),panel=document.getElementById('vnAiChatPanel'),close=document.getElementById('vnAiClose'),newChat=document.getElementById('vnAiNewChat'),form=document.getElementById('vnAiForm'),input=document.getElementById('vnAiInput'),send=document.getElementById('vnAiSend'),messages=document.getElementById('vnAiMessages');
  const languageButtons=Array.from(document.querySelectorAll('[data-vn-language]')),promptButtons=Array.from(document.querySelectorAll('[data-vn-prompt]'));
+ const subjectSelect=document.getElementById('vnAiSubject'),chapterInput=document.getElementById('vnAiChapter');
+ try{const ctx=JSON.parse(localStorage.getItem('vn_vidya_ai_study_context_v1')||'{}');if(subjectSelect&&typeof ctx.subject==='string')subjectSelect.value=ctx.subject;if(chapterInput&&typeof ctx.chapter==='string')chapterInput.value=ctx.chapter}catch(_){}
+ const studyContext=()=>{const subject=subjectSelect?.value||'',chapter=chapterInput?.value.trim()||'';return subject||chapter?'The student is currently studying'+(subject?' subject: '+subject:'')+(chapter?'; chapter/topic: '+chapter:'')+'. Keep examples, explanations, notes and practice relevant to this context. If the question is unrelated, answer it normally.':'Use the student’s question to identify the topic; do not assume a chapter.'};
+ const saveStudyContext=()=>{try{localStorage.setItem('vn_vidya_ai_study_context_v1',JSON.stringify({subject:subjectSelect?.value||'',chapter:chapterInput?.value||''}))}catch(_){}};
+ subjectSelect?.addEventListener('change',saveStudyContext);chapterInput?.addEventListener('input',saveStudyContext);
+
  if(!launcher||!panel||!form||!input||!send||!messages)return;
  const STORAGE_KEY='vn_vidya_ai_chat_v1';
  let history=[];let language='hinglish',busy=false,lastPrompt='';
@@ -1261,7 +1273,7 @@
  async function ask(question,retry){if(!question||busy)return;lastPrompt=question;if(!retry){addMessage(question,'user');history.push({role:'user',content:question,language:language});if(history.length>18)history.splice(0,history.length-18);persist()}
  const pending=typing();setBusy(true);const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),45000);
  try{
-  const payload=history.map(item=>({role:item.role,content:item.role==='user'?instruction(item.language)+'\n\n'+item.content:item.content}));
+  const payload=history.map(item=>({role:item.role,content:item.role==='user'?instruction(item.language)+'\n\n'+studyContext()+'\n\n'+item.content:item.content}));
   const response=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:payload}),signal:controller.signal});
   let data={};try{data=await response.json()}catch(_){}
   if(!response.ok)throw new Error(data&&typeof data.error==='string'?data.error:'Request failed ('+response.status+').');
