@@ -894,8 +894,8 @@ for step in range(1, 4):
         const bestQuiz=quiz.reduce((best,x)=>Math.max(best,Number(x.percentage)||0),0);
         const lessonsCount=new Set(lessons.map(Number).filter(n=>n>=1&&n<=10)).size,projectSteps=steps.filter(Boolean).length,challengeCount=new Set(challenges).size,portfolioCount=portfolio.length;
         const xp=lessonsCount*20+projectSteps*30+challengeCount*75+portfolioCount*25+quiz.length*10;
-        const activities=readArray(activityKey),days=[...new Set(activities.map(x=>String(x.at||'').slice(0,10)).filter(Boolean))].sort().reverse();
-        let streak=0;if(days.length){const today=new Date();today.setHours(0,0,0,0);const yesterday=new Date(today);yesterday.setDate(yesterday.getDate()-1);let cursor=new Date(days[0]+'T00:00:00');if(cursor.getTime()!==today.getTime()&&cursor.getTime()!==yesterday.getTime())cursor=null;while(cursor&&days.includes(cursor.toISOString().slice(0,10))){streak++;cursor.setDate(cursor.getDate()-1)}}
+        const activities=readArray(activityKey),dayKey=date=>date.getFullYear()+'-'+String(date.getMonth()+1).padStart(2,'0')+'-'+String(date.getDate()).padStart(2,'0'),days=[...new Set(activities.map(x=>{const d=new Date(x.at);return Number.isNaN(d.getTime())?'':dayKey(d)}).filter(Boolean))].sort().reverse();
+        let streak=0;if(days.length){const today=new Date();today.setHours(0,0,0,0);const yesterday=new Date(today);yesterday.setDate(yesterday.getDate()-1);let cursor=new Date(days[0]+'T00:00:00');if(cursor.getTime()!==today.getTime()&&cursor.getTime()!==yesterday.getTime())cursor=null;while(cursor&&days.includes(dayKey(cursor))){streak++;cursor.setDate(cursor.getDate()-1)}}
         const state={lessons:lessonsCount,projectSteps,challenges:challengeCount,portfolio:portfolioCount,quizCount:quiz.length,bestQuiz,xp,streak};
         state.badges=badgeDefinitions.filter(b=>b.ok(state));state.level=[...levels].reverse().find(x=>xp>=x.min)||levels[0];state.next=levels.find(x=>x.min>xp)||null;
         return state;
