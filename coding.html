@@ -595,23 +595,6 @@ button { padding: 10px 16px; border: 0; border-radius: 9px; background: #8b1e2d;
       });
     });
 
-    // Interactive live code lab: iframe is sandboxed; no same-origin access.
-    const labDefault = document.getElementById('labCode').value;
-    const labCode = document.getElementById('labCode');
-    const labPreview = document.getElementById('labPreview');
-    function runLab(){
-      labPreview.srcdoc = labCode.value;
-      document.getElementById('labStatus').textContent = 'Preview updated. Apne code ko change karke dobara run karo.';
-    }
-    document.getElementById('runLab').addEventListener('click', runLab);
-    document.getElementById('resetLab').addEventListener('click', () => { labCode.value = labDefault; runLab(); document.getElementById('labStatus').textContent='Example reset ho gaya.'; });
-    document.getElementById('downloadLab').addEventListener('click', () => {
-      const blob = new Blob([labCode.value], {type:'text/html;charset=utf-8'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href=url; a.download='my-vn-project.html'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
-      document.getElementById('labStatus').textContent='HTML file download start ho gaya.';
-    });
-    runLab();
     document.getElementById('helloForm').addEventListener('submit', event => {
       event.preventDefault();
       const name = document.getElementById('studentName').value.trim().slice(0,40);
