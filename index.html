@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#220308">
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vidya Nirman | विद्या निर्माण - Class 9th Interactive Portal</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5403264455389390"
+     crossorigin="anonymous"></script>
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Cinzel, Noto Serif Devanagari, Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Noto+Serif+Devanagari:wght@500;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-maroon-dark: #0F0103;
+            --bg-maroon-deep: #220308;
+            --bg-maroon-mid: #3B0810;
+            --gold-primary: #D4AF37;
+            --gold-bright: #FFD700;
+            --gold-glow: rgba(212, 175, 55, 0.45);
+            --saffron: #FF8C00;
+            --parchment: #FFF9E6;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-maroon-dark);
+            color: var(--parchment);
+            overflow-x: hidden;
+        }
+
+        .font-devanagari {
+            font-family: 'Noto Serif Devanagari', serif;
+        }
+
+        .font-cinzel {
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Traditional Jali Grid Pattern Background */
+        .jali-pattern {
+            background-image: radial-gradient(circle, rgba(212, 175, 55, 0.12) 1.2px, transparent 1.2px);
+            background-size: 26px 26px;
+        }
+
+        /* Shimmering Metallic Gold Gradient Text */
+        .text-gold-gradient {
+            background: linear-gradient(135deg, #FFF0B3 0%, #FFD700 35%, #D4AF37 65%, #996515 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 7s linear infinite;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        /* Gold Gradient Cards & Glowing Borders */
+        .border-gold-glow {
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            box-shadow: 0 6px 24px -2px rgba(212, 175, 55, 0.15);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .border-gold-glow:hover {
+            border-color: rgba(255, 215, 0, 0.85);
+            box-shadow: 0 12px 35px -2px rgba(212, 175, 55, 0.45);
+            transform: translateY(-4px);
+        }
+
+        .bg-gold-gradient {
+            background: linear-gradient(135deg, #FFD700 0%, #D4AF37 50%, #B8860B 100%);
+        }
+
+        .bg-maroon-card {
+            background: linear-gradient(145deg, rgba(48, 5, 12, 0.92), rgba(20, 2, 5, 0.96));
+            backdrop-filter: blur(12px);
+        }
+
+        /* Rotating Mandala Elements */
+        @keyframes spinSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes spinSlowReverse {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(-360deg); }
+        }
+
+        .spin-slow {
+            animation: spinSlow 55s linear infinite;
+        }
+
+        .spin-slow-reverse {
+            animation: spinSlowReverse 70s linear infinite;
+        }
+
+        /* Floating Animation */
+        @keyframes floatUpDown {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .animate-float {
+            animation: floatUpDown 4.2s ease-in-out infinite;
+        }
+
+        /* Flame/Diya Pulsing Glow */
+        @keyframes flamePulse {
+            0%, 100% { filter: drop-shadow(0 0 6px rgba(255, 140, 0, 0.8)); transform: scale(1); }
+            50% { filter: drop-shadow(0 0 14px rgba(255, 215, 0, 0.95)); transform: scale(1.08); }
+        }
+
+        .animate-flame {
+            animation: flamePulse 2s ease-in-out infinite;
+        }
+
+        /* 3D Tilt Card Base */
+        .tilt-card {
+            transform-style: preserve-3d;
+            transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
+        }
+
+        /* Marquee Continuous Banner */
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .animate-marquee {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 30s linear infinite;
+        }
+        .animate-marquee:hover {
+            animation-play-state: paused;
+        }
+
+        /* Custom Golden Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0F0103;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D4AF37;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FFD700;
+        }
+    </style>
+
+<style id="vn-homepage-transformation">
+/* VN HOMEPAGE TRANSFORMATION — additive styling; original theme and sections retained */
+#home{isolation:isolate;background:radial-gradient(ellipse at 50% 15%,rgba(145,55,48,.23),transparent 48%),linear-gradient(180deg,rgba(18,2,7,.12),rgba(18,2,7,.68))}
+#home:before,#home:after{content:"";position:absolute;z-index:-1;pointer-events:none;border-radius:50%;filter:blur(2px)}
+#home:before{width:390px;height:390px;left:-180px;top:8%;border:1px solid rgba(244,190,88,.18);box-shadow:0 0 90px rgba(180,91,44,.12),inset 0 0 70px rgba(180,91,44,.08);animation:vnOrbit 22s linear infinite}
+#home:after{width:280px;height:280px;right:-120px;bottom:3%;border:1px solid rgba(244,190,88,.16);box-shadow:0 0 80px rgba(180,91,44,.12);animation:vnOrbit 28s linear infinite reverse}
+#home h1{animation:vnHeroRise .9s both;text-shadow:0 8px 40px rgba(224,165,68,.15)}
+#home h1+p{animation:vnHeroRise .9s .12s both}
+#home p.max-w-2xl{animation:vnHeroRise .9s .22s both}
+#home .vn-home-cta{animation:vnHeroRise .9s .3s both}
+#home .vn-quick-card{position:relative;overflow:hidden;min-height:76px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+#home .vn-quick-card:after{content:"";position:absolute;inset:auto -40% -80% -40%;height:90%;background:radial-gradient(ellipse,rgba(247,192,83,.13),transparent 68%);transition:transform .35s}
+#home .vn-quick-card:hover:after{transform:translateY(-35%)}
+.vn-home-cta{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin:0 auto 22px}
+.vn-home-cta a{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 20px;border-radius:14px;font-size:12px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;transition:transform .2s,box-shadow .2s}
+.vn-home-cta a:hover{transform:translateY(-3px)}
+.vn-home-cta .primary{background:linear-gradient(120deg,#ffe39a,#c58a2d);color:#1b0905;box-shadow:0 12px 35px rgba(220,166,61,.2)}
+.vn-home-cta .secondary{border:1px solid rgba(244,190,88,.45);background:rgba(55,12,22,.7);color:#ffe9b8}
+.vn-home-proof{max-width:850px;margin:0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;text-align:left}
+.vn-home-proof article{border:1px solid rgba(230,189,97,.2);background:linear-gradient(145deg,rgba(53,13,24,.78),rgba(20,4,9,.72));border-radius:15px;padding:13px 15px;backdrop-filter:blur(12px)}
+.vn-home-proof strong{display:block;color:#ffe0a0;font-size:12px;margin-bottom:4px}
+.vn-home-proof span{display:block;color:#cbb9b4;font-size:10px;line-height:1.5}
+.vn-section-kicker{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(230,189,97,.25);background:rgba(230,189,97,.07);padding:7px 12px;border-radius:99px;color:#f4d58f;font-size:10px;font-weight:900;letter-spacing:.13em;text-transform:uppercase}
+@keyframes vnHeroRise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes vnOrbit{to{transform:rotate(360deg)}}
+@media(max-width:640px){#home{padding-top:28px;padding-bottom:42px}#home .vn-home-proof{grid-template-columns:1fr;max-width:440px}#home .vn-home-proof article{padding:11px 13px}#home .vn-home-cta a{flex:1 1 145px;padding:12px 13px;font-size:10px}}
+@media(prefers-reduced-motion:reduce){#home h1,#home h1+p,#home p.max-w-2xl,#home .vn-home-cta,#home:before,#home:after{animation:none!important}}
+</style>
+
+<style id="vn-intro-styles">
+#vnIntroScreen{position:fixed;inset:0;z-index:200000;background:radial-gradient(ellipse at 50% 45%,#3b1017 0%,#170307 48%,#090103 100%);display:grid;place-items:center;overflow:hidden;color:#fff5dc;opacity:1;visibility:visible;transition:opacity .8s ease,visibility .8s ease}
+#vnIntroScreen.vn-intro-exit{opacity:0;visibility:hidden;pointer-events:none}
+#vnIntroScreen:before{content:"";position:absolute;inset:-50%;background:linear-gradient(rgba(212,175,55,.075) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.075) 1px,transparent 1px);background-size:48px 48px;transform:perspective(700px) rotateX(58deg) scale(1.6);transform-origin:center 65%;mask-image:linear-gradient(transparent,#000 25%,#000 75%,transparent);animation:vnGridDrift 16s linear infinite}
+#vnIntroScreen:after{content:"";position:absolute;width:min(75vw,620px);aspect-ratio:1;border:1px solid #d4af3738;border-radius:50%;box-shadow:0 0 90px #d4af3712,inset 0 0 80px #d4af3710;animation:vnIntroOrbit 24s linear infinite}
+.vn-intro-content{position:relative;z-index:2;width:min(90vw,620px);text-align:center;padding:28px}
+.vn-intro-emblem{width:clamp(112px,20vw,164px);aspect-ratio:1;margin:0 auto 28px;position:relative;display:grid;place-items:center;filter:drop-shadow(0 0 25px #d4af3750)}
+.vn-intro-emblem:before,.vn-intro-emblem:after{content:"";position:absolute;inset:-13px;border:1px solid #e7c66c88;transform:rotate(45deg);animation:vnEmblemSpin 18s linear infinite}
+.vn-intro-emblem:after{inset:-25px;border-color:#d4af3745;animation-duration:28s;animation-direction:reverse}
+.vn-intro-logo{width:78%;height:78%;object-fit:contain;border-radius:50%;border:2px solid #d4af37;background:#220308;box-shadow:0 0 0 7px #d4af3714,0 0 45px #d4af3745;animation:vnLogoReveal 1.4s cubic-bezier(.2,.8,.2,1) both}
+.vn-intro-kicker{font:700 10px 'Plus Jakarta Sans',sans-serif;letter-spacing:.42em;text-transform:uppercase;color:#e8c878;margin-bottom:13px}
+.vn-intro-title{font:900 clamp(27px,6vw,48px) 'Cinzel',serif;letter-spacing:.12em;background:linear-gradient(110deg,#fff4c8,#d4af37 48%,#fff0b3);background-clip:text;-webkit-background-clip:text;color:transparent}
+.vn-intro-subtitle{font:600 clamp(12px,2.5vw,16px) 'Noto Serif Devanagari',serif;color:#f2dca4;margin-top:9px}
+.vn-intro-rule{width:min(270px,70%);height:1px;margin:27px auto 18px;background:linear-gradient(90deg,transparent,#d4af37,transparent)}
+.vn-intro-status{font:600 10px 'Plus Jakarta Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#d9c7a2;min-height:16px}
+.vn-intro-progress{height:4px;width:min(300px,76%);margin:13px auto 0;border-radius:9px;background:#ffffff18;overflow:hidden;border:1px solid #d4af3730}
+#vnIntroProgressFill{height:100%;width:0;background:linear-gradient(90deg,#9b6b20,#ffe7a0,#d4af37);box-shadow:0 0 15px #ffd75e;transition:width .08s linear}
+.vn-intro-bottom{margin-top:25px;color:#a99578;font:600 9px 'Plus Jakarta Sans',sans-serif;letter-spacing:.22em}
+#vnIntroEnter{margin-top:24px;border:1px solid #d4af37;border-radius:999px;padding:11px 23px;background:linear-gradient(120deg,#ffe39a,#c58a2d);color:#21080a;font:900 10px 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;cursor:pointer;box-shadow:0 8px 28px #d4af3725;transition:transform .2s,box-shadow .2s}
+#vnIntroEnter:hover{transform:translateY(-2px);box-shadow:0 12px 35px #d4af3750}
+@keyframes vnGridDrift{to{background-position:0 48px,48px 0}}@keyframes vnIntroOrbit{to{transform:rotate(360deg)}}@keyframes vnEmblemSpin{to{transform:rotate(405deg)}}@keyframes vnLogoReveal{from{opacity:0;transform:scale(.72) rotateY(35deg)}to{opacity:1;transform:scale(1) rotateY(0)}}
+@media(max-width:480px){.vn-intro-content{padding:16px}.vn-intro-kicker{letter-spacing:.25em}.vn-intro-bottom{letter-spacing:.12em}}
+@media(prefers-reduced-motion:reduce){#vnIntroScreen:before,#vnIntroScreen:after,.vn-intro-emblem:before,.vn-intro-emblem:after,.vn-intro-logo{animation:none!important}}
+</style>
+
+    <style>
+      /* Connected Links Hub: isolated styles; the site's maroon-and-gold theme remains intact. */
+      #directory .hub-orb{position:absolute;width:340px;height:340px;border-radius:50%;filter:blur(90px);opacity:.13;pointer-events:none}
+      #directory .hub-orb-one{background:#d4af37;top:8%;left:-170px}#directory .hub-orb-two{background:#be185d;right:-170px;bottom:0}
+      #directory .hub-toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 16px;border:1px solid rgba(212,175,55,.23);border-radius:18px;background:rgba(25,3,8,.78);backdrop-filter:blur(12px)}
+      #directory .hub-toolbar>div{display:flex;align-items:center;gap:10px}#directory .hub-live-dot{width:8px;height:8px;border-radius:50%;background:#4ade80;box-shadow:0 0 12px #4ade80}
+      #directory .hub-count{font-size:9px;letter-spacing:.12em;color:#fcd34d;border:1px solid rgba(212,175,55,.28);padding:5px 8px;border-radius:99px}
+      #directory .hub-search-wrap{display:flex;align-items:center;gap:9px;width:min(390px,100%);padding:10px 12px;border:1px solid rgba(212,175,55,.25);border-radius:12px;background:#100207;color:#d6b85d}
+      #directory .hub-search-wrap input{width:100%;min-width:0;background:transparent;outline:none;color:#fff3c4;font-size:12px}#directory .hub-search-wrap input::placeholder{color:#a98d78}
+      #directory .hub-search-wrap kbd{font-size:8px;letter-spacing:.12em;color:#b99b55}
+      #directory .hub-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+      #directory .hub-card{position:relative;isolation:isolate;display:flex;flex-direction:column;min-height:255px;padding:21px;border:1px solid color-mix(in srgb,var(--hub-accent) 35%,transparent);border-radius:20px;background:linear-gradient(145deg,rgba(59,8,16,.92),rgba(18,2,7,.98) 72%);overflow:hidden;transition:transform .28s ease,border-color .28s ease,box-shadow .28s ease}
+      #directory .hub-card:before{content:"";position:absolute;z-index:-1;inset:0;background:radial-gradient(circle at 92% 4%,var(--hub-tint),transparent 45%);opacity:.9}
+      #directory .hub-card:after{content:"";position:absolute;top:0;left:20px;right:20px;height:2px;background:linear-gradient(90deg,transparent,var(--hub-accent),transparent);opacity:.8}
+      #directory .hub-card:hover{transform:translateY(-6px);border-color:var(--hub-accent);box-shadow:0 16px 38px -20px var(--hub-accent)}
+      #directory .hub-card-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+      #directory .hub-icon{display:grid;place-items:center;width:48px;height:48px;border-radius:15px;color:var(--hub-accent);background:var(--hub-tint);border:1px solid color-mix(in srgb,var(--hub-accent) 35%,transparent);font-size:20px}
+      #directory .hub-category{font-size:8px;letter-spacing:.13em;font-weight:900;color:var(--hub-accent);padding:6px 9px;border-radius:99px;background:var(--hub-tint);text-align:center}
+      #directory .hub-kicker{margin-top:19px;color:#bda98e;font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+      #directory .hub-card h3{margin-top:5px;color:#fff0c3;font-family:'Cinzel',serif;font-size:17px;font-weight:900;letter-spacing:.015em}
+      #directory .hub-description{margin-top:8px;color:rgba(255,244,224,.65);font-size:11px;line-height:1.7;flex:1}
+      #directory .hub-card-bottom{margin-top:18px;padding-top:13px;border-top:1px solid rgba(255,255,255,.08);display:flex;flex-direction:column;gap:12px}
+      #directory .hub-file{display:flex;align-items:center;gap:7px;color:rgba(255,224,170,.48);font:9px ui-monospace,monospace;overflow-wrap:anywhere}
+      #directory .hub-launch{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;border-radius:11px;color:#16070a;background:var(--hub-accent);font-size:11px;font-weight:900;transition:filter .2s ease,transform .2s ease}
+      #directory .hub-launch:hover{filter:brightness(1.12);transform:translateY(-1px)}
+      #directory .sst-feature-card{border-color:rgba(249,168,212,.65);box-shadow:inset 0 0 0 1px rgba(249,168,212,.08),0 0 30px rgba(190,24,93,.12)}
+      #directory .sst-feature-card .hub-launch{background:linear-gradient(100deg,#f9a8d4,#fbcfe8);color:#4a102d}
+      @media(max-width:900px){#directory .hub-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+      @media(max-width:600px){#directory .hub-toolbar{align-items:stretch;flex-direction:column}#directory .hub-search-wrap{width:100%}#directory .hub-grid{grid-template-columns:1fr;gap:13px}#directory .hub-card{min-height:230px;padding:18px}#directory .hub-card h3{font-size:16px}}
+      @media(prefers-reduced-motion:reduce){#directory .hub-card,#directory .hub-launch{transition:none}}
+    </style>
+
+</head>
+<body class="relative min-h-screen jali-pattern selection:bg-amber-500 selection:text-red-950">
+<div id="vnIntroScreen" role="dialog" aria-label="Welcome to Vidya Nirman">
+<div class="vn-intro-content"><div class="vn-intro-emblem"><img class="vn-intro-logo" src="logo.png" alt="Vidya Nirman logo"></div>
+<div class="vn-intro-kicker">A Digital Gurukul Experience</div><div class="vn-intro-title">VIDYA NIRMAN</div>
+<div class="vn-intro-subtitle">विद्या निर्माण · सा विद्या या विमुक्तये</div><div class="vn-intro-rule"></div>
+<div class="vn-intro-status" id="vnIntroStatus" aria-live="polite">Preparing your learning experience · 0%</div>
+<div class="vn-intro-progress" id="vnIntroProgress" role="progressbar" aria-label="Intro progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="vnIntroProgressFill"></div></div>
+<button id="vnIntroEnter" type="button">ENTER VIDYA NIRMAN →</button><div class="vn-intro-bottom">LEARN · BUILD · EXCEL</div></div></div>
+
+
+    <!-- Floating Golden Spark & Ember Particles Canvas -->
+    <canvas id="emberCanvas" class="fixed inset-0 pointer-events-none z-0 opacity-70"></canvas>
+
+    <!-- Traditional Decorative Watermark Mandalas -->
+    <div class="fixed -top-52 -left-52 pointer-events-none z-0 opacity-10">
+        <svg class="w-[700px] h-[700px] text-amber-400 spin-slow" viewBox="0 0 100 100" fill="currentColor">
+            <path d="M50 0 L55 35 L90 10 L65 45 L100 50 L65 55 L90 90 L55 65 L50 100 L45 65 L10 90 L35 55 L0 50 L35 45 L10 10 L45 35 Z"/>
+            <circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" stroke-width="2"/>
+            <circle cx="50" cy="50" r="20" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 2"/>
+        </svg>
+    </div>
+    <div class="fixed -bottom-52 -right-52 pointer-events-none z-0 opacity-10">
+        <svg class="w-[700px] h-[700px] text-amber-400 spin-slow-reverse" viewBox="0 0 100 100" fill="currentColor">
+            <path d="M50 0 L55 35 L90 10 L65 45 L100 50 L65 55 L90 90 L55 65 L50 100 L45 65 L10 90 L35 55 L0 50 L35 45 L10 10 L45 35 Z"/>
+            <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 bg-[#0F0103]/90 backdrop-blur-md border-b border-amber-500/30 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Brand Logo & Devanagari Shloka -->
+            <a href="#home" class="flex items-center gap-3.5 group">
+                <div class="relative flex items-center justify-center">
+                    <div class="w-12 h-12 rounded-full border-2 border-amber-400/80 flex items-center justify-center bg-[#220308] shadow-lg shadow-amber-500/20 group-hover:border-amber-300 transition-colors overflow-hidden">
+                        <img src="logo.png" alt="Vidya Nirman Logo" class="w-full h-full object-cover">
+                    </div>
+                    <svg class="absolute inset-0 w-12 h-12 text-amber-400/40 spin-slow pointer-events-none" viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 4"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="font-cinzel text-2xl font-black tracking-wider text-gold-gradient leading-none">VIDYA NIRMAN</h1>
+                    <span class="font-devanagari text-xs text-amber-300/90 tracking-widest block mt-1 font-semibold">सा विद्या या विमुक्तये</span>
+                </div>
+            </a>
+
+            <!-- Desktop Menu Links -->
+            <nav class="hidden lg:flex items-center space-x-6 text-xs font-bold uppercase tracking-wider">
+                <a href="#home" class="text-amber-100 hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-house text-amber-400"></i> Home</a>
+                <a href="#portals" class="text-amber-100 hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-book-open text-amber-400"></i> Learning Portals</a>
+                <a href="coding.html" class="text-amber-100 hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-code text-amber-400"></i> Coding Academy</a>
+                <a href="exam-centre.html" class="text-amber-100 hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-clipboard-check text-amber-400"></i> Exam Prep</a>
+                <a href="#quests" class="text-amber-100 hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-trophy text-amber-400"></i> Quest Arenas</a>
+                <a href="#directory" class="text-amber-100 hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-list-check text-amber-400"></i> Direct Links</a>
+                <a href="#founders" class="text-amber-100 hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-users text-amber-400"></i> Founders</a>
+                <a href="#notices" class="text-amber-100 hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-bullhorn text-amber-400"></i> Notices</a>
+            </nav>
+
+            <!-- Grand Quest Action Button -->
+            <div class="flex items-center gap-3">
+                <a href="dashboard.html" class="hidden sm:inline-flex items-center gap-2 px-3 py-2 rounded-full border border-amber-400/40 bg-amber-500/10 text-amber-100 font-black text-xs uppercase tracking-wider hover:bg-amber-500/20 transition-all">
+                    <i class="fa-solid fa-gauge-high text-amber-400"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="grand-quest.html" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-600 text-slate-950 font-black text-xs uppercase tracking-wider shadow-lg shadow-amber-500/25 hover:scale-105 transition-all">
+                    <i class="fa-solid fa-crown text-amber-950"></i>
+                    <span>Grand Quest</span>
+                </a>
+
+                <button id="mobileMenuBtn" class="lg:hidden text-amber-400 p-2.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-[#180206] border-b border-amber-500/30 px-6 py-4 space-y-3">
+            <a href="#home" class="mobile-link block text-amber-100 hover:text-amber-400 py-1 font-semibold"><i class="fa-solid fa-house mr-2 text-amber-400"></i> Home</a>
+            <a href="dashboard.html" class="mobile-link block text-amber-100 hover:text-amber-400 py-1 font-semibold"><i class="fa-solid fa-gauge-high mr-2 text-amber-400"></i> Student Dashboard</a>
+            <a href="#portals" class="mobile-link block text-amber-100 hover:text-amber-400 py-1 font-semibold"><i class="fa-solid fa-book-open mr-2 text-amber-400"></i> Learning Portals</a>
+            <a href="coding.html" class="mobile-link block text-amber-100 hover:text-amber-400 py-1 font-semibold"><i class="fa-solid fa-code mr-2 text-amber-400"></i> Coding Academy</a>
+            <a href="exam-centre.html" class="mobile-link block text-amber-100 hover:text-amber-400 py-1 font-semibold"><i class="fa-solid fa-clipboard-check mr-2 text-amber-400"></i> Exam Preparation</a>
+            <a href="#quests" class="mobile-link block text-amber-100 hover:text-amber-400 py-1 font-semibold"><i class="fa-solid fa-trophy mr-2 text-amber-400"></i> Quest Arenas</a>
+            <a href="grand-quest.html" class="mobile-link block text-amber-300 font-bold py-1"><i class="fa-solid fa-crown mr-2 text-amber-400"></i> GRAND-QUEST Championship</a>
+            <a href="#directory" class="mobile-link block text-amber-100 hover:text-amber-400 py-1 font-semibold"><i class="fa-solid fa-list-check mr-2 text-amber-400"></i> Portal Directory</a>
+            <a href="#founders" class="mobile-link block text-amber-100 hover:text-amber-400 py-1 font-semibold"><i class="fa-solid fa-users mr-2 text-amber-400"></i> Leadership & Founders</a>
+            <a href="#notices" class="mobile-link block text-amber-100 hover:text-amber-400 py-1 font-semibold"><i class="fa-solid fa-bullhorn mr-2 text-amber-400"></i> Notice Board</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative pt-10 pb-16 md:pt-16 md:pb-24 overflow-hidden z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
+            
+            <!-- Traditional Shloka Banner Crest -->
+            <div class="inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-gradient-to-r from-amber-500/10 via-amber-400/20 to-amber-500/10 border border-amber-400/40 text-amber-200 text-xs sm:text-sm font-semibold mb-6 animate-float shadow-lg shadow-amber-500/10">
+                <i class="fa-solid fa-om text-amber-400 text-base"></i>
+                <span class="font-devanagari tracking-wide font-bold">"विद्यां ददाति विनयं, विनयाद् याति पात्रताम्"</span>
+                <i class="fa-solid fa-dharmachakra text-amber-400 text-base"></i>
+            </div>
+
+            <h1 class="font-cinzel text-4xl sm:text-6xl md:text-7xl font-black text-gold-gradient tracking-tight leading-none mb-3">
+                VIDYA NIRMAN
+            </h1>
+
+            <p class="font-devanagari text-xl sm:text-3xl text-amber-200/90 max-w-3xl mx-auto mb-6 font-bold">
+                विद्या निर्माण — Class 9th Interactive Learning Ecosystem
+            </p>
+
+            <p class="text-slate-300 text-xs sm:text-sm max-w-2xl mx-auto mb-10 leading-relaxed font-medium">
+                Welcome to the digital Gurukul designed specifically for Class 9th CBSE students. Explore dedicated subject learning portals and compete in interactive Quest Arenas engineered by founders <strong class="text-amber-300">Anmol Tiwari</strong> , <strong class="text-amber-300">Amrit Singh</strong> and <strong class="text-amber-300">Aryaman Mishra</strong>.
+            </p>
+
+            <!-- Quick Access Gateway Ribbon -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5 max-w-6xl mx-auto mb-12">
+                
+                <a href="vidyanirman_bio_class_9th_interactive_biology_portal.html" class="p-3 rounded-xl bg-maroon-card border-gold-glow hover:bg-amber-950/60 transition-all text-center group">
+                    <i class="fa-solid fa-dna text-emerald-400 text-lg mb-1 group-hover:scale-110 transition-transform block"></i>
+                    <span class="text-[10px] font-bold text-amber-200 block uppercase">VN Bio</span>
+                </a>
+
+                <a href="physics.html" class="p-3 rounded-xl bg-maroon-card border-gold-glow hover:bg-amber-950/60 transition-all text-center group">
+                    <i class="fa-solid fa-atom text-cyan-400 text-lg mb-1 group-hover:scale-110 transition-transform block"></i>
+                    <span class="text-[10px] font-bold text-amber-200 block uppercase">VN Physics</span>
+                </a>
+
+                <a href="Chem.html" class="p-3 rounded-xl bg-maroon-card border-gold-glow hover:bg-amber-950/60 transition-all text-center group">
+                    <i class="fa-solid fa-flask text-amber-400 text-lg mb-1 group-hover:scale-110 transition-transform block"></i>
+                    <span class="text-[10px] font-bold text-amber-200 block uppercase">VN Chem</span>
+                </a>
+
+                <a href="bio-quest.html" class="p-3 rounded-xl bg-maroon-card border-gold-glow hover:bg-amber-950/60 transition-all text-center group">
+                    <i class="fa-solid fa-vial text-emerald-300 text-lg mb-1 group-hover:scale-110 transition-transform block"></i>
+                    <span class="text-[10px] font-bold text-amber-200 block uppercase">Bio Quest</span>
+                </a>
+
+                <a href="physics-quest.html" class="p-3 rounded-xl bg-maroon-card border-gold-glow hover:bg-amber-950/60 transition-all text-center group">
+                    <i class="fa-solid fa-bolt text-cyan-300 text-lg mb-1 group-hover:scale-110 transition-transform block"></i>
+                    <span class="text-[10px] font-bold text-amber-200 block uppercase">Phys Quest</span>
+                </a>
+
+                <a href="chemistry-quest.html" class="p-3 rounded-xl bg-maroon-card border-gold-glow hover:bg-amber-950/60 transition-all text-center group">
+                    <i class="fa-solid fa-fire-burner text-amber-300 text-lg mb-1 group-hover:scale-110 transition-transform block"></i>
+                    <span class="text-[10px] font-bold text-amber-200 block uppercase">Chem Quest</span>
+                </a>
+
+                <a href="grand-quest.html" class="p-3 rounded-xl bg-gradient-to-b from-amber-500/30 to-amber-700/30 border border-amber-400 hover:scale-105 transition-all text-center group col-span-2 sm:col-span-1">
+                    <i class="fa-solid fa-trophy text-yellow-300 text-lg mb-1 group-hover:scale-110 transition-transform block animate-bounce"></i>
+                    <span class="text-[10px] font-black text-amber-300 block uppercase tracking-tighter">Grand Quest</span>
+                </a>
+
+                <a href="coding.html" class="p-3 rounded-xl bg-maroon-card border-gold-glow hover:bg-amber-950/60 transition-all text-center group">
+                    <i class="fa-solid fa-code text-violet-300 text-lg mb-1 group-hover:scale-110 transition-transform block"></i>
+                    <span class="text-[10px] font-bold text-amber-200 block uppercase">Coding Academy</span>
+                </a>
+              
+                <a href="social-science-portal.html" class="p-3 rounded-xl bg-maroon-card border-gold-glow hover:bg-amber-950/60 transition-all text-center group">
+                    <i class="fa-solid fa-earth-asia text-sky-300 text-lg mb-1 group-hover:scale-110 transition-transform block"></i>
+                    <span class="text-[10px] font-bold text-amber-200 block uppercase">Social Science Notes</span>
+                </a>
+
+                <a href="study-material.html" class="p-3 rounded-xl bg-maroon-card border-gold-glow hover:bg-amber-950/60 transition-all text-center group">
+                    <i class="fa-solid fa-book text-white-300 text-lg mb-1 group-hover:scale-110 transition-transform block"></i>
+                    <span class="text-[10px] font-bold text-amber-200 block uppercase">Science Notes</span>
+                </a>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Notice Board Marquee -->
+    <section id="notices" class="py-3 bg-[#220308] border-y border-amber-500/30 relative z-10 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 flex items-center gap-3">
+            <div class="flex items-center gap-2 bg-amber-500 text-slate-950 font-black px-3.5 py-1.5 rounded-lg text-[11px] uppercase tracking-wider shrink-0 shadow-md">
+                <i class="fa-solid fa-bullhorn animate-bounce"></i> Live Updates
+            </div>
+            
+            <div class="overflow-hidden w-full relative">
+                <div class="animate-marquee font-semibold text-xs text-amber-200 space-x-12">
+                    <span class="inline-flex items-center gap-2">🏆 <strong class="text-amber-400">GRAND-QUEST Championship:</strong> Registrations live for Class 9th All-Subject Championship Quiz! (<a href="grand-quest.html" class="underline text-yellow-300">Enter Arena</a>)</span>
+                    <span class="inline-flex items-center gap-2">🧬 <strong class="text-amber-400">VIDYANIRMAN BIO:</strong> Cell Organelles 3D Visualizer & Tissues module updated (<a href="vidyanirman_bio_class_9th_interactive_biology_portal.html" class="underline text-yellow-300">Open Bio Portal</a>)</span>
+                    <span class="inline-flex items-center gap-2">⚛️ <strong class="text-amber-400">VIDYANIRMAN PHYSICS:</strong> Newton's Motion Laws & Gravitation numericals uploaded (<a href="physics.html" class="underline text-yellow-300">Open Physics Portal</a>)</span>
+                    <span class="inline-flex items-center gap-2">🧪 <strong class="text-amber-400">VIDYANIRMAN CHEMISTRY:</strong> Mole Concept & Bohr Model interactive notes live (<a href="Chem.html" class="underline text-yellow-300">Open Chem Portal</a>)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- VN Homepage Banner -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5403264455389390"
+     data-ad-slot="7421300729"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+    <!-- GRAND QUEST Spotlight Hero Banner -->
+    <section class="py-12 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-r from-[#3B0810] via-[#2A050C] to-[#1A0005] rounded-3xl p-8 sm:p-10 border-2 border-amber-400/80 shadow-2xl relative overflow-hidden group">
+                
+                <div class="absolute -top-24 -right-24 w-72 h-72 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="flex flex-col lg:flex-row items-center justify-between gap-8 relative z-10">
+                    <div class="space-y-4 text-center lg:text-left max-w-2xl">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/50 text-amber-300 text-xs font-bold uppercase">
+                            <i class="fa-solid fa-crown text-amber-400"></i> The Ultimate Arena
+                        </div>
+                        <h2 class="font-cinzel text-3xl sm:text-4xl font-black text-gold-gradient leading-tight">
+                            GRAND-QUEST CHAMPIONSHIP
+                        </h2>
+                        <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                            Test your complete Class 9th mastery across Biology, Physics, and Chemistry in one comprehensive timer-driven tournament arena. Win certificates, top the state leaderboard, and prove your academic excellence.
+                        </p>
+                        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                            <span class="text-xs text-amber-200/90 bg-amber-950/80 px-3 py-1.5 rounded-lg border border-amber-500/30">
+                                <i class="fa-solid fa-layer-group text-amber-400 mr-1"></i> Covers Bio, Phys & Chem
+                            </span>
+                            <span class="text-xs text-amber-200/90 bg-amber-950/80 px-3 py-1.5 rounded-lg border border-amber-500/30">
+                                <i class="fa-solid fa-stopwatch text-amber-400 mr-1"></i> Timed Adaptive Battle
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row items-center gap-4 shrink-0">
+                        <a href="grand-quest.html" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gold-gradient text-slate-950 font-black text-sm uppercase tracking-wider shadow-xl shadow-amber-500/30 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2">
+                            <span>Enter Grand-Quest</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <button onclick="openPortalModal('GRAND-QUEST Championship', 'grand-quest.html', 'All-Subject Championship Quiz covering Biology, Physics, and Chemistry for Class 9th.')" class="w-full sm:w-auto px-6 py-4 rounded-2xl bg-amber-950/80 text-amber-200 border border-amber-500/40 hover:border-amber-300 text-xs font-bold transition-all">
+                            <i class="fa-solid fa-magnifying-glass mr-1"></i> Inspect Link
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+  
+
+    <!-- Learning Portals Section -->
+<section id="portals" class="vn-launch-zone py-20 relative z-10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-14">
+      <span class="vn-launch-kicker"><i class="fa-solid fa-compass"></i> Choose your learning path</span>
+      <h2 class="font-cinzel text-3xl sm:text-5xl font-black text-gold-gradient mt-4">Explore Learning Portals</h2>
+      <p class="text-slate-300/75 text-sm mt-4 max-w-2xl mx-auto leading-relaxed">Every portal has its own identity, tools and colour. Select a subject and continue your Class 9 learning journey.</p>
+      <div class="vn-launch-rule"></div>
+    </div>
+
+    <div class="vn-launch-grid">
+      <article class="vn-launch-card vn-bio">
+        <div class="vn-card-top"><span class="vn-card-tag">01 · LIFE SCIENCE</span><span class="vn-card-icon"><i class="fa-solid fa-dna"></i></span></div>
+        <div class="vn-card-art"><i class="fa-solid fa-leaf"></i><i class="fa-solid fa-dna"></i><i class="fa-solid fa-seedling"></i></div>
+        <div class="vn-card-content"><p class="vn-card-overline">CLASS 9 · BIOLOGY</p><h3>VIDYANIRMAN BIO</h3><p class="vn-card-desc">Explore cells, organelles, plant and animal tissues, life processes and biodiversity through structured visual learning.</p>
+          <ul><li><i class="fa-solid fa-check"></i> Interactive organelle diagrams</li><li><i class="fa-solid fa-check"></i> Tissue classification maps</li><li><i class="fa-solid fa-check"></i> NCERT revision guides</li></ul>
+        </div>
+        <a class="vn-card-action" href="vidyanirman_bio_class_9th_interactive_biology_portal.html">Explore Biology <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+      </article>
+
+      <article class="vn-launch-card vn-physics">
+        <div class="vn-card-top"><span class="vn-card-tag">02 · PHYSICAL WORLD</span><span class="vn-card-icon"><i class="fa-solid fa-atom"></i></span></div>
+        <div class="vn-card-art"><i class="fa-solid fa-atom"></i><i class="fa-solid fa-wave-square"></i><i class="fa-solid fa-bolt"></i></div>
+        <div class="vn-card-content"><p class="vn-card-overline">CLASS 9 · PHYSICS</p><h3>VIDYANIRMAN PHYSICS</h3><p class="vn-card-desc">Understand motion, forces, gravitation, work, energy and sound with concept-focused learning.</p>
+          <ul><li><i class="fa-solid fa-check"></i> Numerical practice guides</li><li><i class="fa-solid fa-check"></i> Motion graph visualizers</li><li><i class="fa-solid fa-check"></i> Formula revision sheets</li></ul>
+        </div>
+        <a class="vn-card-action" href="physics.html">Explore Physics <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+      </article>
+
+      <article class="vn-launch-card vn-chem">
+        <div class="vn-card-top"><span class="vn-card-tag">03 · MATTER & ATOMS</span><span class="vn-card-icon"><i class="fa-solid fa-flask-vial"></i></span></div>
+        <div class="vn-card-art"><i class="fa-solid fa-flask"></i><i class="fa-solid fa-vial"></i><i class="fa-solid fa-atom"></i></div>
+        <div class="vn-card-content"><p class="vn-card-overline">CLASS 9 · CHEMISTRY</p><h3>VIDYANIRMAN CHEMISTRY</h3><p class="vn-card-desc">Discover matter, mixtures, atoms and molecules, mole concepts and atomic structure.</p>
+          <ul><li><i class="fa-solid fa-check"></i> Periodic table directory</li><li><i class="fa-solid fa-check"></i> Mole concept practice</li><li><i class="fa-solid fa-check"></i> Atomic structure models</li></ul>
+        </div>
+        <a class="vn-card-action" href="Chem.html">Explore Chemistry <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+      </article>
+
+      <article class="vn-launch-card vn-code">
+        <div class="vn-card-top"><span class="vn-card-tag">04 · DIGITAL SKILLS</span><span class="vn-card-icon"><i class="fa-solid fa-code"></i></span></div>
+        <div class="vn-card-art"><i class="fa-brands fa-html5"></i><i class="fa-brands fa-css3-alt"></i><i class="fa-brands fa-js"></i></div>
+        <div class="vn-card-content"><p class="vn-card-overline">BEGINNER FRIENDLY</p><h3>VN CODING ACADEMY</h3><p class="vn-card-desc">Start building for the web with beginner-friendly HTML, CSS and JavaScript lessons in simple Hinglish.</p>
+          <ul><li><i class="fa-solid fa-check"></i> Step-by-step coding lessons</li><li><i class="fa-solid fa-check"></i> Live examples and explanations</li><li><i class="fa-solid fa-check"></i> Practice and mini challenges</li></ul>
+        </div>
+        <a class="vn-card-action" href="coding.html">Start Coding <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+      </article>
+
+      <article class="vn-launch-card vn-sst">
+        <div class="vn-card-top"><span class="vn-card-tag">05 · PEOPLE & PLANET</span><span class="vn-card-icon"><i class="fa-solid fa-earth-asia"></i></span></div>
+        <div class="vn-card-art"><i class="fa-solid fa-earth-americas"></i><i class="fa-solid fa-landmark"></i><i class="fa-solid fa-compass"></i></div>
+        <div class="vn-card-content"><p class="vn-card-overline">CLASS 9 · PART II</p><h3>SOCIAL SCIENCE NOTES</h3><p class="vn-card-desc">Study History, Political Science, Geography and Economics through chapter-wise notes.</p>
+          <ul><li><i class="fa-solid fa-check"></i> Six chapter-wise PDF slots</li><li><i class="fa-solid fa-check"></i> Open and download notes</li><li><i class="fa-solid fa-check"></i> Mobile-friendly chapter access</li></ul>
+        </div>
+        <a class="vn-card-action" href="social-science-portal.html">Open Social Science <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+      </article>
+
+      <article class="vn-launch-card vn-notes">
+        <div class="vn-card-top"><span class="vn-card-tag">06 · STUDY RESOURCES</span><span class="vn-card-icon"><i class="fa-solid fa-book-open"></i></span></div>
+        <div class="vn-card-art"><i class="fa-solid fa-book"></i><i class="fa-solid fa-file-pdf"></i><i class="fa-solid fa-bookmark"></i></div>
+        <div class="vn-card-content"><p class="vn-card-overline">REVISION LIBRARY</p><h3>SCIENCE NOTES</h3><p class="vn-card-desc">Access concise science study material and PDF resources for easier revision and understanding.</p>
+          <ul><li><i class="fa-solid fa-check"></i> Chapter-wise study resources</li><li><i class="fa-solid fa-check"></i> Easy-to-follow explanations</li><li><i class="fa-solid fa-check"></i> Revision-friendly material</li></ul>
+        </div>
+        <a class="vn-card-action" href="study-material.html">Browse Science Notes <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style id="vn-launch-redesign">
+.vn-launch-zone{background:radial-gradient(ellipse at 50% 0%,rgba(212,175,55,.09),transparent 48%),linear-gradient(180deg,#100105 0%,#1b0309 50%,#100105 100%);border-top:1px solid #d4af3725;border-bottom:1px solid #d4af3725}
+.vn-launch-kicker{display:inline-flex;align-items:center;gap:9px;padding:9px 15px;border:1px solid #d4af3750;border-radius:99px;background:#d4af370e;color:#f2d58c;font-size:10px;font-weight:900;letter-spacing:.16em;text-transform:uppercase}
+.vn-launch-rule{width:110px;height:3px;border-radius:9px;margin:20px auto 0;background:linear-gradient(90deg,transparent,#d4af37,transparent)}
+.vn-launch-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.vn-launch-card{--accent:#d4af37;--soft:rgba(212,175,55,.12);--deep:#33220a;position:relative;isolation:isolate;display:flex;flex-direction:column;min-height:440px;padding:22px;border-radius:23px;overflow:hidden;background:linear-gradient(150deg,rgba(35,12,18,.98),rgba(13,5,10,.98));border:1px solid color-mix(in srgb,var(--accent) 48%,transparent);box-shadow:0 14px 45px rgba(0,0,0,.24);transition:transform .35s,border-color .35s,box-shadow .35s}
+.vn-launch-card:before{content:"";position:absolute;z-index:-1;width:250px;height:250px;right:-115px;top:55px;border-radius:50%;background:var(--accent);opacity:.12;filter:blur(75px);transition:opacity .3s,transform .5s}
+.vn-launch-card:after{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(135deg,var(--soft),transparent 42%);pointer-events:none}
+.vn-launch-card:hover{transform:translateY(-8px);border-color:var(--accent);box-shadow:0 22px 55px color-mix(in srgb,var(--accent) 17%,transparent)}
+.vn-launch-card:hover:before{opacity:.24;transform:scale(1.25)}
+.vn-bio{--accent:#4ade80;--soft:rgba(74,222,128,.12)}.vn-physics{--accent:#38bdf8;--soft:rgba(56,189,248,.12)}.vn-chem{--accent:#fb923c;--soft:rgba(251,146,60,.12)}.vn-code{--accent:#c084fc;--soft:rgba(192,132,252,.12)}.vn-sst{--accent:#f472b6;--soft:rgba(244,114,182,.12)}.vn-notes{--accent:#facc15;--soft:rgba(250,204,21,.12)}
+.vn-card-top{display:flex;justify-content:space-between;align-items:center;gap:10px}.vn-card-tag{font-size:9px;letter-spacing:.14em;font-weight:900;color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 38%,transparent);background:var(--soft);padding:7px 10px;border-radius:99px}
+.vn-card-icon{width:43px;height:43px;display:grid;place-items:center;border-radius:14px;color:var(--accent);background:var(--soft);font-size:19px;border:1px solid color-mix(in srgb,var(--accent) 30%,transparent)}
+.vn-card-art{height:105px;margin:12px 0 8px;display:flex;align-items:center;justify-content:center;gap:25px;color:var(--accent);font-size:31px;opacity:.78}
+.vn-card-art i:nth-child(2){font-size:43px;filter:drop-shadow(0 0 16px var(--accent));transform:translateY(-7px)}
+.vn-card-art i:nth-child(odd){transform:translateY(7px)}
+.vn-card-overline{font-size:9px;letter-spacing:.18em;font-weight:900;color:var(--accent);margin-bottom:8px}
+.vn-card-content h3{font-family:'Cinzel',serif;font-size:19px;line-height:1.35;font-weight:900;color:#fff4dc;margin-bottom:10px}
+.vn-card-desc{font-size:11px;line-height:1.8;color:#c8bdc1;min-height:60px}
+.vn-card-content ul{display:grid;gap:10px;margin:17px 0 20px;color:#e3d9dc;font-size:10px}
+.vn-card-content li{display:flex;align-items:center;gap:9px}.vn-card-content li i{color:var(--accent);font-size:10px}
+.vn-card-action{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding:13px 15px;border-radius:13px;background:var(--soft);border:1px solid color-mix(in srgb,var(--accent) 48%,transparent);color:var(--accent);font-size:10px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;transition:background .25s,color .25s,transform .25s}
+.vn-card-action:hover{background:var(--accent);color:#18080d;transform:translateY(-2px)}
+@media(max-width:900px){.vn-launch-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:580px){.vn-launch-zone{padding-top:58px;padding-bottom:58px}.vn-launch-grid{grid-template-columns:1fr;gap:16px}.vn-launch-card{min-height:0;padding:20px}.vn-card-art{height:85px}.vn-card-desc{min-height:0}.vn-card-content h3{font-size:18px}}
+@media(prefers-reduced-motion:reduce){.vn-launch-card,.vn-launch-card:before,.vn-card-action{transition:none!important}}
+</style>
+
+<!-- Quest Arenas Section (BIO-QUEST, PHYSICS-QUEST, CHEMISTRY-QUEST, GRAND-QUEST) -->
+    <section id="quests" class="py-16 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center mb-12">
+                <span class="text-amber-400 text-xs font-black uppercase tracking-widest bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/30">Gamified Testing</span>
+                <h2 class="font-cinzel text-3xl sm:text-4xl font-black text-gold-gradient mt-2">Class 9th Quest Arenas</h2>
+                <p class="text-slate-400 text-xs sm:text-sm mt-2 max-w-lg mx-auto">Challenge yourself with timed quizzes, chapter battles, and national student ranking competitions.</p>
+            </div>
+
+            <!-- Quest Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- BIO-QUEST -->
+                <div class="bg-maroon-card p-6 rounded-2xl border-gold-glow flex flex-col justify-between group hover:border-emerald-400 transition-all">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-vial"></i>
+                        </div>
+                        <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest block mb-1">BIOLOGY ARENA</span>
+                        <h3 class="font-cinzel text-lg font-bold text-amber-100 mb-2">BIO-QUEST</h3>
+                        <p class="text-slate-300 text-xs leading-relaxed mb-6">
+                            Timed multiple-choice challenges testing Cell Biology, Tissues, and Plant Anatomy.
+                        </p>
+                    </div>
+                    <a href="bio-quest.html" class="w-full py-2.5 rounded-xl bg-emerald-950 border border-emerald-500/40 text-emerald-300 font-bold text-xs text-center hover:bg-emerald-800 hover:text-white transition-all block">
+                        Start Bio-Quest <i class="fa-solid fa-gamepad ml-1"></i>
+                    </a>
+                </div>
+
+                <!-- PHYSICS-QUEST -->
+                <div class="bg-maroon-card p-6 rounded-2xl border-gold-glow flex flex-col justify-between group hover:border-cyan-400 transition-all">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <span class="text-[10px] font-bold text-cyan-400 uppercase tracking-widest block mb-1">PHYSICS ARENA</span>
+                        <h3 class="font-cinzel text-lg font-bold text-amber-100 mb-2">PHYSICS-QUEST</h3>
+                        <p class="text-slate-300 text-xs leading-relaxed mb-6">
+                            Rapid-fire numerical puzzles on Kinematics, Gravitation, and Work & Energy.
+                        </p>
+                    </div>
+                    <a href="physics-quest.html" class="w-full py-2.5 rounded-xl bg-cyan-950 border border-cyan-500/40 text-cyan-300 font-bold text-xs text-center hover:bg-cyan-800 hover:text-white transition-all block">
+                        Start Physics-Quest <i class="fa-solid fa-gamepad ml-1"></i>
+                    </a>
+                </div>
+
+                <!-- CHEMISTRY-QUEST -->
+                <div class="bg-maroon-card p-6 rounded-2xl border-gold-glow flex flex-col justify-between group hover:border-amber-400 transition-all">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-fire-burner"></i>
+                        </div>
+                        <span class="text-[10px] font-bold text-amber-400 uppercase tracking-widest block mb-1">CHEMISTRY ARENA</span>
+                        <h3 class="font-cinzel text-lg font-bold text-amber-100 mb-2">CHEMISTRY-QUEST</h3>
+                        <p class="text-slate-300 text-xs leading-relaxed mb-6">
+                            Mole calculations, atomic formula balance tests, and element identification games.
+                        </p>
+                    </div>
+                    <a href="chemistry-quest.html" class="w-full py-2.5 rounded-xl bg-amber-950 border border-amber-500/40 text-amber-300 font-bold text-xs text-center hover:bg-amber-800 hover:text-white transition-all block">
+                        Start Chemistry-Quest <i class="fa-solid fa-gamepad ml-1"></i>
+                    </a>
+                </div>
+
+                <!-- GRAND-QUEST -->
+                <div class="bg-gradient-to-b from-[#3B0810] to-[#1F0207] p-6 rounded-2xl border-2 border-amber-400 flex flex-col justify-between group hover:scale-[1.03] transition-all shadow-xl shadow-amber-500/20">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-amber-500/30 text-amber-300 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-trophy animate-bounce"></i>
+                        </div>
+                        <span class="text-[10px] font-black text-amber-300 uppercase tracking-widest block mb-1">MEGA CHAMPIONSHIP</span>
+                        <h3 class="font-cinzel text-lg font-black text-gold-gradient mb-2">GRAND-QUEST</h3>
+                        <p class="text-slate-200 text-xs leading-relaxed mb-6">
+                            The ultimate test combining Bio, Physics & Chem into one adaptive exam battle.
+                        </p>
+                    </div>
+                    <a href="grand-quest.html" class="w-full py-2.5 rounded-xl bg-gold-gradient text-slate-950 font-black text-xs text-center hover:scale-105 transition-all block shadow-md">
+                        Enter Championship <i class="fa-solid fa-crown ml-1"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Redesigned Connected Pages Hub -->
+    <section id="directory" class="py-20 relative z-10 overflow-hidden bg-gradient-to-b from-[#0F0103] via-[#26050D] to-[#0F0103] border-y border-amber-500/20">
+        <div class="hub-orb hub-orb-one"></div><div class="hub-orb hub-orb-two"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-10">
+                <span class="text-amber-300 text-[10px] sm:text-xs font-black uppercase tracking-[.28em] bg-amber-500/10 px-4 py-2 rounded-full border border-amber-400/30">One hub · Every destination</span>
+                <h2 class="font-cinzel text-3xl sm:text-4xl lg:text-5xl font-black text-gold-gradient mt-5">Vidya Nirman Connected Links Hub</h2>
+                <p class="text-amber-100/65 text-sm sm:text-base mt-3 max-w-2xl mx-auto">Your gateway to learning portals, subject quests, revision notes and the Social Science learning space.</p>
+            </div>
+            <div class="hub-toolbar mb-7">
+                <div><span class="hub-live-dot"></span><span class="text-amber-100 font-bold text-xs sm:text-sm">All connected destinations</span><span class="hub-count">09 PORTALS</span></div>
+                <label class="hub-search-wrap"><i class="fa-solid fa-magnifying-glass"></i><input type="search" id="directorySearch" oninput="filterDirectory()" placeholder="Search by subject or portal name..." aria-label="Search connected portals"><kbd>SEARCH</kbd></label>
+            </div>
+            <div id="directoryGrid" class="hub-grid">
+                <article class="hub-card" data-search="VIDYANIRMAN BIO LEARNING PORTAL Biology learning space Explore cells, tissues, diversity and Class 9 biology resources. vidyanirman_bio_class_9th_interactive_biology_portal.html" style="--hub-accent:#10b981;--hub-deep:#064e3b;--hub-tint:rgba(16,185,129,.17)">
+                    <div class="hub-card-top">
+                        <span class="hub-icon"><i class="fa-solid fa-dna"></i></span>
+                        <span class="hub-category">LEARNING PORTAL</span>
+                    </div>
+                    <p class="hub-kicker">Biology learning space</p>
+                    <h3>VIDYANIRMAN BIO</h3>
+                    <p class="hub-description">Explore cells, tissues, diversity and Class 9 biology resources.</p>
+                    <div class="hub-card-bottom">
+                        <span class="hub-file"><i class="fa-regular fa-file-code"></i> vidyanirman_bio_class_9th_interactive_biology_portal.html</span>
+                        <a class="hub-launch" href="vidyanirman_bio_class_9th_interactive_biology_portal.html" aria-label="Open VIDYANIRMAN BIO">Open portal <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </article>
+                <article class="hub-card" data-search="VIDYANIRMAN PHYSICS LEARNING PORTAL Physics learning space Understand motion, force, work, energy and sound. physics.html" style="--hub-accent:#22d3ee;--hub-deep:#164e63;--hub-tint:rgba(34,211,238,.16)">
+                    <div class="hub-card-top">
+                        <span class="hub-icon"><i class="fa-solid fa-atom"></i></span>
+                        <span class="hub-category">LEARNING PORTAL</span>
+                    </div>
+                    <p class="hub-kicker">Physics learning space</p>
+                    <h3>VIDYANIRMAN PHYSICS</h3>
+                    <p class="hub-description">Understand motion, force, work, energy and sound.</p>
+                    <div class="hub-card-bottom">
+                        <span class="hub-file"><i class="fa-regular fa-file-code"></i> physics.html</span>
+                        <a class="hub-launch" href="physics.html" aria-label="Open VIDYANIRMAN PHYSICS">Open portal <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </article>
+                <article class="hub-card" data-search="VIDYANIRMAN CHEMISTRY LEARNING PORTAL Chemistry learning space Explore matter, atoms, mixtures and core chemistry topics. Chem.html" style="--hub-accent:#fb923c;--hub-deep:#7c2d12;--hub-tint:rgba(251,146,60,.16)">
+                    <div class="hub-card-top">
+                        <span class="hub-icon"><i class="fa-solid fa-flask"></i></span>
+                        <span class="hub-category">LEARNING PORTAL</span>
+                    </div>
+                    <p class="hub-kicker">Chemistry learning space</p>
+                    <h3>VIDYANIRMAN CHEMISTRY</h3>
+                    <p class="hub-description">Explore matter, atoms, mixtures and core chemistry topics.</p>
+                    <div class="hub-card-bottom">
+                        <span class="hub-file"><i class="fa-regular fa-file-code"></i> Chem.html</span>
+                        <a class="hub-launch" href="Chem.html" aria-label="Open VIDYANIRMAN CHEMISTRY">Open portal <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </article>
+                <article class="hub-card" data-search="BIO-QUEST QUEST ARENA Biology challenge Test your biology knowledge with focused quiz challenges. bio-quest.html" style="--hub-accent:#a3e635;--hub-deep:#365314;--hub-tint:rgba(163,230,53,.15)">
+                    <div class="hub-card-top">
+                        <span class="hub-icon"><i class="fa-solid fa-leaf"></i></span>
+                        <span class="hub-category">QUEST ARENA</span>
+                    </div>
+                    <p class="hub-kicker">Biology challenge</p>
+                    <h3>BIO-QUEST</h3>
+                    <p class="hub-description">Test your biology knowledge with focused quiz challenges.</p>
+                    <div class="hub-card-bottom">
+                        <span class="hub-file"><i class="fa-regular fa-file-code"></i> bio-quest.html</span>
+                        <a class="hub-launch" href="bio-quest.html" aria-label="Open BIO-QUEST">Open portal <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </article>
+                <article class="hub-card" data-search="PHYSICS-QUEST QUEST ARENA Physics challenge Take on concept-based physics questions and challenges. physics-quest.html" style="--hub-accent:#38bdf8;--hub-deep:#075985;--hub-tint:rgba(56,189,248,.15)">
+                    <div class="hub-card-top">
+                        <span class="hub-icon"><i class="fa-solid fa-bolt"></i></span>
+                        <span class="hub-category">QUEST ARENA</span>
+                    </div>
+                    <p class="hub-kicker">Physics challenge</p>
+                    <h3>PHYSICS-QUEST</h3>
+                    <p class="hub-description">Take on concept-based physics questions and challenges.</p>
+                    <div class="hub-card-bottom">
+                        <span class="hub-file"><i class="fa-regular fa-file-code"></i> physics-quest.html</span>
+                        <a class="hub-launch" href="physics-quest.html" aria-label="Open PHYSICS-QUEST">Open portal <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </article>
+                <article class="hub-card" data-search="CHEMISTRY-QUEST QUEST ARENA Chemistry challenge Challenge your understanding of chemistry concepts. chemistry-quest.html" style="--hub-accent:#fb7185;--hub-deep:#881337;--hub-tint:rgba(251,113,133,.16)">
+                    <div class="hub-card-top">
+                        <span class="hub-icon"><i class="fa-solid fa-fire-burner"></i></span>
+                        <span class="hub-category">QUEST ARENA</span>
+                    </div>
+                    <p class="hub-kicker">Chemistry challenge</p>
+                    <h3>CHEMISTRY-QUEST</h3>
+                    <p class="hub-description">Challenge your understanding of chemistry concepts.</p>
+                    <div class="hub-card-bottom">
+                        <span class="hub-file"><i class="fa-regular fa-file-code"></i> chemistry-quest.html</span>
+                        <a class="hub-launch" href="chemistry-quest.html" aria-label="Open CHEMISTRY-QUEST">Open portal <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </article>
+                <article class="hub-card" data-search="GRAND-QUEST MEGA CHAMPIONSHIP All-subject championship A combined Bio, Physics and Chemistry challenge arena. grand-quest.html" style="--hub-accent:#facc15;--hub-deep:#713f12;--hub-tint:rgba(250,204,21,.17)">
+                    <div class="hub-card-top">
+                        <span class="hub-icon"><i class="fa-solid fa-trophy"></i></span>
+                        <span class="hub-category">MEGA CHAMPIONSHIP</span>
+                    </div>
+                    <p class="hub-kicker">All-subject championship</p>
+                    <h3>GRAND-QUEST</h3>
+                    <p class="hub-description">A combined Bio, Physics and Chemistry challenge arena.</p>
+                    <div class="hub-card-bottom">
+                        <span class="hub-file"><i class="fa-regular fa-file-code"></i> grand-quest.html</span>
+                        <a class="hub-launch" href="grand-quest.html" aria-label="Open GRAND-QUEST">Open portal <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </article>
+                <article class="hub-card" data-search="PDF NOTES STUDY MATERIAL Chapter-wise study notes Open the study-material library and revision resources. study-material.html" style="--hub-accent:#c4b5fd;--hub-deep:#4c1d95;--hub-tint:rgba(196,181,253,.16)">
+                    <div class="hub-card-top">
+                        <span class="hub-icon"><i class="fa-solid fa-file-pdf"></i></span>
+                        <span class="hub-category">STUDY MATERIAL</span>
+                    </div>
+                    <p class="hub-kicker">Chapter-wise study notes</p>
+                    <h3>PDF NOTES</h3>
+                    <p class="hub-description">Open the study-material library and revision resources.</p>
+                    <div class="hub-card-bottom">
+                        <span class="hub-file"><i class="fa-regular fa-file-code"></i> study-material.html</span>
+                        <a class="hub-launch" href="study-material.html" aria-label="Open PDF NOTES">Open portal <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </article>
+                <article class="hub-card sst-feature-card" data-search="SOCIAL SCIENCE NOTES SOCIAL SCIENCE PORTAL Class 9 SST learning hub Explore History, Geography, Civics and Economics learning resources. social-science-portal.html" style="--hub-accent:#f9a8d4;--hub-deep:#831843;--hub-tint:rgba(249,168,212,.18)">
+                    <div class="hub-card-top">
+                        <span class="hub-icon"><i class="fa-solid fa-landmark"></i></span>
+                        <span class="hub-category">SOCIAL SCIENCE PORTAL</span>
+                    </div>
+                    <p class="hub-kicker">Class 9 SST learning hub</p>
+                    <h3>SOCIAL SCIENCE NOTES</h3>
+                    <p class="hub-description">Explore History, Geography, Civics and Economics learning resources.</p>
+                    <div class="hub-card-bottom">
+                        <span class="hub-file"><i class="fa-regular fa-file-code"></i> social-science-portal.html</span>
+                        <a class="hub-launch" href="social-science-portal.html" aria-label="Open SOCIAL SCIENCE NOTES">Open portal <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </article>
+            </div>
+            <p id="directoryEmpty" class="hidden text-center text-amber-100/60 py-10">No matching portal found. Try another search.</p>
+            <div class="text-center mt-9"><span class="inline-flex items-center gap-2 text-[11px] text-amber-100/45"><i class="fa-solid fa-shield-halved text-amber-400"></i> Official Vidya Nirman connected pages</span></div>
+        </div>
+    </section>
+
+    <!-- Leadership & Founders Section -->
+    <section id="founders" class="py-20 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-amber-400 text-xs font-black uppercase tracking-widest bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/30">Visionaries & Leaders</span>
+                <h2 class="font-cinzel text-3xl sm:text-4xl font-extrabold text-gold-gradient mt-2">Leadership & Foundership</h2>
+                <div class="w-28 h-1 bg-gradient-to-r from-transparent via-amber-400 to-transparent mx-auto mt-3"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto">
+                <!-- FOUNDER: ANMOL TIWARI -->
+                <div class="bg-maroon-card p-8 rounded-2xl border-gold-glow relative overflow-hidden group hover:scale-[1.02] transition-all">
+                    <div class="flex flex-col sm:flex-row items-center gap-6 mb-6">
+                        <div class="relative">
+                            <div class="w-28 h-28 rounded-full border-2 border-amber-400 p-1 bg-[#0F0103] shadow-xl shadow-amber-500/20 overflow-hidden">
+                               <img src="anmol.jpg" alt="Anmol Tiwari" style="width: 140px; height: 140px; border-radius: 50%; object-fit: cover;">
+                            </div>
+                            <div class="absolute -bottom-1 -right-1 bg-amber-500 text-slate-950 p-2 rounded-full text-xs font-black shadow">
+                                <i class="fa-solid fa-crown"></i>
+                            </div>
+                        </div>
+
+                        <div class="text-center sm:text-left">
+                            <span class="bg-amber-500/20 text-amber-300 text-[11px] px-3 py-1 rounded-full font-bold border border-amber-500/30">FOUNDER</span>
+                            <h3 class="font-cinzel text-2xl font-extrabold text-amber-100 mt-2">ANMOL TIWARI</h3>
+                            <p class="text-xs text-amber-300/90 font-medium">Chief Visionary & Curriculum Architect</p>
+                            
+                            <div class="flex items-center justify-center sm:justify-start gap-3 mt-3">
+                                <a href="mailto:founder@vidyanirman.edu" class="w-8 h-8 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 hover:bg-amber-500 hover:text-slate-950 transition-all text-xs">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </a>
+                                <a href="#founders" class="w-8 h-8 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 hover:bg-amber-500 hover:text-slate-950 transition-all text-xs">
+                                    <i class="fa-brands fa-linkedin-in"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-slate-300 text-xs leading-relaxed italic border-l-2 border-amber-400/60 pl-4 py-1">
+                        "At Vidya Nirman, our vision is to combine the timeless focus of traditional Indian education with dynamic visual gateways, ensuring Class 9th students build an unshakeable foundation for their future."
+                    </p>
+                </div>
+
+                <!-- CO-FOUNDER: AMRIT SINGH -->
+                <div class="bg-maroon-card p-8 rounded-2xl border-gold-glow relative overflow-hidden group hover:scale-[1.02] transition-all">
+                    <div class="flex flex-col sm:flex-row items-center gap-6 mb-6">
+                        <div class="relative">
+                            <div class="w-28 h-28 rounded-full border-2 border-amber-400 p-1 bg-[#0F0103] shadow-xl shadow-amber-500/20 overflow-hidden">
+                                <img src="amrit image.jpg" alt="Amrit Singh" class="w-full h-full object-cover rounded-full">
+                            </div>
+                            <div class="absolute -bottom-1 -right-1 bg-amber-500 text-slate-950 p-2 rounded-full text-xs font-black shadow">
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                        </div>
+
+                        <div class="text-center sm:text-left">
+                            <span class="bg-amber-500/20 text-amber-300 text-[11px] px-3 py-1 rounded-full font-bold border border-amber-500/30">CO-FOUNDER</span>
+                            <h3 class="font-cinzel text-2xl font-extrabold text-amber-100 mt-2">AMRIT SINGH</h3>
+                            <p class="text-xs text-amber-300/90 font-medium">Academic Strategist & Tech Innovator</p>
+                            
+                            <div class="flex items-center justify-center sm:justify-start gap-3 mt-3">
+                                <a href="mailto:cofounder@vidyanirman.edu" class="w-8 h-8 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 hover:bg-amber-500 hover:text-slate-950 transition-all text-xs">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </a>
+                                <a href="#founders" class="w-8 h-8 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 hover:bg-amber-500 hover:text-slate-950 transition-all text-xs">
+                                    <i class="fa-brands fa-linkedin-in"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-slate-300 text-xs leading-relaxed italic border-l-2 border-amber-400/60 pl-4 py-1">
+                        "Gamified Quest Arenas transform learning from passive textbook reading into an engaging journey of curiosity, problem solving, and confidence building."
+                    </p>
+                </div>
+
+                <!-- DESIGNER: ARYAMAN MISHRA -->
+                <div class="bg-maroon-card p-8 rounded-2xl border-gold-glow relative overflow-hidden group hover:scale-[1.02] transition-all">
+                    <div class="flex flex-col sm:flex-row items-center gap-6 mb-6">
+                        <div class="relative">
+                            <div class="w-28 h-28 rounded-full border-2 border-amber-400 p-1 bg-[#0F0103] shadow-xl shadow-amber-500/20 flex items-center justify-center">
+                                <i class="fa-solid fa-pen-ruler text-4xl text-amber-300" aria-hidden="true"></i>
+                            </div>
+                            <div class="absolute -bottom-1 -right-1 bg-amber-500 text-slate-950 p-2 rounded-full text-xs font-black shadow">
+                                <i class="fa-solid fa-palette"></i>
+                            </div>
+                        </div>
+
+                        <div class="text-center sm:text-left">
+                            <span class="bg-amber-500/20 text-amber-300 text-[11px] px-3 py-1 rounded-full font-bold border border-amber-500/30">DESIGNER</span>
+                            <h3 class="font-cinzel text-2xl font-extrabold text-amber-100 mt-2">ARYAMAN MISHRA</h3>
+                            <p class="text-xs text-amber-300/90 font-medium">Website Designer</p>
+                        </div>
+                    </div>
+
+                    <p class="text-slate-300 text-xs leading-relaxed italic border-l-2 border-amber-400/60 pl-4 py-1">
+                        Helping shape the visual experience of Vidya Nirman.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="relative z-10 border-t border-amber-500/30 bg-[#0A0002] py-12 text-xs text-slate-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+                
+                <div class="space-y-3">
+                    <div class="font-cinzel text-xl font-black text-gold-gradient tracking-wider">VIDYA NIRMAN</div>
+                    <p class="font-devanagari text-amber-300 text-xs font-semibold">सा विद्या या विमुक्तये</p>
+                    <p class="text-slate-400 text-xs leading-relaxed">
+                        Class 9th Interactive Learning & Quest Portal. Grounded in traditional excellence, powered by modern technology.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-cinzel text-amber-200 font-bold mb-3 text-sm">Learning Portals</h4>
+                    <ul class="space-y-2">
+                        <li><a href="vidyanirman_bio_class_9th_interactive_biology_portal.html" class="hover:text-amber-400 transition-colors">VIDYANIRMAN BIO</a></li>
+                        <li><a href="physics.html" class="hover:text-amber-400 transition-colors">VIDYANIRMAN PHYSICS</a></li>
+                        <li><a href="Chem.html" class="hover:text-amber-400 transition-colors">VIDYANIRMAN CHEMISTRY</a></li>
+                        <li><a href="coding.html" class="hover:text-amber-400 transition-colors">VN CODING ACADEMY</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-cinzel text-amber-200 font-bold mb-3 text-sm">Quest Arenas</h4>
+                    <ul class="space-y-2">
+                        <li><a href="bio-quest.html" class="hover:text-amber-400 transition-colors">BIO-QUEST</a></li>
+                        <li><a href="physics-quest.html" class="hover:text-amber-400 transition-colors">PHYSICS-QUEST</a></li>
+                        <li><a href="chemistry-quest.html" class="hover:text-amber-400 transition-colors">CHEMISTRY-QUEST</a></li>
+                        <li><a href="grand-quest.html" class="text-amber-300 font-bold hover:underline">GRAND-QUEST Championship</a></li>
+                    </ul>
+                </div>
+
+                 <div class="flex flex-col gap-1">
+                  <h4 class="font-cinzel text-amber-200 font-bold mb-2 text-sm">Leadership</h4>
+                  <p class="text-slate-300 text-xs"><strong>Founder:</strong> ANMOL TIWARI</p>
+                  <p class="text-slate-300 text-xs"><strong>Co-Founder:</strong> AMRIT SINGH</p>
+                  <p class="text-slate-300 text-xs"><strong>Designer:</strong> ARYAMAN MISHRA</p>
+                  <p class="text-[11px] text-amber-200/80 mt-1"><i class="fa-solid fa-envelope text-amber-400 mr-1"></i> support@vidyanirman.online</p>
+                    </div>
+                  
+
+            </div>
+
+            <div class="w-full h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent my-6"></div>
+
+            <div class="flex flex-col sm:flex-row items-center justify-between text-center sm:text-left gap-4">
+                <p>© 2026 Vidya Nirman Interactive Learning Portal. All Rights Reserved.</p>
+                <div class="flex gap-4">
+                    <a href="#home" class="hover:text-amber-400">Class 9th Curriculum</a>
+                    <a href="#founders" class="hover:text-amber-400">Founders Profile</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Portal Preview Modal -->
+    <div id="portalModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300">
+        <div class="bg-[#1A0206] border-2 border-amber-400 rounded-2xl max-w-md w-full p-6 text-center relative shadow-2xl">
+            <button onclick="closePortalModal()" class="absolute top-4 right-4 text-amber-400 hover:text-amber-200 text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-400 flex items-center justify-center mx-auto mb-4 text-amber-400 text-xl">
+                <i class="fa-solid fa-globe"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-widest text-amber-400 bg-amber-500/20 px-3 py-1 rounded-full border border-amber-500/30">GATEWAY PREVIEW</span>
+            <h3 id="modalPortalTitle" class="font-cinzel text-xl font-bold text-amber-100 my-3">Portal Title</h3>
+            <p id="modalPortalDesc" class="text-xs text-slate-300 leading-relaxed mb-4">Portal description...</p>
+            <div class="p-3 bg-[#0F0103] rounded-lg border border-amber-500/20 font-mono text-xs text-amber-300 mb-6 flex items-center justify-between">
+                <span>Target Link:</span>
+                <strong id="modalTargetUrl" class="text-yellow-300">filename.html</strong>
+            </div>
+            <div class="flex justify-center gap-3">
+                <button onclick="closePortalModal()" class="px-5 py-2.5 rounded-xl bg-amber-950/80 text-amber-200 border border-amber-500/40 text-xs font-bold hover:border-amber-400 transition-all">Close</button>
+                <a id="modalLaunchBtn" href="#" class="px-5 py-2.5 rounded-xl bg-gold-gradient text-slate-950 text-xs font-extrabold hover:scale-105 transition-all flex items-center gap-2">
+                    Open Portal <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* Floating Particle Canvas */
+        const canvas = document.getElementById('emberCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height + canvas.height;
+                this.size = Math.random() * 2.5 + 0.5;
+                this.speedY = Math.random() * 0.8 + 0.2;
+                this.speedX = (Math.random() - 0.5) * 0.3;
+                this.opacity = Math.random() * 0.8 + 0.2;
+            }
+            update() {
+                this.y -= this.speedY;
+                this.x += this.speedX;
+                if (this.y < -10) this.reset();
+            }
+            draw() {
+                ctx.fillStyle = `rgba(255, 215, 0, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 75; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        /* Mobile Drawer Toggle */
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        /* Directory Search Filter */
+        function filterDirectory() {
+            const input = document.getElementById('directorySearch').value.trim().toLowerCase();
+            const cards = document.querySelectorAll('#directoryGrid .hub-card');
+            let visible = 0;
+            cards.forEach(card => {
+                const match = (card.dataset.search || card.innerText).toLowerCase().includes(input);
+                card.style.display = match ? '' : 'none';
+                if (match) visible++;
+            });
+            const empty = document.getElementById('directoryEmpty');
+            if (empty) empty.classList.toggle('hidden', visible !== 0);
+        }
+
+        /* Modal Launcher */
+        function openPortalModal(title, url, desc) {
+            document.getElementById('modalPortalTitle').innerText = title;
+            document.getElementById('modalPortalDesc').innerText = desc;
+            document.getElementById('modalTargetUrl').innerText = url;
+            document.getElementById('modalLaunchBtn').href = url;
+
+            const modal = document.getElementById('portalModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100', 'pointer-events-auto');
+        }
+
+        function closePortalModal() {
+            const modal = document.getElementById('portalModal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.classList.remove('opacity-100', 'pointer-events-auto');
+        }
+
+        /* 3D Tilt Card Effect */
+        document.querySelectorAll('.tilt-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -5;
+                const rotateY = ((x - centerX) / centerX) * 5;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+            });
+        });
+    </script>
+
+<style id="vn-ai-premium-styles">
+#vnAiLauncher{position:fixed;left:22px;right:auto;bottom:22px;z-index:10000;display:flex;align-items:center;gap:9px;background:linear-gradient(135deg,#ffe39a,#d4af37 58%,#b8860b);color:#220308;border:1px solid #fff0a6;border-radius:999px;padding:13px 18px;font-weight:900;box-shadow:0 10px 34px #d4af3755;cursor:pointer;transition:transform .2s}
+#vnAiLauncher:hover{transform:translateY(-3px)}
+.vn-ai-launch-icon{width:30px;height:30px;display:grid;place-items:center;border-radius:50%;background:#220308;color:#ffd978}
+#vnAiChatPanel{position:fixed;left:22px;right:auto;bottom:88px;z-index:10000;width:min(430px,calc(100vw - 28px));height:min(650px,calc(100dvh - 112px));min-height:420px;display:none;flex-direction:column;background:linear-gradient(160deg,#21060d,#100105 72%);border:1px solid #d4af37;border-radius:22px;overflow:hidden;box-shadow:0 24px 85px #000d;color:#fff9e6}
+#vnAiChatPanel.vn-open{display:flex}
+.vn-ai-head{padding:15px 16px;background:linear-gradient(120deg,#4a0c17,#1b0309);border-bottom:1px solid #d4af3755;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.vn-ai-brand{display:flex;align-items:center;gap:10px}.vn-ai-brand-mark{width:38px;height:38px;flex:0 0 38px;border:1px solid #d4af37;border-radius:50%;display:grid;place-items:center;color:#ffd700;background:#26070d}
+.vn-ai-orb{position:relative;font-size:17px;box-shadow:inset 0 0 0 1px #d4af3766,0 0 14px #d4af3740}.vn-ai-orb-spark{position:absolute;right:-3px;top:-5px;font-size:12px;color:#fff0a6;text-shadow:0 0 7px #ffd978}.vn-ai-brand-orb{position:relative;font-size:19px;box-shadow:inset 0 0 12px #d4af3733,0 0 15px #d4af3730}.vn-ai-brand-orb span{position:absolute;right:2px;top:0;font-size:10px;color:#fff0a6;text-shadow:0 0 7px #ffd978}
+.vn-ai-brand-title{font:800 13px 'Cinzel',serif;letter-spacing:.08em;color:#ffd978}.vn-ai-brand-sub{font-size:10px;color:#d9cda7;margin-top:3px}
+.vn-ai-head-actions{display:flex;gap:6px}.vn-ai-icon-btn{width:32px;height:32px;border:1px solid #d4af3744;border-radius:9px;background:#26070d;color:#f4d58f;cursor:pointer}
+.vn-ai-toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 13px;background:#150208;border-bottom:1px solid #d4af3725}
+.vn-ai-language{display:flex;gap:4px;padding:3px;border:1px solid #8e6d244f;border-radius:999px;background:#0e0104}
+.vn-ai-language button{border:0;border-radius:999px;padding:6px 10px;background:transparent;color:#cbb99b;font-size:10px;font-weight:800;cursor:pointer}
+.vn-ai-language button[aria-pressed="true"]{background:linear-gradient(120deg,#ffe39a,#d4af37);color:#220308}
+.vn-ai-service-label{font-size:9px;color:#c7b58d;letter-spacing:.08em;text-transform:uppercase}
+.vn-ai-context{display:grid;grid-template-columns:75px minmax(0,1fr);gap:6px 9px;align-items:center;padding:9px 13px;background:#1a050b;border-bottom:1px solid #d4af3725}
+.vn-ai-context label{font-size:8px;font-weight:900;letter-spacing:.1em;color:#cbb98f}
+.vn-ai-context select,.vn-ai-context input{min-width:0;width:100%;border:1px solid #8e6d2455;border-radius:8px;background:#26070d;color:#fff4d5;padding:7px 9px;font:10px 'Plus Jakarta Sans',sans-serif;outline:none}
+.vn-ai-context select:focus,.vn-ai-context input:focus{border-color:#ffd700}
+.vn-ai-context input::placeholder{color:#a99578}
+
+.vn-ai-messages{flex:1;overflow:auto;padding:15px 13px;display:flex;flex-direction:column;gap:11px;scroll-behavior:smooth}
+.vn-ai-welcome{padding:14px;border:1px solid #d4af3740;border-radius:15px;background:linear-gradient(145deg,#35101a,#1a050b)}
+.vn-ai-welcome strong{display:block;color:#ffe2a0;font:700 12px 'Cinzel',serif;margin-bottom:6px}.vn-ai-welcome p{font-size:12px;line-height:1.65;color:#e8dcc2;margin:0}
+.vn-ai-msg{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.65;font-size:12px;padding:11px 13px;border-radius:14px;max-width:94%}
+.vn-ai-user{align-self:flex-end;background:linear-gradient(135deg,#ffe39a,#d4af37);color:#220308;border-bottom-right-radius:5px}
+.vn-ai-bot{align-self:flex-start;background:#2b0a10;border:1px solid #d4af3738;color:#fff9e6;border-bottom-left-radius:5px}
+.vn-ai-msg-label{display:block;margin-bottom:4px;font-size:9px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;opacity:.72}
+.vn-ai-typing{display:flex;gap:5px;min-height:20px}.vn-ai-typing i{width:6px;height:6px;border-radius:50%;background:#e8c66b;animation:vnAiBounce .9s infinite ease-in-out}
+.vn-ai-typing i:nth-child(2){animation-delay:.12s}.vn-ai-typing i:nth-child(3){animation-delay:.24s}
+@keyframes vnAiBounce{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-5px);opacity:1}}
+.vn-ai-prompts{display:flex;gap:6px;padding:8px 12px 10px;flex-wrap:wrap;background:#100105;border-top:1px solid #d4af3725}
+.vn-prompt-btn{font-size:10px;background:#2b0a10;border:1px solid #d4af3755;color:#ffe19a;padding:7px 9px;border-radius:999px;cursor:pointer}
+.vn-ai-form{display:flex;align-items:flex-end;gap:8px;padding:11px 12px 12px;border-top:1px solid #d4af3744;background:#100105}
+#vnAiInput{min-width:0;flex:1;max-height:110px;resize:none;background:#24070d;color:#fff9e6;border:1px solid #8e6d24;border-radius:12px;padding:11px 12px;font:12px/1.5 'Plus Jakarta Sans',sans-serif;outline:none}
+#vnAiInput:focus{border-color:#ffd700}#vnAiSend{width:43px;height:42px;flex:0 0 43px;background:linear-gradient(135deg,#ffe39a,#d4af37);color:#220308;border-radius:12px;font-weight:900;cursor:pointer}
+#vnAiSend:disabled{opacity:.55;cursor:wait}.vn-ai-footnote{padding:0 13px 9px;background:#100105;color:#9d8b6e;font-size:9px;text-align:center}
+.vn-ai-retry{display:block;margin-top:8px;border:1px solid #d4af3770;background:#35101a;color:#ffe39a;border-radius:8px;padding:6px 10px;font-size:10px;font-weight:800;cursor:pointer}
+@media(max-width:480px){#vnAiLauncher{left:14px;right:auto;bottom:calc(76px + env(safe-area-inset-bottom));padding:11px 14px}#vnAiChatPanel{left:10px;right:auto;bottom:calc(130px + env(safe-area-inset-bottom));width:calc(100vw - 20px);height:min(620px,calc(100dvh - 160px));min-height:390px;border-radius:18px}.vn-ai-head{padding:12px}.vn-ai-messages{padding:12px 10px}}
+@media(prefers-reduced-motion:reduce){.vn-ai-typing i{animation:none!important}}
+</style>
+<button id="vnAiLauncher" type="button" aria-controls="vnAiChatPanel" aria-expanded="false"><span class="vn-ai-launch-icon vn-ai-orb" aria-hidden="true"><i class="fa-solid fa-brain"></i><span class="vn-ai-orb-spark">✦</span></span><span>Ask Vidya AI</span></button>
+<section id="vnAiChatPanel" role="dialog" aria-label="Vidya Nirman AI study assistant" aria-modal="false">
+<div class="vn-ai-head"><div class="vn-ai-brand"><div class="vn-ai-brand-mark vn-ai-brand-orb" aria-hidden="true"><i class="fa-solid fa-brain"></i><span>✦</span></div><div><div class="vn-ai-brand-title">VIDYA NIRMAN AI</div><div class="vn-ai-brand-sub">Your Class 9 learning companion</div></div></div>
+<div class="vn-ai-head-actions"><button id="vnAiNewChat" class="vn-ai-icon-btn" type="button" aria-label="Start a new chat" title="New chat"><i class="fa-solid fa-rotate-left"></i></button><button id="vnAiClose" class="vn-ai-icon-btn" type="button" aria-label="Close chat"><i class="fa-solid fa-xmark"></i></button></div></div>
+<div class="vn-ai-toolbar"><div class="vn-ai-language" role="group" aria-label="AI response language"><button type="button" data-vn-language="hinglish" aria-pressed="true">Hinglish</button><button type="button" data-vn-language="english" aria-pressed="false">English</button></div><span class="vn-ai-service-label">✦ Study assistant</span></div><div class="vn-ai-context"><label for="vnAiSubject">SUBJECT</label><select id="vnAiSubject" aria-label="Study subject"><option value="">Choose subject</option><option>Science</option><option>Mathematics</option><option>Social Science</option><option>English</option><option>Hindi</option><option>Computer / Coding</option></select><label for="vnAiChapter">CHAPTER / TOPIC</label><input id="vnAiChapter" type="text" maxlength="100" placeholder="e.g. Motion, Tissues, The French Revolution" autocomplete="off"></div>
+<div id="vnAiMessages" class="vn-ai-messages" aria-live="polite"><div class="vn-ai-welcome"><strong>Namaste! Welcome to Vidya AI 🙏</strong><p>Ask me to explain a Class 9 topic, solve a numerical step by step, make revision notes, or prepare practice questions. Choose your response language above.</p></div></div>
+<div class="vn-ai-prompts" aria-label="Study tools">
+<button type="button" class="vn-prompt-btn" data-vn-prompt="Explain this topic step by step with a simple real-life example: ">✦ Explain</button>
+<button type="button" class="vn-prompt-btn" data-vn-prompt="Create concise revision notes with key definitions and important points for: ">📝 Notes</button>
+<button type="button" class="vn-prompt-btn" data-vn-prompt="Create 5 Class 9 level MCQs. Ask one at a time and wait for my answer. Topic: ">❓ Practice MCQs</button>
+<button type="button" class="vn-prompt-btn" data-vn-prompt="Create 8 flashcards with a question and short answer for: ">⚡ Flashcards</button>
+<button type="button" class="vn-prompt-btn" data-vn-prompt="Create a realistic 7-day revision plan with short daily study sessions for: ">📅 Revision plan</button>
+</div>
+<form id="vnAiForm" class="vn-ai-form"><textarea id="vnAiInput" rows="1" maxlength="4000" autocomplete="off" placeholder="Ask your study question…" aria-label="Your question" required></textarea><button id="vnAiSend" type="submit" aria-label="Send message" title="Send"><i class="fa-solid fa-arrow-up"></i></button></form>
+<div class="vn-ai-footnote">Chats auto-save on this device · New Chat clears the saved conversation · Check important answers with your textbook or teacher.</div>
+</section>
+<script id="vn-ai-controller">
+(() => {
+ const API_URL='https://vidya-nirman-ai.onrender.com/api/chat';
+ const launcher=document.getElementById('vnAiLauncher'),panel=document.getElementById('vnAiChatPanel'),close=document.getElementById('vnAiClose'),newChat=document.getElementById('vnAiNewChat'),form=document.getElementById('vnAiForm'),input=document.getElementById('vnAiInput'),send=document.getElementById('vnAiSend'),messages=document.getElementById('vnAiMessages');
+ const languageButtons=Array.from(document.querySelectorAll('[data-vn-language]')),promptButtons=Array.from(document.querySelectorAll('[data-vn-prompt]'));
+ const subjectSelect=document.getElementById('vnAiSubject'),chapterInput=document.getElementById('vnAiChapter');
+ try{const ctx=JSON.parse(localStorage.getItem('vn_vidya_ai_study_context_v1')||'{}');if(subjectSelect&&typeof ctx.subject==='string')subjectSelect.value=ctx.subject;if(chapterInput&&typeof ctx.chapter==='string')chapterInput.value=ctx.chapter}catch(_){}
+ const studyContext=()=>{const subject=subjectSelect?.value||'',chapter=chapterInput?.value.trim()||'';return subject||chapter?'The student is currently studying'+(subject?' subject: '+subject:'')+(chapter?'; chapter/topic: '+chapter:'')+'. Keep examples, explanations, notes and practice relevant to this context. If the question is unrelated, answer it normally.':'Use the student’s question to identify the topic; do not assume a chapter.'};
+ const saveStudyContext=()=>{try{localStorage.setItem('vn_vidya_ai_study_context_v1',JSON.stringify({subject:subjectSelect?.value||'',chapter:chapterInput?.value||''}))}catch(_){}};
+ subjectSelect?.addEventListener('change',saveStudyContext);chapterInput?.addEventListener('input',saveStudyContext);
+
+ if(!launcher||!panel||!form||!input||!send||!messages)return;
+ const STORAGE_KEY='vn_vidya_ai_chat_v1';
+ let history=[];let language='hinglish',busy=false,lastPrompt='';
+ try{const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');if(Array.isArray(saved))history=saved.filter(x=>x&&['user','assistant'].includes(x.role)&&typeof x.content==='string').slice(-18)}catch(_){history=[]}
+ function persist(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(history.slice(-18)))}catch(_){}}
+
+ const scroll=()=>{messages.scrollTop=messages.scrollHeight};
+ restoreHistory();
+ function toggle(open){panel.classList.toggle('vn-open',open);launcher.setAttribute('aria-expanded',String(open));if(open)input.focus()}
+ launcher.addEventListener('click',()=>toggle(!panel.classList.contains('vn-open')));close.addEventListener('click',()=>toggle(false));
+ function setLanguage(next){language=next==='english'?'english':'hinglish';languageButtons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.vnLanguage===language)))}
+ languageButtons.forEach(b=>b.addEventListener('click',()=>setLanguage(b.dataset.vnLanguage)));
+ function welcome(){messages.innerHTML='';const box=document.createElement('div');box.className='vn-ai-welcome';const h=document.createElement('strong'),p=document.createElement('p');h.textContent='Namaste! Welcome to Vidya AI 🙏';p.textContent='Ask me to explain a Class 9 topic, solve a numerical step by step, make revision notes, or prepare practice questions. Choose your response language above.';box.append(h,p);messages.appendChild(box)}
+ function addMessage(content,role){const box=document.createElement('div'),label=document.createElement('span'),body=document.createElement('div');box.className='vn-ai-msg '+(role==='user'?'vn-ai-user':'vn-ai-bot');label.className='vn-ai-msg-label';label.textContent=role==='user'?'You':'Vidya AI';body.textContent=content;box.append(label,body);messages.appendChild(box);scroll();return box}
+ function restoreHistory(){if(!history.length)return;messages.innerHTML='';history.forEach(item=>addMessage(item.content,item.role==='user'?'user':'assistant'))}
+ function typing(){const box=document.createElement('div');box.className='vn-ai-msg vn-ai-bot';box.innerHTML='<span class="vn-ai-msg-label">Vidya AI</span><span class="vn-ai-typing"><i></i><i></i><i></i></span>';messages.appendChild(box);scroll();return box}
+ function setBusy(v){busy=v;send.disabled=v;send.innerHTML=v?'<i class="fa-solid fa-circle-notch fa-spin"></i>':'<i class="fa-solid fa-arrow-up"></i>'}
+ function instruction(lang){return lang==='english'?'Respond in clear, simple English suitable for a Class 9 student. Keep technical terms accurate.':'Respond in friendly Hinglish using simple Hindi in Roman script mixed with clear English academic terms. Keep the explanation suitable for a Class 9 student.'}
+ async function ask(question,retry){if(!question||busy)return;lastPrompt=question;if(!retry){addMessage(question,'user');history.push({role:'user',content:question,language:language});if(history.length>18)history.splice(0,history.length-18);persist()}
+ const pending=typing();setBusy(true);const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),45000);
+ try{
+  const payload=history.map(item=>({role:item.role,content:item.role==='user'?instruction(item.language)+'\n\n'+studyContext()+'\n\n'+item.content:item.content}));
+  const response=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:payload}),signal:controller.signal});
+  let data={};try{data=await response.json()}catch(_){}
+  if(!response.ok)throw new Error(data&&typeof data.error==='string'?data.error:'Request failed ('+response.status+').');
+  if(!data||typeof data.answer!=='string'||!data.answer.trim())throw new Error('The AI service returned an empty answer. Please try again.');
+  pending.remove();addMessage(data.answer,'assistant');history.push({role:'assistant',content:data.answer});if(history.length>18)history.splice(0,history.length-18);persist();
+ }catch(error){
+  pending.remove();let detail=error&&error.name==='AbortError'?'The request took too long. Please try again.':(error&&error.message?error.message:'Unable to reach the AI service.');
+  if(detail==='Failed to fetch'||detail==='NetworkError when attempting to fetch resource.')detail='Could not reach the AI service. Check your internet connection and try again.';
+  const bubble=addMessage('Sorry, I could not complete that request. '+detail,'assistant'),retryButton=document.createElement('button');retryButton.type='button';retryButton.className='vn-ai-retry';retryButton.textContent='↻ Try again';retryButton.addEventListener('click',()=>ask(lastPrompt,true));bubble.appendChild(retryButton);
+ }finally{clearTimeout(timer);setBusy(false);input.focus();scroll()}
+ }
+ form.addEventListener('submit',event=>{event.preventDefault();const question=input.value.trim();if(!question||busy)return;input.value='';input.style.height='auto';ask(question,false)});
+ input.addEventListener('keydown',event=>{if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();form.requestSubmit()}});
+ input.addEventListener('input',()=>{input.style.height='auto';input.style.height=Math.min(input.scrollHeight,110)+'px'});
+ promptButtons.forEach(b=>b.addEventListener('click',()=>{input.value=b.dataset.vnPrompt||'';input.focus();input.setSelectionRange(input.value.length,input.value.length);input.style.height='auto';input.style.height=Math.min(input.scrollHeight,110)+'px'}));
+ newChat.addEventListener('click',()=>{if(busy)return;history.length=0;persist();lastPrompt='';welcome();input.value='';input.style.height='auto';input.focus()});
+})();
+</script>
+
+<!-- Vidya Nirman shared account session: same-domain pages -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="auth-config.js"></script>
+<script src="global-auth.js"></script>
+<script src="global-learning.js"></script>
+<script>if('serviceWorker'in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));</script>
+<!-- Mobile Sticky Bottom Navigation Bar -->
+<nav id="mobileStickyNavbar" aria-label="Mobile Quick Actions" class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#180206]/95 backdrop-blur-md border-t border-amber-500/30 px-3 py-2 shadow-2xl transition-transform duration-300">
+    <div class="grid grid-cols-5 gap-1 text-center items-center">
+        
+        <!-- Home -->
+        <a href="#home" class="flex flex-col items-center justify-center py-1 text-amber-200 hover:text-amber-400 transition-colors">
+            <i class="fa-solid fa-house text-sm mb-0.5 text-amber-400"></i>
+            <span class="text-[9px] font-bold uppercase tracking-tighter">Home</span>
+        </a>
+
+        <!-- Notes / Portals -->
+        <a href="#portals" class="flex flex-col items-center justify-center py-1 text-amber-200 hover:text-amber-400 transition-colors">
+            <i class="fa-solid fa-book-open text-sm mb-0.5 text-amber-400"></i>
+            <span class="text-[9px] font-bold uppercase tracking-tighter">Notes</span>
+        </a>
+
+        <!-- Quest Arenas (Center Highlight Button) -->
+        <a href="#quests" class="flex flex-col items-center justify-center -mt-4 group">
+            <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-600 text-slate-950 flex items-center justify-center shadow-lg shadow-amber-500/40 border-2 border-[#180206] group-hover:scale-110 transition-transform">
+                <i class="fa-solid fa-trophy text-base"></i>
+            </div>
+            <span class="text-[9px] font-black text-amber-300 uppercase tracking-tighter mt-0.5">Quests</span>
+        </a>
+
+        <!-- Coding Academy -->
+        <a href="coding.html" class="flex flex-col items-center justify-center py-1 text-amber-200 hover:text-amber-400 transition-colors">
+            <i class="fa-solid fa-code text-sm mb-0.5 text-violet-300"></i>
+            <span class="text-[9px] font-bold uppercase tracking-tighter">Coding</span>
+        </a>
+
+        <!-- Grand Quest / Championship -->
+        <a href="grand-quest.html" class="flex flex-col items-center justify-center py-1 text-yellow-300 hover:text-amber-200 transition-colors">
+            <i class="fa-solid fa-crown text-sm mb-0.5 animate-bounce text-amber-400"></i>
+            <span class="text-[9px] font-black uppercase tracking-tighter">Championship</span>
+        </a>
+
+    </div>
+</nav>
+
+<script>
+    /* Optional: Auto-hide bottom bar on deep downward scroll, reappear on scroll up */
+    let lastScrollTop = 0;
+    const navbar = document.getElementById('mobileStickyNavbar');
+    
+    window.addEventListener('scroll', function() {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollTop > lastScrollTop && scrollTop > 200) {
+            // Scrolling down -> hide slightly
+            navbar.style.transform = 'translateY(100%)';
+        } else {
+            // Scrolling up -> show
+            navbar.style.transform = 'translateY(0)';
+        }
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    }, false);
+</script>
+<script id="vn-intro-controller">
+(()=>{const screen=document.getElementById('vnIntroScreen'),fill=document.getElementById('vnIntroProgressFill'),status=document.getElementById('vnIntroStatus'),bar=document.getElementById('vnIntroProgress'),enter=document.getElementById('vnIntroEnter');if(!screen||!fill||!status||!bar||!enter)return;let start=performance.now(),done=false;const close=()=>{if(done)return;done=true;screen.classList.add('vn-intro-exit');document.body.style.overflow='';setTimeout(()=>screen.remove(),900)};enter.addEventListener('click',close);document.body.style.overflow='hidden';const tick=now=>{if(done)return;const p=Math.min(100,Math.round((now-start)/5000*100));fill.style.width=p+'%';bar.setAttribute('aria-valuenow',String(p));status.textContent=p<100?'Preparing your learning experience · '+p+'%':'Your learning journey is ready · 100%';if(p>=100)close();else requestAnimationFrame(tick)};requestAnimationFrame(tick)})();
+</script>
+</body>
+</html>
