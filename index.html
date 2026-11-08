@@ -321,6 +321,14 @@ html.vn-intro-seen #vnIntroScreen{display:none!important}
 @media(prefers-reduced-motion:reduce){#directoryGrid .quest-arena-feature *,#directoryGrid .quest-arena-feature:before{animation:none!important;transition:none!important}}
 </style>
 
+<style id="vn-social-science-quest-arena">
+#quests .sst-arena-heading{margin-top:clamp(54px,7vw,82px);margin-bottom:32px;padding-top:clamp(35px,5vw,55px);border-top:1px solid rgba(212,175,55,.22)}
+#quests .arena-card.history{--arena:#e9bd72;--arena-rgb:233,189,114}
+#quests .arena-card.political{--arena:#d9a0b8;--arena-rgb:217,160,184}
+#quests .arena-card.geography{--arena:#8fd5c2;--arena-rgb:143,213,194}
+#quests .arena-card.economics{--arena:#e4cf7b;--arena-rgb:228,207,123}
+@media(max-width:560px){#quests .sst-arena-heading{margin-top:48px;padding-top:34px}}
+</style>
 </head>
 <body class="relative min-h-screen jali-pattern selection:bg-amber-500 selection:text-red-950">
 <div id="vnIntroScreen" role="dialog" aria-label="Welcome to Vidya Nirman">
@@ -722,7 +730,43 @@ html.vn-intro-seen #vnIntroScreen{display:none!important}
         <a href="grand-quest.html" class="arena-launch"><span>Enter Championship</span><i class="fa-solid fa-crown"></i></a>
       </article>
     </div>
-    <div class="arena-footer"><i class="fa-solid fa-medal text-amber-400"></i> Learn · Challenge · Rise <i class="fa-solid fa-medal text-amber-400"></i></div>
+
+    <div class="arena-heading sst-arena-heading">
+      <span class="arena-kicker"><i class="fa-solid fa-landmark"></i> The Knowledge Heritage · Social Science</span>
+      <h2 class="arena-title">SOCIAL SCIENCE QUESTS</h2>
+      <p class="arena-subtitle">Four more arenas to explore the past, understand governance, discover our planet and build financial awareness.</p>
+    </div>
+    <div class="arena-grid sst-arena-grid">
+      <article class="arena-card history">
+        <div class="arena-card-top"><div class="arena-icon"><i class="fa-solid fa-landmark"></i></div><span class="arena-index">05</span></div>
+        <div class="arena-type">History · Past & Civilisations</div><h3>HISTORY QUEST</h3>
+        <p>Travel through time, explore historical movements and test your understanding of people, events and change.</p>
+        <div class="arena-tags"><span>ANCIENT & MEDIEVAL</span><span>EMPIRES</span><span>HISTORICAL EVENTS</span></div>
+        <a href="history-quest.html" class="arena-launch"><span>Enter History Arena</span><i class="fa-solid fa-arrow-right"></i></a>
+      </article>
+      <article class="arena-card political">
+        <div class="arena-card-top"><div class="arena-icon"><i class="fa-solid fa-scale-balanced"></i></div><span class="arena-index">06</span></div>
+        <div class="arena-type">Political Science · Democracy</div><h3>POLITICAL SCIENCE QUEST</h3>
+        <p>Challenge your knowledge of democracy, constitutional values, institutions and responsible citizenship.</p>
+        <div class="arena-tags"><span>DEMOCRACY</span><span>CONSTITUTION</span><span>GOVERNMENT</span></div>
+        <a href="political-science-quest.html" class="arena-launch"><span>Enter Political Science Arena</span><i class="fa-solid fa-arrow-right"></i></a>
+      </article>
+      <article class="arena-card geography">
+        <div class="arena-card-top"><div class="arena-icon"><i class="fa-solid fa-earth-asia"></i></div><span class="arena-index">07</span></div>
+        <div class="arena-type">Geography · Earth & Environment</div><h3>GEOGRAPHY QUEST</h3>
+        <p>Explore maps, landforms, climate, resources and the natural systems that shape our world.</p>
+        <div class="arena-tags"><span>MAP SKILLS</span><span>CLIMATE</span><span>RESOURCES</span></div>
+        <a href="geography-quest.html" class="arena-launch"><span>Enter Geography Arena</span><i class="fa-solid fa-arrow-right"></i></a>
+      </article>
+      <article class="arena-card economics">
+        <div class="arena-card-top"><div class="arena-icon"><i class="fa-solid fa-chart-line"></i></div><span class="arena-index">08</span></div>
+        <div class="arena-type">Economics · Choices & Resources</div><h3>ECONOMICS QUEST</h3>
+        <p>Understand resources, production, livelihoods, markets and the choices that shape everyday life.</p>
+        <div class="arena-tags"><span>RESOURCES</span><span>PRODUCTION</span><span>FINANCIAL AWARENESS</span></div>
+        <a href="economics-quest.html" class="arena-launch"><span>Enter Economics Arena</span><i class="fa-solid fa-arrow-right"></i></a>
+      </article>
+    </div>
+    <div class="arena-footer"><i class="fa-solid fa-medal text-amber-400"></i> Eight arenas · One learning journey <i class="fa-solid fa-medal text-amber-400"></i></div>
   </div>
 </section>
 
