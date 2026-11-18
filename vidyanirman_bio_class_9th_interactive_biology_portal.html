@@ -182,6 +182,7 @@
         .bio-3d-chloro{width:42px;height:22px;background:linear-gradient(90deg,#bbf7d0,#15803d);border:2px solid #86efac}
         .bio-3d-chloro.c1{left:14%;top:20%;transform:rotate(25deg) translateZ(22px)}.bio-3d-chloro.c2{right:12%;top:27%;transform:rotate(-25deg) translateZ(45px)}.bio-3d-chloro.c3{right:18%;bottom:16%;transform:rotate(35deg) translateZ(20px)}
         .bio-3d-wall{position:absolute;inset:-13px;border:5px solid #fbbf24;border-radius:48% 52% 46% 54%;transform:translateZ(-8px);box-shadow:0 0 18px #fbbf2444}
+        .bio-3d-stage{min-height:330px;position:relative;overflow:hidden;touch-action:pan-y}.bio-3d-stage canvas{display:block;width:100%;height:330px;cursor:grab;touch-action:none}.bio-3d-stage canvas:active{cursor:grabbing}.bio-3d-hint{position:absolute;left:12px;bottom:10px;font:9px monospace;letter-spacing:.12em;color:#a7f3d0aa;pointer-events:none}.bio-3d-status{position:absolute;right:12px;top:10px;font:9px monospace;color:#a7f3d0;pointer-events:none}
         .bio-3d-stage{background:radial-gradient(ellipse at 50% 55%,rgba(36,120,86,.26),rgba(4,12,10,.92) 72%),linear-gradient(135deg,#081b17,#07100d);border:1px solid rgba(110,231,183,.16);border-radius:1rem;box-shadow:inset 0 0 55px #000}
         .bio-3d-cell{filter:drop-shadow(0 18px 22px #000b);background:radial-gradient(ellipse at 28% 22%,rgba(220,255,205,.42),rgba(39,116,75,.42) 34%,rgba(8,54,39,.86) 72%);border-width:8px;box-shadow:inset 0 0 18px #d1fae555,inset 0 -24px 35px #031b14,0 0 0 5px #b8a15a55,0 18px 30px #0009}
         .bio-3d-wall{border-width:8px;background:linear-gradient(145deg,#f9df8a44,#8b6c2544);box-shadow:inset 0 0 10px #fff5,0 0 0 2px #fcd34d55,0 0 20px #fbbf2433}
@@ -1251,7 +1252,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <article class="bio-arcade-card">
             <div class="flex items-center justify-between gap-2"><div><span class="text-[10px] text-emerald-300 font-bold tracking-widest">LAB 01</span><h3 class="text-lg font-bold text-amber-100">3D Plant Cell Explorer</h3></div><i class="fa-solid fa-cube text-2xl text-emerald-300"></i></div>
-            <div class="bio-3d-stage rounded-xl mt-4"><div id="bio3dPlantCell" class="bio-3d-cell"><div class="bio-3d-wall"></div><div class="bio-3d-part bio-3d-nucleus"></div><div class="bio-3d-part bio-3d-vacuole"></div><div class="bio-3d-part bio-3d-chloro c1"></div><div class="bio-3d-part bio-3d-chloro c2"></div><div class="bio-3d-part bio-3d-chloro c3"></div></div></div>
+            <div class="bio-3d-stage rounded-xl mt-4"><canvas id="bio3dCanvas" aria-label="Interactive three-dimensional plant cell model"></canvas><div class="bio-3d-hint">DRAG TO ROTATE · SCROLL TO ZOOM · CLICK AN ORGANELLE</div><p id="bio3dStatus" class="bio-3d-status" aria-live="polite">Loading interactive 3D model…</p></div>
             <div class="flex flex-wrap gap-2 mt-3"><button type="button" class="bio-lab-control" onclick="togglePlantCell3D()" id="bio3dToggle">Pause rotation</button><button type="button" class="bio-lab-control" onclick="spinPlantCell3D()">Rotate 90°</button><button type="button" class="bio-lab-control" onclick="resetPlantCell3D()">Reset view</button></div>
             <div class="grid grid-cols-2 gap-2 mt-3"><button class="bio-arcade-btn" type="button" onclick="explainPlantPart('wall')">Cell wall</button><button class="bio-arcade-btn" type="button" onclick="explainPlantPart('nucleus')">Nucleus</button><button class="bio-arcade-btn" type="button" onclick="explainPlantPart('vacuole')">Vacuole</button><button class="bio-arcade-btn" type="button" onclick="explainPlantPart('chloroplast')">Chloroplast</button></div>
             <p id="bio3dPlantFact" class="text-xs text-emerald-200 mt-3 min-h-8" aria-live="polite">Select a cell part to learn its function. This is a simplified educational model.</p>
@@ -1435,14 +1436,57 @@
         </div>
     </footer>
 
-    <script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
+<script>
 
-        /* 3D lab interactions */
-        let plantCellPaused=false,plantCellAngle=0;
-        function togglePlantCell3D(){plantCellPaused=!plantCellPaused;const el=document.getElementById('bio3dPlantCell');el.classList.toggle('paused',plantCellPaused);document.getElementById('bio3dToggle').textContent=plantCellPaused?'Resume rotation':'Pause rotation';}
-        function spinPlantCell3D(){plantCellAngle+=90;const el=document.getElementById('bio3dPlantCell');el.style.animation='none';el.style.transform='rotateY('+plantCellAngle+'deg) rotateX(12deg)';}
-        function resetPlantCell3D(){plantCellAngle=0;const el=document.getElementById('bio3dPlantCell');el.style.transform='';el.style.animation='';}
-        function explainPlantPart(part){const facts={wall:'Cell wall: a rigid cellulose layer that supports and protects plant cells.',nucleus:'Nucleus: contains genetic material and coordinates many cell activities.',vacuole:'Large central vacuole: stores cell sap and helps maintain turgidity.',chloroplast:'Chloroplast: contains chlorophyll and is the site of photosynthesis.'};document.getElementById('bio3dPlantFact').textContent=facts[part];}
+        /* Interactive WebGL plant-cell model */
+        let plantCellPaused=false,plantCellAngle=0,plantCellScene=null,plantCellRenderer=null,plantCellCamera=null,plantCellGroup=null,plantCellFrame=0;
+        const plantCellFacts={wall:'Cell wall: a thick cellulose-rich outer layer that gives a plant cell shape, support and protection.',nucleus:'Nucleus: contains most of the cell DNA and helps coordinate cell activities.',vacuole:'Central vacuole: stores cell sap and helps maintain turgor pressure in plant cells.',chloroplast:'Chloroplast: contains chlorophyll and is the main site of photosynthesis.'};
+        function explainPlantPart(part){document.getElementById('bio3dPlantFact').textContent=plantCellFacts[part]||'Select an organelle to learn its function.';}
+        function makePlantCellModel(){
+          const T=window.THREE,canvas=document.getElementById('bio3dCanvas'),status=document.getElementById('bio3dStatus');
+          if(!T||!canvas){status.textContent='3D engine unavailable. Check your connection and reload this lab.';return;}
+          try{
+            plantCellScene=new T.Scene();plantCellScene.background=new T.Color(0x07120f);
+            plantCellCamera=new T.PerspectiveCamera(36,1,.1,100);plantCellCamera.position.set(0,0,8.2);
+            plantCellRenderer=new T.WebGLRenderer({canvas,antialias:true,alpha:false});plantCellRenderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));plantCellRenderer.outputColorSpace=T.SRGBColorSpace;
+            plantCellRenderer.toneMapping=T.ACESFilmicToneMapping;plantCellRenderer.toneMappingExposure=1.15;
+            plantCellScene.add(new T.HemisphereLight(0xc9ffe5,0x17251d,2.0));
+            const key=new T.DirectionalLight(0xfff1d0,3.1);key.position.set(-4,5,7);plantCellScene.add(key);
+            const rim=new T.PointLight(0x45e6a1,2.2,16);rim.position.set(4,-2,4);plantCellScene.add(rim);
+            const fill=new T.PointLight(0x7ab8ff,1.2,14);fill.position.set(-4,-3,-3);plantCellScene.add(fill);
+            plantCellGroup=new T.Group();plantCellScene.add(plantCellGroup);
+            const roundedRect=(w,h,r)=>{const s=new T.Shape();s.moveTo(-w/2+r,-h/2);s.lineTo(w/2-r,-h/2);s.quadraticCurveTo(w/2,-h/2,w/2,-h/2+r);s.lineTo(w/2,h/2-r);s.quadraticCurveTo(w/2,h/2,w/2-r,h/2);s.lineTo(-w/2+r,h/2);s.quadraticCurveTo(-w/2,h/2,-w/2,h/2-r);s.lineTo(-w/2,-h/2+r);s.quadraticCurveTo(-w/2,-h/2,-w/2+r,-h/2);return s;};
+            const wallGeo=new T.ExtrudeGeometry(roundedRect(4.0,2.55,.42),{depth:1.55,bevelEnabled:true,bevelSegments:5,steps:1,bevelSize:.09,bevelThickness:.09,curveSegments:14});wallGeo.translate(0,0,-.78);
+            const wall=new T.Mesh(wallGeo,new T.MeshPhysicalMaterial({color:0x9eae61,roughness:.32,metalness:.05,transparent:true,opacity:.88,clearcoat:.8,clearcoatRoughness:.2}));wall.name='wall';plantCellGroup.add(wall);
+            const membraneGeo=new T.ExtrudeGeometry(roundedRect(3.72,2.28,.34),{depth:1.35,bevelEnabled:true,bevelSegments:5,bevelSize:.06,bevelThickness:.06,curveSegments:14});membraneGeo.translate(0,0,-.67);
+            const membrane=new T.Mesh(membraneGeo,new T.MeshPhysicalMaterial({color:0x3bbd85,roughness:.28,transparent:true,opacity:.32,side:T.DoubleSide,clearcoat:.9}));membrane.name='membrane';plantCellGroup.add(membrane);
+            const mat=(color,roughness=.35,metalness=0,opacity=1)=>new T.MeshPhysicalMaterial({color,roughness,metalness,transparent:opacity<1,opacity,clearcoat:.65,clearcoatRoughness:.24});
+            const sphere=(name,color,pos,scale,opacity=1)=>{const m=new T.Mesh(new T.SphereGeometry(1,40,28),mat(color,.28,.02,opacity));m.name=name;m.position.set(...pos);m.scale.set(...scale);plantCellGroup.add(m);return m;};
+            sphere('vacuole',0x5ba9dc,[.1,.02,-.02],[1.12,.72,.58],.72);
+            sphere('nucleus',0x7650b5,[-.92,.35,.48],[.43,.43,.4],1);
+            sphere('nucleolus',0xd7a7ff,[-.98,.38,.83],[.13,.13,.1],1);
+            function chloroplast(x,y,z,rot){const g=new T.Group();g.position.set(x,y,z);g.rotation.z=rot;const body=new T.Mesh(new T.SphereGeometry(1,32,20),mat(0x25864b,.3,.03,1));body.scale.set(.32,.16,.12);body.name='chloroplast';g.add(body);for(let k=-2;k<=2;k++){const line=new T.Mesh(new T.CapsuleGeometry(.018,.19,3,8),mat(0xa5e6a0,.4));line.position.set(k*.085,0,.115);line.rotation.z=Math.PI/2;g.add(line);}plantCellGroup.add(g);}
+            chloroplast(-1.25,.82,.45,.4);chloroplast(.1,.95,.62,-.3);chloroplast(1.25,.68,.25,.6);chloroplast(1.25,-.72,.45,-.5);chloroplast(-1.1,-.82,.4,.2);
+            function mitochondrion(x,y,z,rot){const g=new T.Group();g.position.set(x,y,z);g.rotation.z=rot;const body=new T.Mesh(new T.SphereGeometry(1,32,20),mat(0xc66b37,.34));body.scale.set(.35,.17,.13);body.name='mitochondrion';g.add(body);const curve=new T.CatmullRomCurve3([new T.Vector3(-.23,0,.13),new T.Vector3(-.12,.07,.15),new T.Vector3(0,-.05,.15),new T.Vector3(.12,.07,.15),new T.Vector3(.23,0,.13)]);g.add(new T.Mesh(new T.TubeGeometry(curve,24,.018,6,false),mat(0xffd18a,.4)));plantCellGroup.add(g);}
+            mitochondrion(-1.45,-.05,.42,.5);mitochondrion(.9,-.15,.52,-.4);
+            const erCurve=new T.CatmullRomCurve3([new T.Vector3(-.45,.85,.15),new T.Vector3(-.15,.65,.2),new T.Vector3(.2,.72,.15),new T.Vector3(.48,.52,.12)]);
+            plantCellGroup.add(new T.Mesh(new T.TubeGeometry(erCurve,48,.035,8,false),mat(0x79a8c9,.45)));
+            const drag={active:false,x:0,y:0};canvas.addEventListener('pointerdown',e=>{drag.active=true;drag.x=e.clientX;drag.y=e.clientY;canvas.setPointerCapture(e.pointerId);});
+            canvas.addEventListener('pointermove',e=>{if(!drag.active)return;plantCellGroup.rotation.y+=(e.clientX-drag.x)*.009;plantCellGroup.rotation.x+=(e.clientY-drag.y)*.009;drag.x=e.clientX;drag.y=e.clientY;});
+            canvas.addEventListener('pointerup',()=>drag.active=false);canvas.addEventListener('pointercancel',()=>drag.active=false);
+            canvas.addEventListener('wheel',e=>{e.preventDefault();plantCellCamera.position.z=Math.max(5,Math.min(12,plantCellCamera.position.z+e.deltaY*.008));},{passive:false});
+            const ray=new T.Raycaster(),pointer=new T.Vector2();
+            canvas.addEventListener('click',e=>{const rect=canvas.getBoundingClientRect();pointer.x=((e.clientX-rect.left)/rect.width)*2-1;pointer.y=-((e.clientY-rect.top)/rect.height)*2+1;ray.setFromCamera(pointer,plantCellCamera);const hits=ray.intersectObjects(plantCellGroup.children,true);if(hits.length){let obj=hits[0].object;while(obj&&obj!==plantCellGroup&&!obj.name)obj=obj.parent;if(obj&&obj.name)explainPlantPart(obj.name);}});
+            function resize(){const rect=canvas.getBoundingClientRect();if(!rect.width||!rect.height)return;plantCellCamera.aspect=rect.width/rect.height;plantCellCamera.updateProjectionMatrix();plantCellRenderer.setSize(rect.width,rect.height,false);}
+            new ResizeObserver(resize).observe(canvas);resize();
+            const tick=()=>{plantCellFrame=requestAnimationFrame(tick);if(!plantCellPaused&&plantCellGroup)plantCellGroup.rotation.y+=.0018;plantCellRenderer.render(plantCellScene,plantCellCamera);};tick();
+            status.textContent='LIVE 3D MODEL · Drag to rotate · Scroll to zoom · Select an organelle';
+          }catch(err){status.textContent='3D model could not start in this browser. '+(err&&err.message?err.message:'');}
+        }
+        function togglePlantCell3D(){plantCellPaused=!plantCellPaused;document.getElementById('bio3dToggle').textContent=plantCellPaused?'Resume rotation':'Pause rotation';}
+        function spinPlantCell3D(){if(plantCellGroup)plantCellGroup.rotation.y+=Math.PI/2;}
+        function resetPlantCell3D(){if(plantCellGroup){plantCellGroup.rotation.set(0,0,0);plantCellCamera.position.set(0,0,8.2);}}
         const bioMicroSamples={
           plant:{label:'Onion epidermis • prepared-slide model',fact:'Onion epidermal cells are usually brick-like and arranged in rows. The cell wall is prominent; chloroplasts are generally not visible in onion bulb epidermis.',kind:'plant'},
           animal:{label:'Cheek epithelial cells • prepared-slide model',fact:'Cheek epithelial cells are irregular and flattened. A cell membrane and stained nucleus can be seen; there is no rigid cell wall.',kind:'animal'},
