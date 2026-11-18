@@ -161,6 +161,7 @@
                 <a href="#chap-tissues" class="text-amber-100 hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-layer-group text-amber-400"></i> Tissues</a>
                 <a href="#chap-repro" class="text-amber-100 hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-arrows-split-up-and-left text-amber-400"></i> Reproduction & Cell Division</a>
                 <a href="#chap-diversity" class="text-amber-100 hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-sitemap text-amber-400"></i> Diversity</a>
+                <a href="#bio-revision-lab" class="text-amber-100 hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-book-open-reader text-cyan-300"></i> Revision Lab</a>
                 <a href="#quiz" class="text-amber-100 hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-award text-amber-400"></i> Self-Quiz</a>
             </nav>
 
@@ -1033,6 +1034,57 @@
     </section>
 
     <!-- INTERACTIVE KNOWLEDGE CHECK / SELF-ASSESSMENT QUIZ -->
+
+    <!-- BIOLOGY REVISION LAB: flashcards + study tracker -->
+    <section id="bio-revision-lab" class="py-16 relative z-10 border-b border-amber-500/20 bg-gradient-to-b from-[#1F040A] to-[#0D0204]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-xl bg-cyan-500/15 border border-cyan-400/40 flex items-center justify-center text-cyan-300"><i class="fa-solid fa-book-open-reader"></i></div>
+            <div><span class="text-xs text-amber-400 font-bold uppercase tracking-widest">SMART REVISION STUDIO</span><h2 class="font-cinzel text-2xl sm:text-3xl font-black text-gold-gradient">Biology Revision Lab</h2></div>
+          </div>
+          <span class="text-xs text-amber-200/70 border border-amber-500/30 rounded-full px-3 py-2">Class 9 • Learn · Recall · Revise</span>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+          <div class="lg:col-span-3 bg-maroon-card border-gold-glow rounded-2xl p-5 sm:p-7">
+            <div class="flex items-center justify-between gap-3 mb-4"><div><span class="text-[10px] uppercase tracking-widest text-cyan-300 font-bold">ACTIVE RECALL</span><h3 class="text-lg font-bold text-amber-100">Biology Flashcards</h3></div><span id="bioCardCount" class="text-xs text-amber-300">1 / 12</span></div>
+            <button type="button" id="bioFlashcard" onclick="flipBioFlashcard()" class="w-full min-h-48 sm:min-h-56 rounded-xl border border-amber-400/30 bg-[#0D0204] p-6 text-left hover:border-amber-300 transition-colors" aria-live="polite">
+              <span id="bioFlashLabel" class="text-[10px] uppercase tracking-widest text-emerald-300 font-bold">QUESTION • TAP TO REVEAL</span>
+              <span id="bioFlashText" class="block text-xl sm:text-2xl font-bold text-amber-100 mt-5">What is the basic structural and functional unit of life?</span>
+              <span id="bioFlashHint" class="block text-xs text-slate-400 mt-5">Think first, then reveal the answer.</span>
+            </button>
+            <div class="flex flex-wrap items-center justify-between gap-3 mt-4">
+              <button type="button" onclick="moveBioFlashcard(-1)" class="px-4 py-2 rounded-lg border border-amber-500/40 text-amber-200 text-xs font-bold hover:bg-amber-500/10"><i class="fa-solid fa-arrow-left mr-1"></i> Previous</button>
+              <button type="button" onclick="flipBioFlashcard()" class="px-4 py-2 rounded-lg bg-amber-500/15 border border-amber-400/40 text-amber-200 text-xs font-bold">Reveal / Hide</button>
+              <button type="button" onclick="moveBioFlashcard(1)" class="px-4 py-2 rounded-lg bg-gold-gradient text-slate-950 text-xs font-extrabold">Next <i class="fa-solid fa-arrow-right ml-1"></i></button>
+            </div>
+          </div>
+          <div class="lg:col-span-2 bg-maroon-card border-gold-glow rounded-2xl p-5 sm:p-7">
+            <span class="text-[10px] uppercase tracking-widest text-emerald-300 font-bold">YOUR REVISION TRACKER</span>
+            <h3 class="text-lg font-bold text-amber-100 mt-1 mb-2">7-Day Biology Plan</h3>
+            <p class="text-xs text-slate-400 mb-4">Tick each task after completing it. Your progress stays saved on this device.</p>
+            <div class="h-2 rounded-full bg-black/50 overflow-hidden mb-2"><div id="bioPlanProgress" class="h-full bg-gradient-to-r from-emerald-500 to-amber-400 rounded-full" style="width:0%"></div></div>
+            <p id="bioPlanCount" class="text-[11px] text-amber-300 mb-4">0 of 7 sessions completed</p>
+            <div class="space-y-3 text-sm" id="bioPlanTasks">
+              <label class="flex gap-3 items-start text-slate-200"><input type="checkbox" data-bio-day="1" class="mt-1 accent-amber-400"><span><strong class="text-amber-200">Day 1:</strong> Cell organelles and their functions</span></label>
+              <label class="flex gap-3 items-start text-slate-200"><input type="checkbox" data-bio-day="2" class="mt-1 accent-amber-400"><span><strong class="text-amber-200">Day 2:</strong> Diffusion, osmosis and cell transport</span></label>
+              <label class="flex gap-3 items-start text-slate-200"><input type="checkbox" data-bio-day="3" class="mt-1 accent-amber-400"><span><strong class="text-amber-200">Day 3:</strong> Plant tissues and their roles</span></label>
+              <label class="flex gap-3 items-start text-slate-200"><input type="checkbox" data-bio-day="4" class="mt-1 accent-amber-400"><span><strong class="text-amber-200">Day 4:</strong> Animal tissues and examples</span></label>
+              <label class="flex gap-3 items-start text-slate-200"><input type="checkbox" data-bio-day="5" class="mt-1 accent-amber-400"><span><strong class="text-amber-200">Day 5:</strong> Asexual and sexual reproduction</span></label>
+              <label class="flex gap-3 items-start text-slate-200"><input type="checkbox" data-bio-day="6" class="mt-1 accent-amber-400"><span><strong class="text-amber-200">Day 6:</strong> Five kingdoms and classification</span></label>
+              <label class="flex gap-3 items-start text-slate-200"><input type="checkbox" data-bio-day="7" class="mt-1 accent-amber-400"><span><strong class="text-amber-200">Day 7:</strong> Diagrams, definitions and self-test</span></label>
+            </div>
+            <button type="button" onclick="resetBioPlan()" class="mt-5 text-xs text-rose-300 hover:text-rose-200 underline underline-offset-4">Reset this revision plan</button>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
+          <div class="rounded-xl border border-amber-500/20 bg-[#0D0204]/80 p-4"><i class="fa-solid fa-pen-ruler text-amber-300 mb-2"></i><h4 class="text-sm font-bold text-amber-100">Diagram Practice</h4><p class="text-xs text-slate-400 mt-1">Practise labelled plant cell, animal cell, neuron, flower and tissue diagrams.</p></div>
+          <div class="rounded-xl border border-amber-500/20 bg-[#0D0204]/80 p-4"><i class="fa-solid fa-lightbulb text-emerald-300 mb-2"></i><h4 class="text-sm font-bold text-amber-100">Exam Tip</h4><p class="text-xs text-slate-400 mt-1">Write the definition first, then add one example and a labelled diagram wherever relevant.</p></div>
+          <div class="rounded-xl border border-amber-500/20 bg-[#0D0204]/80 p-4"><i class="fa-solid fa-comments text-cyan-300 mb-2"></i><h4 class="text-sm font-bold text-amber-100">Explain Aloud</h4><p class="text-xs text-slate-400 mt-1">After each topic, explain it in your own words without looking at the notes.</p></div>
+        </div>
+      </div>
+    </section>
+
     <section id="quiz" class="py-16 relative z-10 border-b border-amber-500/20">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-10">
@@ -1693,6 +1745,43 @@
 <script src="global-auth.js"></script>
 <script src="global-learning.js"></script>
 <script>if('serviceWorker'in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+
+        /* Biology Revision Lab: flashcards and locally saved study tracker */
+        const bioFlashcards = [
+          {q:'What is the basic structural and functional unit of life?',a:'The cell is the basic structural and functional unit of life.'},
+          {q:'Which organelle is called the powerhouse of the cell?',a:'Mitochondrion — it releases usable energy through cellular respiration.'},
+          {q:'What is osmosis?',a:'The movement of water through a selectively permeable membrane from a region of higher water concentration to lower water concentration.'},
+          {q:'Which plant tissue transports water and minerals?',a:'Xylem transports water and dissolved minerals from roots to other plant parts.'},
+          {q:'Which plant tissue transports prepared food?',a:'Phloem transports food made during photosynthesis to different parts of the plant.'},
+          {q:'What is the function of meristematic tissue?',a:'Its actively dividing cells help plants grow in length and thickness.'},
+          {q:'Name the four main types of animal tissues.',a:'Epithelial, connective, muscular and nervous tissues.'},
+          {q:'What is binary fission?',a:'An asexual process in which one parent organism divides into two daughter organisms, as in Amoeba.'},
+          {q:'What is pollination?',a:'The transfer of pollen grains from anther to stigma of a flower.'},
+          {q:'What develops from the ovule after fertilisation?',a:'The ovule develops into a seed; the ovary generally develops into a fruit.'},
+          {q:'Name the five kingdoms in Whittaker’s classification.',a:'Monera, Protista, Fungi, Plantae and Animalia.'},
+          {q:'What is the main role of decomposers?',a:'They break down dead organic matter and help recycle nutrients in ecosystems.'}
+        ];
+        let bioFlashIndex = 0, bioFlashRevealed = false;
+        function renderBioFlashcard() {
+          const item = bioFlashcards[bioFlashIndex];
+          document.getElementById('bioCardCount').textContent = (bioFlashIndex+1) + ' / ' + bioFlashcards.length;
+          document.getElementById('bioFlashLabel').textContent = bioFlashRevealed ? 'ANSWER • READ AND RECALL' : 'QUESTION • TAP TO REVEAL';
+          document.getElementById('bioFlashText').textContent = bioFlashRevealed ? item.a : item.q;
+          document.getElementById('bioFlashHint').textContent = bioFlashRevealed ? 'Try to explain the answer in your own words.' : 'Think first, then reveal the answer.';
+        }
+        function flipBioFlashcard() { bioFlashRevealed = !bioFlashRevealed; renderBioFlashcard(); }
+        function moveBioFlashcard(direction) { bioFlashIndex = (bioFlashIndex + direction + bioFlashcards.length) % bioFlashcards.length; bioFlashRevealed = false; renderBioFlashcard(); }
+        function updateBioPlan() {
+          const checks = [...document.querySelectorAll('[data-bio-day]')];
+          let done = 0;
+          checks.forEach(box => { box.checked = localStorage.getItem('vnBioPlanDay'+box.dataset.bioDay) === '1'; if(box.checked) done++; });
+          document.getElementById('bioPlanProgress').style.width = (done/checks.length*100) + '%';
+          document.getElementById('bioPlanCount').textContent = done + ' of ' + checks.length + ' sessions completed';
+        }
+        document.querySelectorAll('[data-bio-day]').forEach(box => box.addEventListener('change', () => { localStorage.setItem('vnBioPlanDay'+box.dataset.bioDay, box.checked ? '1' : '0'); updateBioPlan(); }));
+        function resetBioPlan() { document.querySelectorAll('[data-bio-day]').forEach(box => localStorage.removeItem('vnBioPlanDay'+box.dataset.bioDay)); updateBioPlan(); }
+        renderBioFlashcard(); updateBioPlan();
+
         /* Reproduction chapter practice quiz */
         function gradeReproductionQuiz(event) {
             event.preventDefault();
