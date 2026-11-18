@@ -127,6 +127,25 @@
             border-radius: 2px;
             font-weight: bold;
         }
+    
+        /* Biology portal motion and game interactions */
+        @keyframes bioRiseIn { from { opacity:0; transform:translateY(22px) scale(.985); } to { opacity:1; transform:translateY(0) scale(1); } }
+        @keyframes bioFloat { 0%,100% { transform:translateY(0) rotate(-3deg); } 50% { transform:translateY(-11px) rotate(3deg); } }
+        @keyframes bioPulseGlow { 0%,100% { box-shadow:0 0 0 rgba(212,175,55,0); } 50% { box-shadow:0 0 24px rgba(212,175,55,.2); } }
+        @keyframes bioCorrectPop { 0% { transform:scale(.96); } 60% { transform:scale(1.025); } 100% { transform:scale(1); } }
+        .bio-reveal { animation:bioRiseIn .65s cubic-bezier(.2,.7,.2,1) both; }
+        .bio-float-icon { animation:bioFloat 4.5s ease-in-out infinite; }
+        .bio-glow-card { animation:bioPulseGlow 4s ease-in-out infinite; }
+        .bio-game-option { transition:transform .18s ease,border-color .18s ease,background .18s ease; }
+        .bio-game-option:hover { transform:translateY(-2px); border-color:rgba(255,215,0,.8); }
+        .bio-game-option:focus-visible { outline:2px solid #FFD700; outline-offset:3px; }
+        .bio-game-feedback { animation:bioCorrectPop .28s ease-out; }
+        @media (prefers-reduced-motion:reduce) {
+          .bio-reveal,.bio-float-icon,.bio-glow-card,.bio-game-feedback { animation:none !important; }
+          .bio-game-option { transition:none; }
+          html:focus-within { scroll-behavior:auto; }
+        }
+
     </style>
 </head>
 <body class="relative min-h-screen text-slate-100 jali-pattern selection:bg-amber-500 selection:text-red-950">
@@ -162,6 +181,7 @@
                 <a href="#chap-repro" class="text-amber-100 hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-arrows-split-up-and-left text-amber-400"></i> Reproduction & Cell Division</a>
                 <a href="#chap-diversity" class="text-amber-100 hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-sitemap text-amber-400"></i> Diversity</a>
                 <a href="#bio-revision-lab" class="text-amber-100 hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-book-open-reader text-cyan-300"></i> Revision Lab</a>
+                <a href="#bio-quick-games" class="text-amber-100 hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-gamepad text-emerald-300"></i> Quick Games</a>
                 <a href="#quiz" class="text-amber-100 hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-award text-amber-400"></i> Self-Quiz</a>
             </nav>
 
@@ -1085,6 +1105,46 @@
       </div>
     </section>
 
+
+    <!-- BIOLOGY QUICK GAMES -->
+    <section id="bio-quick-games" class="py-16 relative z-10 border-b border-amber-500/20 overflow-hidden">
+      <div class="absolute right-8 top-10 text-5xl text-emerald-400/10 bio-float-icon pointer-events-none"><i class="fa-solid fa-dna"></i></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div class="flex flex-wrap items-end justify-between gap-4 mb-8 bio-reveal">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-xl bg-emerald-500/15 border border-emerald-400/40 flex items-center justify-center text-emerald-300 bio-float-icon"><i class="fa-solid fa-gamepad text-xl"></i></div>
+            <div><span class="text-xs text-emerald-300 font-bold uppercase tracking-widest">PLAY · THINK · LEARN</span><h2 class="font-cinzel text-2xl sm:text-3xl font-black text-gold-gradient">Biology Quick Games</h2></div>
+          </div>
+          <span class="text-xs text-amber-200/70 border border-amber-500/30 rounded-full px-3 py-2">Short rounds • Instant feedback</span>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="bg-maroon-card border-gold-glow rounded-2xl p-5 sm:p-7 bio-glow-card bio-reveal">
+            <div class="flex items-center justify-between gap-3 mb-4"><div><span class="text-[10px] uppercase tracking-widest text-cyan-300 font-bold">GAME 01</span><h3 class="text-lg font-bold text-amber-100">Guess the Organelle</h3></div><i class="fa-solid fa-microscope text-3xl text-cyan-300 bio-float-icon"></i></div>
+            <p id="orgGameQuestion" class="text-sm text-slate-200 min-h-14 mb-4">I control most activities of the cell and contain genetic material. Who am I?</p>
+            <div id="orgGameOptions" class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <button type="button" class="bio-game-option rounded-xl border border-amber-500/25 bg-[#0D0204] p-3 text-left text-xs text-amber-100" onclick="answerOrganelleGame(0)">Nucleus</button>
+              <button type="button" class="bio-game-option rounded-xl border border-amber-500/25 bg-[#0D0204] p-3 text-left text-xs text-amber-100" onclick="answerOrganelleGame(1)">Ribosome</button>
+              <button type="button" class="bio-game-option rounded-xl border border-amber-500/25 bg-[#0D0204] p-3 text-left text-xs text-amber-100" onclick="answerOrganelleGame(2)">Vacuole</button>
+              <button type="button" class="bio-game-option rounded-xl border border-amber-500/25 bg-[#0D0204] p-3 text-left text-xs text-amber-100" onclick="answerOrganelleGame(3)">Golgi apparatus</button>
+            </div>
+            <div class="flex items-center justify-between gap-3 mt-4"><span id="orgGameScore" class="text-[11px] text-amber-300">Score: 0 / 5</span><button type="button" onclick="nextOrganelleGame()" class="px-4 py-2 rounded-lg bg-amber-500/15 border border-amber-400/40 text-amber-200 text-xs font-bold">Next question <i class="fa-solid fa-arrow-right ml-1"></i></button></div>
+            <p id="orgGameFeedback" class="text-xs text-slate-400 mt-3 min-h-5" aria-live="polite">Choose the correct cell part to begin.</p>
+          </div>
+          <div class="bg-maroon-card border-gold-glow rounded-2xl p-5 sm:p-7 bio-reveal">
+            <div class="flex items-center justify-between gap-3 mb-4"><div><span class="text-[10px] uppercase tracking-widest text-rose-300 font-bold">GAME 02</span><h3 class="text-lg font-bold text-amber-100">Reproduction: Asexual or Sexual?</h3></div><i class="fa-solid fa-seedling text-3xl text-emerald-300 bio-float-icon"></i></div>
+            <p id="reproGameQuestion" class="text-sm text-slate-200 min-h-14 mb-4">Amoeba divides into two daughter cells. Which type is this?</p>
+            <div class="grid grid-cols-2 gap-2">
+              <button type="button" onclick="answerReproGame('asexual')" class="bio-game-option rounded-xl border border-amber-500/25 bg-[#0D0204] p-3 text-xs font-bold text-amber-100">Asexual</button>
+              <button type="button" onclick="answerReproGame('sexual')" class="bio-game-option rounded-xl border border-amber-500/25 bg-[#0D0204] p-3 text-xs font-bold text-amber-100">Sexual</button>
+            </div>
+            <div class="flex items-center justify-between gap-3 mt-4"><span id="reproGameScore" class="text-[11px] text-amber-300">Score: 0 / 5</span><button type="button" onclick="nextReproGame()" class="px-4 py-2 rounded-lg bg-amber-500/15 border border-amber-400/40 text-amber-200 text-xs font-bold">Next question <i class="fa-solid fa-arrow-right ml-1"></i></button></div>
+            <p id="reproGameFeedback" class="text-xs text-slate-400 mt-3 min-h-5" aria-live="polite">Classify each example and build your score.</p>
+          </div>
+        </div>
+        <p class="text-center text-[11px] text-amber-200/60 mt-5">No timer pressure — learn at your own pace. Replay a game to improve your score.</p>
+      </div>
+    </section>
+
     <section id="quiz" class="py-16 relative z-10 border-b border-amber-500/20">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-10">
@@ -1781,6 +1841,56 @@
         document.querySelectorAll('[data-bio-day]').forEach(box => box.addEventListener('change', () => { localStorage.setItem('vnBioPlanDay'+box.dataset.bioDay, box.checked ? '1' : '0'); updateBioPlan(); }));
         function resetBioPlan() { document.querySelectorAll('[data-bio-day]').forEach(box => localStorage.removeItem('vnBioPlanDay'+box.dataset.bioDay)); updateBioPlan(); }
         renderBioFlashcard(); updateBioPlan();
+
+
+        /* Quick Game 1: identify the organelle from its function */
+        const organelleGameQuestions = [
+          {q:'I control most activities of the cell and contain genetic material. Who am I?',o:['Nucleus','Ribosome','Vacuole','Golgi apparatus'],a:0,why:'The nucleus contains DNA and helps control cell activities.'},
+          {q:'I release energy from food during cellular respiration. Who am I?',o:['Lysosome','Mitochondrion','Chloroplast','Cell wall'],a:1,why:'Mitochondria are the main sites of aerobic cellular respiration.'},
+          {q:'I make proteins for the cell. Who am I?',o:['Vacuole','Nucleus','Ribosome','Golgi apparatus'],a:2,why:'Ribosomes are the sites of protein synthesis.'},
+          {q:'I contain chlorophyll and help plants prepare food. Who am I?',o:['Chloroplast','Mitochondrion','Lysosome','Nucleolus'],a:0,why:'Chloroplasts contain chlorophyll and carry out photosynthesis.'},
+          {q:'I modify, package and help transport materials in the cell. Who am I?',o:['Cell membrane','Golgi apparatus','Ribosome','Chromosome'],a:1,why:'The Golgi apparatus modifies, sorts and packages cell products.'}
+        ];
+        let orgGameIndex=0, orgGameScore=0, orgGameAnswered=false;
+        function renderOrganelleGame(){
+          const q=organelleGameQuestions[orgGameIndex];
+          document.getElementById('orgGameQuestion').textContent=q.q;
+          document.getElementById('orgGameOptions').innerHTML=q.o.map((v,i)=>'<button type="button" class="bio-game-option rounded-xl border border-amber-500/25 bg-[#0D0204] p-3 text-left text-xs text-amber-100" onclick="answerOrganelleGame('+i+')">'+v+'</button>').join('');
+          document.getElementById('orgGameScore').textContent='Score: '+orgGameScore+' / 5';
+          document.getElementById('orgGameFeedback').textContent='Choose the correct cell part.';
+          orgGameAnswered=false;
+        }
+        function answerOrganelleGame(choice){
+          if(orgGameAnswered)return;
+          orgGameAnswered=true;
+          const q=organelleGameQuestions[orgGameIndex], correct=choice===q.a;
+          if(correct)orgGameScore++;
+          document.getElementById('orgGameScore').textContent='Score: '+orgGameScore+' / 5';
+          document.getElementById('orgGameFeedback').textContent=(correct?'Correct! ':'Not quite. Correct answer: '+q.o[q.a]+'. ')+q.why;
+          document.getElementById('orgGameFeedback').classList.remove('bio-game-feedback'); void document.getElementById('orgGameFeedback').offsetWidth; document.getElementById('orgGameFeedback').classList.add('bio-game-feedback');
+          document.querySelectorAll('#orgGameOptions button').forEach((b,i)=>{b.disabled=true;b.classList.add('opacity-60');if(i===q.a)b.classList.add('border-emerald-400','text-emerald-200');});
+        }
+        function nextOrganelleGame(){orgGameIndex=(orgGameIndex+1)%organelleGameQuestions.length;if(orgGameIndex===0)orgGameScore=0;renderOrganelleGame();}
+
+        /* Quick Game 2: classify reproduction examples */
+        const reproGameQuestions=[
+          {q:'Amoeba divides into two daughter cells. Which type is this?',a:'asexual',why:'Binary fission is a form of asexual reproduction.'},
+          {q:'Pollen from anther reaches the stigma and male and female gametes take part in fertilisation. Which type?',a:'sexual',why:'Sexual reproduction involves the fusion of male and female gametes.'},
+          {q:'Hydra forms a small outgrowth called a bud. Which type?',a:'asexual',why:'Budding can produce a new individual without fusion of gametes.'},
+          {q:'A new plant develops from a seed formed after fertilisation. Which type?',a:'sexual',why:'The seed develops after sexual reproduction and fertilisation in flowering plants.'},
+          {q:'Rhizopus produces spores that can grow into new individuals. Which type?',a:'asexual',why:'Spore formation is an asexual method of reproduction.'}
+        ];
+        let reproGameIndex=0,reproGameScore=0,reproGameAnswered=false;
+        function renderReproGame(){document.getElementById('reproGameQuestion').textContent=reproGameQuestions[reproGameIndex].q;document.getElementById('reproGameScore').textContent='Score: '+reproGameScore+' / 5';document.getElementById('reproGameFeedback').textContent='Choose a category.';reproGameAnswered=false;document.querySelectorAll('#bio-quick-games button[onclick^="answerReproGame"]').forEach(b=>{b.disabled=false;b.classList.remove('opacity-50');});}
+        function answerReproGame(choice){if(reproGameAnswered)return;reproGameAnswered=true;const q=reproGameQuestions[reproGameIndex],correct=choice===q.a;if(correct)reproGameScore++;document.getElementById('reproGameScore').textContent='Score: '+reproGameScore+' / 5';document.getElementById('reproGameFeedback').textContent=(correct?'Correct! ':'Try again next round. Correct answer: '+q.a+'. ')+q.why;document.querySelectorAll('#bio-quick-games button[onclick^="answerReproGame"]').forEach(b=>{b.disabled=true;b.classList.add('opacity-50');});document.getElementById('reproGameFeedback').classList.remove('bio-game-feedback');void document.getElementById('reproGameFeedback').offsetWidth;document.getElementById('reproGameFeedback').classList.add('bio-game-feedback');}
+        function nextReproGame(){reproGameIndex=(reproGameIndex+1)%reproGameQuestions.length;if(reproGameIndex===0)reproGameScore=0;renderReproGame();}
+        renderOrganelleGame();renderReproGame();
+
+        /* Respect reduced-motion preferences and animate sections as they enter view */
+        if('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+          const bioObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('bio-reveal');bioObserver.unobserve(entry.target);}}),{threshold:0.12});
+          document.querySelectorAll('#bio-quick-games .bio-reveal').forEach(el=>{el.classList.remove('bio-reveal');bioObserver.observe(el);});
+        }
 
         /* Reproduction chapter practice quiz */
         function gradeReproductionQuiz(event) {
