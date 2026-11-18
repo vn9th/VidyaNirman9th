@@ -7,7 +7,9 @@
     <title>VIDYANIRMAN BIO | विद्या निर्माण - Class 9th Biology Interactive Suite</title>
 
     <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com">
+    <script src="https://cdn.tailwindcss.com"></script>
+<script>
+
         /* 3D lab interactions */
         let plantCellPaused=false,plantCellAngle=0;
         function togglePlantCell3D(){plantCellPaused=!plantCellPaused;const el=document.getElementById('bio3dPlantCell');el.classList.toggle('paused',plantCellPaused);document.getElementById('bio3dToggle').textContent=plantCellPaused?'Resume rotation':'Pause rotation';}
@@ -19,7 +21,7 @@
         function setBioMicroSample(sample){const data=bioMicroSamples[sample];document.getElementById('bioMicroView').style.background=data.bg;document.getElementById('bioMicroLabel').textContent=data.label;document.getElementById('bioMicroFact').textContent=data.fact;}
         const bioEcoData=[{role:'Producer • makes its own food',energy:10000,fact:'Plants capture energy from sunlight and form the base of this food chain.'},{role:'Primary consumer • herbivore',energy:1000,fact:'The grasshopper obtains energy by eating the grass. Only a fraction of energy passes to the next level.'},{role:'Secondary consumer • carnivore',energy:100,fact:'The frog gets energy by eating the grasshopper. Energy available decreases at each trophic level.'},{role:'Tertiary consumer • carnivore',energy:10,fact:'The snake obtains energy by eating the frog. The simplified model illustrates the 10% energy transfer rule.'}];
         function selectEcoLevel(i){const d=bioEcoData[i];document.getElementById('bioEcoRole').textContent=d.role;document.getElementById('bioEcoEnergy').textContent='Energy: '+d.energy.toLocaleString('en-IN')+' units';document.getElementById('bioEcoBar').style.width=(d.energy/10000*100)+'%';document.getElementById('bioEcoFact').textContent=d.fact;document.querySelectorAll('#bioEcoLevels button').forEach((b,n)=>b.style.borderColor=n===i?'#34D399':'rgba(212,175,55,.28)');}
-        setBioMicroSample('plant');selectEcoLevel(0);
+        document.addEventListener('DOMContentLoaded',()=>{setBioMicroSample('plant');selectEcoLevel(0);});
 
         /* Reusable arcade question rounds */
         const bioArcadeSets={
@@ -73,7 +75,8 @@
           st.i=(st.i+1)%bioArcadeSets[type].length;if(st.i===0)st.score=0;
           renderArcadeGame(type);
         }
-        Object.keys(bioArcadeSets).forEach(renderArcadeGame);
+        document.addEventListener('DOMContentLoaded',()=>{Object.keys(bioArcadeSets).forEach(renderArcadeGame);});
+
 
 </script>
 
