@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#220308">
+  <title>NOTES | Vidya Nirman</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:'Plus Jakarta Sans',sans-serif;color:#fff4dc;background:radial-gradient(ellipse at 50% 0%,#4b1420 0%,#220308 48%,#0f0103 100%);padding:28px 18px}
+    .wrap{width:min(100%,1000px);margin:auto}.back{display:inline-flex;gap:9px;align-items:center;color:#f1d58e;text-decoration:none;font-size:13px;font-weight:800}
+    header{text-align:center;padding:52px 0 38px}.eyebrow{color:#e7bd68;font-size:10px;font-weight:900;letter-spacing:.24em;text-transform:uppercase}
+    h1{font-family:Cinzel,serif;font-size:clamp(38px,7vw,66px);color:#e7bd68;margin:12px 0;text-shadow:0 8px 35px #d4af3730}
+    header p{color:#d8c5b5;font-size:14px;line-height:1.8;max-width:620px;margin:auto}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+    .card{position:relative;overflow:hidden;display:flex;flex-direction:column;min-height:310px;padding:27px;border:1px solid #d4af3770;border-radius:22px;background:linear-gradient(145deg,#4b111d,#1a050b);box-shadow:0 18px 45px #0006;transition:.25s}
+    .card:hover{transform:translateY(-6px);border-color:#ffe39a;box-shadow:0 22px 50px #d4af3720}
+    .icon{width:58px;height:58px;display:grid;place-items:center;border-radius:17px;background:#d4af371c;border:1px solid #d4af3766;color:#e7bd68;font-size:25px}
+    .tag{margin-top:24px;color:#d4af37;font-size:10px;font-weight:900;letter-spacing:.17em}
+    h2{font-family:Cinzel,serif;color:#fff0c9;font-size:25px;margin:8px 0}
+    .desc{color:#d8c5b5;font-size:12px;line-height:1.8;flex:1}
+    .open{display:flex;justify-content:space-between;align-items:center;margin-top:20px;padding:13px 15px;border-radius:11px;background:linear-gradient(110deg,#ffe39a,#c58a2d);color:#26090d;text-decoration:none;font-size:11px;font-weight:900;letter-spacing:.08em}
+    footer{text-align:center;color:#a99578;font-size:10px;margin:34px 0 8px}
+    @media(max-width:650px){.grid{grid-template-columns:1fr}header{padding:38px 0 28px}.card{min-height:275px}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <a class="back" href="index.html"><i class="fa-solid fa-arrow-left"></i> BACK TO VIDYA NIRMAN</a>
+    <header>
+      <div class="eyebrow">VIDYA NIRMAN · CLASS 9 LEARNING LIBRARY</div>
+      <h1>NOTES</h1>
+      <p>All your study resources in one place. Choose a subject library to open its existing chapter-wise notes and PDF materials.</p>
+    </header>
+    <section class="grid" aria-label="Notes subjects">
+      <article class="card">
+        <div class="icon"><i class="fa-solid fa-flask"></i></div>
+        <div class="tag">SCIENCE · REVISION LIBRARY</div>
+        <h2>Science Notes</h2>
+        <p class="desc">Chapter-wise Science study material, explanations and PDF resources for revision.</p>
+        <a class="open" href="study-material.html">OPEN SCIENCE NOTES <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+      </article>
+      <article class="card">
+        <div class="icon"><i class="fa-solid fa-earth-asia"></i></div>
+        <div class="tag">SOCIAL SCIENCE · CLASS 9</div>
+        <h2>Social Science Notes</h2>
+        <p class="desc">History, Political Science, Geography and Economics notes in one subject portal.</p>
+        <a class="open" href="social-science-portal.html">OPEN SOCIAL SCIENCE NOTES <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+      </article>
+    </section>
+    <footer>VIDYA NIRMAN · LEARN · BUILD · EXCEL</footer>
+  </main>
+</body>
+</html>
