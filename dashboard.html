@@ -44,6 +44,14 @@
     .badge-card{padding:12px;border:1px solid rgba(230,189,97,.2);border-radius:14px;background:#17060b}.badge-card.locked{opacity:.48;filter:saturate(.4)}
     .check-row{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid rgba(230,189,97,.16);border-radius:12px;background:#17060b;font-size:13px}.check-row input{accent-color:#e6bd61;width:17px;height:17px}
     .search-field{width:100%;background:#16060b;border:1px solid #76502c;border-radius:12px;padding:11px 12px;color:#fff8e9;outline:none}.search-field:focus{border-color:#e6bd61;box-shadow:0 0 0 3px #e6bd6122}
+    .subject-activity{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+    .subject-card{padding:14px;border:1px solid rgba(230,189,97,.18);border-radius:15px;background:linear-gradient(145deg,#2a0b14,#18050b);min-width:0}
+    .subject-card .subject-count{font-size:1.55rem;font-weight:800;color:var(--gold2);line-height:1.2}
+    .subject-card .subject-track{height:6px;border-radius:99px;background:#ffffff12;overflow:hidden;margin-top:10px}
+    .subject-card .subject-track span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#b98532,#ffe18b)}
+    .focus-next{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px;border:1px solid rgba(255,217,120,.3);border-radius:16px;background:linear-gradient(120deg,#3a101d,#1a060d)}
+    @media(max-width:760px){.subject-activity{grid-template-columns:repeat(2,minmax(0,1fr))}.subject-card:last-child{grid-column:span 2}}
+    @media(max-width:420px){.subject-activity{grid-template-columns:1fr 1fr}.subject-card{padding:11px}}
     @media(max-width:520px){.mobile-stack{flex-direction:column;align-items:stretch}.brand{font-size:.92rem}.stat-number{font-size:1.7rem}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
   </style>
@@ -117,6 +125,12 @@
       <p class="eyebrow">Recently explored</p><h2 class="text-lg font-extrabold mt-1 mb-3">Continue where you left off</h2>
       <div id="progress-list" class="space-y-2"></div>
     </div>
+  </section>
+
+  <section class="glass rounded-2xl p-5 mb-5" aria-labelledby="subject-activity-title">
+    <div class="flex flex-wrap items-end justify-between gap-3 mb-4"><div><p class="eyebrow">Your subject journey</p><h2 id="subject-activity-title" class="text-xl font-extrabold mt-1">Subject activity snapshot</h2></div><span class="small">Recorded visits · not course-completion scores</span></div>
+    <div id="subject-activity" class="subject-activity" aria-live="polite"></div>
+    <div class="focus-next mt-4 mobile-stack"><div><p class="eyebrow">A gentle next step</p><h3 id="focus-title" class="font-extrabold text-lg mt-1">Choose a subject to explore</h3><p id="focus-copy" class="small mt-1">Your activity will help suggest a useful next portal.</p></div><a id="focus-link" class="btn-gold shrink-0" href="study-hub.html">Explore learning →</a></div>
   </section>
 
   <section class="glass rounded-2xl p-5 mb-5">
@@ -205,6 +219,24 @@
     const key='vn-dashboard-checklist-v1', defaults=['Review one chapter summary','Practise one quiz','Save one useful revision note'];let saved={};try{saved=JSON.parse(localStorage.getItem(key)||'{}')}catch{}
     $('daily-checklist').innerHTML=defaults.map((label,i)=>`<label class="check-row"><input type="checkbox" data-plan="${i}" ${saved[i]?'checked':''}><span>${label}</span></label>`).join('');
   }
+  function renderSubjectActivity(visits) {
+    const subjects=[
+      {key:'biology',name:'Biology',icon:'🧬',href:'vidyanirman_bio_class_9th_interactive_biology_portal.html',match:/bio|cell|tissue|reproduction/i},
+      {key:'physics',name:'Physics',icon:'⚛️',href:'physics.html',match:/physics|motion|force|sound|gravitation/i},
+      {key:'chemistry',name:'Chemistry',icon:'🧪',href:'Chem.html',match:/chem|atom|mixture|mole/i},
+      {key:'coding',name:'Coding',icon:'💻',href:'coding.html',match:/coding|code|program/i},
+      {key:'social',name:'Social Science',icon:'🌍',href:'social-science-portal.html',match:/social|history|geography|civics|economics/i}
+    ];
+    const counts=Object.fromEntries(subjects.map(s=>[s.key,0]));
+    visits.forEach(v=>{const source=String(v.page||'')+' '+String(v.title||'');const found=subjects.find(s=>s.match.test(source));if(found)counts[found.key]++;});
+    const max=Math.max(1,...Object.values(counts));
+    $('subject-activity').innerHTML=subjects.map(s=>'<a class="subject-card block" href="'+s.href+'" aria-label="Open '+s.name+'; '+counts[s.key]+' recorded visits"><div class="flex items-center justify-between gap-2"><span class="text-xl" aria-hidden="true">'+s.icon+'</span><span class="small">Open →</span></div><b class="block mt-2 text-sm">'+s.name+'</b><div class="subject-count mt-1">'+counts[s.key]+'</div><span class="small">recorded visits</span><div class="subject-track" aria-hidden="true"><span style="width:'+Math.round(counts[s.key]/max*100)+'%"></span></div></a>').join('');
+    const next=subjects.filter(s=>s.key!=='coding').sort((a,b)=>counts[a.key]-counts[b.key])[0]||subjects[0];
+    $('focus-title').textContent='Explore '+next.name;
+    $('focus-copy').textContent=counts[next.key]===0?'You have not recorded a visit here yet. Try a short lesson to get started.':'A little more practice here can help balance your learning routine.';
+    $('focus-link').href=next.href;
+    $('focus-link').textContent='Open '+next.name+' →';
+  }
   function render() {
     const d = read(); const visits=d.visits||[], quiz=d.quiz||[], ai=d.ai||[], notes=d.notes||[];
     $('visits-count').textContent=visits.length; $('quiz-count').textContent=quiz.length; $('ai-count').textContent=ai.length; $('notes-count').textContent=notes.length;
@@ -216,6 +248,7 @@
     $('streak-count').textContent=streak;
     $('streak-caption').textContent=streak ? `${streak} consecutive active day${streak===1?'':'s'}` : 'Open a learning portal to start a new streak.';
     renderWeek(visits);
+    renderSubjectActivity(visits);
     renderAchievements(visits,quiz);
     renderChecklist();
     const term=($('note-search')?.value||'').trim().toLowerCase();
