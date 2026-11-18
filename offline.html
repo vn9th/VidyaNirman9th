@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#220308">
+  <meta name="description" content="Vidya Nirman offline learning support. Reconnect to continue your learning journey.">
+  <link rel="icon" type="image/png" href="vn-icon-192.png">
+  <title>You’re offline | Vidya Nirman</title>
+  <style>
+    :root{color-scheme:dark;--gold:#d4af37;--cream:#fff9e6}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(ellipse at 50% 0%,#4b1422 0,transparent 48%),linear-gradient(145deg,#220308,#0f0103 72%);color:var(--cream);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+    main{width:min(100%,560px);padding:clamp(24px,6vw,44px);text-align:center;border:1px solid #d4af3766;border-radius:26px;background:linear-gradient(145deg,#3b0b16eF,#160308f2);box-shadow:0 24px 70px #0008}
+    img{width:82px;height:82px;object-fit:contain;margin-bottom:18px}
+    .eyebrow{color:#e8c878;font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase}
+    h1{margin:8px 0;color:#ffe7a0;font-family:Georgia,serif;font-size:clamp(28px,6vw,42px)}
+    p{color:#e8d9c0;margin:10px 0 22px}
+    a,button{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 20px;border:1px solid var(--gold);border-radius:999px;background:linear-gradient(120deg,#ffe39a,#c58a2d);color:#220308;font-weight:800;text-decoration:none;cursor:pointer}
+    button{margin-left:8px;background:#2b0a10;color:#ffe9a0}
+    .hint{font-size:12px;color:#bba98e;margin-top:20px}
+    @media(max-width:420px){a,button{width:100%;margin:5px 0}}
+  </style>
+</head>
+<body>
+  <main>
+    <img src="vn-icon-192.png" alt="Vidya Nirman">
+    <div class="eyebrow">विद्या निर्माण · Learning continues</div>
+    <h1>You’re offline</h1>
+    <p>Your internet connection seems unavailable. You can still reopen pages that were saved on this device, or try again when your connection returns.</p>
+    <a href="./index.html">Open Vidya Nirman</a>
+    <button type="button" onclick="location.reload()">Try again</button>
+    <div class="hint">Some lessons, AI features, sign-in and cloud sync need an internet connection.</div>
+  </main>
+</body>
+</html>
