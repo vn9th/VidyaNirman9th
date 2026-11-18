@@ -1,7 +1,7 @@
 {
-  "name": "Vidya Nirman — Class 9 Learning Portal",
+  "name": "Vidya Nirman — Digital Learning Platform",
   "short_name": "Vidya Nirman",
-  "description": "Interactive Class 9 learning, quizzes and study planning.",
+  "description": "Learn, revise, practise coding and prepare for exams with Vidya Nirman.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -19,6 +19,45 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
+    }
+  ],
+  "categories": [
+    "education",
+    "productivity"
+  ],
+  "shortcuts": [
+    {
+      "name": "Study Hub",
+      "short_name": "Study",
+      "url": "./study-hub.html",
+      "icons": [
+        {
+          "src": "vn-icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Coding Academy",
+      "short_name": "Coding",
+      "url": "./coding.html",
+      "icons": [
+        {
+          "src": "vn-icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Mock Exam",
+      "short_name": "Exam",
+      "url": "./mock-exam.html",
+      "icons": [
+        {
+          "src": "vn-icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     }
   ]
 }

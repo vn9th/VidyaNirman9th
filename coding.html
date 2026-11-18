@@ -473,6 +473,11 @@ console.log(checkMarks(78));</code></pre></div>
     <div class="flex flex-wrap items-center gap-3 mt-4"><button id="addPortfolioProject" type="button" class="rounded-xl bg-gradient-to-r from-amber-400 to-yellow-600 px-5 py-3 text-sm font-black text-[#220308]">Add to my portfolio</button><span id="portfolioFormStatus" class="text-xs text-amber-200" role="status">Up to 30 projects can be saved on this device.</span></div>
   </div>
   <div class="flex flex-wrap items-end justify-between gap-2 mt-6"><div><p class="text-[10px] uppercase tracking-[.2em] text-amber-400 font-black">YOUR WORK</p><h3 class="font-cinzel text-xl font-bold text-amber-100 mt-1">Portfolio projects</h3></div><span class="text-[10px] text-slate-400">Manage and export your work</span></div>
+  <div class="flex flex-col sm:flex-row gap-3 mt-5">
+    <label class="flex-1"><span class="sr-only">Search portfolio projects</span><input id="portfolioSearch" type="search" maxlength="80" placeholder="Search your projects by title, description or tech…" class="w-full rounded-xl border border-amber-500/30 bg-[#100206] p-3 text-sm text-amber-50"></label>
+    <div class="flex flex-wrap gap-2"><button id="backupPortfolio" type="button" class="pill"><i class="fa-solid fa-file-export mr-1"></i>Backup JSON</button><button id="restorePortfolio" type="button" class="pill"><i class="fa-solid fa-file-import mr-1"></i>Restore backup</button><input id="portfolioBackupFile" type="file" accept="application/json,.json" class="hidden" aria-label="Choose portfolio backup JSON"></div>
+  </div>
+  <p id="portfolioBackupStatus" class="text-[11px] text-slate-400 mt-2" role="status">Search, back up or restore your portfolio. Backups stay on your device unless you choose to share them.</p>
   <div id="portfolioProjects" class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4" aria-live="polite"><div class="rounded-xl border border-dashed border-amber-500/30 p-5 text-sm text-slate-400">Your projects will appear here after you add them.</div></div>
   <div class="rounded-xl border border-amber-500/20 bg-[#160207] p-4 mt-5"><p class="text-xs font-bold text-amber-200"><i class="fa-solid fa-lightbulb mr-2"></i>Starter inspiration</p><div class="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-3"><button type="button" class="pill text-left" data-portfolio-starter="profile">👤 Profile card <span class="block text-[10px] text-slate-400 mt-1">HTML + CSS</span></button><button type="button" class="pill text-left" data-portfolio-starter="counter">🔢 Interactive counter <span class="block text-[10px] text-slate-400 mt-1">JavaScript</span></button><button type="button" class="pill text-left" data-portfolio-starter="todo">✅ Study task list <span class="block text-[10px] text-slate-400 mt-1">DOM + events</span></button></div></div>
   <p class="text-[10px] text-slate-500 mt-4 leading-5">Privacy note: this first version stores your portfolio in this browser only. It does not upload student work publicly or to a server. Export the HTML portfolio when you are ready to share it. Do not add private contact details or passwords.</p>
@@ -822,14 +827,39 @@ for step in range(1, 4):
         a.href=url;a.download=filename;a.hidden=true;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
       }
       function render(){
-        const projects=read(),host=$('portfolioProjects');
+        const projects=read(),host=$('portfolioProjects'),term=($('portfolioSearch')?.value||'').trim().toLowerCase();
+        const visible=projects.map((p,i)=>({p,i})).filter(({p})=>!term||[p.title,p.description,p.tech].some(v=>String(v||'').toLowerCase().includes(term)));
         $('portfolioCount').textContent=projects.length+' project'+(projects.length===1?'':'s');
         if(!projects.length){host.innerHTML='<div class="md:col-span-2 rounded-xl border border-dashed border-amber-500/30 p-5 text-sm text-slate-400">No projects yet. Add your first creation above and start building your portfolio.</div>';return}
-        host.innerHTML=projects.map((p,i)=>{
+        if(!visible.length){host.innerHTML='<div class="md:col-span-2 rounded-xl border border-dashed border-amber-500/30 p-5 text-sm text-slate-400">No projects match this search. Try another keyword.</div>';return}
+        host.innerHTML=visible.map(({p,i})=>{
           const link=safeUrl(p.link),hasSource=typeof p.source==='string'&&p.source.length>0;
           return '<article class="rounded-xl border border-amber-500/25 bg-[#160207] p-4 flex flex-col min-w-0"><div class="flex items-start justify-between gap-2"><span class="pill">PROJECT '+String(i+1).padStart(2,'0')+'</span><span class="text-[10px] text-slate-500">'+escapeText(p.date||'Saved locally')+'</span></div><h4 class="font-bold text-amber-100 text-lg mt-3 break-words">'+escapeText(p.title||'Untitled project')+'</h4><p class="text-xs text-amber-200 mt-1">'+escapeText(p.tech||'Tech stack not specified')+'</p><p class="text-sm text-slate-300 mt-3 leading-6 whitespace-pre-wrap break-words flex-1">'+escapeText(p.description||'No description added yet.')+'</p><div class="flex flex-wrap gap-2 mt-4">'+(link?'<a class="pill" href="'+escapeText(link)+'" target="_blank" rel="noopener noreferrer">Open demo ↗</a>':'')+(hasSource?'<button type="button" class="pill" data-source="'+i+'">Download source</button>':'')+'<button type="button" class="pill" data-remove="'+i+'">Remove</button></div></article>';
         }).join('');
       }
+      $('portfolioSearch').addEventListener('input',render);
+      $('backupPortfolio').addEventListener('click',()=>{
+        const backup={format:'vidya-nirman-portfolio',version:1,exportedAt:new Date().toISOString(),profile:readProfile(),projects:read()};
+        downloadFile('vidya-nirman-portfolio-backup.json',JSON.stringify(backup,null,2),'application/json');
+        $('portfolioBackupStatus').textContent='Backup downloaded. Keep it somewhere safe so you can restore your projects later.';
+      });
+      $('restorePortfolio').addEventListener('click',()=>$('portfolioBackupFile').click());
+      $('portfolioBackupFile').addEventListener('change',async event=>{
+        const file=event.target.files?.[0];if(!file)return;
+        try{
+          if(file.size>2_000_000)throw new Error('Backup file is too large (maximum 2 MB).');
+          const data=JSON.parse(await file.text());
+          if(!data||data.format!=='vidya-nirman-portfolio'||data.version!==1||!Array.isArray(data.projects))throw new Error('This is not a supported Vidya Nirman portfolio backup.');
+          const projects=data.projects.slice(0,30).filter(p=>p&&typeof p==='object'&&String(p.title||'').trim()).map(p=>({id:String(p.id||'p'+Date.now().toString(36)+Math.random().toString(36).slice(2,6)).slice(0,80),title:String(p.title).slice(0,60),description:String(p.description||'').slice(0,320),tech:String(p.tech||'').slice(0,100),link:safeUrl(p.link),source:typeof p.source==='string'?p.source.slice(0,180000):'',date:String(p.date||'Restored backup').slice(0,40)}));
+          if(!save(projects))throw new Error('Could not save the backup. Browser storage may be full.');
+          const profile=data.profile&&typeof data.profile==='object'?{name:String(data.profile.name||'').slice(0,50),headline:String(data.profile.headline||'').slice(0,90)}:null;
+          if(profile)saveProfile(profile);
+          $('portfolioStudentName').value=profile?.name||'';$('portfolioHeadline').value=profile?.headline||'';
+          $('portfolioSearch').value='';render();
+          $('portfolioBackupStatus').textContent='Backup restored successfully: '+projects.length+' project(s). Existing portfolio data was replaced.';
+        }catch(error){$('portfolioBackupStatus').textContent=error.message||'Could not restore this backup.'}
+        event.target.value='';
+      });
       $('savePortfolioProfile').addEventListener('click',()=>{
         const p={name:$('portfolioStudentName').value.trim().slice(0,50),headline:$('portfolioHeadline').value.trim().slice(0,90)};
         if(!saveProfile(p)){$('portfolioProfileStatus').textContent='Browser storage is full or unavailable. Export your work and free some space.';return}
