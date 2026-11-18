@@ -7,7 +7,75 @@
     <title>VIDYANIRMAN BIO | विद्या निर्माण - Class 9th Biology Interactive Suite</title>
 
     <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com">
+        /* 3D lab interactions */
+        let plantCellPaused=false,plantCellAngle=0;
+        function togglePlantCell3D(){plantCellPaused=!plantCellPaused;const el=document.getElementById('bio3dPlantCell');el.classList.toggle('paused',plantCellPaused);document.getElementById('bio3dToggle').textContent=plantCellPaused?'Resume rotation':'Pause rotation';}
+        function spinPlantCell3D(){plantCellAngle+=90;const el=document.getElementById('bio3dPlantCell');el.style.animation='none';el.style.transform='rotateY('+plantCellAngle+'deg) rotateX(12deg)';}
+        function resetPlantCell3D(){plantCellAngle=0;const el=document.getElementById('bio3dPlantCell');el.style.transform='';el.style.animation='';}
+        function explainPlantPart(part){const facts={wall:'Cell wall: a rigid cellulose layer that supports and protects plant cells.',nucleus:'Nucleus: contains genetic material and coordinates many cell activities.',vacuole:'Large central vacuole: stores cell sap and helps maintain turgidity.',chloroplast:'Chloroplast: contains chlorophyll and is the site of photosynthesis.'};document.getElementById('bio3dPlantFact').textContent=facts[part];}
+        const bioMicroSamples={plant:{label:'Plant cells • model view',fact:'Plant cells commonly show a cell wall and a more regular outline in prepared slides.',bg:'radial-gradient(circle,#bbf7d0 0 12%,#166534 13% 17%,#dcfce7 18% 34%,#14532d 35% 40%,#86efac 41% 52%,#052e16 53%)'},animal:{label:'Animal cells • model view',fact:'Animal cells do not have a cell wall. Their outlines are often less regular.',bg:'radial-gradient(circle at 30% 35%,#fbcfe8 0 10%,#9d174d 11% 14%,#fce7f3 15% 28%,transparent 29%),radial-gradient(circle at 68% 62%,#f9a8d4 0 12%,#831843 13% 17%,#fce7f3 18% 30%,#500724 31%)'},blood:{label:'Blood cells • model view',fact:'Red blood cells transport oxygen using haemoglobin. This is a stylised illustration, not a clinical image.',bg:'radial-gradient(ellipse at 30% 35%,#fecaca 0 12%,#991b1b 13% 20%,#ef4444 21% 29%,transparent 30%),radial-gradient(ellipse at 70% 65%,#fecaca 0 12%,#991b1b 13% 20%,#ef4444 21% 29%,#450a0a 30%)'}};
+        function setBioMicroZoom(value){const view=document.getElementById('bioMicroView');view.style.transform='scale('+value+')';document.getElementById('bioMicroZoomLabel').textContent=value+'×';}
+        function setBioMicroSample(sample){const data=bioMicroSamples[sample];document.getElementById('bioMicroView').style.background=data.bg;document.getElementById('bioMicroLabel').textContent=data.label;document.getElementById('bioMicroFact').textContent=data.fact;}
+        const bioEcoData=[{role:'Producer • makes its own food',energy:10000,fact:'Plants capture energy from sunlight and form the base of this food chain.'},{role:'Primary consumer • herbivore',energy:1000,fact:'The grasshopper obtains energy by eating the grass. Only a fraction of energy passes to the next level.'},{role:'Secondary consumer • carnivore',energy:100,fact:'The frog gets energy by eating the grasshopper. Energy available decreases at each trophic level.'},{role:'Tertiary consumer • carnivore',energy:10,fact:'The snake obtains energy by eating the frog. The simplified model illustrates the 10% energy transfer rule.'}];
+        function selectEcoLevel(i){const d=bioEcoData[i];document.getElementById('bioEcoRole').textContent=d.role;document.getElementById('bioEcoEnergy').textContent='Energy: '+d.energy.toLocaleString('en-IN')+' units';document.getElementById('bioEcoBar').style.width=(d.energy/10000*100)+'%';document.getElementById('bioEcoFact').textContent=d.fact;document.querySelectorAll('#bioEcoLevels button').forEach((b,n)=>b.style.borderColor=n===i?'#34D399':'rgba(212,175,55,.28)');}
+        setBioMicroSample('plant');selectEcoLevel(0);
+
+        /* Reusable arcade question rounds */
+        const bioArcadeSets={
+          tissue:[
+            {q:'I cover body surfaces and line internal organs. Which tissue?',o:['Epithelial','Nervous','Muscular','Connective'],a:0,why:'Epithelial tissue covers and protects surfaces.'},
+            {q:'I contract and help the body move. Which tissue?',o:['Xylem','Muscular','Epithelial','Phloem'],a:1,why:'Muscular tissue contracts to produce movement.'},
+            {q:'I transmit electrical impulses. Which tissue?',o:['Connective','Epithelial','Nervous','Muscular'],a:2,why:'Nervous tissue carries information as impulses.'},
+            {q:'Blood is classified as which type of tissue?',o:['Muscular','Connective','Nervous','Epithelial'],a:1,why:'Blood is a fluid connective tissue.'}
+          ],
+          kingdom:[
+            {q:'A mushroom belongs to which kingdom?',o:['Plantae','Fungi','Animalia','Monera'],a:1,why:'Mushrooms are fungi and absorb nutrients from their surroundings.'},
+            {q:'Amoeba is commonly placed in which kingdom?',o:['Protista','Plantae','Fungi','Animalia'],a:0,why:'Amoeba is a unicellular eukaryote placed in Protista in the five-kingdom system.'},
+            {q:'A typical bacterium belongs to which kingdom in the five-kingdom system?',o:['Monera','Protista','Fungi','Plantae'],a:0,why:'Monera includes prokaryotic organisms such as bacteria.'},
+            {q:'A mango tree belongs to which kingdom?',o:['Animalia','Fungi','Plantae','Monera'],a:2,why:'Mango is a multicellular photosynthetic plant.'}
+          ],
+          sequence:[
+            {q:'After pollination, which event normally follows in flowering plants?',o:['Seed dispersal','Fertilisation','Germination','Fruit ripening'],a:1,why:'After pollination, compatible pollen may lead to fertilisation.'},
+            {q:'After fertilisation, the ovule usually develops into a…',o:['Leaf','Root','Seed','Petal'],a:2,why:'The ovule develops into a seed.'},
+            {q:'The ovary usually develops into the…',o:['Fruit','Anther','Stigma','Sepal'],a:0,why:'The ovary develops into the fruit.'},
+            {q:'Under suitable conditions, a seed may begin…',o:['Pollination','Germination','Fertilisation','Budding'],a:1,why:'Germination is the beginning of growth of the embryo into a seedling.'}
+          ],
+          chain:[
+            {q:'Grass → Grasshopper → ? → Snake. What comes next?',o:['Frog','Eagle','Deer','Mushroom'],a:0,why:'A frog may eat grasshoppers and may be eaten by a snake.'},
+            {q:'Leaves → Caterpillar → ? . Which organism could come next?',o:['Small bird','Grass','Sunlight','Moss'],a:0,why:'A small insect-eating bird may feed on caterpillars.'},
+            {q:'Which organisms break down dead plants and animals?',o:['Producers','Decomposers','Herbivores','Pollinators'],a:1,why:'Decomposers such as many bacteria and fungi recycle nutrients.'},
+            {q:'In a food chain, the original energy source for most ecosystems is…',o:['Moon','Soil','Sun','Wind'],a:2,why:'Sunlight is the main energy source for most ecosystems.'}
+          ]
+        };
+        const bioArcadeState={tissue:{i:0,score:0,done:false},kingdom:{i:0,score:0,done:false},sequence:{i:0,score:0,done:false},chain:{i:0,score:0,done:false}};
+        const bioArcadeIds={tissue:'bioTissue',kingdom:'bioKingdom',sequence:'bioSequence',chain:'bioChain'};
+        function renderArcadeGame(type){
+          const st=bioArcadeState[type],q=bioArcadeSets[type][st.i],id=bioArcadeIds[type];
+          document.getElementById(id+'Q').textContent=q.q;
+          document.getElementById(id+'Score').textContent='Score: '+st.score+' / '+bioArcadeSets[type].length;
+          document.getElementById(id+'Feed').textContent='Choose your answer.';
+          const wrap=document.getElementById(id+'Opts');wrap.innerHTML='';
+          q.o.forEach((option,index)=>{const btn=document.createElement('button');btn.type='button';btn.className='bio-arcade-btn';btn.textContent=option;btn.addEventListener('click',()=>answerArcadeGame(type,index));wrap.appendChild(btn);});
+          st.done=false;
+        }
+        function answerArcadeGame(type,choice){
+          const st=bioArcadeState[type];if(st.done)return;st.done=true;
+          const q=bioArcadeSets[type][st.i],id=bioArcadeIds[type],correct=choice===q.a;
+          if(correct)st.score++;
+          document.getElementById(id+'Score').textContent='Score: '+st.score+' / '+bioArcadeSets[type].length;
+          document.getElementById(id+'Feed').textContent=(correct?'Correct! ':'Not quite. Answer: '+q.o[q.a]+'. ')+q.why;
+          document.querySelectorAll('#'+id+'Opts button').forEach((btn,index)=>{btn.disabled=true;if(index===q.a)btn.classList.add('bio-arcade-good');else if(index===choice)btn.classList.add('bio-arcade-bad');});
+        }
+        function nextArcadeQuestion(type){
+          const st=bioArcadeState[type],id=bioArcadeIds[type];
+          if(!st.done){document.getElementById(id+'Feed').textContent='Answer this clue before moving on.';return;}
+          st.i=(st.i+1)%bioArcadeSets[type].length;if(st.i===0)st.score=0;
+          renderArcadeGame(type);
+        }
+        Object.keys(bioArcadeSets).forEach(renderArcadeGame);
+
+</script>
 
     <!-- FontAwesome Icons CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -165,6 +233,33 @@
         .bio-detective-choice:hover:not(:disabled){transform:translateY(-2px);border-color:#FFD700}
         .bio-detective-choice:disabled{opacity:.65;cursor:default}
         @media(prefers-reduced-motion:reduce){.bio-live-cell,.bio-organelle,.bio-travelling-particle,.bio-dna-spinner,.bio-cell-splitting{animation:none!important}.bio-detective-choice{transition:none}}
+
+
+        /* EXPANDED BIOLOGY ARCADE + 3D LABS */
+        @keyframes bioOrbit3D{from{transform:rotateY(0deg) rotateX(12deg)}to{transform:rotateY(360deg) rotateX(12deg)}}
+        @keyframes bioLabFloat{0%,100%{translate:0 0}50%{translate:0 -12px}}
+        @keyframes bioScan{0%{transform:translateY(-90px);opacity:0}20%,80%{opacity:.8}100%{transform:translateY(90px);opacity:0}}
+        @keyframes bioSpark{0%,100%{opacity:.25;scale:.8}50%{opacity:1;scale:1.2}}
+        .bio-3d-stage{perspective:850px;min-height:290px;display:grid;place-items:center;overflow:hidden;position:relative;background:radial-gradient(ellipse at center,rgba(16,185,129,.13),transparent 68%)}
+        .bio-3d-cell{position:relative;width:min(260px,68vw);height:190px;border:5px solid #6ee7b7;border-radius:48% 52% 46% 54%;background:radial-gradient(ellipse at 35% 35%,rgba(74,222,128,.25),rgba(6,78,59,.6));box-shadow:inset 0 0 35px #10b98155,0 0 30px #10b98133;transform-style:preserve-3d;animation:bioOrbit3D 18s linear infinite}
+        .bio-3d-cell.paused{animation-play-state:paused}
+        .bio-3d-part{position:absolute;border-radius:50%;transform-style:preserve-3d;box-shadow:0 0 16px currentColor}
+        .bio-3d-nucleus{width:70px;height:70px;left:38%;top:30%;background:radial-gradient(circle at 35% 30%,#ddd6fe,#7c3aed 65%,#4c1d95);color:#a78bfa;transform:translateZ(28px)}
+        .bio-3d-vacuole{width:44px;height:35px;left:16%;top:56%;background:radial-gradient(circle at 35% 30%,#bfdbfe,#2563eb);color:#60a5fa;transform:translateZ(38px)}
+        .bio-3d-chloro{width:42px;height:22px;background:linear-gradient(90deg,#bbf7d0,#15803d);border:2px solid #86efac}
+        .bio-3d-chloro.c1{left:14%;top:20%;transform:rotate(25deg) translateZ(22px)}.bio-3d-chloro.c2{right:12%;top:27%;transform:rotate(-25deg) translateZ(45px)}.bio-3d-chloro.c3{right:18%;bottom:16%;transform:rotate(35deg) translateZ(20px)}
+        .bio-3d-wall{position:absolute;inset:-13px;border:5px solid #fbbf24;border-radius:48% 52% 46% 54%;transform:translateZ(-8px);box-shadow:0 0 18px #fbbf2444}
+        .bio-lab-float{animation:bioLabFloat 4s ease-in-out infinite}
+        .bio-microscope-view{height:180px;border-radius:50%;width:180px;margin:auto;border:10px solid #d4af37;background:radial-gradient(circle,#a7f3d0 0 4%,#166534 5% 10%,#bbf7d0 11% 17%,#14532d 18% 22%,#86efac 23% 29%,#052e16 30%);box-shadow:0 0 35px #10b98155;transition:transform .2s}
+        .bio-scanline{height:3px;background:#a7f3d0;box-shadow:0 0 12px #34d399;animation:bioScan 2.6s ease-in-out infinite}
+        .bio-arcade-card{background:linear-gradient(145deg,rgba(66,12,25,.94),rgba(13,2,4,.98));border:1px solid rgba(212,175,55,.28);border-radius:1.25rem;padding:1.2rem}
+        .bio-arcade-btn{border:1px solid rgba(212,175,55,.35);background:#16050a;color:#fff1c2;border-radius:.75rem;padding:.7rem .8rem;font-size:.78rem;text-align:left;transition:all .18s}
+        .bio-arcade-btn:hover:not(:disabled){border-color:#facc15;transform:translateY(-2px);background:#35101b}
+        .bio-arcade-btn:disabled{opacity:.68;cursor:default}
+        .bio-arcade-good{border-color:#34d399!important;color:#a7f3d0!important}
+        .bio-arcade-bad{border-color:#fb7185!important;color:#fecdd3!important}
+        .bio-energy-bar{height:12px;border-radius:99px;background:linear-gradient(90deg,#34d399,#facc15);transition:width .6s}
+        @media(prefers-reduced-motion:reduce){.bio-3d-cell,.bio-lab-float,.bio-scanline{animation:none!important}.bio-arcade-btn{transition:none}}
 
     </style>
 </head>
@@ -1204,6 +1299,54 @@
           </div>
         </div>
         <p class="text-center text-[11px] text-amber-200/60 mt-5">Play again and beat your best score. No timer pressure — learn at your own pace. Replay a game to improve your score.</p>
+      </div>
+    </section>
+
+
+    <!-- 3D BIOLOGY LABS -->
+    <section id="bio-3d-labs" class="py-16 relative z-10 border-b border-amber-500/20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-8"><span class="text-xs text-cyan-300 font-bold uppercase tracking-widest">EXPLORE • ROTATE • DISCOVER</span><h2 class="font-cinzel text-2xl sm:text-3xl font-black text-gold-gradient mt-2">3D Biology Discovery Labs</h2><p class="text-sm text-slate-400 mt-2">Interactive visual models to explore cell structures, microscopy and ecosystems.</p></div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <article class="bio-arcade-card">
+            <div class="flex items-center justify-between gap-2"><div><span class="text-[10px] text-emerald-300 font-bold tracking-widest">LAB 01</span><h3 class="text-lg font-bold text-amber-100">3D Plant Cell Explorer</h3></div><i class="fa-solid fa-cube text-2xl text-emerald-300"></i></div>
+            <div class="bio-3d-stage rounded-xl mt-4"><div id="bio3dPlantCell" class="bio-3d-cell"><div class="bio-3d-wall"></div><div class="bio-3d-part bio-3d-nucleus"></div><div class="bio-3d-part bio-3d-vacuole"></div><div class="bio-3d-part bio-3d-chloro c1"></div><div class="bio-3d-part bio-3d-chloro c2"></div><div class="bio-3d-part bio-3d-chloro c3"></div></div></div>
+            <div class="flex flex-wrap gap-2 mt-3"><button type="button" class="bio-lab-control" onclick="togglePlantCell3D()" id="bio3dToggle">Pause rotation</button><button type="button" class="bio-lab-control" onclick="spinPlantCell3D()">Rotate 90°</button><button type="button" class="bio-lab-control" onclick="resetPlantCell3D()">Reset view</button></div>
+            <div class="grid grid-cols-2 gap-2 mt-3"><button class="bio-arcade-btn" type="button" onclick="explainPlantPart('wall')">Cell wall</button><button class="bio-arcade-btn" type="button" onclick="explainPlantPart('nucleus')">Nucleus</button><button class="bio-arcade-btn" type="button" onclick="explainPlantPart('vacuole')">Vacuole</button><button class="bio-arcade-btn" type="button" onclick="explainPlantPart('chloroplast')">Chloroplast</button></div>
+            <p id="bio3dPlantFact" class="text-xs text-emerald-200 mt-3 min-h-8" aria-live="polite">Select a cell part to learn its function. This is a simplified educational model.</p>
+          </article>
+          <article class="bio-arcade-card">
+            <div class="flex items-center justify-between gap-2"><div><span class="text-[10px] text-cyan-300 font-bold tracking-widest">LAB 02</span><h3 class="text-lg font-bold text-amber-100">Virtual Microscope</h3></div><i class="fa-solid fa-microscope text-2xl text-cyan-300"></i></div>
+            <div class="rounded-xl bg-[#090205] py-5 mt-4 relative overflow-hidden"><div id="bioMicroView" class="bio-microscope-view"></div><div class="bio-scanline absolute left-8 right-8 top-1/2"></div><p id="bioMicroLabel" class="text-center text-xs text-emerald-200 mt-4">Onion-like plant cells • model view</p></div>
+            <label class="text-xs text-slate-300 block mt-4" for="bioMicroZoom">Magnification: <strong id="bioMicroZoomLabel" class="text-amber-300">1×</strong></label><input id="bioMicroZoom" type="range" min="1" max="4" value="1" step="1" class="w-full accent-emerald-400 mt-2" oninput="setBioMicroZoom(this.value)"/>
+            <div class="flex flex-wrap gap-2 mt-3"><button class="bio-lab-control" type="button" onclick="setBioMicroSample('plant')">Plant cells</button><button class="bio-lab-control" type="button" onclick="setBioMicroSample('animal')">Animal cells</button><button class="bio-lab-control" type="button" onclick="setBioMicroSample('blood')">Blood cells</button></div>
+            <p id="bioMicroFact" class="text-xs text-slate-300 mt-3 min-h-8">Adjust magnification and switch the sample. This is a conceptual simulation, not a real microscope image.</p>
+          </article>
+          <article class="bio-arcade-card lg:col-span-2">
+            <div class="flex items-center justify-between gap-2"><div><span class="text-[10px] text-amber-300 font-bold tracking-widest">LAB 03</span><h3 class="text-lg font-bold text-amber-100">Ecosystem Energy Flow Simulator</h3></div><i class="fa-solid fa-leaf text-2xl text-emerald-300"></i></div>
+            <p class="text-xs text-slate-400 mt-2">Choose an organism to see its role in a simple food chain and how available energy decreases between trophic levels.</p>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-5" id="bioEcoLevels">
+              <button class="bio-arcade-btn text-center" onclick="selectEcoLevel(0)"><span class="text-3xl block">🌿</span><strong>Grass</strong><small class="block text-emerald-300">Producer</small></button>
+              <button class="bio-arcade-btn text-center" onclick="selectEcoLevel(1)"><span class="text-3xl block">🦗</span><strong>Grasshopper</strong><small class="block text-emerald-300">Primary consumer</small></button>
+              <button class="bio-arcade-btn text-center" onclick="selectEcoLevel(2)"><span class="text-3xl block">🐸</span><strong>Frog</strong><small class="block text-emerald-300">Secondary consumer</small></button>
+              <button class="bio-arcade-btn text-center" onclick="selectEcoLevel(3)"><span class="text-3xl block">🐍</span><strong>Snake</strong><small class="block text-emerald-300">Tertiary consumer</small></button>
+            </div>
+            <div class="mt-5 rounded-xl bg-[#090205] p-4"><div class="flex justify-between text-xs text-slate-300"><span id="bioEcoRole">Producer • makes its own food</span><strong id="bioEcoEnergy" class="text-amber-300">Energy: 10,000 units</strong></div><div class="h-3 bg-white/10 rounded-full mt-3 overflow-hidden"><div id="bioEcoBar" class="bio-energy-bar w-full"></div></div><p id="bioEcoFact" class="text-xs text-slate-300 mt-3">Plants capture energy from sunlight and form the base of this food chain.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- BIOLOGY ARCADE: FOUR MORE GAMES -->
+    <section id="bio-arcade" class="py-16 relative z-10 border-b border-amber-500/20 bg-gradient-to-b from-[#1F040A] to-[#0D0204]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-8"><span class="text-xs text-rose-300 font-bold uppercase tracking-widest">LEVEL UP YOUR BIOLOGY</span><h2 class="font-cinzel text-2xl sm:text-3xl font-black text-gold-gradient mt-2">Biology Arcade — More Challenges</h2><p class="text-sm text-slate-400 mt-2">Four more games. No countdowns — learn at your own pace.</p></div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <article class="bio-arcade-card"><span class="text-[10px] text-cyan-300 font-bold">GAME 04 • TISSUE DETECTIVE</span><h3 class="text-lg font-bold text-amber-100 mt-1">Who Am I? — Tissue Edition</h3><p id="bioTissueQ" class="text-sm text-slate-200 my-4 min-h-10"></p><div id="bioTissueOpts" class="grid grid-cols-2 gap-2"></div><div class="flex justify-between items-center mt-3"><span id="bioTissueScore" class="text-xs text-amber-300">Score: 0</span><button class="bio-lab-control" onclick="nextArcadeQuestion('tissue')">Next →</button></div><p id="bioTissueFeed" class="text-xs text-slate-400 mt-2" aria-live="polite"></p></article>
+          <article class="bio-arcade-card"><span class="text-[10px] text-emerald-300 font-bold">GAME 05 • KINGDOM SORTER</span><h3 class="text-lg font-bold text-amber-100 mt-1">Which Kingdom?</h3><p id="bioKingdomQ" class="text-sm text-slate-200 my-4 min-h-10"></p><div id="bioKingdomOpts" class="grid grid-cols-2 gap-2"></div><div class="flex justify-between items-center mt-3"><span id="bioKingdomScore" class="text-xs text-amber-300">Score: 0</span><button class="bio-lab-control" onclick="nextArcadeQuestion('kingdom')">Next →</button></div><p id="bioKingdomFeed" class="text-xs text-slate-400 mt-2" aria-live="polite"></p></article>
+          <article class="bio-arcade-card"><span class="text-[10px] text-rose-300 font-bold">GAME 06 • PLANT REPRODUCTION</span><h3 class="text-lg font-bold text-amber-100 mt-1">Put the Process in Order</h3><p id="bioSequenceQ" class="text-sm text-slate-200 my-4">Choose the correct next event after pollination.</p><div id="bioSequenceOpts" class="grid grid-cols-2 gap-2"></div><div class="flex justify-between items-center mt-3"><span id="bioSequenceScore" class="text-xs text-amber-300">Score: 0</span><button class="bio-lab-control" onclick="nextArcadeQuestion('sequence')">Next →</button></div><p id="bioSequenceFeed" class="text-xs text-slate-400 mt-2" aria-live="polite"></p></article>
+          <article class="bio-arcade-card"><span class="text-[10px] text-amber-300 font-bold">GAME 07 • FOOD CHAIN BUILDER</span><h3 class="text-lg font-bold text-amber-100 mt-1">Who Comes Next?</h3><p id="bioChainQ" class="text-sm text-slate-200 my-4 min-h-10"></p><div id="bioChainOpts" class="grid grid-cols-2 gap-2"></div><div class="flex justify-between items-center mt-3"><span id="bioChainScore" class="text-xs text-amber-300">Score: 0</span><button class="bio-lab-control" onclick="nextArcadeQuestion('chain')">Next →</button></div><p id="bioChainFeed" class="text-xs text-slate-400 mt-2" aria-live="polite"></p></article>
+        </div>
       </div>
     </section>
 
