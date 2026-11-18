@@ -1205,7 +1205,7 @@
             <div class="w-11 h-11 rounded-xl bg-emerald-500/15 border border-emerald-400/40 flex items-center justify-center text-emerald-300 bio-float-icon"><i class="fa-solid fa-gamepad text-xl"></i></div>
             <div><span class="text-xs text-emerald-300 font-bold uppercase tracking-widest">PLAY · THINK · LEARN</span><h2 class="font-cinzel text-2xl sm:text-3xl font-black text-gold-gradient">Biology Quick Games</h2></div>
           </div>
-          <span class="text-xs text-amber-200/70 border border-amber-500/30 rounded-full px-3 py-2">3 quick games + 4 Arcade challenges</span>
+          <span class="text-xs text-amber-200/70 border border-amber-500/30 rounded-full px-3 py-2">7 playable games in one place</span>
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div class="bg-maroon-card border-gold-glow rounded-2xl p-5 sm:p-7 bio-glow-card bio-reveal">
@@ -1248,7 +1248,7 @@
     <!-- BIOLOGY ARCADE: FOUR MORE GAMES -->
     <section id="bio-arcade" class="py-16 relative z-10 border-b border-amber-500/20 bg-gradient-to-b from-[#1F040A] to-[#0D0204]">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="mb-8"><span class="text-xs text-rose-300 font-bold uppercase tracking-widest">LEVEL UP YOUR BIOLOGY</span><h2 class="font-cinzel text-2xl sm:text-3xl font-black text-gold-gradient mt-2">Biology Arcade — More Challenges</h2><p class="text-sm text-slate-400 mt-2">Four more games. No countdowns — learn at your own pace.</p></div>
+        <div class="mb-8"><span class="text-xs text-rose-300 font-bold uppercase tracking-widest">LEVEL UP YOUR BIOLOGY</span><h2 class="font-cinzel text-2xl sm:text-3xl font-black text-gold-gradient mt-2">Biology Arcade — More Challenges</h2><p class="text-sm text-slate-400 mt-2">Four additional games, shown directly below the Quick Games section. No countdowns — learn at your own pace.</p></div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
           <article class="bio-arcade-card"><span class="text-[10px] text-cyan-300 font-bold">GAME 04 • TISSUE DETECTIVE</span><h3 class="text-lg font-bold text-amber-100 mt-1">Who Am I? — Tissue Edition</h3><p id="bioTissueQ" class="text-sm text-slate-200 my-4 min-h-10"></p><div id="bioTissueOpts" class="grid grid-cols-2 gap-2"></div><div class="flex justify-between items-center mt-3"><span id="bioTissueScore" class="text-xs text-amber-300">Score: 0</span><button class="bio-lab-control" onclick="nextArcadeQuestion('tissue')">Next →</button></div><p id="bioTissueFeed" class="text-xs text-slate-400 mt-2" aria-live="polite"></p></article>
           <article class="bio-arcade-card"><span class="text-[10px] text-emerald-300 font-bold">GAME 05 • KINGDOM SORTER</span><h3 class="text-lg font-bold text-amber-100 mt-1">Which Kingdom?</h3><p id="bioKingdomQ" class="text-sm text-slate-200 my-4 min-h-10"></p><div id="bioKingdomOpts" class="grid grid-cols-2 gap-2"></div><div class="flex justify-between items-center mt-3"><span id="bioKingdomScore" class="text-xs text-amber-300">Score: 0</span><button class="bio-lab-control" onclick="nextArcadeQuestion('kingdom')">Next →</button></div><p id="bioKingdomFeed" class="text-xs text-slate-400 mt-2" aria-live="polite"></p></article>
@@ -1477,7 +1477,7 @@
             const drag={active:false,x:0,y:0};canvas.addEventListener('pointerdown',e=>{drag.active=true;drag.x=e.clientX;drag.y=e.clientY;canvas.setPointerCapture(e.pointerId);});
             canvas.addEventListener('pointermove',e=>{if(!drag.active)return;plantCellGroup.rotation.y+=(e.clientX-drag.x)*.009;plantCellGroup.rotation.x+=(e.clientY-drag.y)*.009;drag.x=e.clientX;drag.y=e.clientY;});
             canvas.addEventListener('pointerup',()=>drag.active=false);canvas.addEventListener('pointercancel',()=>drag.active=false);
-            canvas.addEventListener('wheel',e=>{e.preventDefault();plantCellCamera.position.z=Math.max(5,Math.min(12,plantCellCamera.position.z+e.deltaY*.008));},{passive:false});
+            canvas.addEventListener('wheel',e=>{e.preventDefault();plantCellCamera.position.multiplyScalar(1+e.deltaY*.001);const dist=plantCellCamera.position.length();if(dist<7)plantCellCamera.position.setLength(7);if(dist>13)plantCellCamera.position.setLength(13);plantCellCamera.lookAt(0,0,0);},{passive:false});
             const ray=new T.Raycaster(),pointer=new T.Vector2();
             canvas.addEventListener('click',e=>{const rect=canvas.getBoundingClientRect();pointer.x=((e.clientX-rect.left)/rect.width)*2-1;pointer.y=-((e.clientY-rect.top)/rect.height)*2+1;ray.setFromCamera(pointer,plantCellCamera);const hits=ray.intersectObjects(plantCellGroup.children,true);if(hits.length){let obj=hits[0].object;while(obj&&obj!==plantCellGroup&&!obj.name)obj=obj.parent;if(obj&&obj.name)explainPlantPart(obj.name);}});
             function resize(){const rect=canvas.getBoundingClientRect();if(!rect.width||!rect.height)return;plantCellCamera.aspect=rect.width/rect.height;plantCellCamera.updateProjectionMatrix();plantCellRenderer.setSize(rect.width,rect.height,false);}
@@ -1488,7 +1488,7 @@
         }
         function togglePlantCell3D(){plantCellPaused=!plantCellPaused;document.getElementById('bio3dToggle').textContent=plantCellPaused?'Resume rotation':'Pause rotation';}
         function spinPlantCell3D(){if(plantCellGroup)plantCellGroup.rotation.y+=Math.PI/2;}
-        function resetPlantCell3D(){if(plantCellGroup){plantCellGroup.rotation.set(0,0,0);plantCellCamera.position.set(0,0,8.2);}}
+        function resetPlantCell3D(){if(plantCellGroup){plantCellGroup.rotation.set(-.28,.42,.08);plantCellCamera.position.set(5.6,4.1,8.6);plantCellCamera.lookAt(0,0,0);}}
         const bioMicroSamples={
           plant:{label:'Onion epidermis • real microscope photograph',fact:'Real optical-microscope photograph of onion epidermis. The long, brick-like boundaries are cell walls. Image: SaraKasa, Wikimedia Commons, CC BY 4.0.',kind:'plant',src:'https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/Onion_epidermis.jpg/1280px-Onion_epidermis.jpg'},
           animal:{label:'Human cheek epithelial cells • real microscope photograph',fact:'Real stained human cheek epithelial cells. The blue stain helps show cell outlines and nuclei. Image: Aholderfield, Wikimedia Commons, CC BY 4.0.',kind:'animal',src:'https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b0/Microscopic_Image_of_Human_Cheek_Cells.jpg/960px-Microscopic_Image_of_Human_Cheek_Cells.jpg'},
