@@ -1520,7 +1520,7 @@
         }
         const bioEcoData=[{role:'Producer • makes its own food',energy:10000,fact:'Plants capture energy from sunlight and form the base of this food chain.'},{role:'Primary consumer • herbivore',energy:1000,fact:'The grasshopper obtains energy by eating the grass. Only a fraction of energy passes to the next level.'},{role:'Secondary consumer • carnivore',energy:100,fact:'The frog gets energy by eating the grasshopper. Energy available decreases at each trophic level.'},{role:'Tertiary consumer • carnivore',energy:10,fact:'The snake obtains energy by eating the frog. The simplified model illustrates the 10% energy transfer rule.'}];
         function selectEcoLevel(i){const d=bioEcoData[i];document.getElementById('bioEcoRole').textContent=d.role;document.getElementById('bioEcoEnergy').textContent='Energy: '+d.energy.toLocaleString('en-IN')+' units';document.getElementById('bioEcoBar').style.width=(d.energy/10000*100)+'%';document.getElementById('bioEcoFact').textContent=d.fact;document.querySelectorAll('#bioEcoLevels button').forEach((b,n)=>b.style.borderColor=n===i?'#34D399':'rgba(212,175,55,.28)');}
-        document.addEventListener('DOMContentLoaded',()=>{setBioMicroSample('plant');selectEcoLevel(0);});
+        document.addEventListener('DOMContentLoaded',()=>{makePlantCellModel();setBioMicroSample('plant');selectEcoLevel(0);});
 
         /* Shuffle question decks and avoid an immediate repeat between rounds. */
         function shuffleBioDeck(deck,previousQuestion){
