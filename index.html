@@ -1315,6 +1315,45 @@ html.vn-intro-seen #vnIntroScreen{display:none!important}
 .vn-ai-retry{display:block;margin-top:8px;border:1px solid #d4af3770;background:#35101a;color:#ffe39a;border-radius:8px;padding:6px 10px;font-size:10px;font-weight:800;cursor:pointer}
 @media(max-width:480px){#vnAiLauncher{left:14px;right:auto;bottom:calc(76px + env(safe-area-inset-bottom));padding:11px 14px}#vnAiChatPanel{left:10px;right:auto;bottom:calc(130px + env(safe-area-inset-bottom));width:calc(100vw - 20px);height:min(620px,calc(100dvh - 160px));min-height:390px;border-radius:18px}.vn-ai-head{padding:12px}.vn-ai-messages{padding:12px 10px}}
 @media(prefers-reduced-motion:reduce){.vn-ai-typing i{animation:none!important}}
+
+/* Responsive collision guard: homepage navigation, floating AI and mobile safe areas */
+html{scroll-padding-top:88px;scroll-behavior:smooth}
+body{max-width:100%;overflow-x:clip}
+img,svg,video,canvas{max-width:100%}
+#mobileStickyNavbar{padding-bottom:calc(8px + env(safe-area-inset-bottom));min-height:64px}
+#mobileStickyNavbar>div{max-width:620px;margin-inline:auto}
+#mobileStickyNavbar a{min-width:0;overflow-wrap:anywhere}
+#mobileStickyNavbar a span{display:block;max-width:100%;line-height:1.15}
+@media(max-width:1023px){
+  header.sticky>div{min-width:0}
+  header.sticky nav{min-width:0}
+}
+@media(max-width:640px){
+  body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+  header.sticky{z-index:120}
+  header.sticky>div{height:auto;min-height:68px;padding-top:9px;padding-bottom:9px;gap:8px}
+  header.sticky>div>a{min-width:0;flex:1}
+  header.sticky>div>a h1{font-size:clamp(15px,4.2vw,20px);white-space:nowrap}
+  header.sticky>div>div:last-child{gap:6px}
+  #mobileStickyNavbar{z-index:9000}
+  #mobileStickyNavbar .grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:2px}
+  #mobileStickyNavbar a{padding-inline:1px}
+  #mobileStickyNavbar a span{font-size:8px;letter-spacing:0;white-space:normal}
+  #mobileStickyNavbar a i{margin-bottom:2px}
+  #vnAiLauncher{left:auto;right:12px;bottom:calc(76px + env(safe-area-inset-bottom));max-width:calc(100vw - 24px);padding:10px 13px;z-index:10001}
+  #vnAiChatPanel{left:10px;right:10px;top:max(10px,env(safe-area-inset-top));bottom:calc(76px + env(safe-area-inset-bottom));width:auto;height:auto;min-height:0;max-height:none;border-radius:17px;z-index:10002}
+  #vnAiChatPanel .vn-ai-head{flex:0 0 auto}
+  #vnAiChatPanel .vn-ai-messages{min-height:0}
+  #vnAiChatPanel .vn-ai-prompts{max-height:92px;overflow:auto}
+  #home,#portals,#quests,#directory,#founders,#notices{scroll-margin-top:78px}
+}
+@media(max-width:360px){
+  #mobileStickyNavbar a span{font-size:7px}
+  #mobileStickyNavbar a i{font-size:12px}
+  #vnAiLauncher{font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
 </style>
 <button id="vnAiLauncher" type="button" aria-controls="vnAiChatPanel" aria-expanded="false"><span class="vn-ai-launch-icon vn-ai-orb" aria-hidden="true"><i class="fa-solid fa-brain"></i><span class="vn-ai-orb-spark">✦</span></span><span>Ask Vidya AI</span></button>
 <section id="vnAiChatPanel" role="dialog" aria-label="Vidya Nirman AI study assistant" aria-modal="false">
