@@ -23,6 +23,11 @@
         function selectEcoLevel(i){const d=bioEcoData[i];document.getElementById('bioEcoRole').textContent=d.role;document.getElementById('bioEcoEnergy').textContent='Energy: '+d.energy.toLocaleString('en-IN')+' units';document.getElementById('bioEcoBar').style.width=(d.energy/10000*100)+'%';document.getElementById('bioEcoFact').textContent=d.fact;document.querySelectorAll('#bioEcoLevels button').forEach((b,n)=>b.style.borderColor=n===i?'#34D399':'rgba(212,175,55,.28)');}
         document.addEventListener('DOMContentLoaded',()=>{setBioMicroSample('plant');selectEcoLevel(0);});
 
+        /* Shuffle question decks and avoid an immediate repeat between rounds. */
+        function shuffleBioDeck(deck,previousQuestion){
+          for(let i=deck.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[deck[i],deck[j]]=[deck[j],deck[i]];}
+          if(previousQuestion&&deck.length>1&&deck[0].q===previousQuestion){const j=1+Math.floor(Math.random()*(deck.length-1));[deck[0],deck[j]]=[deck[j],deck[0]];}
+        }
         /* Reusable arcade question rounds */
         const bioArcadeSets={
           tissue:[
@@ -50,6 +55,31 @@
             {q:'In a food chain, the original energy source for most ecosystems is…',o:['Moon','Soil','Sun','Wind'],a:2,why:'Sunlight is the main energy source for most ecosystems.'}
           ]
         };
+        bioArcadeSets.tissue.push(
+          {q:'Which tissue connects muscles to bones?',o:['Tendon','Ligament','Epithelial','Nervous'],a:0,why:'Tendons connect muscles to bones.'},
+          {q:'Which tissue joins one bone to another?',o:['Cartilage','Ligament','Xylem','Muscular'],a:1,why:'Ligaments connect bones at joints.'},
+          {q:'Which plant tissue transports prepared food?',o:['Xylem','Phloem','Meristem','Epidermis'],a:1,why:'Phloem transports sugars and other food substances.'},
+          {q:'Which tissue helps plants grow in length?',o:['Permanent','Meristematic','Epithelial','Connective'],a:1,why:'Apical meristematic tissue supports increase in length.'}
+        );
+        bioArcadeSets.kingdom.push(
+          {q:'Which kingdom has cell walls commonly containing chitin?',o:['Fungi','Animalia','Plantae','Protista'],a:0,why:'Fungal cell walls typically contain chitin.'},
+          {q:'Paramecium is generally classified under which kingdom?',o:['Monera','Protista','Fungi','Plantae'],a:1,why:'Paramecium is a unicellular eukaryote placed in Protista.'},
+          {q:'Which kingdom includes multicellular organisms that ingest food?',o:['Plantae','Fungi','Animalia','Monera'],a:2,why:'Animals are multicellular heterotrophs that ingest food.'},
+          {q:'Which group lacks a membrane-bound nucleus?',o:['Monera','Plantae','Animalia','Fungi'],a:0,why:'Monerans are prokaryotic and lack a membrane-bound nucleus.'}
+        );
+        bioArcadeSets.sequence.push(
+          {q:'Which flower part receives pollen grains?',o:['Anther','Stigma','Ovary','Filament'],a:1,why:'The stigma is the receptive surface for pollen.'},
+          {q:'Which structure contains the ovules?',o:['Ovary','Anther','Petal','Sepal'],a:0,why:'Ovules are present inside the ovary.'},
+          {q:'Yeast commonly reproduces asexually by which method?',o:['Budding','Pollination','Fertilisation','Seed formation'],a:0,why:'Yeast commonly forms a small bud that grows and separates.'},
+          {q:'Potato eyes can produce new plants by…',o:['Spore formation','Vegetative propagation','Binary fission','Pollination'],a:1,why:'Potato tubers can produce new plants through vegetative propagation.'}
+        );
+        bioArcadeSets.chain.push(
+          {q:'Which trophic level usually contains green plants?',o:['Producer','Primary consumer','Secondary consumer','Decomposer'],a:0,why:'Green plants are producers because they make organic food.'},
+          {q:'An animal that eats only plants is called a…',o:['Carnivore','Herbivore','Omnivore','Decomposer'],a:1,why:'Herbivores feed on plants.'},
+          {q:'What is the role of decomposers?',o:['Make sunlight','Recycle nutrients','Stop photosynthesis','Consume minerals only'],a:1,why:'Decomposers return nutrients to the environment.'},
+          {q:'If producers store 5,000 energy units, about how much may reach primary consumers using the 10% model?',o:['5','50','500','5,000'],a:2,why:'Ten percent of 5,000 is 500 units in this simplified model.'}
+        );
+        Object.keys(bioArcadeSets).forEach(type=>shuffleBioDeck(bioArcadeSets[type]));
         const bioArcadeState={tissue:{i:0,score:0,done:false},kingdom:{i:0,score:0,done:false},sequence:{i:0,score:0,done:false},chain:{i:0,score:0,done:false}};
         const bioArcadeIds={tissue:'bioTissue',kingdom:'bioKingdom',sequence:'bioSequence',chain:'bioChain'};
         function renderArcadeGame(type){
@@ -72,7 +102,7 @@
         function nextArcadeQuestion(type){
           const st=bioArcadeState[type],id=bioArcadeIds[type];
           if(!st.done){document.getElementById(id+'Feed').textContent='Answer this clue before moving on.';return;}
-          st.i=(st.i+1)%bioArcadeSets[type].length;if(st.i===0)st.score=0;
+          st.i++;if(st.i>=bioArcadeSets[type].length){const previous=bioArcadeSets[type][st.i-1].q;shuffleBioDeck(bioArcadeSets[type],previous);st.i=0;st.score=0;}
           renderArcadeGame(type);
         }
         document.addEventListener('DOMContentLoaded',()=>{Object.keys(bioArcadeSets).forEach(renderArcadeGame);});
@@ -2062,6 +2092,14 @@
           {q:'I modify, package and help transport materials in the cell. Who am I?',o:['Cell membrane','Golgi apparatus','Ribosome','Chromosome'],a:1,why:'The Golgi apparatus modifies, sorts and packages cell products.'}
         ];
         let orgGameIndex=0, orgGameScore=0, orgGameAnswered=false;
+        organelleGameQuestions.push(
+          {q:'I control what enters and leaves the cell. Who am I?',o:['Cell membrane','Nucleus','Ribosome','Vacuole'],a:0,why:'The cell membrane regulates exchange with the surroundings.'},
+          {q:'I digest worn-out cell parts using enzymes. Who am I?',o:['Lysosome','Chloroplast','Cell wall','Nucleolus'],a:0,why:'Lysosomes contain digestive enzymes.'},
+          {q:'I provide a firm outer layer in plant cells. Who am I?',o:['Cell wall','Golgi apparatus','Mitochondrion','Ribosome'],a:0,why:'The cellulose cell wall supports and protects plant cells.'},
+          {q:'I am the fluid-like material where many cell reactions occur. What am I?',o:['Cytoplasm','Chromosome','Cell wall','Stigma'],a:0,why:'Many cellular reactions take place in the cytoplasm.'},
+          {q:'I help make lipids and detoxify certain substances. Which structure?',o:['Smooth endoplasmic reticulum','Ribosome','Vacuole','Nucleolus'],a:0,why:'Smooth ER is involved in lipid synthesis and detoxification.'}
+        );
+        shuffleBioDeck(organelleGameQuestions);
         function renderOrganelleGame(){
           const q=organelleGameQuestions[orgGameIndex];
           document.getElementById('orgGameQuestion').textContent=q.q;
@@ -2080,7 +2118,7 @@
           document.getElementById('orgGameFeedback').classList.remove('bio-game-feedback'); void document.getElementById('orgGameFeedback').offsetWidth; document.getElementById('orgGameFeedback').classList.add('bio-game-feedback');
           document.querySelectorAll('#orgGameOptions button').forEach((b,i)=>{b.disabled=true;b.classList.add('opacity-60');if(i===q.a)b.classList.add('border-emerald-400','text-emerald-200');});
         }
-        function nextOrganelleGame(){orgGameIndex=(orgGameIndex+1)%organelleGameQuestions.length;if(orgGameIndex===0)orgGameScore=0;renderOrganelleGame();}
+        function nextOrganelleGame(){orgGameIndex++;if(orgGameIndex>=organelleGameQuestions.length){const previous=organelleGameQuestions[orgGameIndex-1].q;shuffleBioDeck(organelleGameQuestions,previous);orgGameIndex=0;orgGameScore=0;}renderOrganelleGame();}
 
         /* Quick Game 2: classify reproduction examples */
         const reproGameQuestions=[
@@ -2091,9 +2129,17 @@
           {q:'Rhizopus produces spores that can grow into new individuals. Which type?',a:'asexual',why:'Spore formation is an asexual method of reproduction.'}
         ];
         let reproGameIndex=0,reproGameScore=0,reproGameAnswered=false;
+        reproGameQuestions.push(
+          {q:'A new rose plant is grown from a stem cutting. Which type?',a:'asexual',why:'Stem cutting is vegetative propagation, an asexual method.'},
+          {q:'A human baby develops after sperm and egg fuse. Which type?',a:'sexual',why:'Fusion of male and female gametes is sexual reproduction.'},
+          {q:'Spirogyra breaks into pieces and each piece grows. Which type?',a:'asexual',why:'Fragmentation is an asexual method of reproduction.'},
+          {q:'Pollen is transferred between flowers of the same species. This is part of which type?',a:'sexual',why:'Pollination is a step in sexual reproduction of flowering plants.'},
+          {q:'A single parent forms offspring without gamete fusion. Which type?',a:'asexual',why:'Asexual reproduction does not involve fusion of gametes.'}
+        );
+        shuffleBioDeck(reproGameQuestions);
         function renderReproGame(){document.getElementById('reproGameQuestion').textContent=reproGameQuestions[reproGameIndex].q;document.getElementById('reproGameScore').textContent='Score: '+reproGameScore+' / 5';document.getElementById('reproGameFeedback').textContent='Choose a category.';reproGameAnswered=false;document.querySelectorAll('#bio-quick-games button[onclick^="answerReproGame"]').forEach(b=>{b.disabled=false;b.classList.remove('opacity-50');});}
         function answerReproGame(choice){if(reproGameAnswered)return;reproGameAnswered=true;const q=reproGameQuestions[reproGameIndex],correct=choice===q.a;if(correct)reproGameScore++;document.getElementById('reproGameScore').textContent='Score: '+reproGameScore+' / 5';document.getElementById('reproGameFeedback').textContent=(correct?'Correct! ':'Try again next round. Correct answer: '+q.a+'. ')+q.why;document.querySelectorAll('#bio-quick-games button[onclick^="answerReproGame"]').forEach(b=>{b.disabled=true;b.classList.add('opacity-50');});document.getElementById('reproGameFeedback').classList.remove('bio-game-feedback');void document.getElementById('reproGameFeedback').offsetWidth;document.getElementById('reproGameFeedback').classList.add('bio-game-feedback');}
-        function nextReproGame(){reproGameIndex=(reproGameIndex+1)%reproGameQuestions.length;if(reproGameIndex===0)reproGameScore=0;renderReproGame();}
+        function nextReproGame(){reproGameIndex++;if(reproGameIndex>=reproGameQuestions.length){const previous=reproGameQuestions[reproGameIndex-1].q;shuffleBioDeck(reproGameQuestions,previous);reproGameIndex=0;reproGameScore=0;}renderReproGame();}
         renderOrganelleGame();renderReproGame();
 
         /* Respect reduced-motion preferences and animate sections as they enter view */
@@ -2133,6 +2179,15 @@
           {q:'After fertilisation in a flowering plant, what does the ovule usually become?',o:['Fruit','Stigma','Seed','Anther'],a:2,why:'The ovule develops into a seed; the ovary generally develops into a fruit.'}
         ];
         let bioDetectiveIndex=0,bioDetectiveScore=0,bioDetectiveStreak=0,bioDetectiveDone=false;
+        bioDetectiveQuestions.push(
+          {q:'Which leaf pores help gas exchange?',o:['Stomata','Villi','Nephrons','Alveoli'],a:0,why:'Stomata are pores that regulate gas exchange and water loss.'},
+          {q:'Which part of a neuron receives signals?',o:['Dendrite','Axon terminal','Cell wall','Vacuole'],a:0,why:'Dendrites receive incoming signals.'},
+          {q:'Which plant tissue transports sugars from leaves?',o:['Xylem','Phloem','Cork','Meristem'],a:1,why:'Phloem transports prepared food around the plant.'},
+          {q:'Loss of water vapour from aerial plant parts is called…',o:['Transpiration','Respiration','Fertilisation','Germination'],a:0,why:'Transpiration is the loss of water vapour, mainly through stomata.'},
+          {q:'What is the first cell formed after fertilisation called?',o:['Zygote','Pollen','Spore','Bud'],a:0,why:'Fusion of gametes forms a zygote.'},
+          {q:'Which organism is a decomposer in many ecosystems?',o:['Mushroom','Deer','Grass','Eagle'],a:0,why:'Many fungi decompose dead organic matter.'}
+        );
+        shuffleBioDeck(bioDetectiveQuestions);
         function renderBioDetective(){
           const q=bioDetectiveQuestions[bioDetectiveIndex];
           document.getElementById('bioDetectiveRound').textContent='ROUND '+(bioDetectiveIndex+1)+' / '+bioDetectiveQuestions.length;
@@ -2158,7 +2213,7 @@
           document.getElementById('bioDetectiveProgress').style.width=((bioDetectiveIndex+1)/bioDetectiveQuestions.length*100)+'%';
         }
         function nextBioDetective(){
-          if(bioDetectiveIndex===bioDetectiveQuestions.length-1){bioDetectiveIndex=0;bioDetectiveScore=0;bioDetectiveStreak=0;}
+          if(bioDetectiveIndex===bioDetectiveQuestions.length-1){const previous=bioDetectiveQuestions[bioDetectiveIndex].q;shuffleBioDeck(bioDetectiveQuestions,previous);bioDetectiveIndex=0;bioDetectiveScore=0;bioDetectiveStreak=0;}
           else if(!bioDetectiveDone){document.getElementById('bioDetectiveFeedback').textContent='Choose an answer before moving to the next clue.';return;}
           else bioDetectiveIndex++;
           renderBioDetective();
