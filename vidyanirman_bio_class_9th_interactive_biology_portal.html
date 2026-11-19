@@ -130,6 +130,12 @@
             border-radius: 2px;
             font-weight: bold;
         }
+        section.bio-search-match {
+            outline: 1px solid rgba(212,175,55,.42);
+            outline-offset: -1px;
+            border-radius: 18px;
+        }
+        section[hidden] { display: none !important; }
     
         /* Biology portal motion and game interactions */
         @keyframes bioRiseIn { from { opacity:0; transform:translateY(22px) scale(.985); } to { opacity:1; transform:translateY(0) scale(1); } }
@@ -289,10 +295,10 @@
             <div class="max-w-xl mx-auto relative mb-10">
                 <div class="relative flex items-center">
                     <i class="fa-solid fa-magnifying-glass absolute left-4 text-amber-400 text-sm"></i>
-                    <input type="text" id="searchInput" onkeyup="filterBiologyContent()" placeholder="Search terms (e.g. Mitochondria, Xylem, Mitosis, Monera, Osmosis)..." class="w-full pl-11 pr-24 py-3.5 rounded-2xl bg-[#1F040A] border-2 border-amber-500/40 text-xs sm:text-sm text-amber-100 placeholder-amber-200/50 focus:outline-none focus:border-amber-300 shadow-xl transition-all">
+                    <input type="text" id="searchInput" type="search" aria-label="Search Biology topics" oninput="filterBiologyContent()" placeholder="Search terms (e.g. Mitochondria, Xylem, Mitosis, Monera, Osmosis)..." class="w-full pl-11 pr-24 py-3.5 rounded-2xl bg-[#1F040A] border-2 border-amber-500/40 text-xs sm:text-sm text-amber-100 placeholder-amber-200/50 focus:outline-none focus:border-amber-300 shadow-xl transition-all">
                     <button onclick="clearSearch()" class="absolute right-3 px-3 py-1 rounded-lg bg-amber-500/20 text-amber-300 text-xs font-bold hover:bg-amber-500/40">Clear</button>
                 </div>
-                <p id="searchStats" class="text-[11px] text-amber-300/70 mt-2 hidden"></p>
+                <p id="searchStats" role="status" aria-live="polite" class="text-[11px] text-amber-300/70 mt-2 hidden"></p>
             </div>
 
             <!-- Quick Chapter Cards Nav -->
@@ -2301,41 +2307,58 @@
         }
         showTaxonomyNode('monera');
 
-        /* Client-Side Live Search Filter */
+        /* Client-side Biology topic search: show matching sections, hide the rest. */
         function filterBiologyContent() {
-            const input = document.getElementById('searchInput').value.toLowerCase().trim();
+            const field = document.getElementById('searchInput');
             const stats = document.getElementById('searchStats');
-            
-            if(!input) {
-                stats.classList.add('hidden');
-                clearSearchHighlights();
-                return;
-            }
-
-            clearSearchHighlights();
+            if (!field || !stats) return;
+            const query = field.value.toLocaleLowerCase().trim();
+            const sections = [...document.querySelectorAll('section')];
             let matches = 0;
-            const sections = document.querySelectorAll('section');
 
             sections.forEach(sec => {
-                const text = sec.innerText.toLowerCase();
-                if(text.includes(input)) {
-                    matches++;
+                if (sec.contains(field)) return;
+                if (sec.dataset.bioSearchOriginalHidden === undefined) {
+                    sec.dataset.bioSearchOriginalHidden = sec.hidden ? '1' : '0';
                 }
+                const matched = !query || sec.innerText.toLocaleLowerCase().includes(query);
+                sec.hidden = query ? !matched : sec.dataset.bioSearchOriginalHidden === '1';
+                sec.classList.toggle('bio-search-match', Boolean(query && matched));
+                if (query && matched) matches++;
             });
 
             stats.classList.remove('hidden');
-            stats.innerText = `Found matches across ${matches} biology topic sections.`;
+            stats.setAttribute('role', 'status');
+            stats.setAttribute('aria-live', 'polite');
+            if (!query) {
+                stats.classList.add('hidden');
+                stats.textContent = '';
+            } else if (matches) {
+                stats.textContent = 'Found ' + matches + ' matching topic section' + (matches === 1 ? '' : 's') + '. Unrelated sections are temporarily hidden. Clear search to show everything.';
+            } else {
+                stats.textContent = 'No biology topics found for “' + field.value.trim() + '”. Try a shorter keyword such as cell, tissue, mitosis or osmosis.';
+            }
         }
 
         function clearSearch() {
-            document.getElementById('searchInput').value = '';
-            document.getElementById('searchStats').classList.add('hidden');
+            const field = document.getElementById('searchInput');
+            if (field) field.value = '';
             clearSearchHighlights();
+            const stats = document.getElementById('searchStats');
+            if (stats) { stats.classList.add('hidden'); stats.textContent = ''; }
+            if (field) field.focus();
         }
 
         function clearSearchHighlights() {
-            // Standard cleanup
+            document.querySelectorAll('section[data-bio-search-original-hidden]').forEach(sec => {
+                sec.hidden = sec.dataset.bioSearchOriginalHidden === '1';
+                sec.classList.remove('bio-search-match');
+            });
         }
+
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape' && document.activeElement && document.activeElement.id === 'searchInput') clearSearch();
+        });
 
         /* Interactive Quiz Scoring Logic */
         function gradeBioQuiz(e) {
