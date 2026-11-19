@@ -1530,13 +1530,22 @@
             canvas.addEventListener('click',e=>{const rect=canvas.getBoundingClientRect();pointer.x=((e.clientX-rect.left)/rect.width)*2-1;pointer.y=-((e.clientY-rect.top)/rect.height)*2+1;ray.setFromCamera(pointer,plantCellCamera);const hits=ray.intersectObjects(group.children,true);if(hits.length){let obj=hits[0].object;while(obj&&obj!==group&&!obj.name)obj=obj.parent;if(obj&&obj.name)explainPlantPart(obj.name);}});
             function resize(){const rect=canvas.getBoundingClientRect();if(!rect.width||!rect.height)return;plantCellCamera.aspect=rect.width/rect.height;plantCellCamera.updateProjectionMatrix();plantCellRenderer.setSize(rect.width,rect.height,false);}
             if(window.ResizeObserver)new ResizeObserver(resize).observe(canvas);else window.addEventListener('resize',resize);resize();
-            const tick=()=>{plantCellFrame=requestAnimationFrame(tick);if(!plantCellPaused&&group)group.rotation.y+=.00075;plantCellRenderer.render(plantCellScene,plantCellCamera);};tick();
+            const reducedMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            let plantCellInView=true;
+            const drawPlantCell=()=>{if(!plantCellPaused&&!reducedMotion&&group)group.rotation.y+=.00075;plantCellRenderer.render(plantCellScene,plantCellCamera);};
+            const syncPlantCellRendering=()=>plantCellRenderer.setAnimationLoop(plantCellInView&&!document.hidden?drawPlantCell:null);
+            document.addEventListener('visibilitychange',syncPlantCellRendering);
+            if('IntersectionObserver' in window){
+              const labObserver=new IntersectionObserver(entries=>{plantCellInView=!!(entries[0]&&entries[0].isIntersecting);syncPlantCellRendering();},{threshold:.05});
+              labObserver.observe(canvas.closest('.bio-3d-stage')||canvas);
+            }
+            syncPlantCellRendering();
             status.textContent='ENHANCED 3D · Double membranes · Organelle details · Drag to rotate · Scroll to zoom';
           }catch(err){status.textContent='3D model could not start in this browser. '+(err&&err.message?err.message:'');}
         }
         function togglePlantCell3D(){plantCellPaused=!plantCellPaused;document.getElementById('bio3dToggle').textContent=plantCellPaused?'Resume rotation':'Pause rotation';}
         function spinPlantCell3D(){if(plantCellGroup)plantCellGroup.rotation.y+=Math.PI/2;}
-        function resetPlantCell3D(){if(plantCellGroup){plantCellGroup.rotation.set(-.25,.48,.08);plantCellCamera.position.set(6.2,4.5,9.2);plantCellCamera.lookAt(0,0,0);}}
+        function resetPlantCell3D(){if(plantCellGroup){if(plantCellGroup.userData.exploded)togglePlantCellExploded();if(plantCellGroup.userData.cutaway)togglePlantCellCutaway();plantCellGroup.rotation.set(-.25,.48,.08);plantCellCamera.position.set(6.2,4.5,9.2);plantCellCamera.lookAt(0,0,0);document.getElementById('bio3dPlantFact').textContent='View reset. Select a cell part to learn its function.';}}
         function togglePlantCellExploded(){if(!plantCellGroup)return;const exploded=plantCellGroup.userData.exploded=!plantCellGroup.userData.exploded;plantCellGroup.children.forEach((child,i)=>{if(['wall','membrane','cytoplasm','vacuole','nucleus','chloroplast','mitochondrion'].includes(child.name)){const base=child.userData.basePosition||(child.userData.basePosition=child.position.clone());const factor=exploded?1.18:1;child.position.copy(base).multiplyScalar(factor);}});document.getElementById('bio3dExplode').textContent=exploded?'Close exploded view':'Exploded view';}
         function togglePlantCellCutaway(){if(!plantCellGroup)return;const cut=plantCellGroup.userData.cutaway=!plantCellGroup.userData.cutaway;plantCellGroup.children.forEach(child=>{if(child.name==='wall'||child.name==='membrane'){child.material.transparent=true;child.material.opacity=cut?(child.name==='wall'?.08:.07):(child.name==='wall'?.26:.22);}});document.getElementById('bio3dCutaway').textContent=cut?'Restore membranes':'Cutaway view';}
         function togglePlantCell3D(){plantCellPaused=!plantCellPaused;document.getElementById('bio3dToggle').textContent=plantCellPaused?'Resume rotation':'Pause rotation';}
