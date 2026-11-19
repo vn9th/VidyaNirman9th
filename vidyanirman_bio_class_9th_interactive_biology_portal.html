@@ -1452,10 +1452,18 @@
             plantCellScene=new T.Scene();plantCellScene.background=new T.Color(0x07110f);
             plantCellCamera=new T.PerspectiveCamera(34,1,.1,100);plantCellCamera.position.set(6.2,4.5,9.2);plantCellCamera.lookAt(0,0,0);
             plantCellRenderer=new T.WebGLRenderer({canvas,antialias:true,alpha:false,powerPreference:'high-performance'});
-            plantCellRenderer.setPixelRatio(Math.min(window.devicePixelRatio||1,window.innerWidth<700?1.35:1.8));
+            plantCellRenderer.setPixelRatio(Math.min(window.devicePixelRatio||1,window.innerWidth<700?1.2:1.6));
+            plantCellRenderer.shadowMap.enabled=true;
+            plantCellRenderer.shadowMap.type=T.PCFSoftShadowMap;
             plantCellRenderer.outputColorSpace=T.SRGBColorSpace;plantCellRenderer.toneMapping=T.ACESFilmicToneMapping;plantCellRenderer.toneMappingExposure=1.12;
             plantCellScene.add(new T.HemisphereLight(0xd8ffe9,0x18241b,1.65));
-            const key=new T.DirectionalLight(0xfff0ce,3.2);key.position.set(-4,7,8);plantCellScene.add(key);
+            const key=new T.DirectionalLight(0xfff0ce,3.2);key.position.set(-4,7,8);key.castShadow=true;
+            key.shadow.mapSize.set(window.innerWidth<700?768:1536,window.innerWidth<700?768:1536);
+            key.shadow.camera.left=-5.5;key.shadow.camera.right=5.5;key.shadow.camera.top=4.5;key.shadow.camera.bottom=-4.5;
+            key.shadow.camera.near=.5;key.shadow.camera.far=24;key.shadow.bias=-.00018;key.shadow.normalBias=.025;
+            plantCellScene.add(key);
+            const shadowGround=new T.Mesh(new T.PlaneGeometry(12,9),new T.MeshStandardMaterial({color:0x07110f,roughness:1,metalness:0}));
+            shadowGround.position.set(0,0,-1.18);shadowGround.receiveShadow=true;shadowGround.renderOrder=0;plantCellScene.add(shadowGround);
             const rim=new T.DirectionalLight(0x55dca5,2.4);rim.position.set(5,2,-6);plantCellScene.add(rim);
             const fill=new T.PointLight(0x8bbdff,1.25,18);fill.position.set(-4,-3,5);plantCellScene.add(fill);
             const group=new T.Group();plantCellGroup=group;group.rotation.set(-.25,.48,.08);plantCellScene.add(group);
@@ -1522,12 +1530,12 @@
             // Subtle floating cytoplasmic granules; restrained so the model stays legible.
             for(let n=0;n<30;n++){const a=n*2.399,r=.48+(n%5)*.13;sphere('cytoplasm',materials.gold,[Math.cos(a)*r,Math.sin(a)*r*.55,.35+(n%3)*.035],[.012,.012,.012],8);}
             // Drag rotation, wheel zoom and raycast selection.
-            const drag={active:false,x:0,y:0};canvas.addEventListener('pointerdown',e=>{drag.active=true;drag.x=e.clientX;drag.y=e.clientY;canvas.setPointerCapture(e.pointerId);});
-            canvas.addEventListener('pointermove',e=>{if(!drag.active)return;group.rotation.y+=(e.clientX-drag.x)*.008;group.rotation.x+=(e.clientY-drag.y)*.008;drag.x=e.clientX;drag.y=e.clientY;});
+            const drag={active:false,moved:false,x:0,y:0,startX:0,startY:0};canvas.addEventListener('pointerdown',e=>{drag.active=true;drag.moved=false;drag.x=drag.startX=e.clientX;drag.y=drag.startY=e.clientY;canvas.setPointerCapture(e.pointerId);});
+            canvas.addEventListener('pointermove',e=>{if(!drag.active)return;if(Math.hypot(e.clientX-drag.startX,e.clientY-drag.startY)>5)drag.moved=true;group.rotation.y+=(e.clientX-drag.x)*.008;group.rotation.x+=(e.clientY-drag.y)*.008;drag.x=e.clientX;drag.y=e.clientY;});
             canvas.addEventListener('pointerup',()=>drag.active=false);canvas.addEventListener('pointercancel',()=>drag.active=false);
             canvas.addEventListener('wheel',e=>{e.preventDefault();plantCellCamera.position.multiplyScalar(1+e.deltaY*.001);const d=plantCellCamera.position.length();if(d<6.5)plantCellCamera.position.setLength(6.5);if(d>14)plantCellCamera.position.setLength(14);plantCellCamera.lookAt(0,0,0);},{passive:false});
             const ray=new T.Raycaster(),pointer=new T.Vector2();
-            canvas.addEventListener('click',e=>{const rect=canvas.getBoundingClientRect();pointer.x=((e.clientX-rect.left)/rect.width)*2-1;pointer.y=-((e.clientY-rect.top)/rect.height)*2+1;ray.setFromCamera(pointer,plantCellCamera);const hits=ray.intersectObjects(group.children,true);if(hits.length){let obj=hits[0].object;while(obj&&obj!==group&&!obj.name)obj=obj.parent;if(obj&&obj.name)explainPlantPart(obj.name);}});
+            canvas.addEventListener('click',e=>{if(drag.moved){drag.moved=false;return;}const rect=canvas.getBoundingClientRect();pointer.x=((e.clientX-rect.left)/rect.width)*2-1;pointer.y=-((e.clientY-rect.top)/rect.height)*2+1;ray.setFromCamera(pointer,plantCellCamera);const hits=ray.intersectObjects(group.children,true);if(hits.length){let obj=hits[0].object;while(obj&&obj!==group&&!obj.name)obj=obj.parent;if(obj&&obj.name)explainPlantPart(obj.name);}});
             function resize(){const rect=canvas.getBoundingClientRect();if(!rect.width||!rect.height)return;plantCellCamera.aspect=rect.width/rect.height;plantCellCamera.updateProjectionMatrix();plantCellRenderer.setSize(rect.width,rect.height,false);}
             if(window.ResizeObserver)new ResizeObserver(resize).observe(canvas);else window.addEventListener('resize',resize);resize();
             const reducedMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
