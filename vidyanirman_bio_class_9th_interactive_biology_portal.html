@@ -2392,29 +2392,77 @@ let animalCellScene,animalCellRenderer,animalCellCamera,animalCellGroup,animalCe
 const animalFacts={nucleus:'Nucleus: contains DNA and coordinates cell activities.',mitochondrion:'Mitochondria: release usable energy during aerobic respiration.',golgi:'Golgi apparatus: modifies, sorts and packages proteins and lipids.',lysosome:'Lysosomes: enzyme-filled sacs that digest waste and worn-out cell parts.',centriole:'Centrioles: help organise microtubules during cell division.',membrane:'Cell membrane: selectively controls what enters and leaves the cell.',ribosome:'Ribosomes: tiny structures where proteins are made.'};
 function explainAnimalPart(p){document.getElementById('bioAnimalFact').textContent=animalFacts[p]||'Explore this cell structure.';}
 function makeAnimalCellModel(){
- const T=window.THREE,c=document.getElementById('bioAnimalCanvas'),status=document.getElementById('bioAnimalStatus');if(!T||!c){status.textContent='3D engine unavailable. Reload when online.';return;}
+ const T=window.THREE,c=document.getElementById('bioAnimalCanvas'),status=document.getElementById('bioAnimalStatus');
+ if(!T||!c){status.textContent='3D engine unavailable. Reload when online.';return;}
  try{
- animalCellScene=new T.Scene();animalCellScene.background=new T.Color(0x100914);animalCellCamera=new T.PerspectiveCamera(36,1,.1,100);animalCellCamera.position.set(5.8,4.1,8.8);animalCellCamera.lookAt(0,0,0);
- animalCellRenderer=new T.WebGLRenderer({canvas:c,antialias:true,alpha:false,powerPreference:'low-power'});animalCellRenderer.setPixelRatio(Math.min(window.devicePixelRatio||1,window.innerWidth<700?1.1:1.45));animalCellRenderer.shadowMap.enabled=true;animalCellRenderer.shadowMap.type=T.PCFSoftShadowMap;animalCellRenderer.outputColorSpace=T.SRGBColorSpace;animalCellRenderer.toneMapping=T.ACESFilmicToneMapping;
- animalCellScene.add(new T.HemisphereLight(0xf5e8ff,0x25132b,1.7));const key=new T.DirectionalLight(0xffe4d2,3);key.position.set(-4,6,7);key.castShadow=true;animalCellScene.add(key);const rim=new T.PointLight(0x9c70ff,2,16);rim.position.set(4,1,-4);animalCellScene.add(rim);
- const g=animalCellGroup=new T.Group();g.rotation.set(-.2,.42,.08);animalCellScene.add(g);
- const mat=(color,opacity=1)=>new T.MeshPhysicalMaterial({color,roughness:.3,transparent:opacity<1,opacity,side:T.DoubleSide,clearcoat:.6});
- const add=(name,geo,m,pos,parent=g)=>{const o=new T.Mesh(geo,m);o.name=name;o.position.set(...pos);o.castShadow=true;o.receiveShadow=true;parent.add(o);return o;};
- const ball=(name,m,pos,scale)=>{const o=add(name,new T.SphereGeometry(1,40,28),m,pos);o.scale.set(...scale);return o;};
- const shell=ball('membrane',mat(0x65d7cf,.3),[0,0,0],[2.1,1.5,1.15]);shell.userData.shell=true;shell.userData.nonPickable=true;shell.raycast=()=>{};const cytoplasm=ball('cytoplasm',mat(0xd78bc4,.2),[0,0,0],[1.98,1.39,1.05]);cytoplasm.userData.nonPickable=true;cytoplasm.raycast=()=>{};
- const ng=new T.Group();ng.name='nucleus';ng.position.set(-.62,.25,.65);g.add(ng);const nuc=add('nucleus',new T.SphereGeometry(.58,48,36),mat(0x7853ad),[0,0,0],ng);nuc.scale.set(1,.92,.88);add('nucleus',new T.SphereGeometry(.19,28,20),mat(0xe7c7ff),[.1,0,.36],ng);
- for(let i=0;i<4;i++){const pts=[];for(let j=0;j<7;j++)pts.push(new T.Vector3(-.4+j*.13,Math.sin(j+i)*.13+(i-2)*.07,.3));ng.add(new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts),30,.012,6,false),mat(0xd9b8f5)));}
- function mito(x,y,z,rot){const q=new T.Group();q.position.set(x,y,z);q.rotation.z=rot;q.name='mitochondrion';g.add(q);const b=add('mitochondrion',new T.SphereGeometry(1,36,24),mat(0xd9794f),[0,0,0],q);b.scale.set(.43,.23,.18);for(let k=-2;k<=2;k++){const pts=[new T.Vector3(-.28,k*.04,.15),new T.Vector3(-.13,-k*.04,.16),new T.Vector3(0,k*.04,.16),new T.Vector3(.14,-k*.04,.16),new T.Vector3(.28,k*.04,.15)];q.add(new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts),22,.014,6,false),mat(0xffc17d)));}}
- mito(-1.2,-.55,.5,.5);mito(.95,.62,.5,-.45);mito(1.2,-.7,.2,.2);
- for(let row=0;row<5;row++){const pts=[];for(let j=0;j<9;j++)pts.push(new T.Vector3(-.2+j*.16,.95-row*.12+Math.sin(j*.8+row)*.06,.35));g.add(new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts),44,.026,7,false),mat(0x6ea9cf)));}
- for(let layer=0;layer<5;layer++){const pts=[];for(let j=0;j<10;j++)pts.push(new T.Vector3(.35+j*.075,-.62+layer*.09+Math.sin(j/9*Math.PI)*.12,.5));g.add(new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts),40,.035,8,false),mat(0xe7a0d0)));}
- for(let n=0;n<10;n++){const a=n*2.4;ball('lysosome',mat(n%2?0x8ecb8e:0xf2c36d),[Math.cos(a)*1.4,Math.sin(a)*.85,.45],[.09,.09,.09]);}
- const cent=new T.Group();cent.name='centriole';cent.position.set(.9,-.1,.7);g.add(cent);for(let k=0;k<2;k++){const o=add('centriole',new T.CylinderGeometry(.1,.1,.46,18),mat(0xf2c36d),[k*.2,0,0],cent);o.rotation.z=k?Math.PI/2:.12;}
- const drag={on:false,moved:false,x:0,y:0,sx:0,sy:0};c.addEventListener('pointerdown',e=>{drag.on=true;drag.moved=false;drag.x=drag.sx=e.clientX;drag.y=drag.sy=e.clientY;c.setPointerCapture(e.pointerId);});c.addEventListener('pointermove',e=>{if(!drag.on)return;if(Math.hypot(e.clientX-drag.sx,e.clientY-drag.sy)>5)drag.moved=true;g.rotation.y+=(e.clientX-drag.x)*.008;g.rotation.x+=(e.clientY-drag.y)*.008;drag.x=e.clientX;drag.y=e.clientY;});c.addEventListener('pointerup',()=>drag.on=false);c.addEventListener('pointercancel',()=>drag.on=false);
- c.addEventListener('wheel',e=>{e.preventDefault();animalCellCamera.position.multiplyScalar(1+e.deltaY*.001);animalCellCamera.position.setLength(Math.max(6.1,Math.min(13,animalCellCamera.position.length())));animalCellCamera.lookAt(0,0,0);},{passive:false});
- const ray=new T.Raycaster(),p=new T.Vector2();c.addEventListener('click',e=>{if(drag.moved){drag.moved=false;return;}const r=c.getBoundingClientRect();p.x=(e.clientX-r.left)/r.width*2-1;p.y=-(e.clientY-r.top)/r.height*2+1;ray.setFromCamera(p,animalCellCamera);const hits=ray.intersectObjects(g.children,true);for(const hit of hits){let o=hit.object;while(o&&o!==g&&!o.name)o=o.parent;if(!o||o===g||o.userData.nonPickable||o.name==='membrane'||o.name==='cytoplasm')continue;const part=o.name;if(animalFacts[part]){explainAnimalPart(part);return;}}});
- const resize=()=>{const r=c.getBoundingClientRect();if(!r.width||!r.height)return;animalCellCamera.aspect=r.width/r.height;animalCellCamera.updateProjectionMatrix();animalCellRenderer.setSize(r.width,r.height,false);};if(window.ResizeObserver)new ResizeObserver(resize).observe(c);else window.addEventListener('resize',resize);resize();
- let visible=true;const draw=()=>{if(!animalCellPaused&&!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches))g.rotation.y+=.0007;animalCellRenderer.render(animalCellScene,animalCellCamera);};const sync=()=>animalCellRenderer.setAnimationLoop(visible&&!document.hidden?draw:null);document.addEventListener('visibilitychange',sync);if('IntersectionObserver'in window){const obs=new IntersectionObserver(es=>{visible=!!(es[0]&&es[0].isIntersecting);sync();},{threshold:.05});obs.observe(c);}sync();status.textContent='3D MODEL READY · Drag to rotate · Scroll to zoom · Select organelles';
+  animalCellScene=new T.Scene();animalCellScene.background=new T.Color(0x090d18);
+  animalCellCamera=new T.PerspectiveCamera(34,1,.1,100);animalCellCamera.position.set(6.8,4.6,9.4);animalCellCamera.lookAt(0,0,0);
+  animalCellRenderer=new T.WebGLRenderer({canvas:c,antialias:true,alpha:false,powerPreference:'high-performance'});
+  animalCellRenderer.setPixelRatio(Math.min(window.devicePixelRatio||1,window.innerWidth<700?1.2:1.65));
+  animalCellRenderer.shadowMap.enabled=true;animalCellRenderer.shadowMap.type=T.PCFSoftShadowMap;
+  animalCellRenderer.outputColorSpace=T.SRGBColorSpace;animalCellRenderer.toneMapping=T.ACESFilmicToneMapping;animalCellRenderer.toneMappingExposure=1.08;
+  animalCellScene.add(new T.HemisphereLight(0xe8efff,0x17101f,1.65));
+  const key=new T.DirectionalLight(0xffe5cf,3.1);key.position.set(-5,7,8);key.castShadow=true;key.shadow.mapSize.set(1024,1024);animalCellScene.add(key);
+  const rim=new T.PointLight(0x8b79ff,2.4,18);rim.position.set(4,1,-5);animalCellScene.add(rim);
+  const fill=new T.PointLight(0x63d6c7,1.25,16);fill.position.set(-4,-3,4);animalCellScene.add(fill);
+  const floor=new T.Mesh(new T.CircleGeometry(5,64),new T.MeshStandardMaterial({color:0x111522,roughness:.95}));floor.rotation.x=-Math.PI/2;floor.position.y=-2.15;floor.receiveShadow=true;animalCellScene.add(floor);
+  const g=animalCellGroup=new T.Group();g.rotation.set(-.16,.35,.05);animalCellScene.add(g);
+  const mat=(color,roughness=.34,metalness=0,extra={})=>new T.MeshPhysicalMaterial({color,roughness,metalness,clearcoat:.55,clearcoatRoughness:.22,...extra});
+  const mats={
+   membrane:mat(0x55d9d0,.22,.02,{transparent:true,opacity:.22,side:T.DoubleSide,depthWrite:false,clearcoat:1}),
+   membraneEdge:mat(0x8ff4e5,.2,.02,{transparent:true,opacity:.55,side:T.DoubleSide}),
+   cytoplasm:mat(0x8b6b9d,.38,0,{transparent:true,opacity:.16,side:T.DoubleSide,depthWrite:false}),
+   nucleus:mat(0x65449a,.27),nucleusInner:mat(0xb59be7,.25),nucleolus:mat(0xe7c7ff,.22),
+   mito:mat(0xb85d43,.3),mitoInner:mat(0xf2a66d,.34),fold:mat(0xffd09b,.28),
+   er:mat(0x4c9fbd,.3),erLight:mat(0x8fd4e5,.3),golgi:mat(0xd48ab6,.28),
+   lysosome:mat(0xe8b95e,.24),vesicle:mat(0x8bd3b4,.25),centriole:mat(0xd9b36a,.3),ribosome:mat(0xe7d4a2,.3)
+  };
+  const add=(name,geo,material,pos=[0,0,0],parent=g)=>{const o=new T.Mesh(geo,material);o.name=name;o.position.set(...pos);o.castShadow=true;o.receiveShadow=true;parent.add(o);return o;};
+  const sphere=(name,material,pos,scale,segments=48,parent=g)=>{const o=add(name,new T.SphereGeometry(1,segments,Math.max(24,Math.floor(segments*.65))),material,pos,parent);o.scale.set(...scale);return o;};
+  // A softly irregular ellipsoid gives the cell a less geometric, biological silhouette.
+  const organic=(sx,sy,sz,seed)=>{const geo=new T.SphereGeometry(1,72,52),p=geo.attributes.position;for(let i=0;i<p.count;i++){const x=p.getX(i),y=p.getY(i),z=p.getZ(i);const n=1+.018*Math.sin(x*8+seed)*Math.sin(y*6+seed)+.012*Math.cos(z*11-x*4+seed);p.setXYZ(i,x*n*sx,y*n*sy,z*n*sz);}geo.computeVertexNormals();return geo;};
+  const shell=add('membrane',organic(2.18,1.58,1.36,1),mats.membrane,[0,0,0]);shell.userData.shell=true;shell.userData.nonPickable=true;shell.raycast=()=>{};
+  const innerShell=add('membrane',organic(2.08,1.49,1.27,2),mats.membraneEdge,[0,0,0]);innerShell.userData.nonPickable=true;innerShell.raycast=()=>{};
+  const cyt=add('cytoplasm',organic(1.98,1.39,1.17,3),mats.cytoplasm,[0,0,0]);cyt.userData.nonPickable=true;cyt.raycast=()=>{};
+  // Nucleus: envelope, nucleolus, chromatin and nuclear pores.
+  const ng=new T.Group();ng.name='nucleus';ng.position.set(-.55,.28,.38);g.add(ng);
+  const nuc=sphere('nucleus',mats.nucleus,[0,0,0],[.72,.67,.62],64,ng);
+  const env=sphere('nucleus',mat(0xc4a6ed,.2,0,{transparent:true,opacity:.2,side:T.DoubleSide}),[0,0,0],[.755,.695,.645],64,ng);
+  sphere('nucleus',mats.nucleolus,[.16,-.1,.49],[.22,.2,.18],32,ng);
+  for(let n=0;n<7;n++){const pts=[];for(let j=0;j<10;j++){const t=j/9;pts.push(new T.Vector3(-.48+t*.94,Math.sin(t* Math.PI*2+n*1.7)*.16+Math.cos(t*8+n)*.035,.22+Math.sin(t*5+n)*.18));}ng.add(new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts),40,.012,7,false),mat(0xd8c5f3,.35)));}
+  for(let n=0;n<22;n++){const a=n*2.399,yy=Math.sin(a)*.53,xx=Math.cos(a)*.58;const pore=sphere('nucleus',mats.nucleolus,[xx,yy,.25],[.027,.027,.018],12,ng);}
+  function mitochondrion(x,y,z,rot,scale=1){
+   const q=new T.Group();q.position.set(x,y,z);q.rotation.set(rot*.35,rot,rot*.6);q.name='mitochondrion';g.add(q);
+   const body=sphere('mitochondrion',mats.mito,[0,0,0],[.47*scale,.25*scale,.22*scale],48,q);
+   const inner=sphere('mitochondrion',mats.mitoInner,[0,0,.035*scale],[.405*scale,.195*scale,.18*scale],40,q);
+   for(let k=-2;k<=2;k++){const pts=[];for(let j=0;j<9;j++){const u=j/8;pts.push(new T.Vector3((u-.5)*.68*scale,Math.sin(u*Math.PI*4+k*.8)*.045*scale+k*.035*scale,.17*scale));}q.add(new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts),32,.014*scale,7,false),mats.fold));}
+  }
+  mitochondrion(-1.25,-.62,.42,.6,.95);mitochondrion(.85,.82,.38,-.7,.82);mitochondrion(1.2,-.62,-.35,.25,.72);
+  // Rough and smooth endoplasmic reticulum wrap around the nucleus in 3D.
+  for(let row=0;row<5;row++){const pts=[];for(let j=0;j<13;j++){const t=j/12;pts.push(new T.Vector3(-1.2+t*1.75,.95-row*.13+Math.sin(t* Math.PI*3+row)*.11,-.22+Math.cos(t*Math.PI*2+row*.4)*.35));}g.add(new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts),60,.032,8,false),row%2?mats.er:mats.erLight));}
+  for(let row=0;row<3;row++){const pts=[];for(let j=0;j<11;j++){const t=j/10;pts.push(new T.Vector3(-1.05+t*1.55,-.78-row*.12+Math.sin(t*Math.PI*3+row)*.08,.2+Math.cos(t*Math.PI*2)*.28));}g.add(new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts),52,.025,7,false),mats.er));}
+  // Ribosomes stud the rough ER as tiny, separately visible granules.
+  for(let n=0;n<66;n++){const row=n%5,j=Math.floor(n/5),t=(j%13)/12;const x=-1.2+t*1.75,y=.95-row*.13+Math.sin(t*Math.PI*3+row)*.11,z=-.22+Math.cos(t*Math.PI*2+row*.4)*.35; sphere('ribosome',mats.ribosome,[x,y+.035,z+.035],[.025,.025,.025],10);}
+  // Golgi: curved flattened cisternae with budding transport vesicles.
+  const gg=new T.Group();gg.name='golgi';gg.position.set(.72,-.25,.42);gg.rotation.set(.18,-.2,-.22);g.add(gg);
+  for(let layer=0;layer<6;layer++){const pts=[];for(let j=0;j<15;j++){const t=j/14;pts.push(new T.Vector3((t-.5)*.95,Math.sin(t*Math.PI)*.12+(layer-2.5)*.095,Math.cos((t-.5)*Math.PI)*.05));}gg.add(new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts),56,.045,9,false),mats.golgi));}
+  for(let n=0;n<12;n++){const a=n*2.4;sphere('golgi',mats.vesicle,[.72+Math.cos(a)*.62,-.25+Math.sin(a)*.38,.48+Math.sin(a*1.3)*.2],[.065,.065,.065],18);}
+  // Lysosomes, peroxisomes and vesicles are distributed through the cell volume.
+  for(let n=0;n<15;n++){const a=n*2.399,r=.9+(n%4)*.22,y=Math.sin(a)*(.62+(n%3)*.12),x=Math.cos(a)*r,z=Math.sin(n*1.7)*.68;sphere('lysosome',mats.lysosome,[x,y,z],[.09,.085,.08],20);}
+  for(let n=0;n<13;n++){const a=n*2.1,r=1.45+(n%3)*.1;sphere('vesicle',mats.vesicle,[Math.cos(a)*r,Math.sin(a)*.82,Math.cos(a*1.7)*.62],[.06,.06,.06],18);}
+  // Centrioles: two perpendicular microtubule barrels.
+  const cent=new T.Group();cent.name='centriole';cent.position.set(.35,-.95,.55);cent.rotation.set(.5,.2,.3);g.add(cent);
+  for(let cidx=0;cidx<2;cidx++){const barrel=new T.Group();barrel.rotation.z=cidx?Math.PI/2:.15;barrel.position.x=cidx*.2;cent.add(barrel);add('centriole',new T.CylinderGeometry(.105,.105,.48,24,1,true),mats.centriole,[0,0,0],barrel);for(let k=0;k<9;k++){const a=k*Math.PI*2/9;const rod=add('centriole',new T.CylinderGeometry(.012,.012,.46,8),mats.fold,[Math.cos(a)*.09,0,Math.sin(a)*.09],barrel);}}
+  // Fine cytoplasmic filaments add depth and scale without obscuring organelles.
+  for(let n=0;n<18;n++){const a=n*2.4,pts=[];for(let j=0;j<9;j++){const t=j/8;pts.push(new T.Vector3(Math.cos(a)*(.45+t*.85),Math.sin(a)*(.38+t*.5),-.7+t*1.35+Math.sin(t*8+a)*.06));}g.add(new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts),36,.008,5,false),mat(0x9a8ba9,.65)));}
+  const drag={on:false,moved:false,x:0,y:0,sx:0,sy:0};
+  c.addEventListener('pointerdown',e=>{drag.on=true;drag.moved=false;drag.x=drag.sx=e.clientX;drag.y=drag.sy=e.clientY;c.setPointerCapture(e.pointerId);});
+  c.addEventListener('pointermove',e=>{if(!drag.on)return;if(Math.hypot(e.clientX-drag.sx,e.clientY-drag.sy)>5)drag.moved=true;g.rotation.y+=(e.clientX-drag.x)*.008;g.rotation.x+=(e.clientY-drag.y)*.008;drag.x=e.clientX;drag.y=e.clientY;});
+  c.addEventListener('pointerup',()=>drag.on=false);c.addEventListener('pointercancel',()=>drag.on=false);
+  c.addEventListener('wheel',e=>{e.preventDefault();animalCellCamera.position.multiplyScalar(1+e.deltaY*.001);animalCellCamera.position.setLength(Math.max(6.5,Math.min(14,animalCellCamera.position.length())));animalCellCamera.lookAt(0,0,0);},{passive:false});
+  const ray=new T.Raycaster(),p=new T.Vector2();c.addEventListener('click',e=>{if(drag.moved){drag.moved=false;return;}const r=c.getBoundingClientRect();p.x=(e.clientX-r.left)/r.width*2-1;p.y=-(e.clientY-r.top)/r.height*2+1;ray.setFromCamera(p,animalCellCamera);for(const hit of ray.intersectObjects(g.children,true)){let o=hit.object;while(o&&o!==g&&!o.name)o=o.parent;if(!o||o===g||o.userData.nonPickable||o.name==='membrane'||o.name==='cytoplasm')continue;if(animalFacts[o.name]){explainAnimalPart(o.name);return;}}});
+  const resize=()=>{const r=c.getBoundingClientRect();if(!r.width||!r.height)return;animalCellCamera.aspect=r.width/r.height;animalCellCamera.updateProjectionMatrix();animalCellRenderer.setSize(r.width,r.height,false);};if(window.ResizeObserver)new ResizeObserver(resize).observe(c);else window.addEventListener('resize',resize);resize();
+  let visible=true;const draw=()=>{if(!animalCellPaused&&!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches))g.rotation.y+=.00045;animalCellRenderer.render(animalCellScene,animalCellCamera);};const sync=()=>animalCellRenderer.setAnimationLoop(visible&&!document.hidden?draw:null);document.addEventListener('visibilitychange',sync);if('IntersectionObserver'in window){const obs=new IntersectionObserver(es=>{visible=!!(es[0]&&es[0].isIntersecting);sync();},{threshold:.05});obs.observe(c);}sync();status.textContent='3D CELL LAB READY · Rotate · Zoom · Select organelles';
  }catch(e){status.textContent='3D model could not start: '+(e.message||'browser limitation');}
 }
 function toggleAnimalCell3D(){animalCellPaused=!animalCellPaused;document.getElementById('bioAnimalToggle').textContent=animalCellPaused?'Resume rotation':'Pause rotation';}
