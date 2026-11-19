@@ -724,6 +724,67 @@
                 </div>
             </div>
 
+
+                <!-- ADVANCED CHAPTER 2 FORCE & DYNAMICS 3D LAB -->
+                <section id="force3dLab" class="rounded-2xl border border-cyan-400/30 bg-[#07131d] p-4 sm:p-6 shadow-2xl space-y-5">
+                    <div class="flex flex-wrap items-start justify-between gap-3">
+                        <div>
+                            <span class="text-cyan-300 text-[10px] sm:text-xs font-black tracking-[.2em]">INTERACTIVE • REAL-TIME THREE.JS PHYSICS</span>
+                            <h3 class="text-2xl sm:text-3xl font-extrabold font-cinzel text-gold-gradient mt-1">Force & Dynamics · 3D Experiment Studio</h3>
+                            <p class="text-sm text-gray-300 mt-2 max-w-3xl">Explore five spatial experiments. Rotate and zoom the scene, run the simulation, and connect force diagrams with the motion you observe.</p>
+                        </div>
+                        <span class="rounded-full border border-cyan-400/40 bg-cyan-950/50 px-3 py-1 text-cyan-200 text-[10px] font-bold">CHAPTER 02 · 5 MODELS</span>
+                    </div>
+                    <div class="grid grid-cols-1 xl:grid-cols-[minmax(0,1.65fr)_minmax(260px,.8fr)] gap-4">
+                        <div class="min-w-0 space-y-3">
+                            <div class="relative overflow-hidden rounded-xl border border-cyan-400/30 bg-[#06101a]">
+                                <div id="force3dMount" class="w-full h-[300px] sm:h-[430px]"></div>
+                                <div class="absolute left-3 top-3 flex flex-wrap gap-2 pointer-events-none">
+                                    <span class="rounded bg-black/75 px-2 py-1 text-[10px] font-bold text-cyan-200">LIVE 3D MODEL</span>
+                                    <span id="force3dStatus" class="rounded bg-black/75 px-2 py-1 text-[10px] font-bold text-emerald-300">WAITING</span>
+                                </div>
+                                <div class="absolute bottom-3 left-3 rounded bg-black/70 px-2 py-1 text-[10px] text-gray-200 pointer-events-none">Drag: rotate · Scroll: zoom · Right-drag: pan</div>
+                            </div>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <button id="force3dPlay" type="button" class="rounded-lg bg-cyan-700 px-4 py-2 text-xs font-bold text-white hover:bg-cyan-600"><i class="fa-solid fa-play mr-1"></i> Play</button>
+                                <button id="force3dReset" type="button" class="rounded-lg border border-amber-400/50 px-4 py-2 text-xs font-bold text-amber-200 hover:bg-amber-950/60"><i class="fa-solid fa-rotate-left mr-1"></i> Reset</button>
+                                <label class="ml-auto flex items-center gap-2 text-xs text-gray-300">Playback <input id="force3dSpeed" type="range" min=".5" max="2" step=".25" value="1" class="w-24 accent-cyan-400"><span id="force3dSpeedValue" class="w-8 text-cyan-200">1×</span></label>
+                            </div>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                                <div class="rounded-lg border border-cyan-400/20 bg-black/35 p-3"><span class="block text-[9px] text-gray-400">TIME</span><strong id="force3dTime" class="font-mono text-lg text-cyan-200">0.0 s</strong></div>
+                                <div class="rounded-lg border border-cyan-400/20 bg-black/35 p-3"><span class="block text-[9px] text-gray-400">NET FORCE</span><strong id="force3dNet" class="font-mono text-lg text-amber-200">0 N</strong></div>
+                                <div class="rounded-lg border border-cyan-400/20 bg-black/35 p-3"><span class="block text-[9px] text-gray-400">ACCELERATION</span><strong id="force3dAccel" class="font-mono text-lg text-amber-200">0 m/s²</strong></div>
+                                <div class="rounded-lg border border-cyan-400/20 bg-black/35 p-3"><span class="block text-[9px] text-gray-400">VELOCITY</span><strong id="force3dVelocity" class="font-mono text-lg text-cyan-200">0 m/s</strong></div>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="rounded-xl border border-amber-400/25 bg-black/35 p-4">
+                                <label for="force3dMode" class="mb-2 block text-xs font-bold text-amber-200">CHOOSE 3D EXPERIMENT</label>
+                                <select id="force3dMode" class="w-full rounded-lg border border-amber-500/40 bg-[#220308] p-3 text-sm text-amber-100">
+                                    <option value="net">01 · Balanced & Unbalanced Forces</option>
+                                    <option value="incline">02 · Friction on an Inclined Plane</option>
+                                    <option value="third">03 · Newton’s Third Law — Paired Forces</option>
+                                    <option value="collision">04 · Momentum & Collision</option>
+                                    <option value="pulley">05 · Pulley System & Tension</option>
+                                </select>
+                                <p id="force3dDescription" class="mt-3 text-xs leading-relaxed text-gray-300">Compare opposing forces on a block. When the resultant is non-zero, acceleration follows the net force.</p>
+                            </div>
+                            <div class="rounded-xl border border-cyan-400/25 bg-cyan-950/20 p-4">
+                                <h4 class="mb-2 text-sm font-bold text-cyan-200">WHAT TO OBSERVE</h4>
+                                <p id="force3dInsight" class="text-xs leading-relaxed text-gray-300">Force arrows show direction and relative magnitude. The block responds to the vector sum, not to one force alone.</p>
+                            </div>
+                            <div class="rounded-xl border border-amber-400/20 bg-[#0d1720] p-4">
+                                <h4 class="mb-2 text-xs font-black tracking-wider text-amber-200">MODEL KEY</h4>
+                                <div class="grid grid-cols-2 gap-2 text-[10px] text-gray-300">
+                                    <span><i class="mr-1 text-cyan-300">●</i> Motion / velocity</span><span><i class="mr-1 text-amber-300">●</i> Applied force</span>
+                                    <span><i class="mr-1 text-rose-300">●</i> Friction / opposing</span><span><i class="mr-1 text-emerald-300">●</i> Normal / tension</span>
+                                </div>
+                            </div>
+                            <p class="text-[10px] leading-relaxed text-gray-500">Idealised educational models. Numerical readouts illustrate the selected model and are not experimental measurements.</p>
+                        </div>
+                    </div>
+                </section>
+
             <!-- CHAPTER 3: GRAVITATION & FLOATATION CONTENT -->
             <div id="chapter-bonus" class="chapter-content hidden space-y-10">
                 <div class="bg-gurukul-card p-6 sm:p-8 rounded-2xl border-gold-glow">
@@ -1425,6 +1486,67 @@
     renderer.setSize(mount.clientWidth,mount.clientHeight);
   });
   document.addEventListener('visibilitychange',()=>{if(document.hidden){last=0;}});
+})();
+</script>
+
+
+
+<script type="module">
+(() => {
+  const root=document.getElementById('force3dLab'); if(!root)return;
+  const mount=document.getElementById('force3dMount'),status=document.getElementById('force3dStatus');
+  const modeSelect=document.getElementById('force3dMode'),playBtn=document.getElementById('force3dPlay'),resetBtn=document.getElementById('force3dReset');
+  const speedInput=document.getElementById('force3dSpeed'),speedValue=document.getElementById('force3dSpeedValue');
+  const info={
+    net:['Compare opposing forces on a block. When the resultant is non-zero, acceleration follows the net force.','The 18 N rightward push and 8 N opposing force produce a 10 N resultant. With a 2 kg block, a = Fnet/m = 5 m/s².'],
+    incline:['A block moves down a ramp while gravity, the normal reaction and friction act in different directions.','Weight acts vertically downward. The normal reaction is perpendicular to the plane; friction acts along the plane opposite the sliding direction.'],
+    third:['Two interacting carts push away from one another. The force pair is equal in magnitude and opposite in direction.','The forces act on different carts, so they do not cancel on one object. Different masses can produce different accelerations.'],
+    collision:['A moving cart meets a second cart. Observe the velocity change and the shared momentum before and after impact.','For an isolated system, total momentum is conserved. In this simplified inelastic model, the carts move together after contact.'],
+    pulley:['Two hanging masses are connected by a light string over a pulley. The heavier side descends while the other rises.','Tension acts along the string. The acceleration depends on the mass difference and total system mass; the model neglects pulley and string mass.']
+  };
+  let THREE,OrbitControls,renderer,scene,camera,controls,world,objects={},arrows={},ready=false,visible=false,playing=false,t=0,speed=1,last=0,raf=0;
+  const setText=(id,value)=>{const e=document.getElementById(id);if(e)e.textContent=value};
+  const mat=(color,metalness=.25,roughness=.45)=>new THREE.MeshStandardMaterial({color,metalness,roughness});
+  const box=(w,h,d,material,x,y,z,parent=world)=>{const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),material);m.position.set(x,y,z);m.castShadow=true;m.receiveShadow=true;parent.add(m);return m};
+  const sphere=(r,material,x,y,z,parent=world)=>{const m=new THREE.Mesh(new THREE.SphereGeometry(r,32,24),material);m.position.set(x,y,z);m.castShadow=true;parent.add(m);return m};
+  const cylinder=(r1,r2,h,material,x,y,z,parent=world)=>{const m=new THREE.Mesh(new THREE.CylinderGeometry(r1,r2,h,40),material);m.position.set(x,y,z);m.castShadow=true;parent.add(m);return m};
+  const arrow=(color,origin,dir,len)=>{const a=new THREE.ArrowHelper(new THREE.Vector3(...dir).normalize(),new THREE.Vector3(...origin),len,color,.35,.18);world.add(a);arrows[color+Object.keys(arrows).length]=a;return a};
+  function clearWorld(){while(world.children.length){const o=world.children.pop();if(o.geometry)o.geometry.dispose();if(o.material){if(Array.isArray(o.material))o.material.forEach(m=>m.dispose());else o.material.dispose();}}objects={};arrows={};}
+  function base(){scene=new THREE.Scene();scene.background=new THREE.Color(0x07131d);scene.fog=new THREE.Fog(0x07131d,25,58);camera=new THREE.PerspectiveCamera(42,mount.clientWidth/mount.clientHeight,.1,100);camera.position.set(10,8,12);
+    renderer=new THREE.WebGLRenderer({antialias:true,alpha:false,powerPreference:'low-power'});renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.35));renderer.setSize(mount.clientWidth,mount.clientHeight);renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;mount.appendChild(renderer.domElement);
+    controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.dampingFactor=.06;controls.target.set(0,1,0);controls.minDistance=6;controls.maxDistance=26;controls.maxPolarAngle=Math.PI*.49;
+    scene.add(new THREE.HemisphereLight(0xbfeaff,0x26101a,2.1));const key=new THREE.DirectionalLight(0xffe5b0,3.1);key.position.set(7,12,8);key.castShadow=true;key.shadow.mapSize.set(1024,1024);scene.add(key);const rim=new THREE.PointLight(0x00cfff,24,30);rim.position.set(-7,5,-4);scene.add(rim);
+    const floor=new THREE.Mesh(new THREE.PlaneGeometry(70,70),mat(0x101f2a,0,.95));floor.rotation.x=-Math.PI/2;floor.position.y=-.08;floor.receiveShadow=true;scene.add(floor);const grid=new THREE.GridHelper(40,40,0x23647b,0x183543);grid.position.y=-.065;scene.add(grid);world=new THREE.Group();scene.add(world);
+  }
+  function addBasePlatform(){box(13,.18,7,mat(0x172b38,.35,.7),0,-.02,0);}
+  function addBlock(x=0,y=.8,z=0,color=0xd6a43c){return box(1.5,1.25,1.5,mat(color,.62,.28),x,y,z);}
+  function build(mode){clearWorld();addBasePlatform();const cyan=0x28d7ff,gold=0xffc857,red=0xff667e,green=0x5ee5a5;
+    if(mode==='net'){objects.block=addBlock(-2,.8,0);box(3,.08,2.2,mat(0x405361),-2,.13,0);arrows.applied=arrow(gold,[-2,1.1,0],[1,0,0],3);arrows.opposing=arrow(red,[-2,1.1,0],[-1,0,0],1.3);arrows.result=arrow(cyan,[-2,2.15,0],[1,0,0],1.8);objects.marker=sphere(.12,mat(cyan,0,.2),-2,2.15,0);}
+    if(mode==='incline'){const ramp=box(8,.25,3,mat(0x526574,.35,.55),0,1.25,0);ramp.rotation.z=-.32;const slope=Math.tan(.32);objects.block=addBlock(-1.2,2.25,0,0xd6a43c);objects.block.rotation.z=-.32;arrows.weight=arrow(gold,[-1.2,2.8,0],[0,-1,0],2.5);arrows.normal=arrow(green,[-1.2,2.8,0],[Math.sin(.32),Math.cos(.32),0],2);arrows.friction=arrow(red,[-1.2,2.8,0],[-Math.cos(.32),Math.sin(.32),0],1.2);arrows.component=arrow(cyan,[-1.2,1.65,0],[Math.cos(.32),-Math.sin(.32),0],1.2);}
+    if(mode==='third'){objects.cartA=new THREE.Group();world.add(objects.cartA);box(1.7,.65,1.25,mat(0x168bb2,.65,.25),-2,.55,0,objects.cartA);for(const x of [-2.5,-1.5])cylinder(.25,.25,.16,mat(0x17202a),x,.22,.65,objects.cartA);objects.cartB=new THREE.Group();world.add(objects.cartB);box(1.7,.65,1.25,mat(0xc18a2b,.65,.25),2,.55,0,objects.cartB);for(const x of [1.5,2.5])cylinder(.25,.25,.16,mat(0x17202a),x,.22,.65,objects.cartB);arrows.pairA=arrow(cyan,[-.8,1.45,0],[-1,0,0],1.8);arrows.pairB=arrow(gold,[.8,1.45,0],[1,0,0],1.8);objects.contact=sphere(.18,mat(0xffffff,0,.15),0,1,0);}
+    if(mode==='collision'){objects.cartA=new THREE.Group();world.add(objects.cartA);box(1.4,.75,1.2,mat(0x168bb2,.65,.25),-3,.62,0,objects.cartA);objects.cartB=new THREE.Group();world.add(objects.cartB);box(1.4,.75,1.2,mat(0xc18a2b,.65,.25),2,.62,0,objects.cartB);for(let i=0;i<4;i++){cylinder(.23,.23,.14,mat(0x1b2731),-3.45+(i%2)*.9,.2,(i<2?-.48:.48));cylinder(.23,.23,.14,mat(0x1b2731),1.55+(i%2)*.9,.2,(i<2?-.48:.48));}arrows.velocity=arrow(cyan,[-3,1.55,0],[1,0,0],2.1);objects.impact=sphere(.16,mat(gold,0,.2),0,1.1,0);}
+    if(mode==='pulley'){const beam=box(8,.22,.35,mat(0x647887,.5,.35),0,5,0);objects.wheel=cylinder(1,1,.35,mat(0xd5b15a,.75,.2),0,4.45,0);objects.wheel.rotation.x=Math.PI/2;objects.massA=box(1.15,1.15,1.15,mat(0x168bb2,.55,.3),-2.5,2,0);objects.massB=box(1.15,1.15,1.15,mat(0xc18a2b,.55,.3),2.5,2.8,0);const rope=mat(0xe7e2d4,.1,.65);const l=cylinder(.035,.035,3.1,rope,-2.5,3.65,0);const r=cylinder(.035,.035,2.4,rope,2.5,3.25,0);objects.ropeL=l;objects.ropeR=r;arrows.tensionL=arrow(green,[-2.5,3,0],[0,1,0],1.2);arrows.tensionR=arrow(green,[2.5,3,0],[0,1,0],1.2);arrows.weightL=arrow(red,[-2.5,1.5,0],[0,-1,0],1.1);arrows.weightR=arrow(gold,[2.5,2.2,0],[0,-1,0],1.5);}
+    camera.position.set(mode==='pulley'?9:10,mode==='pulley'?8:7,mode==='incline'?13:11);controls.target.set(0,mode==='pulley'?2.1:1,0);controls.update();update(0);
+  }
+  function update(time){if(!ready)return;const mode=modeSelect.value;let net=0,acc=0,vel=0;
+    if(mode==='net'){const x=-2+Math.min(time,7)*.42;objects.block.position.x=x;objects.marker.position.x=x;arrows.applied.position.x=x;arrows.opposing.position.x=x;arrows.result.position.x=x;net=10;acc=5;vel=1.4*time;}
+    if(mode==='incline'){const d=Math.min(time,7)*.22;objects.block.position.x=-1.2+Math.cos(.32)*d;objects.block.position.y=2.25-Math.sin(.32)*d;objects.block.rotation.z=-.32;net=5.8;acc=2.9;vel=1.1*time;}
+    if(mode==='third'){const d=Math.min(time,6)*.34;objects.cartA.position.x=-d;objects.cartB.position.x=d;arrows.pairA.position.x=-d;arrows.pairB.position.x=d;net=0;acc=2;vel=1.5*time;}
+    if(mode==='collision'){const d=Math.min(time,5)*.55;if(time<5){objects.cartA.position.x=-3+d;objects.cartB.position.x=2;vel=2.75;}else{const together=Math.min((time-5)*.18,.7);objects.cartA.position.x=-.25+together;objects.cartB.position.x=1.15+together;vel=1.1;}arrows.velocity.position.x=objects.cartA.position.x;net=time<5?0:0;acc=time<5?0:-1.65;}
+    if(mode==='pulley'){const d=Math.min(time,7)*.18;objects.massA.position.y=2-d;objects.massB.position.y=2.8+d;objects.ropeL.position.y=3.65-d/2;objects.ropeR.position.y=3.25+d/2;vel=.65*time;net=4;acc=1.3;}
+    setText('force3dTime',time.toFixed(1)+' s');setText('force3dNet',net.toFixed(1)+' N');setText('force3dAccel',acc.toFixed(1)+' m/s²');setText('force3dVelocity',vel.toFixed(1)+' m/s');
+    controls.update();renderer.render(scene,camera);
+  }
+  function playState(v){playing=v;playBtn.innerHTML=playing?'<i class="fa-solid fa-pause mr-1"></i> Pause':'<i class="fa-solid fa-play mr-1"></i> Play';status.textContent=playing?'RUNNING':'PAUSED';}
+  function loop(now){raf=requestAnimationFrame(loop);if(!visible||!ready)return;if(!last)last=now;const dt=Math.min((now-last)/1000,.05);last=now;if(playing){t+=dt*speed;if(t>9){t=9;playState(false);}}update(t);}
+  async function init(){try{status.textContent='LOADING 3D…';const T=await import('three');const O=await import('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/controls/OrbitControls.js');THREE=T;OrbitControls=O.OrbitControls;base();build(modeSelect.value);ready=true;playState(false);if(!raf)raf=requestAnimationFrame(loop);}catch(err){status.textContent='3D UNAVAILABLE';mount.innerHTML='<div class="flex h-full min-h-[300px] items-center justify-center p-6 text-center text-sm text-amber-200">3D engine could not load. Check your connection and reload this chapter.</div>';console.error('Force lab init failed',err);}}
+  modeSelect.addEventListener('change',()=>{t=0;playState(false);const v=info[modeSelect.value];setText('force3dDescription',v[0]);setText('force3dInsight',v[1]);if(ready)build(modeSelect.value);});
+  playBtn.addEventListener('click',()=>{if(!ready)return;if(t>=9)t=0;playState(!playing);});
+  resetBtn.addEventListener('click',()=>{t=0;playState(false);if(ready)build(modeSelect.value);});
+  speedInput.addEventListener('input',()=>{speed=Number(speedInput.value);setText('force3dSpeedValue',speed.toFixed(2).replace(/0+$/,'').replace(/\.$/,'')+'×');});
+  const observer=new IntersectionObserver(entries=>{visible=entries.some(e=>e.isIntersecting);if(visible&&!ready)init();if(!visible)last=0;},{rootMargin:'160px'});observer.observe(root);
+  window.addEventListener('resize',()=>{if(!ready||!mount.clientWidth)return;camera.aspect=mount.clientWidth/mount.clientHeight;camera.updateProjectionMatrix();renderer.setSize(mount.clientWidth,mount.clientHeight);});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)last=0;});
 })();
 </script>
 
