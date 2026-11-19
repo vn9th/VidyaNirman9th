@@ -2925,13 +2925,17 @@ window.addEventListener('pagehide',()=>{
   renderer.domElement.addEventListener('wheel',e=>{e.preventDefault();s.radius=Math.max(5,Math.min(14,s.radius+(e.deltaY>0?.45:-.45)));place();render();},{passive:false});
   const ray=new T.Raycaster(),mouse=new T.Vector2();
   renderer.domElement.addEventListener('click',e=>{const r=renderer.domElement.getBoundingClientRect();mouse.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);ray.setFromCamera(mouse,camera);const hit=ray.intersectObjects(s.pickables,false)[0];if(hit){const name=hit.object.name;document.getElementById(kind==='plant'?'vnPlantSimInfo':'vnAnimalSimInfo').textContent=(facts[kind][name]||name+': explore this cell component in the model.');}});
-  s.animate=()=>{if(!s.paused&&!document.hidden){root.rotation.y+=.002;render();}s.frame=requestAnimationFrame(s.animate);};
+  s.visible=false;
+  s.animate=()=>{s.frame=0;if(!s.visible||document.hidden)return;if(!s.paused)root.rotation.y+=.002;render();if(!s.paused)s.frame=requestAnimationFrame(s.animate);};
+  s.start=()=>{if(s.visible&&!document.hidden&&!s.paused&&!s.frame)s.frame=requestAnimationFrame(s.animate);};
+  if('IntersectionObserver'in window){s.observer=new IntersectionObserver(entries=>{s.visible=!!(entries[0]&&entries[0].isIntersecting);if(s.visible){render();s.start();}else if(s.frame){cancelAnimationFrame(s.frame);s.frame=0;}},{threshold:.08});s.observer.observe(stage);}else{s.visible=true;s.start();}
+  document.addEventListener('visibilitychange',()=>{if(document.hidden&&s.frame){cancelAnimationFrame(s.frame);s.frame=0;}else{s.start();}});
   if(window.ResizeObserver)new ResizeObserver(resize).observe(stage);else window.addEventListener('resize',resize);
-  resize();s.animate();
+  resize();
  }
- window.vnCellSimLoad=function(kind){if(!states[kind])build(kind);const s=states[kind];if(s){s.resize();document.getElementById(kind==='plant'?'vnPlantSimInfo':'vnAnimalSimInfo').textContent='3D model ready. Drag to rotate, scroll to zoom, or click an organelle.';}};
- window.vnCellSimCut=function(kind){const s=states[kind];if(!s){vnCellSimLoad(kind);return;}s.cut=!s.cut;s.root.children.forEach(o=>{if(o.name==='cell wall'||o.name==='membrane')o.visible=!s.cut;});};
- window.vnCellSimRotate=function(kind){const s=states[kind];if(!s){vnCellSimLoad(kind);return;}s.paused=!s.paused;};
+ window.vnCellSimLoad=function(kind){if(!states[kind])build(kind);const s=states[kind];if(s){s.resize();s.visible=true;s.render();s.start();document.getElementById(kind==='plant'?'vnPlantSimInfo':'vnAnimalSimInfo').textContent='3D model ready. Drag to rotate, scroll to zoom, or click an organelle.';}};
+ window.vnCellSimCut=function(kind){const s=states[kind];if(!s){vnCellSimLoad(kind);return;}s.cut=!s.cut;s.root.children.forEach(o=>{if(o.name==='cell wall'||o.name==='membrane')o.visible=!s.cut;});s.render();const b=document.querySelector('[data-vn-cell-sim="'+kind+'"] .vn-cell-sim-controls button:nth-child(2)');if(b)b.textContent=s.cut?'Restore outer layer':'Show inside';};
+ window.vnCellSimRotate=function(kind){const s=states[kind];if(!s){vnCellSimLoad(kind);return;}s.paused=!s.paused;const b=document.querySelector('[data-vn-cell-sim="'+kind+'"] .vn-cell-sim-controls button:nth-child(3)');if(b)b.textContent=s.paused?'Resume rotation':'Pause rotation';if(s.paused){if(s.frame)cancelAnimationFrame(s.frame);s.frame=0;s.render();}else s.start();};
  window.vnCellSimReset=function(kind){const s=states[kind];if(!s){vnCellSimLoad(kind);return;}s.theta=0;s.phi=Math.PI/2;s.radius=8.4;s.place();s.render();};
  window.vnCellSimFocus=function(kind,part){const s=states[kind];if(!s){vnCellSimLoad(kind);return;}const names=kind==='plant'?{'cell wall':'Rigid cellulose layer supports the plant cell.','vacuole':'Large fluid-filled compartment stores cell sap and maintains turgor.','chloroplast':'Chloroplasts contain chlorophyll and carry out photosynthesis.','nucleus':'The nucleus contains DNA and coordinates cell activities.'}:{membrane:'The cell membrane selectively controls entry and exit of substances.',mitochondria:'Mitochondria release usable energy through aerobic respiration.',golgi:'Golgi bodies modify, sort and package proteins and lipids.',nucleus:'The nucleus contains DNA and coordinates cell activities.'};document.getElementById(kind==='plant'?'vnPlantSimInfo':'vnAnimalSimInfo').textContent=names[part]||part;};
 })();
