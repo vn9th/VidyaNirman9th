@@ -1267,6 +1267,7 @@
             <div class="flex items-center justify-between gap-2"><div><span class="text-[10px] text-emerald-300 font-bold tracking-widest">LAB 01</span><h3 class="text-lg font-bold text-amber-100">3D Plant Cell Explorer</h3></div><i class="fa-solid fa-cube text-2xl text-emerald-300"></i></div>
             <div class="bio-3d-stage rounded-xl mt-4"><canvas id="bio3dCanvas" aria-label="Interactive three-dimensional plant cell model"></canvas><div class="bio-3d-hint">DRAG TO ROTATE · SCROLL TO ZOOM · CLICK AN ORGANELLE</div><p id="bio3dStatus" class="bio-3d-status" aria-live="polite">Loading interactive 3D model…</p></div>
             <div class="flex flex-wrap gap-2 mt-3"><button type="button" class="bio-lab-control" onclick="togglePlantCell3D()" id="bio3dToggle">Pause rotation</button><button type="button" class="bio-lab-control" onclick="spinPlantCell3D()">Rotate 90°</button><button type="button" class="bio-lab-control" onclick="resetPlantCell3D()">Reset view</button><button type="button" class="bio-lab-control" id="bio3dExplode" onclick="togglePlantCellExploded()">Exploded view</button><button type="button" class="bio-lab-control" id="bio3dCutaway" onclick="togglePlantCellCutaway()">Cutaway view</button></div>
+            <button type="button" class="bio-lab-control" onclick="openBioScientificViewer('plant')"><i class="fa-solid fa-microscope mr-1"></i> Advanced scientific model</button>
             <div class="grid grid-cols-2 gap-2 mt-3"><button class="bio-arcade-btn" type="button" onclick="explainPlantPart('wall')">Cell wall</button><button class="bio-arcade-btn" type="button" onclick="explainPlantPart('nucleus')">Nucleus</button><button class="bio-arcade-btn" type="button" onclick="explainPlantPart('vacuole')">Vacuole</button><button class="bio-arcade-btn" type="button" onclick="explainPlantPart('chloroplast')">Chloroplast</button></div>
             <p id="bio3dPlantFact" class="text-xs text-emerald-200 mt-3 min-h-8" aria-live="polite">Select a cell part to learn its function. This is a simplified educational model.</p>
           </article>
@@ -1274,6 +1275,7 @@
             <div><span class="text-[10px] text-fuchsia-300 font-bold tracking-widest">LAB 02</span><h3 class="text-lg font-bold text-amber-100">3D Animal Cell Explorer</h3></div>
             <div class="bio-3d-stage rounded-xl mt-4"><canvas id="bioAnimalCanvas" aria-label="Interactive three-dimensional animal cell model"></canvas><div class="bio-3d-hint">DRAG TO ROTATE · SCROLL TO ZOOM · CLICK AN ORGANELLE</div><p id="bioAnimalStatus" class="bio-3d-status" aria-live="polite">Preparing model…</p></div>
             <div class="flex flex-wrap gap-2 mt-3"><button type="button" class="bio-lab-control" id="bioAnimalToggle" onclick="toggleAnimalCell3D()">Pause rotation</button><button type="button" class="bio-lab-control" onclick="resetAnimalCell3D()">Reset view</button><button type="button" class="bio-lab-control" id="bioAnimalCutaway" onclick="toggleAnimalCellCutaway()">Show inside</button></div>
+            <button type="button" class="bio-lab-control" onclick="openBioScientificViewer('animal')"><i class="fa-solid fa-microscope mr-1"></i> Advanced scientific model</button>
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 mt-3"><button class="bio-arcade-btn" onclick="explainAnimalPart('nucleus')">Nucleus</button><button class="bio-arcade-btn" onclick="explainAnimalPart('mitochondrion')">Mitochondria</button><button class="bio-arcade-btn" onclick="explainAnimalPart('golgi')">Golgi body</button><button class="bio-arcade-btn" onclick="explainAnimalPart('lysosome')">Lysosome</button><button class="bio-arcade-btn" onclick="explainAnimalPart('centriole')">Centrioles</button><button class="bio-arcade-btn" onclick="explainAnimalPart('membrane')">Cell membrane</button></div>
             <p id="bioAnimalFact" class="text-xs text-fuchsia-200 mt-3 min-h-8" aria-live="polite">Explore the organelles of an animal cell.</p>
           </article>
@@ -2191,6 +2193,23 @@
 <script src="auth-config.js"></script>
 <script src="global-auth.js"></script>
 <script src="global-learning.js"></script>
+
+<div id="bioScientificModal" class="fixed inset-0 z-[200] hidden items-center justify-center bg-black/90 p-2 sm:p-5" role="dialog" aria-modal="true" aria-labelledby="bioScientificTitle" onclick="if(event.target===this)closeBioScientificViewer()">
+  <section class="w-full max-w-7xl overflow-hidden rounded-2xl border border-amber-400/40 bg-[#17060b] shadow-2xl">
+    <header class="flex flex-wrap items-center justify-between gap-3 border-b border-amber-400/20 px-4 py-3 sm:px-5">
+      <div><p class="text-[10px] font-bold tracking-[.22em] text-emerald-300">EXTERNAL SCIENTIFIC 3D LAB</p><h2 id="bioScientificTitle" class="text-lg font-bold text-amber-100">Advanced cell model</h2><p class="text-xs text-slate-400">A detailed molecular-scale viewer from BEXONIA Learn Biology</p></div>
+      <div class="flex items-center gap-2">
+        <a id="bioScientificOpenTab" href="https://learn.bexonia.com/animal_cell_realistic.html" target="_blank" rel="noopener noreferrer" class="bio-lab-control">Open in new tab <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+        <button type="button" onclick="closeBioScientificViewer()" class="bio-lab-control" aria-label="Close scientific viewer"><i class="fa-solid fa-xmark mr-1"></i> Close</button>
+      </div>
+    </header>
+    <div class="bg-[#080b12]">
+      <iframe id="bioScientificFrame" title="Advanced interactive scientific cell model" src="about:blank" loading="lazy" allow="fullscreen; clipboard-read; clipboard-write" allowfullscreen class="block h-[72vh] min-h-[420px] w-full border-0"></iframe>
+    </div>
+    <p class="px-4 py-2 text-[11px] text-slate-400">Viewer by BEXONIA Learn Biology · Open-source project (MIT). If the embedded viewer is blocked by the provider, use “Open in new tab”. Existing Vidya Nirman model and controls remain available below.</p>
+  </section>
+</div>
+
 <script>if('serviceWorker'in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 
         /* Biology Revision Lab: flashcards and locally saved study tracker */
@@ -2468,6 +2487,32 @@ function makeAnimalCellModel(){
 function toggleAnimalCell3D(){animalCellPaused=!animalCellPaused;document.getElementById('bioAnimalToggle').textContent=animalCellPaused?'Resume rotation':'Pause rotation';}
 function resetAnimalCell3D(){if(!animalCellGroup||!animalCellCamera)return;animalCellGroup.rotation.set(-.2,.42,.08);animalCellCamera.position.set(5.8,4.1,8.8);animalCellCamera.lookAt(0,0,0);toggleAnimalCellCutaway(true);}
 function toggleAnimalCellCutaway(force){if(!animalCellGroup)return;animalCellCut=typeof force==='boolean'?force:!animalCellCut;animalCellGroup.children.forEach(o=>{if(o.userData.shell)o.material.opacity=animalCellCut?.07:.3;});document.getElementById('bioAnimalCutaway').textContent=animalCellCut?'Restore membrane':'Show inside';}
+
+
+function openBioScientificViewer(kind){
+ const isPlant=kind==='plant';
+ const url=isPlant?'https://learn.bexonia.com/plant_cell_realistic.html':'https://learn.bexonia.com/animal_cell_realistic.html';
+ const modal=document.getElementById('bioScientificModal');
+ const frame=document.getElementById('bioScientificFrame');
+ const title=document.getElementById('bioScientificTitle');
+ const link=document.getElementById('bioScientificOpenTab');
+ if(!modal||!frame||!title||!link)return;
+ title.textContent=isPlant?'Advanced Plant Cell · Leaf Mesophyll':'Advanced Animal Cell · Molecular View';
+ frame.src=url;link.href=url;
+ modal.classList.remove('hidden');modal.classList.add('flex');
+ document.body.style.overflow='hidden';
+ const close=modal.querySelector('button[aria-label="Close scientific viewer"]');
+ if(close)close.focus();
+}
+function closeBioScientificViewer(){
+ const modal=document.getElementById('bioScientificModal');
+ const frame=document.getElementById('bioScientificFrame');
+ if(!modal)return;
+ modal.classList.add('hidden');modal.classList.remove('flex');
+ if(frame)frame.src='about:blank';
+ document.body.style.overflow='';
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){const modal=document.getElementById('bioScientificModal');if(modal&&!modal.classList.contains('hidden'))closeBioScientificViewer();}});
 
 </script>
 </body>
