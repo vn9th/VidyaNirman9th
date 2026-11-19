@@ -1420,9 +1420,11 @@
                 </form>
 
                 <!-- Score Output Box -->
-                <div id="quizResultBox" class="mt-6 p-6 rounded-xl bg-[#0D0204] border-2 border-amber-400 hidden text-center">
-                    <h3 id="quizScoreTitle" class="font-cinzel text-2xl font-bold text-amber-200 mb-2">Score: 5 / 5</h3>
+                <div id="quizResultBox" class="mt-6 p-6 rounded-xl bg-[#0D0204] border-2 border-amber-400 hidden text-center" aria-live="polite">
+                    <h3 id="quizScoreTitle" class="font-cinzel text-2xl font-bold text-amber-200 mb-2">Your Score</h3>
                     <p id="quizScoreMsg" class="text-xs text-slate-300"></p>
+                    <p id="bioQuizUnanswered" class="text-[11px] text-amber-300 mt-2"></p>
+                    <button type="button" onclick="resetBioQuiz()" class="mt-4 px-5 py-2 rounded-lg border border-amber-400/50 text-amber-200 text-xs font-bold hover:bg-amber-500/10"> <i class="fa-solid fa-rotate-right mr-1"></i> Retry assessment</button>
                 </div>
             </div>
         </div>
@@ -2360,31 +2362,61 @@
             if (event.key === 'Escape' && document.activeElement && document.activeElement.id === 'searchInput') clearSearch();
         });
 
-        /* Interactive Quiz Scoring Logic */
+        /* Interactive assessment: scoring, unanswered count and per-question explanations. */
         function gradeBioQuiz(e) {
             e.preventDefault();
-            const answers = { q1: 'b', q2: 'b', q3: 'c', q4: 'b', q5: 'b' };
-            let score = 0;
+            const key = {
+                q1:{answer:'b',why:'Lysosomes contain digestive (hydrolytic) enzymes that break down waste and worn-out cell parts.'},
+                q2:{answer:'b',why:'A hypertonic surrounding solution causes water to leave the plant cell by osmosis; the protoplast shrinks away from the cell wall.'},
+                q3:{answer:'c',why:'Xylem conducts water and dissolved minerals mainly from roots towards the aerial parts of the plant.'},
+                q4:{answer:'b',why:'During metaphase, chromosomes arrange at the equatorial plane before sister chromatids separate.'},
+                q5:{answer:'b',why:'Monera includes prokaryotic organisms such as bacteria and cyanobacteria (for example, Anabaena).'}
+            };
             const form = new FormData(e.target);
-
-            for (let k in answers) {
-                if (form.get(k) === answers[k]) score++;
-            }
+            let score = 0, unanswered = 0;
+            const cards = [...e.target.querySelectorAll(':scope > div.space-y-3')];
+            cards.forEach((card,index) => {
+                const name = 'q' + (index+1), selected = form.get(name), item = key[name];
+                const correct = selected === item.answer;
+                if (correct) score++;
+                if (!selected) unanswered++;
+                card.classList.remove('border-emerald-400/70','border-rose-400/70');
+                card.classList.add(correct ? 'border-emerald-400/70' : 'border-rose-400/70');
+                const prior = card.querySelector('[data-bio-review]');
+                if (prior) prior.remove();
+                const review = document.createElement('p');
+                review.dataset.bioReview = '1';
+                review.className = 'text-xs mt-3 p-3 rounded-lg ' + (correct ? 'bg-emerald-500/10 text-emerald-200' : 'bg-rose-500/10 text-rose-200');
+                review.textContent = (correct ? 'Correct. ' : (selected ? 'Not quite. Correct option: ' : 'Not answered. Correct option: ') + item.answer.toUpperCase() + '. ') + item.why;
+                review.setAttribute('aria-live','polite');
+                card.appendChild(review);
+            });
 
             const box = document.getElementById('quizResultBox');
             const title = document.getElementById('quizScoreTitle');
             const msg = document.getElementById('quizScoreMsg');
-
             box.classList.remove('hidden');
-            title.innerText = `Your Score: ${score} / 5`;
+            title.textContent = 'Your Score: ' + score + ' / 5  ·  ' + Math.round(score/5*100) + '%';
+            msg.textContent = score === 5
+                ? 'Outstanding work — all five answers are correct. Read the explanations to reinforce your understanding.'
+                : score >= 3
+                    ? 'Good progress. Review the explanations under each question, then retry to improve your score.'
+                    : 'Use the explanations below to revise the concepts, then try the assessment again.';
+            const unansweredNote = document.getElementById('bioQuizUnanswered');
+            if (unansweredNote) unansweredNote.textContent = unanswered ? unanswered + ' question' + (unanswered===1?'':'s') + ' left unanswered.' : 'Every question was attempted.';
+            box.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'nearest'});
+        }
 
-            if(score === 5) {
-                msg.innerText = " Outstanding Mastery! You have mastered Class 9th Biology concepts!";
-            } else if(score >= 3) {
-                msg.innerText = " Good effort! Review the organelle and tissue visualizer sections to achieve 100%.";
-            } else {
-                msg.innerText = " Keep learning! Re-read the chapters above and try again.";
-            }
+        function resetBioQuiz() {
+            const form = document.getElementById('bioQuizForm');
+            if (!form) return;
+            form.reset();
+            form.querySelectorAll('[data-bio-review]').forEach(node=>node.remove());
+            form.querySelectorAll(':scope > div.space-y-3').forEach(card=>card.classList.remove('border-emerald-400/70','border-rose-400/70'));
+            document.getElementById('quizResultBox').classList.add('hidden');
+            const note = document.getElementById('bioQuizUnanswered');
+            if (note) note.textContent = '';
+            form.querySelector('input[type="radio"]')?.focus();
         }
     </script>
 
