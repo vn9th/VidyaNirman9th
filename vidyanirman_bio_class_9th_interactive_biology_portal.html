@@ -1271,14 +1271,21 @@
             <p id="bio3dPlantFact" class="text-xs text-emerald-200 mt-3 min-h-8" aria-live="polite">Select a cell part to learn its function. This is a simplified educational model.</p>
           </article>
           <article class="bio-arcade-card">
-            <div class="flex items-center justify-between gap-2"><div><span class="text-[10px] text-cyan-300 font-bold tracking-widest">LAB 02</span><h3 class="text-lg font-bold text-amber-100">Virtual Microscope</h3></div><i class="fa-solid fa-microscope text-2xl text-cyan-300"></i></div>
+            <div><span class="text-[10px] text-fuchsia-300 font-bold tracking-widest">LAB 02</span><h3 class="text-lg font-bold text-amber-100">3D Animal Cell Explorer</h3></div>
+            <div class="bio-3d-stage rounded-xl mt-4"><canvas id="bioAnimalCanvas" aria-label="Interactive three-dimensional animal cell model"></canvas><div class="bio-3d-hint">DRAG TO ROTATE · SCROLL TO ZOOM · CLICK AN ORGANELLE</div><p id="bioAnimalStatus" class="bio-3d-status" aria-live="polite">Preparing model…</p></div>
+            <div class="flex flex-wrap gap-2 mt-3"><button type="button" class="bio-lab-control" id="bioAnimalToggle" onclick="toggleAnimalCell3D()">Pause rotation</button><button type="button" class="bio-lab-control" onclick="resetAnimalCell3D()">Reset view</button><button type="button" class="bio-lab-control" id="bioAnimalCutaway" onclick="toggleAnimalCellCutaway()">Show inside</button></div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 mt-3"><button class="bio-arcade-btn" onclick="explainAnimalPart('nucleus')">Nucleus</button><button class="bio-arcade-btn" onclick="explainAnimalPart('mitochondrion')">Mitochondria</button><button class="bio-arcade-btn" onclick="explainAnimalPart('golgi')">Golgi body</button><button class="bio-arcade-btn" onclick="explainAnimalPart('lysosome')">Lysosome</button><button class="bio-arcade-btn" onclick="explainAnimalPart('centriole')">Centrioles</button><button class="bio-arcade-btn" onclick="explainAnimalPart('membrane')">Cell membrane</button></div>
+            <p id="bioAnimalFact" class="text-xs text-fuchsia-200 mt-3 min-h-8" aria-live="polite">Explore the organelles of an animal cell.</p>
+          </article>
+          <article class="bio-arcade-card">
+            <div class="flex items-center justify-between gap-2"><div><span class="text-[10px] text-cyan-300 font-bold tracking-widest">LAB 03</span><h3 class="text-lg font-bold text-amber-100">Virtual Microscope</h3></div><i class="fa-solid fa-microscope text-2xl text-cyan-300"></i></div>
             <div class="rounded-xl bg-[#090205] py-5 mt-4 relative overflow-hidden"><div class="bio-microscope-body"><div class="bio-microscope-window"><div id="bioMicroView" class="bio-microscope-view" aria-label="Microscope specimen view"></div><div class="bio-micro-crosshair"></div></div><div class="bio-micro-readout"><span>DIGITAL SPECIMEN ZOOM</span><strong id="bioMicroZoomReadout">1×</strong></div></div><p id="bioMicroLabel" class="text-center text-xs text-emerald-200 mt-4">Onion epidermis • educational specimen</p></div>
             <label class="text-xs text-slate-300 block mt-4" for="bioMicroZoom">Magnification: <strong id="bioMicroZoomLabel" class="text-amber-300">1×</strong></label><input id="bioMicroZoom" type="range" min="1" max="4" value="1" step="0.25" class="w-full accent-emerald-400 mt-2" oninput="setBioMicroZoom(this.value)"/>
             <div class="flex flex-wrap gap-2 mt-3"><button class="bio-lab-control" type="button" onclick="setBioMicroSample('plant')">Plant cells</button><button class="bio-lab-control" type="button" onclick="setBioMicroSample('animal')">Animal cells</button><button class="bio-lab-control" type="button" onclick="setBioMicroSample('blood')">Blood cells</button></div>
             <p id="bioMicroFact" class="text-xs text-slate-300 mt-3 min-h-8">Adjust magnification and switch the sample. This is a conceptual simulation, not a real microscope image.</p>
           </article>
           <article class="bio-arcade-card lg:col-span-2">
-            <div class="flex items-center justify-between gap-2"><div><span class="text-[10px] text-amber-300 font-bold tracking-widest">LAB 03</span><h3 class="text-lg font-bold text-amber-100">Ecosystem Energy Flow Simulator</h3></div><i class="fa-solid fa-leaf text-2xl text-emerald-300"></i></div>
+            <div class="flex items-center justify-between gap-2"><div><span class="text-[10px] text-amber-300 font-bold tracking-widest">LAB 04</span><h3 class="text-lg font-bold text-amber-100">Ecosystem Energy Flow Simulator</h3></div><i class="fa-solid fa-leaf text-2xl text-emerald-300"></i></div>
             <p class="text-xs text-slate-400 mt-2">Choose an organism to see its role in a simple food chain and how available energy decreases between trophic levels.</p>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-5" id="bioEcoLevels">
               <button class="bio-arcade-btn text-center" onclick="selectEcoLevel(0)"><span class="text-3xl block">🌿</span><strong>Grass</strong><small class="block text-emerald-300">Producer</small></button>
@@ -1581,7 +1588,7 @@
         }
         const bioEcoData=[{role:'Producer • makes its own food',energy:10000,fact:'Plants capture energy from sunlight and form the base of this food chain.'},{role:'Primary consumer • herbivore',energy:1000,fact:'The grasshopper obtains energy by eating the grass. Only a fraction of energy passes to the next level.'},{role:'Secondary consumer • carnivore',energy:100,fact:'The frog gets energy by eating the grasshopper. Energy available decreases at each trophic level.'},{role:'Tertiary consumer • carnivore',energy:10,fact:'The snake obtains energy by eating the frog. The simplified model illustrates the 10% energy transfer rule.'}];
         function selectEcoLevel(i){const d=bioEcoData[i];document.getElementById('bioEcoRole').textContent=d.role;document.getElementById('bioEcoEnergy').textContent='Energy: '+d.energy.toLocaleString('en-IN')+' units';document.getElementById('bioEcoBar').style.width=(d.energy/10000*100)+'%';document.getElementById('bioEcoFact').textContent=d.fact;document.querySelectorAll('#bioEcoLevels button').forEach((b,n)=>b.style.borderColor=n===i?'#34D399':'rgba(212,175,55,.28)');}
-        document.addEventListener('DOMContentLoaded',()=>{makePlantCellModel();setBioMicroSample('plant');selectEcoLevel(0);});
+        document.addEventListener('DOMContentLoaded',()=>{makePlantCellModel();makeAnimalCellModel();setBioMicroSample('plant');selectEcoLevel(0);});
 
         /* Shuffle question decks and avoid an immediate repeat between rounds. */
         function shuffleBioDeck(deck,previousQuestion){
@@ -2379,6 +2386,40 @@
                     : 'Keep practising. Revisit the reproduction notes and attempt the test again.';
             box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
+
+
+let animalCellScene,animalCellRenderer,animalCellCamera,animalCellGroup,animalCellPaused=false,animalCellCut=false;
+const animalFacts={nucleus:'Nucleus: contains DNA and coordinates cell activities.',mitochondrion:'Mitochondria: release usable energy during aerobic respiration.',golgi:'Golgi apparatus: modifies, sorts and packages proteins and lipids.',lysosome:'Lysosomes: enzyme-filled sacs that digest waste and worn-out cell parts.',centriole:'Centrioles: help organise microtubules during cell division.',membrane:'Cell membrane: selectively controls what enters and leaves the cell.',ribosome:'Ribosomes: tiny structures where proteins are made.'};
+function explainAnimalPart(p){document.getElementById('bioAnimalFact').textContent=animalFacts[p]||'Explore this cell structure.';}
+function makeAnimalCellModel(){
+ const T=window.THREE,c=document.getElementById('bioAnimalCanvas'),status=document.getElementById('bioAnimalStatus');if(!T||!c){status.textContent='3D engine unavailable. Reload when online.';return;}
+ try{
+ animalCellScene=new T.Scene();animalCellScene.background=new T.Color(0x100914);animalCellCamera=new T.PerspectiveCamera(36,1,.1,100);animalCellCamera.position.set(5.8,4.1,8.8);animalCellCamera.lookAt(0,0,0);
+ animalCellRenderer=new T.WebGLRenderer({canvas:c,antialias:true,alpha:false,powerPreference:'low-power'});animalCellRenderer.setPixelRatio(Math.min(window.devicePixelRatio||1,window.innerWidth<700?1.1:1.45));animalCellRenderer.shadowMap.enabled=true;animalCellRenderer.shadowMap.type=T.PCFSoftShadowMap;animalCellRenderer.outputColorSpace=T.SRGBColorSpace;animalCellRenderer.toneMapping=T.ACESFilmicToneMapping;
+ animalCellScene.add(new T.HemisphereLight(0xf5e8ff,0x25132b,1.7));const key=new T.DirectionalLight(0xffe4d2,3);key.position.set(-4,6,7);key.castShadow=true;animalCellScene.add(key);const rim=new T.PointLight(0x9c70ff,2,16);rim.position.set(4,1,-4);animalCellScene.add(rim);
+ const g=animalCellGroup=new T.Group();g.rotation.set(-.2,.42,.08);animalCellScene.add(g);
+ const mat=(color,opacity=1)=>new T.MeshPhysicalMaterial({color,roughness:.3,transparent:opacity<1,opacity,side:T.DoubleSide,clearcoat:.6});
+ const add=(name,geo,m,pos,parent=g)=>{const o=new T.Mesh(geo,m);o.name=name;o.position.set(...pos);o.castShadow=true;o.receiveShadow=true;parent.add(o);return o;};
+ const ball=(name,m,pos,scale)=>{const o=add(name,new T.SphereGeometry(1,40,28),m,pos);o.scale.set(...scale);return o;};
+ const shell=ball('membrane',mat(0x65d7cf,.3),[0,0,0],[2.1,1.5,1.15]);shell.userData.shell=true;ball('cytoplasm',mat(0xd78bc4,.2),[0,0,0],[1.98,1.39,1.05]);
+ const ng=new T.Group();ng.name='nucleus';ng.position.set(-.62,.25,.65);g.add(ng);const nuc=add('nucleus',new T.SphereGeometry(.58,48,36),mat(0x7853ad),[0,0,0],ng);nuc.scale.set(1,.92,.88);add('nucleus',new T.SphereGeometry(.19,28,20),mat(0xe7c7ff),[.1,0,.36],ng);
+ for(let i=0;i<4;i++){const pts=[];for(let j=0;j<7;j++)pts.push(new T.Vector3(-.4+j*.13,Math.sin(j+i)*.13+(i-2)*.07,.3));ng.add(new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts),30,.012,6,false),mat(0xd9b8f5)));}
+ function mito(x,y,z,rot){const q=new T.Group();q.position.set(x,y,z);q.rotation.z=rot;q.name='mitochondrion';g.add(q);const b=add('mitochondrion',new T.SphereGeometry(1,36,24),mat(0xd9794f),[0,0,0],q);b.scale.set(.43,.23,.18);for(let k=-2;k<=2;k++){const pts=[new T.Vector3(-.28,k*.04,.15),new T.Vector3(-.13,-k*.04,.16),new T.Vector3(0,k*.04,.16),new T.Vector3(.14,-k*.04,.16),new T.Vector3(.28,k*.04,.15)];q.add(new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts),22,.014,6,false),mat(0xffc17d)));}}
+ mito(-1.2,-.55,.5,.5);mito(.95,.62,.5,-.45);mito(1.2,-.7,.2,.2);
+ for(let row=0;row<5;row++){const pts=[];for(let j=0;j<9;j++)pts.push(new T.Vector3(-.2+j*.16,.95-row*.12+Math.sin(j*.8+row)*.06,.35));g.add(new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts),44,.026,7,false),mat(0x6ea9cf)));}
+ for(let layer=0;layer<5;layer++){const pts=[];for(let j=0;j<10;j++)pts.push(new T.Vector3(.35+j*.075,-.62+layer*.09+Math.sin(j/9*Math.PI)*.12,.5));g.add(new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts),40,.035,8,false),mat(0xe7a0d0)));}
+ for(let n=0;n<10;n++){const a=n*2.4;ball('lysosome',mat(n%2?0x8ecb8e:0xf2c36d),[Math.cos(a)*1.4,Math.sin(a)*.85,.45],[.09,.09,.09]);}
+ const cent=new T.Group();cent.name='centriole';cent.position.set(.9,-.1,.7);g.add(cent);for(let k=0;k<2;k++){const o=add('centriole',new T.CylinderGeometry(.1,.1,.46,18),mat(0xf2c36d),[k*.2,0,0],cent);o.rotation.z=k?Math.PI/2:.12;}
+ const drag={on:false,moved:false,x:0,y:0,sx:0,sy:0};c.addEventListener('pointerdown',e=>{drag.on=true;drag.moved=false;drag.x=drag.sx=e.clientX;drag.y=drag.sy=e.clientY;c.setPointerCapture(e.pointerId);});c.addEventListener('pointermove',e=>{if(!drag.on)return;if(Math.hypot(e.clientX-drag.sx,e.clientY-drag.sy)>5)drag.moved=true;g.rotation.y+=(e.clientX-drag.x)*.008;g.rotation.x+=(e.clientY-drag.y)*.008;drag.x=e.clientX;drag.y=e.clientY;});c.addEventListener('pointerup',()=>drag.on=false);c.addEventListener('pointercancel',()=>drag.on=false);
+ c.addEventListener('wheel',e=>{e.preventDefault();animalCellCamera.position.multiplyScalar(1+e.deltaY*.001);animalCellCamera.position.setLength(Math.max(6.1,Math.min(13,animalCellCamera.position.length())));animalCellCamera.lookAt(0,0,0);},{passive:false});
+ const ray=new T.Raycaster(),p=new T.Vector2();c.addEventListener('click',e=>{if(drag.moved){drag.moved=false;return;}const r=c.getBoundingClientRect();p.x=(e.clientX-r.left)/r.width*2-1;p.y=-(e.clientY-r.top)/r.height*2+1;ray.setFromCamera(p,animalCellCamera);const hit=ray.intersectObjects(g.children,true)[0];if(hit){let o=hit.object;while(o&&o!==g&&!o.name)o=o.parent;if(o&&o.name)explainAnimalPart(o.name);}});
+ const resize=()=>{const r=c.getBoundingClientRect();if(!r.width||!r.height)return;animalCellCamera.aspect=r.width/r.height;animalCellCamera.updateProjectionMatrix();animalCellRenderer.setSize(r.width,r.height,false);};if(window.ResizeObserver)new ResizeObserver(resize).observe(c);else window.addEventListener('resize',resize);resize();
+ let visible=true;const draw=()=>{if(!animalCellPaused&&!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches))g.rotation.y+=.0007;animalCellRenderer.render(animalCellScene,animalCellCamera);};const sync=()=>animalCellRenderer.setAnimationLoop(visible&&!document.hidden?draw:null);document.addEventListener('visibilitychange',sync);if('IntersectionObserver'in window){const obs=new IntersectionObserver(es=>{visible=!!(es[0]&&es[0].isIntersecting);sync();},{threshold:.05});obs.observe(c);}sync();status.textContent='3D MODEL READY · Drag to rotate · Scroll to zoom · Select organelles';
+ }catch(e){status.textContent='3D model could not start: '+(e.message||'browser limitation');}
+}
+function toggleAnimalCell3D(){animalCellPaused=!animalCellPaused;document.getElementById('bioAnimalToggle').textContent=animalCellPaused?'Resume rotation':'Pause rotation';}
+function resetAnimalCell3D(){if(!animalCellGroup||!animalCellCamera)return;animalCellGroup.rotation.set(-.2,.42,.08);animalCellCamera.position.set(5.8,4.1,8.8);animalCellCamera.lookAt(0,0,0);toggleAnimalCellCutaway(true);}
+function toggleAnimalCellCutaway(force){if(!animalCellGroup)return;animalCellCut=typeof force==='boolean'?force:!animalCellCut;animalCellGroup.children.forEach(o=>{if(o.userData.shell)o.material.opacity=animalCellCut?.07:.3;});document.getElementById('bioAnimalCutaway').textContent=animalCellCut?'Restore membrane':'Show inside';}
 
 </script>
 </body>
