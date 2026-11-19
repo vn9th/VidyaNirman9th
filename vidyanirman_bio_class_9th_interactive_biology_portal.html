@@ -190,7 +190,7 @@
         .bio-3d-vacuole{border-radius:48% 52% 58% 42%;box-shadow:inset -8px -8px 12px #1e40af88,inset 5px 5px 10px #fff8,0 7px 15px #0009}
         .bio-3d-chloro{box-shadow:inset 0 3px 5px #fff9,inset 0 -5px 7px #064e3b,0 5px 12px #0009}
         .bio-lab-float{animation:bioLabFloat 4s ease-in-out infinite}
-        .bio-microscope-body{display:flex;flex-direction:column;align-items:center;gap:10px}.bio-microscope-window{position:relative;width:min(270px,72vw);aspect-ratio:1;border-radius:50%;overflow:hidden;border:12px solid #b88b28;background:#07110c;box-shadow:inset 0 0 0 4px #f4d77b,inset 0 0 35px #000,0 0 32px #10b98133}.bio-microscope-view{position:absolute;inset:0;overflow:hidden;background:#13251a;touch-action:none;cursor:grab;user-select:none}.bio-microscope-view.is-dragging{cursor:grabbing}.bio-microscope-view img{width:100%;height:100%;display:block;object-fit:cover;transform:translate3d(0,0,0) scale(1);transform-origin:50% 50%;transition:none;will-change:transform;user-select:none;-webkit-user-drag:none;pointer-events:none}.bio-micro-crosshair{position:absolute;inset:0;pointer-events:none;background:linear-gradient(transparent calc(50% - .5px),#d1fae544 50%,transparent calc(50% + .5px)),linear-gradient(90deg,transparent calc(50% - .5px),#d1fae544 50%,transparent calc(50% + .5px));border-radius:50%}.bio-micro-readout{display:flex;gap:12px;align-items:center;color:#86efac;font:10px monospace;letter-spacing:.14em}.bio-micro-readout strong{color:#fcd34d;font-size:13px}
+        .bio-microscope-body{display:flex;flex-direction:column;align-items:center;gap:12px;padding:14px 8px 18px;background:radial-gradient(ellipse at 50% 15%,#263a32 0,#101b17 42%,#080d0b 100%);border:1px solid #b88b2855;border-radius:18px;box-shadow:inset 0 1px #ffffff12,0 16px 35px #0008}.bio-microscope-window{position:relative;width:min(330px,78vw);aspect-ratio:1;border-radius:50%;overflow:hidden;border:13px solid #9b7227;background:#07110c;box-shadow:inset 0 0 0 3px #f4d77b,inset 0 0 35px #000,0 0 0 5px #30230f,0 0 0 7px #d7b65b55,0 0 38px #10b98130}.bio-microscope-view{position:absolute;inset:0;overflow:hidden;background:#13251a;touch-action:none;cursor:grab;user-select:none}.bio-microscope-view.is-dragging{cursor:grabbing}.bio-microscope-view img{width:100%;height:100%;display:block;object-fit:cover;transform:translate3d(0,0,0) scale(1);transform-origin:50% 50%;transition:none;user-select:none;-webkit-user-drag:none;pointer-events:none;filter:contrast(1.08) saturate(1.08)}.bio-micro-crosshair{position:absolute;inset:0;pointer-events:none;background:linear-gradient(transparent calc(50% - .5px),#d1fae544 50%,transparent calc(50% + .5px)),linear-gradient(90deg,transparent calc(50% - .5px),#d1fae544 50%,transparent calc(50% + .5px));border-radius:50%}.bio-micro-readout{display:flex;gap:12px;align-items:center;color:#86efac;font:10px monospace;letter-spacing:.14em}.bio-micro-readout strong{color:#fcd34d;font-size:13px}.bio-micro-panel{border:1px solid #d4af3744;background:linear-gradient(145deg,#19080d,#0b1010);border-radius:12px;padding:12px}.bio-micro-objective{border:1px solid #d4af3755;border-radius:9px;padding:8px 12px;color:#f8e6ad;background:#160b0c;font-size:11px;font-weight:800}.bio-micro-objective.active{background:#a87920;color:#160b0c;border-color:#f6d77b;box-shadow:0 0 14px #eabf4b55}.bio-micro-slider{width:100%;accent-color:#d4af37}.bio-micro-stage-light{height:5px;border-radius:99px;background:linear-gradient(90deg,#5b3d12,#f5d778,#5b3d12);box-shadow:0 0 16px #f5d77866;width:55%;margin:auto}
         .bio-scanline{height:3px;background:#a7f3d0;box-shadow:0 0 12px #34d399;animation:bioScan 2.6s ease-in-out infinite}
         .bio-arcade-card{background:linear-gradient(145deg,rgba(66,12,25,.94),rgba(13,2,4,.98));border:1px solid rgba(212,175,55,.28);border-radius:1.25rem;padding:1.2rem}
         .bio-arcade-btn{border:1px solid rgba(212,175,55,.35);background:#16050a;color:#fff1c2;border-radius:.75rem;padding:.7rem .8rem;font-size:.78rem;text-align:left;transition:all .18s}
@@ -1277,8 +1277,7 @@
 </article>
           <article class="bio-arcade-card">
             <div class="flex items-center justify-between gap-2"><div><span class="text-[10px] text-cyan-300 font-bold tracking-widest">LAB 03</span><h3 class="text-lg font-bold text-amber-100">Virtual Microscope</h3></div><i class="fa-solid fa-microscope text-2xl text-cyan-300"></i></div>
-            <div class="rounded-xl bg-[#090205] py-5 mt-4 relative overflow-hidden"><div class="bio-microscope-body"><div class="bio-microscope-window"><div id="bioMicroView" class="bio-microscope-view" aria-label="Microscope specimen view"></div><div class="bio-micro-crosshair"></div></div><div class="bio-micro-readout"><span>DIGITAL SPECIMEN ZOOM</span><strong id="bioMicroZoomReadout">1×</strong></div></div><p id="bioMicroLabel" class="text-center text-xs text-emerald-200 mt-4">Onion epidermis • educational specimen</p></div>
-            <div class="mt-4 flex items-center justify-between gap-3"><label class="text-xs text-slate-300" for="bioMicroZoom">Digital magnification: <strong id="bioMicroZoomLabel" class="text-amber-300">1×</strong></label><button type="button" class="bio-lab-control" onclick="resetBioMicroscope()">Reset view</button></div><input id="bioMicroZoom" type="range" min="1" max="6" value="1" step="0.1" class="w-full accent-emerald-400 mt-2" oninput="setBioMicroZoom(this.value)"/><div class="flex flex-wrap gap-2 mt-2"><button type="button" class="bio-lab-control" onclick="stepBioMicroZoom(-0.5)" aria-label="Zoom out">− Zoom out</button><button type="button" class="bio-lab-control" onclick="stepBioMicroZoom(0.5)" aria-label="Zoom in">+ Zoom in</button><span class="text-[10px] text-slate-400 self-center">Drag to explore · Scroll to zoom</span></div>
+            <div class="rounded-xl bg-[#090205] p-3 mt-4 relative overflow-hidden"><div class="bio-microscope-body"><div class="flex w-full max-w-sm items-center justify-between px-2"><span class="text-[9px] tracking-[.2em] text-emerald-200">VN VIRTUAL MICROSCOPE</span><span class="text-[9px] text-amber-300">10× EYEPIECE</span></div><div class="bio-microscope-window"><div id="bioMicroView" class="bio-microscope-view" aria-label="Microscope specimen view"></div><div class="bio-micro-crosshair"></div></div><div class="bio-micro-stage-light"></div><div class="bio-micro-readout"><span>SIMULATED TOTAL MAGNIFICATION</span><strong id="bioMicroZoomReadout">40×</strong></div><p id="bioMicroLabel" class="text-center text-xs text-emerald-200">Onion epidermis • educational specimen</p></div></div><div class="bio-micro-panel mt-3"><div class="flex items-center justify-between gap-2"><span class="text-[10px] tracking-widest text-amber-200 font-bold">OBJECTIVE LENS</span><button type="button" class="bio-lab-control" onclick="resetBioMicroscope()">Reset microscope</button></div><div class="flex flex-wrap gap-2 mt-3"><button type="button" class="bio-micro-objective active" data-objective="4" onclick="setBioObjective(4)">4× SCAN</button><button type="button" class="bio-micro-objective" data-objective="10" onclick="setBioObjective(10)">10× LOW</button><button type="button" class="bio-micro-objective" data-objective="40" onclick="setBioObjective(40)">40× HIGH</button></div><div class="flex justify-between mt-3 text-xs text-slate-300"><label for="bioMicroZoom">Fine zoom</label><strong id="bioMicroZoomLabel" class="text-amber-300">40×</strong></div><input id="bioMicroZoom" type="range" min="1" max="4" value="1" step="0.05" class="bio-micro-slider mt-2" oninput="setBioMicroZoom(this.value)"/><div class="grid grid-cols-2 gap-3 mt-3"><label class="text-[10px] text-slate-300">Focus <input id="bioMicroFocus" class="bio-micro-slider block mt-2" type="range" min="0" max="100" value="50" oninput="setBioMicroFocus(this.value)"/></label><label class="text-[10px] text-slate-300">Illumination <input id="bioMicroLight" class="bio-micro-slider block mt-2" type="range" min="30" max="130" value="100" oninput="setBioMicroLight(this.value)"/></label></div><p class="text-[10px] text-slate-400 mt-3">Drag specimen to pan · wheel to zoom · objective lenses change simulated magnification. Digital simulation, not optical magnification.</p></div>
             <div class="flex flex-wrap gap-2 mt-3"><button class="bio-lab-control" type="button" onclick="setBioMicroSample('plant')">Plant cells</button><button class="bio-lab-control" type="button" onclick="setBioMicroSample('animal')">Animal cells</button><button class="bio-lab-control" type="button" onclick="setBioMicroSample('blood')">Blood cells</button></div>
             <p id="bioMicroFact" class="text-xs text-slate-300 mt-3 min-h-8">Adjust magnification and switch the sample. This is a conceptual simulation, not a real microscope image.</p>
           </article>
@@ -1569,25 +1568,31 @@
           animal:{label:'Human cheek epithelial cells • real microscope photograph',fact:'Real stained human cheek epithelial cells. The blue stain helps show cell outlines and nuclei. Image: Aholderfield, Wikimedia Commons, CC BY 4.0.',kind:'animal',src:'https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b0/Microscopic_Image_of_Human_Cheek_Cells.jpg/960px-Microscopic_Image_of_Human_Cheek_Cells.jpg'},
           blood:{label:'Human blood smear • real microscope photograph',fact:'Real human blood-smear photograph at 400×. Red blood cells appear as numerous small discs. Image: Olena Hohulia et al., Wikimedia Commons, CC BY 4.0.',kind:'blood',src:'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/11/Human_blood.jpg/1280px-Human_blood.jpg'}
         };
-        let bioMicroZoomLevel=1,bioMicroPanX=0,bioMicroPanY=0,bioMicroDrag=null;
+        let bioMicroZoomLevel=1,bioMicroObjective=4,bioMicroPanX=0,bioMicroPanY=0,bioMicroDrag=null,bioMicroPaintFrame=0;
         function paintBioMicroscope(){
-          const view=document.getElementById('bioMicroView'),img=view&&view.querySelector('img');
-          if(!view||!img)return;
-          const w=view.clientWidth,h=view.clientHeight,maxX=(bioMicroZoomLevel-1)*w/2,maxY=(bioMicroZoomLevel-1)*h/2;
-          bioMicroPanX=Math.max(-maxX,Math.min(maxX,bioMicroPanX));bioMicroPanY=Math.max(-maxY,Math.min(maxY,bioMicroPanY));
-          img.style.transform='translate3d('+bioMicroPanX+'px,'+bioMicroPanY+'px,0) scale('+bioMicroZoomLevel+')';
+          if(bioMicroPaintFrame)return;
+          bioMicroPaintFrame=requestAnimationFrame(()=>{
+            bioMicroPaintFrame=0;
+            const view=document.getElementById('bioMicroView'),img=view&&view.querySelector('img');
+            if(!view||!img)return;
+            const w=view.clientWidth,h=view.clientHeight,scale=bioMicroZoomLevel;
+            const maxX=(scale-1)*w/2,maxY=(scale-1)*h/2;
+            bioMicroPanX=Math.max(-maxX,Math.min(maxX,bioMicroPanX));bioMicroPanY=Math.max(-maxY,Math.min(maxY,bioMicroPanY));
+            img.style.transform='translate3d('+bioMicroPanX+'px,'+bioMicroPanY+'px,0) scale('+scale+')';
+          });
         }
-        function setBioMicroZoom(value){
-          bioMicroZoomLevel=Math.max(1,Math.min(6,Number(value)||1));
-          const slider=document.getElementById('bioMicroZoom');if(slider)slider.value=String(bioMicroZoomLevel);
-          const label=bioMicroZoomLevel.toFixed(1).replace(/\\.0$/,'')+'×';
-          const labelEl=document.getElementById('bioMicroZoomLabel');if(labelEl)labelEl.textContent=label;
-          const readout=document.getElementById('bioMicroZoomReadout');if(readout)readout.textContent=label;
-          if(bioMicroZoomLevel===1){bioMicroPanX=0;bioMicroPanY=0;}
-          paintBioMicroscope();
+        function updateBioMicroReadout(){
+          const total=bioMicroObjective*10*bioMicroZoomLevel;
+          const label=(total>=100?Math.round(total):Math.round(total*10)/10)+'×';
+          ['bioMicroZoomLabel','bioMicroZoomReadout'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=label;});
+          document.querySelectorAll('[data-objective]').forEach(b=>b.classList.toggle('active',Number(b.dataset.objective)===bioMicroObjective));
         }
+        function setBioObjective(value){bioMicroObjective=Number(value)||4;bioMicroZoomLevel=1;bioMicroPanX=0;bioMicroPanY=0;const s=document.getElementById('bioMicroZoom');if(s)s.value='1';updateBioMicroReadout();paintBioMicroscope();}
+        function setBioMicroZoom(value){bioMicroZoomLevel=Math.max(1,Math.min(4,Number(value)||1));const s=document.getElementById('bioMicroZoom');if(s)s.value=String(bioMicroZoomLevel);if(bioMicroZoomLevel===1){bioMicroPanX=0;bioMicroPanY=0;}updateBioMicroReadout();paintBioMicroscope();}
         function stepBioMicroZoom(delta){setBioMicroZoom(bioMicroZoomLevel+delta);}
-        function resetBioMicroscope(){bioMicroPanX=0;bioMicroPanY=0;setBioMicroZoom(1);}
+        function setBioMicroFocus(value){const img=document.querySelector('#bioMicroView img');if(img){const blur=Math.abs(Number(value)-50)/50*.8;img.style.filter='contrast(1.08) saturate(1.08) blur('+blur.toFixed(2)+'px)';}}
+        function setBioMicroLight(value){const img=document.querySelector('#bioMicroView img');if(img)img.style.opacity=String(Math.max(.3,Math.min(1.3,Number(value)/100)));}
+        function resetBioMicroscope(){bioMicroPanX=0;bioMicroPanY=0;bioMicroZoomLevel=1;bioMicroObjective=4;const s=document.getElementById('bioMicroZoom');if(s)s.value='1';const f=document.getElementById('bioMicroFocus');if(f)f.value='50';const l=document.getElementById('bioMicroLight');if(l)l.value='100';setBioMicroFocus(50);setBioMicroLight(100);updateBioMicroReadout();paintBioMicroscope();}
         function setBioMicroSample(sample){
           if(!bioMicroSamples[sample])return;
           const data=bioMicroSamples[sample],view=document.getElementById('bioMicroView');
@@ -1602,7 +1607,7 @@
           view.addEventListener('pointermove',e=>{if(!bioMicroDrag)return;bioMicroPanX=bioMicroDrag.panX+(e.clientX-bioMicroDrag.x);bioMicroPanY=bioMicroDrag.panY+(e.clientY-bioMicroDrag.y);paintBioMicroscope();});
           const stop=()=>{bioMicroDrag=null;view.classList.remove('is-dragging');};
           view.addEventListener('pointerup',stop);view.addEventListener('pointercancel',stop);view.addEventListener('lostpointercapture',stop);
-          view.addEventListener('wheel',e=>{e.preventDefault();stepBioMicroZoom(e.deltaY<0?0.2:-0.2);},{passive:false});
+          view.addEventListener('wheel',e=>{e.preventDefault();stepBioMicroZoom(e.deltaY<0?.12:-.12);},{passive:false});
           window.addEventListener('resize',paintBioMicroscope,{passive:true});
         }
         const bioEcoData=[{role:'Producer • makes its own food',energy:10000,fact:'Plants capture energy from sunlight and form the base of this food chain.'},{role:'Primary consumer • herbivore',energy:1000,fact:'The grasshopper obtains energy by eating the grass. Only a fraction of energy passes to the next level.'},{role:'Secondary consumer • carnivore',energy:100,fact:'The frog gets energy by eating the grasshopper. Energy available decreases at each trophic level.'},{role:'Tertiary consumer • carnivore',energy:10,fact:'The snake obtains energy by eating the frog. The simplified model illustrates the 10% energy transfer rule.'}];
@@ -1732,10 +1737,11 @@
         }
         const bioParticleCount = Math.min(24, Math.max(12, Math.floor((window.innerWidth * window.innerHeight) / 65000)));
         for (let i = 0; i < bioParticleCount; i++) particles.push(new Particle());
-        let bioParticleFrame = 0, bioParticleLastTime = 0, bioParticleRunning = false;
+        let bioParticleFrame = 0, bioParticleLastTime = 0, bioParticleRunning = false, bioPageScrolling = false, bioScrollResumeTimer = 0;
+        function stopBioParticles(){if(bioParticleFrame)cancelAnimationFrame(bioParticleFrame);bioParticleFrame=0;bioParticleRunning=false;}
         function animateParticles(timestamp) {
-            if (document.hidden) { bioParticleRunning = false; return; }
-            if (timestamp - bioParticleLastTime >= 33) {
+            if (document.hidden || bioPageScrolling || bioActiveScientificModel) { stopBioParticles(); return; }
+            if (timestamp - bioParticleLastTime >= 50) {
                 bioParticleLastTime = timestamp;
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 particles.forEach(p => { p.update(); p.draw(); });
@@ -1743,14 +1749,12 @@
             bioParticleFrame = requestAnimationFrame(animateParticles);
         }
         function startBioParticles() {
-            if (bioParticleRunning || document.hidden) return;
+            if (bioParticleRunning || document.hidden || bioPageScrolling || bioActiveScientificModel) return;
             bioParticleRunning = true;
             bioParticleFrame = requestAnimationFrame(animateParticles);
         }
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) { cancelAnimationFrame(bioParticleFrame); bioParticleRunning = false; }
-            else startBioParticles();
-        });
+        window.addEventListener('scroll',()=>{bioPageScrolling=true;stopBioParticles();clearTimeout(bioScrollResumeTimer);bioScrollResumeTimer=setTimeout(()=>{bioPageScrolling=false;startBioParticles();},260);},{passive:true});
+        document.addEventListener('visibilitychange', () => {if (document.hidden) stopBioParticles(); else startBioParticles();});
         startBioParticles();
 
         /* Interactive 2D Cell Inspector */
@@ -2512,21 +2516,23 @@ function toggleAnimalCellCutaway(force){if(!animalCellGroup)return;animalCellCut
 <script>
 /* Performance: only initialise one external WebGL cell scene when the student requests it. */
 let bioActiveScientificModel = null;
+function releaseBioScientificModel(frame){
+ if(!frame)return;
+ frame.src='about:blank';
+ const kind=frame.dataset.modelKind,launch=document.querySelector('[data-model-launch="'+kind+'"]');
+ if(launch){launch.classList.remove('hidden');const button=launch.querySelector('button');if(button)button.disabled=false;}
+ if(bioActiveScientificModel===frame)bioActiveScientificModel=null;
+ if(typeof startBioParticles==='function')startBioParticles();
+}
 function loadBioScientificModel(kind){
  const frame=document.querySelector('iframe[data-model-kind="'+kind+'"]');
  if(!frame)return;
- if(bioActiveScientificModel && bioActiveScientificModel!==frame){
-   bioActiveScientificModel.src='about:blank';
-   const oldKind=bioActiveScientificModel.dataset.modelKind;
-   const oldLaunch=document.querySelector('[data-model-launch="'+oldKind+'"]');
-   if(oldLaunch){oldLaunch.classList.remove('hidden');oldLaunch.querySelector('button').disabled=false;}
- }
+ if(bioActiveScientificModel && bioActiveScientificModel!==frame)releaseBioScientificModel(bioActiveScientificModel);
  const launch=document.querySelector('[data-model-launch="'+kind+'"]');
- if(frame.src==='about:blank'||frame.getAttribute('src')==='about:blank'){
-   frame.src=frame.dataset.modelSrc;
- }
+ if(frame.getAttribute('src')==='about:blank')frame.src=frame.dataset.modelSrc;
  bioActiveScientificModel=frame;
- if(launch){launch.classList.add('hidden');}
+ if(launch)launch.classList.add('hidden');
+ if(typeof stopBioParticles==='function')stopBioParticles();
 }
 window.addEventListener('pagehide',()=>{
  document.querySelectorAll('iframe[data-model-kind]').forEach(frame=>{frame.src='about:blank';});
