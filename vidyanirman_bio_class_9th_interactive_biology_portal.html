@@ -2516,6 +2516,18 @@ function toggleAnimalCellCutaway(force){if(!animalCellGroup)return;animalCellCut
 <script>
 /* Performance: only initialise one external WebGL cell scene when the student requests it. */
 let bioActiveScientificModel = null;
+const bioModelObservers = new WeakMap();
+function watchBioScientificModel(frame){
+ if(!('IntersectionObserver' in window)||bioModelObservers.has(frame))return;
+ const observer=new IntersectionObserver(entries=>{
+   const entry=entries[0];
+   if(entry&&!entry.isIntersecting&&frame.getAttribute('src')!=='about:blank'&&bioActiveScientificModel===frame){
+     releaseBioScientificModel(frame);
+   }
+ },{rootMargin:'260px 0px',threshold:0.01});
+ bioModelObservers.set(frame,observer);
+ observer.observe(frame);
+}
 function releaseBioScientificModel(frame){
  if(!frame)return;
  frame.src='about:blank';
@@ -2532,6 +2544,7 @@ function loadBioScientificModel(kind){
  if(frame.getAttribute('src')==='about:blank')frame.src=frame.dataset.modelSrc;
  bioActiveScientificModel=frame;
  if(launch)launch.classList.add('hidden');
+ watchBioScientificModel(frame);
  if(typeof stopBioParticles==='function')stopBioParticles();
 }
 window.addEventListener('pagehide',()=>{
