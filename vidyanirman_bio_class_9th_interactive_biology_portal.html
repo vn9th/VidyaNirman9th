@@ -209,7 +209,19 @@
         .bio-energy-bar{height:12px;border-radius:99px;background:linear-gradient(90deg,#34d399,#facc15);transition:width .6s}
         @media(prefers-reduced-motion:reduce){.bio-3d-cell,.bio-lab-float,.bio-scanline{animation:none!important}.bio-arcade-btn{transition:none}}
 
-    </style>
+    
+        .vn-cell-sim{border:1px solid #d4af3744;border-radius:16px;background:radial-gradient(ellipse at 50% 20%,#183329,#080d0b 75%);overflow:hidden}
+        .vn-cell-sim-stage{position:relative;height:360px;min-height:280px}
+        .vn-cell-sim-stage canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}
+        .vn-cell-sim-stage canvas:active{cursor:grabbing}
+        .vn-cell-sim-hud{position:absolute;left:10px;right:10px;top:10px;display:flex;justify-content:space-between;gap:8px;pointer-events:none;font:9px monospace;letter-spacing:.1em;color:#f4e6b5;text-shadow:0 1px 4px #000}
+        .vn-cell-sim-controls{display:flex;flex-wrap:wrap;gap:7px;padding:10px;background:#10070a;border-top:1px solid #d4af3733}
+        .vn-cell-sim-btn{border:1px solid #d4af3766;border-radius:8px;padding:7px 10px;background:#1b0b10;color:#f7e8b8;font-size:10px;font-weight:700}
+        .vn-cell-sim-btn.active{background:#b58a2b;color:#170b08;border-color:#f8dc83}
+        .vn-cell-sim-info{min-height:58px;padding:10px 12px;color:#cbd5d1;font-size:11px;background:#080d0b}
+        @media(max-width:640px){.vn-cell-sim-stage{height:300px}}
+
+</style>
 </head>
 <body class="relative min-h-screen text-slate-100 jali-pattern selection:bg-amber-500 selection:text-red-950">
 
@@ -1305,6 +1317,33 @@
     </section>
 
 
+
+
+    <section id="vn-new-cell-simulators" class="py-16 relative z-10 border-b border-amber-500/20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-8"><span class="text-xs text-emerald-300 font-bold uppercase tracking-widest">NEW • INTERACTIVE 3D LAB</span><h2 class="font-cinzel text-2xl sm:text-3xl font-black text-gold-gradient mt-2">Cell Structure Simulators</h2><p class="text-sm text-slate-400 mt-2">Two self-contained 3D models. Rotate the cell, zoom in, reveal internal structures and select organelles to learn their functions.</p></div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <article class="bio-arcade-card">
+            <div class="flex items-center justify-between gap-2"><div><span class="text-[10px] text-emerald-300 font-bold tracking-widest">SIMULATOR 01</span><h3 class="text-lg font-bold text-amber-100">Plant Cell — 3D Explorer</h3><p class="text-xs text-slate-400 mt-1">Cell wall · vacuole · chloroplasts · nucleus</p></div><i class="fa-solid fa-leaf text-2xl text-emerald-300"></i></div>
+            <div class="vn-cell-sim mt-4" data-vn-cell-sim="plant">
+              <div class="vn-cell-sim-stage" id="vnPlantSimStage"><div class="vn-cell-sim-hud"><span>PLANT CELL / 3D DEPTH</span><span>DRAG · ROTATE / WHEEL · ZOOM</span></div></div>
+              <div class="vn-cell-sim-controls"><button class="vn-cell-sim-btn" onclick="vnCellSimLoad('plant')">Load 3D model</button><button class="vn-cell-sim-btn" onclick="vnCellSimCut('plant')">Show inside</button><button class="vn-cell-sim-btn" onclick="vnCellSimRotate('plant')">Pause rotation</button><button class="vn-cell-sim-btn" onclick="vnCellSimReset('plant')">Reset view</button></div>
+              <div class="vn-cell-sim-controls"><button class="vn-cell-sim-btn" onclick="vnCellSimFocus('plant','cell wall')">Cell wall</button><button class="vn-cell-sim-btn" onclick="vnCellSimFocus('plant','vacuole')">Vacuole</button><button class="vn-cell-sim-btn" onclick="vnCellSimFocus('plant','chloroplast')">Chloroplast</button><button class="vn-cell-sim-btn" onclick="vnCellSimFocus('plant','nucleus')">Nucleus</button></div>
+              <p class="vn-cell-sim-info" id="vnPlantSimInfo">Load the model to explore a 3D plant cell. Select any organelle button for its function.</p>
+            </div>
+          </article>
+          <article class="bio-arcade-card">
+            <div class="flex items-center justify-between gap-2"><div><span class="text-[10px] text-fuchsia-300 font-bold tracking-widest">SIMULATOR 02</span><h3 class="text-lg font-bold text-amber-100">Animal Cell — 3D Explorer</h3><p class="text-xs text-slate-400 mt-1">Membrane · mitochondria · Golgi · nucleus</p></div><i class="fa-solid fa-dna text-2xl text-fuchsia-300"></i></div>
+            <div class="vn-cell-sim mt-4" data-vn-cell-sim="animal">
+              <div class="vn-cell-sim-stage" id="vnAnimalSimStage"><div class="vn-cell-sim-hud"><span>ANIMAL CELL / 3D DEPTH</span><span>DRAG · ROTATE / WHEEL · ZOOM</span></div></div>
+              <div class="vn-cell-sim-controls"><button class="vn-cell-sim-btn" onclick="vnCellSimLoad('animal')">Load 3D model</button><button class="vn-cell-sim-btn" onclick="vnCellSimCut('animal')">Show inside</button><button class="vn-cell-sim-btn" onclick="vnCellSimRotate('animal')">Pause rotation</button><button class="vn-cell-sim-btn" onclick="vnCellSimReset('animal')">Reset view</button></div>
+              <div class="vn-cell-sim-controls"><button class="vn-cell-sim-btn" onclick="vnCellSimFocus('animal','membrane')">Membrane</button><button class="vn-cell-sim-btn" onclick="vnCellSimFocus('animal','mitochondria')">Mitochondria</button><button class="vn-cell-sim-btn" onclick="vnCellSimFocus('animal','golgi')">Golgi body</button><button class="vn-cell-sim-btn" onclick="vnCellSimFocus('animal','nucleus')">Nucleus</button></div>
+              <p class="vn-cell-sim-info" id="vnAnimalSimInfo">Load the model to explore a 3D animal cell. Select any organelle button for its function.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
 
     <section id="quiz" class="py-16 relative z-10 border-b border-amber-500/20">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -2828,6 +2867,74 @@ window.addEventListener('pagehide',()=>{
  document.querySelectorAll('iframe[data-model-kind]').forEach(frame=>{frame.src='about:blank';});
  bioActiveScientificModel=null;
 });
+</script>
+
+
+<script>
+(function(){
+ const T=window.THREE;if(!T)return;
+ const states={};
+ const facts={
+  plant:{'cell wall':'Cell wall: a rigid cellulose-rich layer that supports and protects the plant cell.','vacuole':'Central vacuole: stores cell sap and helps maintain turgor pressure.','chloroplast':'Chloroplast: contains chlorophyll; photosynthesis takes place here.','nucleus':'Nucleus: contains genetic material and helps coordinate cell activities.'},
+  animal:{'membrane':'Cell membrane: a selectively permeable boundary that controls movement into and out of the cell.','mitochondria':'Mitochondria: release usable energy through aerobic respiration.','golgi':'Golgi apparatus: modifies, sorts and packages proteins and lipids.','nucleus':'Nucleus: contains DNA and coordinates cell activities.'}
+ };
+ function mat(color,opacity=1,rough=.35){return new T.MeshPhysicalMaterial({color,roughness:rough,metalness:.02,transparent:opacity<1,opacity,side:T.DoubleSide,clearcoat:.65,depthWrite:opacity===1});}
+ function makeMesh(s,name,geo,material,pos,scale){const m=new T.Mesh(geo,material);m.name=name;m.position.set(...pos);m.scale.set(...scale);m.castShadow=true;m.receiveShadow=true;s.root.add(m);s.pickables.push(m);return m;}
+ function sphere(s,name,color,pos,scale,opacity=1){return makeMesh(s,name,new T.SphereGeometry(1,36,28),mat(color,opacity),pos,scale);}
+ function build(kind){
+  const stage=document.getElementById(kind==='plant'?'vnPlantSimStage':'vnAnimalSimStage');if(!stage)return;
+  const scene=new T.Scene();scene.background=new T.Color(kind==='plant'?0x07130e:0x0b0c19);
+  const camera=new T.PerspectiveCamera(38,1,.1,100);camera.position.set(0,.3,8.4);
+  const renderer=new T.WebGLRenderer({antialias:true,alpha:false,powerPreference:'low-power'});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.3));renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;
+  stage.appendChild(renderer.domElement);
+  scene.add(new T.HemisphereLight(0xeafff3,0x17101d,2));
+  const key=new T.DirectionalLight(0xffe8c8,3);key.position.set(4,6,7);scene.add(key);
+  const rim=new T.PointLight(kind==='plant'?0x42e59b:0x9b80ff,17,16);rim.position.set(-4,2,-4);scene.add(rim);
+  const root=new T.Group();scene.add(root);
+  const s={kind,scene,camera,renderer,root,pickables:[],cut:false,paused:false,drag:null,theta:0,phi:0,radius:8.4,frame:null};states[kind]=s;
+  if(kind==='plant'){
+   const wall=mat(0x9bc77d,.22,.42),inner=mat(0x42c98a,.18,.28),cyto=mat(0x4d9867,.48),vacuole=mat(0x4a9ed8,.56,.2);
+   makeMesh(s,'cell wall',new T.BoxGeometry(4.8,3.35,2.15),wall,[0,0,0],[1,1,1]);
+   makeMesh(s,'cell membrane',new T.BoxGeometry(4.55,3.1,1.95),inner,[0,0,0],[1,1,1]);
+   makeMesh(s,'cytoplasm',new T.BoxGeometry(4.35,2.9,1.78),cyto,[0,0,0],[1,1,1]);
+   sphere(s,'vacuole',0x55a9e9,[.2,-.05,-.08],[1.3,1.05,.72],.72);
+   sphere(s,'nucleus',0x8057b8,[-1.35,.42,.72],[.48,.48,.42]);
+   sphere(s,'nucleolus',0xe2c5ff,[-1.22,.42,1.04],[.16,.16,.13]);
+   for(let i=0;i<9;i++){const x=-1.7+(i%3)*1.18,y=-.95+Math.floor(i/3)*.88;const c=sphere(s,'chloroplast',0x23864a,[x,y,.62],[.32,.16,.12]);c.rotation.z=.35;for(let k=0;k<3;k++){const stack=sphere(s,'thylakoid',0x9be58b,[x-.13+k*.12,y,.74],[.045,.105,.035]);}}
+   for(let i=0;i<3;i++){const m=sphere(s,'mitochondrion',0xc46a43,[-1+i*1.1,-1.18,.9],[.28,.14,.12]);m.rotation.z=.4;}
+  }else{
+   const membrane=mat(0x6bcbd2,.2,.3),cyto=mat(0x5c638f,.18,.5);
+   sphere(s,'membrane',0x5acbd0,[0,0,0],[2.3,1.72,1.38],.23);
+   sphere(s,'cytoplasm',0x7775a6,[0,0,0],[2.12,1.56,1.23],.16);
+   sphere(s,'nucleus',0x65439b,[-.48,.28,.55],[.72,.68,.62]);
+   sphere(s,'nucleolus',0xe0b8ff,[-.34,.18,1.08],[.22,.2,.16]);
+   for(let i=0;i<5;i++){const x=-1.2+i*.58;const m=sphere(s,'mitochondria',0xc66b50,[x,-.85,.55],[.34,.17,.14]);m.rotation.z=.3+i*.12;for(let k=0;k<3;k++){const cr=new T.Mesh(new T.TorusGeometry(.09,.025,6,14),mat(0xffc18a));cr.position.set(x-.1+k*.1,-.85,.68);root.add(cr);}}
+   for(let i=0;i<5;i++){const tor=new T.Mesh(new T.TorusGeometry(.48+i*.075,.035,8,36),mat(0x55a7c4));tor.position.set(.75,.42-i*.13,.12);tor.rotation.set(.5,.2,.35);root.add(tor);s.pickables.push(tor);tor.name='endoplasmic reticulum';}
+   for(let i=0;i<5;i++){const g=new T.Mesh(new T.TorusGeometry(.28+i*.07,.055,8,32),mat(0xd98ab8));g.position.set(1.15,-.15+i*.17,.48);g.rotation.y=.45;root.add(g);s.pickables.push(g);g.name='golgi';}
+   for(let i=0;i<5;i++)sphere(s,'lysosome',0xe6b75e,[-1.35+(i%2)*.38,-.65+Math.floor(i/2)*.5,.55],[.13,.13,.13]);
+  }
+  const resize=()=>{const w=Math.max(1,stage.clientWidth),h=Math.max(1,stage.clientHeight);renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();render();};s.resize=resize;
+  function render(){renderer.render(scene,camera);}
+  s.render=render;
+  const place=()=>{camera.position.set(s.radius*Math.sin(s.phi)*Math.sin(s.theta),s.radius*Math.sin(s.phi)*Math.cos(s.theta),s.radius*Math.cos(s.phi));camera.lookAt(0,0,0);};
+  s.place=place;
+  renderer.domElement.addEventListener('pointerdown',e=>{s.drag={x:e.clientX,y:e.clientY,theta:s.theta,phi:s.phi};renderer.domElement.setPointerCapture(e.pointerId);});
+  renderer.domElement.addEventListener('pointermove',e=>{if(!s.drag)return;s.theta=s.drag.theta+(e.clientX-s.drag.x)*.008;s.phi=Math.max(.35,Math.min(2.8,s.drag.phi+(e.clientY-s.drag.y)*.008));place();render();});
+  const stop=()=>s.drag=null;renderer.domElement.addEventListener('pointerup',stop);renderer.domElement.addEventListener('pointercancel',stop);
+  renderer.domElement.addEventListener('wheel',e=>{e.preventDefault();s.radius=Math.max(5,Math.min(14,s.radius+(e.deltaY>0?.45:-.45)));place();render();},{passive:false});
+  const ray=new T.Raycaster(),mouse=new T.Vector2();
+  renderer.domElement.addEventListener('click',e=>{const r=renderer.domElement.getBoundingClientRect();mouse.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);ray.setFromCamera(mouse,camera);const hit=ray.intersectObjects(s.pickables,false)[0];if(hit){const name=hit.object.name;document.getElementById(kind==='plant'?'vnPlantSimInfo':'vnAnimalSimInfo').textContent=(facts[kind][name]||name+': explore this cell component in the model.');}});
+  s.animate=()=>{if(!s.paused&&!document.hidden){root.rotation.y+=.002;render();}s.frame=requestAnimationFrame(s.animate);};
+  if(window.ResizeObserver)new ResizeObserver(resize).observe(stage);else window.addEventListener('resize',resize);
+  resize();s.animate();
+ }
+ window.vnCellSimLoad=function(kind){if(!states[kind])build(kind);const s=states[kind];if(s){s.resize();document.getElementById(kind==='plant'?'vnPlantSimInfo':'vnAnimalSimInfo').textContent='3D model ready. Drag to rotate, scroll to zoom, or click an organelle.';}};
+ window.vnCellSimCut=function(kind){const s=states[kind];if(!s){vnCellSimLoad(kind);return;}s.cut=!s.cut;s.root.children.forEach(o=>{if(o.name==='cell wall'||o.name==='membrane')o.visible=!s.cut;});};
+ window.vnCellSimRotate=function(kind){const s=states[kind];if(!s){vnCellSimLoad(kind);return;}s.paused=!s.paused;};
+ window.vnCellSimReset=function(kind){const s=states[kind];if(!s){vnCellSimLoad(kind);return;}s.theta=0;s.phi=Math.PI/2;s.radius=8.4;s.place();s.render();};
+ window.vnCellSimFocus=function(kind,part){const s=states[kind];if(!s){vnCellSimLoad(kind);return;}const names=kind==='plant'?{'cell wall':'Rigid cellulose layer supports the plant cell.','vacuole':'Large fluid-filled compartment stores cell sap and maintains turgor.','chloroplast':'Chloroplasts contain chlorophyll and carry out photosynthesis.','nucleus':'The nucleus contains DNA and coordinates cell activities.'}:{membrane:'The cell membrane selectively controls entry and exit of substances.',mitochondria:'Mitochondria release usable energy through aerobic respiration.',golgi:'Golgi bodies modify, sort and package proteins and lipids.',nucleus:'The nucleus contains DNA and coordinates cell activities.'};document.getElementById(kind==='plant'?'vnPlantSimInfo':'vnAnimalSimInfo').textContent=names[part]||part;};
+})();
 </script>
 
 </body>
