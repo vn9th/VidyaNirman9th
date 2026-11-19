@@ -1277,7 +1277,7 @@
 </article>
           <article class="bio-arcade-card">
             <div class="flex items-center justify-between gap-2"><div><span class="text-[10px] text-cyan-300 font-bold tracking-widest">LAB 03</span><h3 class="text-lg font-bold text-amber-100">Virtual Microscope</h3></div><i class="fa-solid fa-microscope text-2xl text-cyan-300"></i></div>
-            <div class="rounded-xl bg-[#090205] p-3 mt-4 relative overflow-hidden"><div class="bio-microscope-body"><div class="flex w-full items-center justify-between px-2"><span class="text-[9px] tracking-[.2em] text-emerald-200">VN OPTICAL LAB • 3D MICROSCOPE</span><span class="text-[9px] text-amber-300">INTERACTIVE MODEL</span></div><div class="bio-micro-instrument-grid"><div class="bio-micro-3d-wrap"><canvas id="bioMicroscope3D" aria-label="Interactive three-dimensional microscope model"></canvas><span class="bio-micro-model-hint">DRAG TO ROTATE · 3D MODEL</span></div><div class="bio-micro-view-column"><div class="bio-microscope-window"><div id="bioMicroView" class="bio-microscope-view" aria-label="Microscope specimen view"></div><div class="bio-micro-crosshair"></div></div><div class="bio-micro-stage-light"></div><div class="bio-micro-readout"><span>SIMULATED MAGNIFICATION</span><strong id="bioMicroZoomReadout">40×</strong></div><p id="bioMicroLabel" class="text-center text-xs text-emerald-200">Onion epidermis • educational specimen</p></div></div></div></div><div class="bio-micro-panel mt-3"><div class="flex items-center justify-between gap-2"><span class="text-[10px] tracking-widest text-amber-200 font-bold">OBJECTIVE LENS</span><button type="button" class="bio-lab-control" onclick="resetBioMicroscope()">Reset microscope</button></div><div class="flex flex-wrap gap-2 mt-3"><button type="button" class="bio-micro-objective active" data-objective="4" onclick="setBioObjective(4)">4× SCAN</button><button type="button" class="bio-micro-objective" data-objective="10" onclick="setBioObjective(10)">10× LOW</button><button type="button" class="bio-micro-objective" data-objective="40" onclick="setBioObjective(40)">40× HIGH</button></div><div class="flex justify-between mt-3 text-xs text-slate-300"><label for="bioMicroZoom">Fine zoom</label><strong id="bioMicroZoomLabel" class="text-amber-300">40×</strong></div><input id="bioMicroZoom" type="range" min="1" max="4" value="1" step="0.05" class="bio-micro-slider mt-2" oninput="setBioMicroZoom(this.value)"/><div class="grid grid-cols-2 gap-3 mt-3"><label class="text-[10px] text-slate-300">Focus <input id="bioMicroFocus" class="bio-micro-slider block mt-2" type="range" min="0" max="100" value="50" oninput="setBioMicroFocus(this.value)"/></label><label class="text-[10px] text-slate-300">Illumination <input id="bioMicroLight" class="bio-micro-slider block mt-2" type="range" min="30" max="130" value="100" oninput="setBioMicroLight(this.value)"/></label></div><p class="text-[10px] text-slate-400 mt-3">Drag specimen to pan · wheel to zoom · objective lenses change simulated magnification. Digital simulation, not optical magnification.</p></div>
+            <div class="rounded-xl bg-[#090205] p-3 mt-4 relative overflow-hidden"><div class="bio-microscope-body"><div class="flex w-full items-center justify-between px-2"><span class="text-[9px] tracking-[.2em] text-emerald-200">VN OPTICAL LAB • 3D MICROSCOPE</span><span class="text-[9px] text-amber-300">INTERACTIVE MODEL</span></div><div class="bio-micro-instrument-grid"><div class="bio-micro-3d-wrap"><canvas id="bioMicroscope3D" aria-label="Interactive three-dimensional microscope model"></canvas><span class="bio-micro-model-hint">DRAG TO ORBIT 360° · WHEEL TO ZOOM</span><button type="button" onclick="resetBioMicroscope3D()" class="absolute top-2 right-2 z-10 rounded-lg border border-amber-300/40 bg-[#090e0d]/85 px-2 py-1 text-[9px] font-bold text-amber-100">RESET 3D VIEW</button></div><div class="bio-micro-view-column"><div class="bio-microscope-window"><div id="bioMicroView" class="bio-microscope-view" aria-label="Microscope specimen view"></div><div class="bio-micro-crosshair"></div></div><div class="bio-micro-stage-light"></div><div class="bio-micro-readout"><span>SIMULATED TOTAL MAGNIFICATION</span><strong id="bioMicroZoomReadout">40×</strong></div><p id="bioMicroImageStatus" class="text-[9px] text-emerald-300/80 text-center tracking-wider">LOADING SPECIMEN IMAGE…</p><p id="bioMicroLabel" class="text-center text-xs text-emerald-200">Onion epidermis • educational specimen</p></div></div></div></div><div class="bio-micro-panel mt-3"><div class="flex items-center justify-between gap-2"><span class="text-[10px] tracking-widest text-amber-200 font-bold">OBJECTIVE LENS</span><button type="button" class="bio-lab-control" onclick="resetBioMicroscope()">Reset microscope</button></div><div class="flex flex-wrap gap-2 mt-3"><button type="button" class="bio-micro-objective active" data-objective="4" onclick="setBioObjective(4)">4× SCAN</button><button type="button" class="bio-micro-objective" data-objective="10" onclick="setBioObjective(10)">10× LOW</button><button type="button" class="bio-micro-objective" data-objective="40" onclick="setBioObjective(40)">40× HIGH</button></div><div class="flex justify-between mt-3 text-xs text-slate-300"><label for="bioMicroZoom">Fine zoom</label><strong id="bioMicroZoomLabel" class="text-amber-300">40×</strong></div><input id="bioMicroZoom" type="range" min="1" max="4" value="1" step="0.05" class="bio-micro-slider mt-2" oninput="setBioMicroZoom(this.value)"/><div class="grid grid-cols-2 gap-3 mt-3"><label class="text-[10px] text-slate-300">Focus <input id="bioMicroFocus" class="bio-micro-slider block mt-2" type="range" min="0" max="100" value="50" oninput="setBioMicroFocus(this.value)"/></label><label class="text-[10px] text-slate-300">Illumination <input id="bioMicroLight" class="bio-micro-slider block mt-2" type="range" min="30" max="130" value="100" oninput="setBioMicroLight(this.value)"/></label></div><p class="text-[10px] text-slate-400 mt-3">Drag the specimen to pan · scroll to zoom. A 10× eyepiece is assumed; the displayed total is a digital teaching simulation, not a calibrated optical measurement.</p></div>
             <div class="flex flex-wrap gap-2 mt-3"><button class="bio-lab-control" type="button" onclick="setBioMicroSample('plant')">Plant cells</button><button class="bio-lab-control" type="button" onclick="setBioMicroSample('animal')">Animal cells</button><button class="bio-lab-control" type="button" onclick="setBioMicroSample('blood')">Blood cells</button></div>
             <p id="bioMicroFact" class="text-xs text-slate-300 mt-3 min-h-8">Adjust magnification and switch the sample. This is a conceptual simulation, not a real microscope image.</p>
           </article>
@@ -1590,13 +1590,18 @@
         function setBioObjective(value){bioMicroObjective=Number(value)||4;bioMicroPanX=0;bioMicroPanY=0;updateBioMicroReadout();paintBioMicroscope();}
         function setBioMicroZoom(value){bioMicroZoomLevel=Math.max(1,Math.min(4,Number(value)||1));const s=document.getElementById('bioMicroZoom');if(s)s.value=String(bioMicroZoomLevel);if(bioMicroZoomLevel===1){bioMicroPanX=0;bioMicroPanY=0;}updateBioMicroReadout();paintBioMicroscope();}
         function stepBioMicroZoom(delta){setBioMicroZoom(bioMicroZoomLevel+delta);}
-        function setBioMicroFocus(value){const img=document.querySelector('#bioMicroView img');if(img){const blur=Math.abs(Number(value)-50)/50*.8;img.style.filter='contrast(1.08) saturate(1.08) blur('+blur.toFixed(2)+'px)';}}
-        function setBioMicroLight(value){const img=document.querySelector('#bioMicroView img');if(img)img.style.opacity=String(Math.max(.3,Math.min(1.3,Number(value)/100)));}
-        function resetBioMicroscope(){bioMicroPanX=0;bioMicroPanY=0;bioMicroZoomLevel=1;bioMicroObjective=4;const s=document.getElementById('bioMicroZoom');if(s)s.value='1';const f=document.getElementById('bioMicroFocus');if(f)f.value='50';const l=document.getElementById('bioMicroLight');if(l)l.value='100';setBioMicroFocus(50);setBioMicroLight(100);updateBioMicroReadout();paintBioMicroscope();}
+        let bioMicroFocusValue=50,bioMicroLightValue=100;
+        function applyBioMicroOptics(){const img=document.querySelector('#bioMicroView img');if(!img)return;const blur=Math.abs(bioMicroFocusValue-50)/50*.55;const brightness=Math.max(.45,Math.min(1.5,bioMicroLightValue/100));img.style.filter='contrast(1.08) saturate(1.08) brightness('+brightness.toFixed(2)+') blur('+blur.toFixed(2)+'px)';}
+        function setBioMicroFocus(value){bioMicroFocusValue=Math.max(0,Math.min(100,Number(value)||50));applyBioMicroOptics();}
+        function setBioMicroLight(value){bioMicroLightValue=Math.max(30,Math.min(130,Number(value)||100));applyBioMicroOptics();}
+        function resetBioMicroscope(){bioMicroPanX=0;bioMicroPanY=0;bioMicroZoomLevel=1;bioMicroObjective=4;bioMicroFocusValue=50;bioMicroLightValue=100;const s=document.getElementById('bioMicroZoom');if(s)s.value='1';const f=document.getElementById('bioMicroFocus');if(f)f.value='50';const l=document.getElementById('bioMicroLight');if(l)l.value='100';setBioMicroFocus(50);setBioMicroLight(100);updateBioMicroReadout();paintBioMicroscope();}
         function setBioMicroSample(sample){
           if(!bioMicroSamples[sample])return;
           const data=bioMicroSamples[sample],view=document.getElementById('bioMicroView');
-          view.innerHTML='<img src="'+data.src+'" alt="'+data.label+'" draggable="false" loading="lazy">';
+          view.innerHTML='<img src="'+data.src+'" alt="'+data.label+'" draggable="false" loading="eager" decoding="async">';
+          const specimenImage=view.querySelector('img');specimenImage.addEventListener('load',()=>{const status=document.getElementById('bioMicroImageStatus');if(status)status.textContent='IMAGE READY • '+specimenImage.naturalWidth+' × '+specimenImage.naturalHeight+' px';paintBioMicroscope();applyBioMicroOptics();},{once:true});
+          specimenImage.addEventListener('error',()=>{const status=document.getElementById('bioMicroImageStatus');if(status)status.textContent='IMAGE COULD NOT LOAD • CHECK CONNECTION';},{once:true});
+          const status=document.getElementById('bioMicroImageStatus');if(status)status.textContent='LOADING SPECIMEN IMAGE…';
           document.getElementById('bioMicroLabel').textContent=data.label;
           document.getElementById('bioMicroFact').textContent=data.fact;
           resetBioMicroscope();
@@ -1617,75 +1622,116 @@
           if(!canvas||canvas.dataset.ready||!window.THREE)return;
           canvas.dataset.ready='1';
           const wrap=canvas.parentElement,w=wrap.clientWidth||360,h=wrap.clientHeight||330;
-          bioMicroscopeScene=new THREE.Scene();bioMicroscopeScene.background=new THREE.Color(0x101b18);
-          bioMicroscopeCamera=new THREE.PerspectiveCamera(34,w/h,.1,100);bioMicroscopeCamera.position.set(6.8,5.1,8.5);bioMicroscopeCamera.lookAt(0,1.65,0);
-          bioMicroscopeRenderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false,powerPreference:'low-power'});
-          bioMicroscopeRenderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.5));bioMicroscopeRenderer.setSize(w,h,false);
-          bioMicroscopeRenderer.shadowMap.enabled=true;bioMicroscopeRenderer.shadowMap.type=THREE.PCFSoftShadowMap;
-          bioMicroscopeRenderer.outputColorSpace=THREE.SRGBColorSpace;
-          bioMicroscopeScene.add(new THREE.HemisphereLight(0xcce9df,0x16100b,2.0));
-          const key=new THREE.DirectionalLight(0xffedc4,3.2);key.position.set(5,9,6);key.castShadow=true;key.shadow.mapSize.set(512,512);bioMicroscopeScene.add(key);
-          const rim=new THREE.PointLight(0x55d6b0,18,14);rim.position.set(-4,4,-3);bioMicroscopeScene.add(rim);
-          const mat=(color,metalness=0,roughness=.4)=>new THREE.MeshStandardMaterial({color,metalness,roughness});
-          const black=mat(0x171d1c,.78,.28),blackRubber=mat(0x080c0c,.05,.82),steel=mat(0x9da9a5,.86,.25),gold=mat(0xb68b3d,.72,.25),glass= new THREE.MeshPhysicalMaterial({color:0x8ed6d1,metalness:.12,roughness:.08,transparent:true,opacity:.48,clearcoat:1});
-          const add=(geo,material,x,y,z,rx=0,ry=0,rz=0)=>{const m=new THREE.Mesh(geo,material);m.position.set(x,y,z);m.rotation.set(rx,ry,rz);m.castShadow=true;m.receiveShadow=true;bioMicroscopeRoot.add(m);return m;};
-          bioMicroscopeRoot=new THREE.Group();bioMicroscopeScene.add(bioMicroscopeRoot);
-          // Heavy horseshoe foot and rubber feet
-          add(new THREE.BoxGeometry(3.6,.28,2.35),black,-.15,.16,0);
-          add(new THREE.BoxGeometry(3.25,.12,2.05),blackRubber,-.15,.01,0);
-          add(new THREE.BoxGeometry(2.9,.12,1.8),gold,-.15,.31,0);
-          // Rear support pillar and curved-look cast arm
-          const armPath=new THREE.CatmullRomCurve3([new THREE.Vector3(-1.18,.45,-.28),new THREE.Vector3(-1.25,1.25,-.28),new THREE.Vector3(-1.2,2.35,-.28),new THREE.Vector3(-.9,3.25,-.28),new THREE.Vector3(-.35,3.55,-.12),new THREE.Vector3(.05,3.45,.12)]);
-          const castArm=new THREE.Mesh(new THREE.TubeGeometry(armPath,48,.22,16,false),black);castArm.castShadow=true;castArm.receiveShadow=true;bioMicroscopeRoot.add(castArm);
-          add(new THREE.CylinderGeometry(.34,.34,.18,48),steel,-1.16,1.25,-.28,Math.PI/2,0,0);
-          add(new THREE.CylinderGeometry(.22,.22,.24,48),gold,-1.16,1.25,-.28,Math.PI/2,0,0);
-          add(new THREE.BoxGeometry(.68,.48,.62),black,-.18,3.45,.02,0,0,-.12);
-          // Stage platform, slide and clips
-          add(new THREE.BoxGeometry(2.55,.18,1.72),black,.15,1.65,.12);
-          add(new THREE.BoxGeometry(2.42,.055,1.58),steel,.15,1.76,.12);
-          add(new THREE.BoxGeometry(1.25,.035,.78),glass,.15,1.81,.12);
-          add(new THREE.BoxGeometry(.18,.12,.78),gold,-.92,1.83,.12);
-          add(new THREE.BoxGeometry(.18,.12,.78),gold,1.22,1.83,.12);
-          // Condenser and circular illuminated aperture under stage
-          add(new THREE.CylinderGeometry(.47,.58,.42,40),black,.15,1.32,.12);
-          add(new THREE.CylinderGeometry(.25,.34,.16,40),gold,.15,1.04,.12);
-          add(new THREE.CylinderGeometry(.16,.16,.06,32),mat(0x77d7bc,.25,.12),.15,.93,.12);
-          // Main optical tube angled toward the viewer
-          add(new THREE.CylinderGeometry(.43,.52,1.65,48),black,-.16,3.95,.28,0,0,-.28);
-          add(new THREE.CylinderGeometry(.48,.48,.2,48),gold,-.38,4.73,.28,0,0,-.28);
-          add(new THREE.CylinderGeometry(.31,.37,.58,48),blackRubber,-.48,5.05,.28,0,0,-.28);
-          add(new THREE.CylinderGeometry(.34,.34,.12,48),steel,-.53,5.38,.28,0,0,-.28);
-          // Revolving nosepiece and three objective lenses
-          add(new THREE.CylinderGeometry(.58,.58,.22,48),gold,.28,3.0,.42,0,0,0);
-          [[-.34,2.48,.16],[.25,2.45,.48],[.78,2.5,.08]].forEach((p,i)=>{
-            add(new THREE.CylinderGeometry(.16,.12,.78,32),steel,p[0],p[1],p[2],0,0,(i-1)*-.18);
-            add(new THREE.CylinderGeometry(.125,.125,.13,32),blackRubber,p[0],p[1]-.43,p[2]);
-            add(new THREE.CylinderGeometry(.105,.105,.06,32),glass,p[0],p[1]-.51,p[2]);
+          const THREE_REF=window.THREE;
+          bioMicroscopeScene=new THREE_REF.Scene();
+          bioMicroscopeScene.background=new THREE_REF.Color(0x101714);
+          const target=new THREE_REF.Vector3(0,2.25,0);
+          const cameraRadius=10.2,cameraTheta=.72,cameraPhi=1.12;
+          let radius=cameraRadius,theta=cameraTheta,phi=cameraPhi;
+          bioMicroscopeCamera=new THREE_REF.PerspectiveCamera(32,w/h,.1,100);
+          const placeCamera=()=>{phi=Math.max(.42,Math.min(1.48,phi));radius=Math.max(6.4,Math.min(15,radius));bioMicroscopeCamera.position.set(target.x+radius*Math.sin(phi)*Math.sin(theta),target.y+radius*Math.cos(phi),target.z+radius*Math.sin(phi)*Math.cos(theta));bioMicroscopeCamera.lookAt(target);};
+          placeCamera();
+          bioMicroscopeRenderer=new THREE_REF.WebGLRenderer({canvas,antialias:true,alpha:false,powerPreference:'low-power'});
+          bioMicroscopeRenderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.25));
+          bioMicroscopeRenderer.setSize(w,h,false);
+          bioMicroscopeRenderer.outputColorSpace=THREE_REF.SRGBColorSpace;
+          bioMicroscopeRenderer.toneMapping=THREE_REF.ACESFilmicToneMapping;
+          bioMicroscopeRenderer.toneMappingExposure=1.05;
+          bioMicroscopeRenderer.shadowMap.enabled=true;
+          bioMicroscopeRenderer.shadowMap.type=THREE_REF.PCFSoftShadowMap;
+          bioMicroscopeScene.add(new THREE_REF.HemisphereLight(0xe3f2ec,0x18120e,1.8));
+          const key=new THREE_REF.DirectionalLight(0xffe7bd,3.1);key.position.set(5,8,6);key.castShadow=true;key.shadow.mapSize.set(512,512);key.shadow.camera.left=-7;key.shadow.camera.right=7;key.shadow.camera.top=8;key.shadow.camera.bottom=-5;bioMicroscopeScene.add(key);
+          const fill=new THREE_REF.DirectionalLight(0x9ac8c1,1.15);fill.position.set(-5,4,3);bioMicroscopeScene.add(fill);
+          const rim=new THREE_REF.PointLight(0x55cbb0,12,13);rim.position.set(-3,3,-4);bioMicroscopeScene.add(rim);
+          const mat=(color,metalness=.25,roughness=.38)=>new THREE_REF.MeshStandardMaterial({color,metalness,roughness});
+          const enamel=mat(0x202725,.78,.27),dark=mat(0x090e0d,.12,.72),rubber=mat(0x070a09,.02,.9),steel=mat(0x9da9a5,.86,.24),chrome=mat(0xd0d8d2,.9,.18),brass=mat(0xb18a43,.76,.25),glass=new THREE_REF.MeshPhysicalMaterial({color:0x9fded8,metalness:.08,roughness:.08,transparent:true,opacity:.72,clearcoat:1,clearcoatRoughness:.05});
+          bioMicroscopeRoot=new THREE_REF.Group();bioMicroscopeScene.add(bioMicroscopeRoot);
+          const add=(geo,material,x,y,z,rx=0,ry=0,rz=0,shadow=true)=>{const m=new THREE_REF.Mesh(geo,material);m.position.set(x,y,z);m.rotation.set(rx,ry,rz);m.castShadow=shadow;m.receiveShadow=true;bioMicroscopeRoot.add(m);return m;};
+          const cylinder=(rt,rb,len,material,x,y,z,rx=0,ry=0,rz=0,segments=48)=>add(new THREE_REF.CylinderGeometry(rt,rb,len,segments),material,x,y,z,rx,ry,rz);
+          const torus=(r,t,material,x,y,z,rx=0,ry=0,rz=0)=>add(new THREE_REF.TorusGeometry(r,t,10,56),material,x,y,z,rx,ry,rz);
+          // Heavy cast-metal horseshoe foot with inset trim and rubber pads.
+          const footShape=new THREE_REF.Shape();
+          footShape.moveTo(-1.78,-1.12);footShape.lineTo(-1.78,.78);footShape.quadraticCurveTo(-1.78,1.08,-1.46,1.08);footShape.lineTo(1.43,1.08);footShape.quadraticCurveTo(1.78,1.08,1.78,.78);footShape.lineTo(1.78,-1.12);footShape.lineTo(1.12,-1.12);footShape.lineTo(1.12,.36);footShape.lineTo(-1.12,.36);footShape.lineTo(-1.12,-1.12);footShape.closePath();
+          const footGeo=new THREE_REF.ExtrudeGeometry(footShape,{depth:.28,bevelEnabled:true,bevelSegments:3,steps:1,bevelSize:.07,bevelThickness:.06,curveSegments:8});
+          footGeo.rotateX(-Math.PI/2);add(footGeo,enamel,-.12,.18,0);
+          const trimShape=new THREE_REF.Shape();trimShape.moveTo(-1.55,-.91);trimShape.lineTo(-1.55,.72);trimShape.quadraticCurveTo(-1.55,.86,-1.38,.86);trimShape.lineTo(1.35,.86);trimShape.quadraticCurveTo(1.55,.86,1.55,.68);trimShape.lineTo(1.55,-.91);trimShape.lineTo(1.28,-.91);trimShape.lineTo(1.28,.48);trimShape.lineTo(-1.28,.48);trimShape.lineTo(-1.28,-.91);trimShape.closePath();
+          const trimGeo=new THREE_REF.ExtrudeGeometry(trimShape,{depth:.035,bevelEnabled:false});trimGeo.rotateX(-Math.PI/2);add(trimGeo,brass,-.12,.44,0);
+          [[-1.35,-.78],[1.12,-.78],[-1.35,.78],[1.12,.78]].forEach(([x,z])=>cylinder(.16,.16,.1,rubber,x,.12,z,Math.PI/2));
+          // Solid sculpted rear pillar / curved cast arm.
+          const armShape=new THREE_REF.Shape();
+          armShape.moveTo(-1.28,.42);armShape.lineTo(-.78,.42);armShape.lineTo(-.72,2.42);
+          armShape.bezierCurveTo(-.72,3.18,-.42,3.62,.22,3.72);
+          armShape.lineTo(.48,3.28);armShape.bezierCurveTo(-.08,3.18,-.2,2.88,-.2,2.38);
+          armShape.lineTo(-.25,.58);armShape.closePath();
+          const armGeo=new THREE_REF.ExtrudeGeometry(armShape,{depth:.42,bevelEnabled:true,bevelSegments:4,steps:1,bevelSize:.09,bevelThickness:.09,curveSegments:12});
+          add(armGeo,enamel,0,0,-.48);
+          // Raised arm trim and hinge hardware.
+          add(new THREE_REF.BoxGeometry(.1,2.2,.045),steel,-.76,1.55,-.035,0,0,-.015,false);
+          cylinder(.43,.43,.2,chrome,-1.08,1.35,-.12,Math.PI/2);
+          cylinder(.3,.3,.23,brass,-1.08,1.35,-.25,Math.PI/2);
+          cylinder(.17,.17,.25,dark,-1.08,1.35,-.39,Math.PI/2);
+          // Stage, mechanical slide, slide glass and spring clips.
+          add(new THREE_REF.BoxGeometry(2.75,.22,1.9),dark,.12,1.82,.18);
+          add(new THREE_REF.BoxGeometry(2.62,.08,1.78),steel,.12,1.96,.18);
+          add(new THREE_REF.BoxGeometry(1.32,.025,.92),glass,.12,2.015,.18,0,0,0,false);
+          add(new THREE_REF.BoxGeometry(.16,.11,.88),chrome,-1.13,2.07,.18);
+          add(new THREE_REF.BoxGeometry(.16,.11,.88),chrome,1.37,2.07,.18);
+          add(new THREE_REF.BoxGeometry(.22,.045,.18),brass,-.98,2.14,.18);
+          add(new THREE_REF.BoxGeometry(.22,.045,.18),brass,1.22,2.14,.18);
+          // Condenser, iris housing and illuminated field diaphragm beneath stage.
+          cylinder(.56,.64,.38,enamel,.12,1.56,.18);
+          cylinder(.39,.48,.18,brass,.12,1.32,.18);
+          cylinder(.25,.3,.12,chrome,.12,1.18,.18);
+          cylinder(.16,.16,.045,mat(0x8ce7ce,.15,.12),.12,1.095,.18);
+          torus(.3,.035,brass,.12,1.09,.18);
+          // Optical tube, binocular-style eyepiece barrel and glass rims.
+          const tube=add(new THREE_REF.CylinderGeometry(.42,.49,1.45,56),enamel,-.16,3.75,.16,0,0,-.22);
+          cylinder(.48,.48,.12,brass,-.31,4.45,.16,0,0,-.22);
+          cylinder(.34,.38,.62,dark,-.43,4.78,.16,0,0,-.22);
+          cylinder(.36,.36,.1,chrome,-.5,5.13,.16,0,0,-.22);
+          cylinder(.3,.32,.11,rubber,-.52,5.23,.16,0,0,-.22);
+          cylinder(.27,.27,.035,glass,-.54,5.29,.16,0,0,-.22,false);
+          torus(.34,.035,brass,-.5,5.16,.16,0,0,-.22);
+          // Revolving turret and three distinct objective barrels.
+          const turret=new THREE_REF.Group();turret.position.set(.22,3.03,.34);bioMicroscopeRoot.add(turret);
+          const tAdd=(geo,material,x,y,z,rx=0,ry=0,rz=0)=>{const m=new THREE_REF.Mesh(geo,material);m.position.set(x,y,z);m.rotation.set(rx,ry,rz);m.castShadow=true;m.receiveShadow=true;turret.add(m);return m;};
+          tAdd(new THREE_REF.CylinderGeometry(.58,.58,.2,56),brass,0,0,0);
+          tAdd(new THREE_REF.CylinderGeometry(.42,.42,.13,48),enamel,0,-.15,0);
+          [[-.43,-.52,.03,.13], [.22,-.64,.28,.17], [.73,-.53,-.04,.21]].forEach((p,i)=>{
+            const [x,y,z,r]=p;
+            tAdd(new THREE_REF.CylinderGeometry(r*.92,r*.7,.72,40),chrome,x,y,z,0,0,(i-1)*-.12);
+            tAdd(new THREE_REF.CylinderGeometry(r*.82,r*.82,.13,40),dark,x,y-.41,z,0,0,(i-1)*-.12);
+            tAdd(new THREE_REF.CylinderGeometry(r*.68,r*.68,.06,36),glass,x,y-.49,z,0,0,(i-1)*-.12);
+            tAdd(new THREE_REF.TorusGeometry(r*.72,.025,8,40),brass,x,y-.49,z,0,0,0);
           });
-          // Coarse and fine focus knobs on both sides
+          // Coarse and fine focus wheels, knurled rims and side hubs.
           [-1,1].forEach(side=>{
-            add(new THREE.CylinderGeometry(.48,.48,.22,48),black,side*1.0,2.75,-.25,Math.PI/2,0,0);
-            add(new THREE.CylinderGeometry(.3,.3,.26,48),gold,side*1.14,2.75,-.25,Math.PI/2,0,0);
-            add(new THREE.CylinderGeometry(.23,.23,.25,40),steel,side*1.19,2.75,-.25,Math.PI/2,0,0);
-            add(new THREE.CylinderGeometry(.18,.18,.3,40),black,side*1.04,2.3,-.25,Math.PI/2,0,0);
+            cylinder(.49,.49,.24,enamel,side*1.05,2.72,-.25,Math.PI/2);
+            cylinder(.39,.39,.09,brass,side*1.19,2.72,-.25,Math.PI/2);
+            cylinder(.28,.28,.13,chrome,side*1.26,2.72,-.25,Math.PI/2);
+            cylinder(.19,.19,.2,dark,side*1.08,2.24,-.25,Math.PI/2);
+            torus(.43,.025,steel,side*1.18,2.72,-.25,Math.PI/2);
+            for(let n=0;n<28;n++){const a=n*Math.PI/14;add(new THREE_REF.BoxGeometry(.045,.09,.08),brass,side*1.18,2.72+Math.sin(a)*.43,-.25+Math.cos(a)*.43,0,0,0,false);}
           });
-          // Fine engraved-looking adjustment ridges around focus wheel
-          for(let i=0;i<24;i++){const a=i*Math.PI/12;add(new THREE.BoxGeometry(.055,.08,.12),gold,Math.cos(a)*.49,2.75+Math.sin(a)*.49,-.25);}
-          // Small stage adjustment knobs
-          add(new THREE.CylinderGeometry(.16,.16,.25,32),gold,1.35,1.35,.45,0,0,Math.PI/2);
-          add(new THREE.CylinderGeometry(.12,.12,.2,32),black,1.49,1.35,.45,0,0,Math.PI/2);
-          // Ground plane
-          const floor=new THREE.Mesh(new THREE.PlaneGeometry(200,200),mat(0x101b18,0,.9));floor.rotation.x=-Math.PI/2;floor.position.y=-.02;floor.receiveShadow=true;bioMicroscopeScene.add(floor);
-          bioMicroscopeRoot.rotation.y=-.3;
-          const resize=()=>{if(!bioMicroscopeRenderer)return;const nw=wrap.clientWidth||360,nh=wrap.clientHeight||330;bioMicroscopeCamera.aspect=nw/nh;bioMicroscopeCamera.updateProjectionMatrix();bioMicroscopeRenderer.setSize(nw,nh,false);};
+          // Mechanical stage drive knobs and small adjustment screws.
+          cylinder(.17,.17,.24,brass,1.48,1.48,.52,0,0,Math.PI/2);
+          cylinder(.13,.13,.16,dark,1.62,1.48,.52,0,0,Math.PI/2);
+          cylinder(.12,.12,.18,chrome,-1.42,1.62,.55,0,0,Math.PI/2);
+          // Engraved control dials and feet details.
+          for(let n=0;n<8;n++){const a=n*Math.PI/4;cylinder(.035,.035,.025,brass,Math.cos(a)*.12-.12,.47,Math.sin(a)*.12,Math.PI/2,0,0,12);}
+          const floor=new THREE_REF.Mesh(new THREE_REF.PlaneGeometry(80,80),mat(0x101714,.05,.92));floor.rotation.x=-Math.PI/2;floor.position.y=.015;floor.receiveShadow=true;bioMicroscopeScene.add(floor);
+          bioMicroscopeRoot.rotation.y=-.38;
+          const resize=()=>{if(!bioMicroscopeRenderer)return;const nw=wrap.clientWidth||360,nh=wrap.clientHeight||330;bioMicroscopeCamera.aspect=nw/nh;bioMicroscopeCamera.updateProjectionMatrix();bioMicroscopeRenderer.setSize(nw,nh,false);schedule();};
           if('ResizeObserver' in window){new ResizeObserver(resize).observe(wrap);}else window.addEventListener('resize',resize,{passive:true});
           const draw=()=>{bioMicroscopeFrame=0;if(!bioMicroscopeRenderer||!bioMicroscopeScene)return;bioMicroscopeRenderer.render(bioMicroscopeScene,bioMicroscopeCamera);};
           const schedule=()=>{bioMicroscopeLastInteraction=performance.now();if(!bioMicroscopeFrame)bioMicroscopeFrame=requestAnimationFrame(draw);};
-          canvas.addEventListener('pointerdown',e=>{bioMicroscopeDragging={x:e.clientX,y:e.clientY,rot:bioMicroscopeRoot.rotation.y,tilt:bioMicroscopeRoot.rotation.x};canvas.setPointerCapture(e.pointerId);});
-          canvas.addEventListener('wheel',e=>{e.preventDefault();const direction=e.deltaY>0?1:-1;const current=bioMicroscopeCamera.position.distanceTo(new THREE.Vector3(0,2.5,0));const next=Math.max(6.2,Math.min(15,current+direction*.7));bioMicroscopeCamera.position.setLength(next);bioMicroscopeCamera.lookAt(0,2.5,0);schedule();},{passive:false});
-          canvas.addEventListener('dblclick',()=>{bioMicroscopeRoot.rotation.set(0,-.3,0);bioMicroscopeCamera.position.set(6.8,5.1,8.5);bioMicroscopeCamera.lookAt(0,1.65,0);schedule();});
-          canvas.addEventListener('pointermove',e=>{if(!bioMicroscopeDragging)return;bioMicroscopeRoot.rotation.y=bioMicroscopeDragging.rot+(e.clientX-bioMicroscopeDragging.x)*.009;bioMicroscopeRoot.rotation.x=Math.max(-.18,Math.min(.18,bioMicroscopeDragging.tilt+(e.clientY-bioMicroscopeDragging.y)*.004));schedule();});
+          const reset=()=>{bioMicroscopeRoot.rotation.set(0,-.38,0);radius=cameraRadius;theta=cameraTheta;phi=cameraPhi;placeCamera();schedule();};
+          window.resetBioMicroscope3D=reset;
+          canvas.addEventListener('pointerdown',e=>{if(e.button!==0)return;bioMicroscopeDragging={x:e.clientX,y:e.clientY,theta,phi};canvas.setPointerCapture(e.pointerId);});
+          canvas.addEventListener('pointermove',e=>{if(!bioMicroscopeDragging)return;theta=bioMicroscopeDragging.theta-(e.clientX-bioMicroscopeDragging.x)*.008;phi=bioMicroscopeDragging.phi+(e.clientY-bioMicroscopeDragging.y)*.006;placeCamera();schedule();});
           const stop=()=>{bioMicroscopeDragging=null;};canvas.addEventListener('pointerup',stop);canvas.addEventListener('pointercancel',stop);canvas.addEventListener('lostpointercapture',stop);
+          canvas.addEventListener('wheel',e=>{e.preventDefault();radius+=e.deltaY>0?.65:-.65;placeCamera();schedule();},{passive:false});
+          canvas.addEventListener('dblclick',reset);
           if('IntersectionObserver' in window){bioMicroscopeObserver=new IntersectionObserver(entries=>{if(entries[0]&&entries[0].isIntersecting)schedule();else if(bioMicroscopeFrame){cancelAnimationFrame(bioMicroscopeFrame);bioMicroscopeFrame=0;}},{threshold:.05});bioMicroscopeObserver.observe(wrap);}
           schedule();
         }
