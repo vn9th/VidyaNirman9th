@@ -1730,13 +1730,28 @@
                 ctx.fill();
             }
         }
-        for (let i = 0; i < 75; i++) particles.push(new Particle());
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => { p.update(); p.draw(); });
-            requestAnimationFrame(animateParticles);
+        const bioParticleCount = Math.min(24, Math.max(12, Math.floor((window.innerWidth * window.innerHeight) / 65000)));
+        for (let i = 0; i < bioParticleCount; i++) particles.push(new Particle());
+        let bioParticleFrame = 0, bioParticleLastTime = 0, bioParticleRunning = false;
+        function animateParticles(timestamp) {
+            if (document.hidden) { bioParticleRunning = false; return; }
+            if (timestamp - bioParticleLastTime >= 33) {
+                bioParticleLastTime = timestamp;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => { p.update(); p.draw(); });
+            }
+            bioParticleFrame = requestAnimationFrame(animateParticles);
         }
-        animateParticles();
+        function startBioParticles() {
+            if (bioParticleRunning || document.hidden) return;
+            bioParticleRunning = true;
+            bioParticleFrame = requestAnimationFrame(animateParticles);
+        }
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) { cancelAnimationFrame(bioParticleFrame); bioParticleRunning = false; }
+            else startBioParticles();
+        });
+        startBioParticles();
 
         /* Interactive 2D Cell Inspector */
         const organelles = {
