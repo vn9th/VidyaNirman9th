@@ -469,39 +469,168 @@
                         </div>
 
                         <h3 class="text-xl font-bold text-amber-300 border-b border-amber-900/50 pb-2 pt-4">2.2 Newton's Three Laws of Motion</h3>
+                        <p class="text-sm text-gray-300 leading-relaxed">Sir Isaac Newton described three fundamental laws that explain how forces change (or do not change) the motion of objects. Together, these laws form the foundation of classical mechanics. Before studying them, remember: <strong class="text-amber-200">net force</strong> means the vector sum of all forces acting on an object.</p>
 
-                        <!-- First Law -->
-                        <div class="p-5 bg-gurukul-card rounded-xl border border-amber-500/40 space-y-2">
-                            <h4 class="text-lg font-bold text-amber-400"><i class="fa-solid fa-1 mr-2 text-cyan-400"></i> Newton's First Law (Law of Inertia)</h4>
-                            <p class="text-sm text-gray-300 italic">"An object remains in a state of rest or of uniform motion in a straight line unless acted upon by an external unbalanced force."</p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            <div class="p-4 rounded-xl bg-[#0F0103] border border-cyan-500/30">
+                                <span class="text-cyan-300 text-xs font-bold tracking-wider">FIRST LAW</span>
+                                <h4 class="text-amber-300 font-bold mt-1">Inertia</h4>
+                                <p class="text-xs text-gray-400 mt-1">Explains why motion does not change when net external force is zero.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-[#0F0103] border border-amber-500/30">
+                                <span class="text-amber-300 text-xs font-bold tracking-wider">SECOND LAW</span>
+                                <h4 class="text-amber-300 font-bold mt-1">Force and Acceleration</h4>
+                                <p class="text-xs text-gray-400 mt-1">Measures how the net force changes momentum.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-[#0F0103] border border-purple-500/30">
+                                <span class="text-purple-300 text-xs font-bold tracking-wider">THIRD LAW</span>
+                                <h4 class="text-amber-300 font-bold mt-1">Action–Reaction</h4>
+                                <p class="text-xs text-gray-400 mt-1">Explains how forces occur in equal and opposite pairs.</p>
+                            </div>
                         </div>
 
-                        <!-- Second Law + Derivation -->
+                        <!-- Newton's First Law -->
+                        <div class="p-5 bg-gurukul-card rounded-xl border border-cyan-500/40 space-y-3">
+                            <div class="flex flex-wrap items-center justify-between gap-2">
+                                <h4 class="text-lg font-bold text-cyan-300"><i class="fa-solid fa-1 mr-2"></i> Newton's First Law of Motion</h4>
+                                <span class="text-xs px-3 py-1 rounded-full bg-cyan-950/60 text-cyan-200 border border-cyan-500/30">Law of Inertia</span>
+                            </div>
+                            <p class="text-sm text-gray-200 leading-relaxed"><strong class="text-amber-200">Definition:</strong> An object remains at rest, or continues to move with uniform velocity in a straight line, unless acted upon by a non-zero net external force.</p>
+                            <div class="p-4 rounded-lg bg-[#0F0103] border border-cyan-500/30">
+                                <p class="text-xs text-cyan-200 font-bold mb-1">Mathematical meaning</p>
+                                <p class="text-center text-lg text-amber-300">$$\\sum \\vec F = 0 \\quad \\Rightarrow \\quad \\vec a = 0$$</p>
+                                <p class="text-xs text-gray-400 text-center">Zero net force means zero acceleration. The object may be at rest or may keep moving at constant velocity.</p>
+                            </div>
+                            <p class="text-sm text-gray-300"><strong class="text-amber-200">What is inertia?</strong> Inertia is the natural tendency of an object to resist a change in its state of rest or uniform straight-line motion. Mass is a measure of inertia: greater mass means greater inertia.</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                                <div class="p-3 bg-[#0F0103] rounded border border-amber-900/40">
+                                    <strong class="text-amber-300 block mb-1">Inertia of Rest</strong>
+                                    A passenger tends to move backward when a stationary bus suddenly starts.
+                                </div>
+                                <div class="p-3 bg-[#0F0103] rounded border border-amber-900/40">
+                                    <strong class="text-amber-300 block mb-1">Inertia of Motion</strong>
+                                    A passenger tends to move forward when a moving bus suddenly stops.
+                                </div>
+                                <div class="p-3 bg-[#0F0103] rounded border border-amber-900/40">
+                                    <strong class="text-amber-300 block mb-1">Inertia of Direction</strong>
+                                    A passenger tends to lean sideways when a vehicle takes a sharp turn.
+                                </div>
+                            </div>
+                            <div class="p-3 rounded-lg bg-cyan-950/30 border border-cyan-500/20 text-xs text-gray-300">
+                                <strong class="text-cyan-200">More examples:</strong> Dust comes out when a carpet is beaten; a coin falls into a glass when the card beneath it is flicked away; a book stays on a table until an unbalanced force moves it.
+                            </div>
+                            <p class="text-xs text-gray-400"><strong class="text-amber-200">Key point:</strong> A force is not required to keep an object moving uniformly. A net force is required to change its velocity.</p>
+                        </div>
+
+                        <!-- Newton's Second Law -->
                         <div class="p-5 bg-derivation-box rounded-xl space-y-3">
-                            <h4 class="text-lg font-bold text-amber-400"><i class="fa-solid fa-2 mr-2 text-cyan-400"></i> Newton's Second Law & Mathematical Derivation ($F = ma$)</h4>
-                            <p class="text-sm text-gray-300 italic">"The rate of change of momentum of a body is directly proportional to the applied unbalanced force and takes place in the direction in which the force acts."</p>
-
-                            <p class="text-sm text-gray-300 mt-2"><strong>Linear Momentum ($p$):</strong> Product of mass $m$ and velocity $v$ ($p = mv$). SI unit: $\text{kg}\cdot\text{m/s}$.</p>
-                            <p class="text-sm text-gray-300">Initial momentum $p_1 = mu$, Final momentum $p_2 = mv$. Change in momentum $\Delta p = mv - mu = m(v - u)$.</p>
-
-                            <div class="p-3 bg-[#0F0103] rounded border border-amber-900/60 font-mono text-cyan-300 text-center">
-                                $$\text{Force } F \propto \frac{\Delta p}{t} \implies F \propto \frac{m(v - u)}{t}$$
+                            <div class="flex flex-wrap items-center justify-between gap-2">
+                                <h4 class="text-lg font-bold text-amber-400"><i class="fa-solid fa-2 mr-2 text-cyan-400"></i> Newton's Second Law of Motion</h4>
+                                <span class="text-xs px-3 py-1 rounded-full bg-amber-950 text-amber-200 border border-amber-500/30">Law of Acceleration</span>
                             </div>
-                            <p class="text-sm text-gray-300">Since $\frac{v - u}{t} = a$ (acceleration): $F \propto m \cdot a \implies F = k \cdot m \cdot a$. By defining 1 Newton such that constant $k = 1$:</p>
+                            <p class="text-sm text-gray-200 leading-relaxed"><strong class="text-amber-200">Definition:</strong> The rate of change of momentum of an object is directly proportional to the net external force acting on it, and the change takes place in the direction of that force.</p>
+                            <p class="text-sm text-gray-300"><strong class="text-cyan-200">Momentum ($p$):</strong> The product of an object's mass and velocity. It is a vector quantity.</p>
+                            <div class="p-3 bg-[#0F0103] rounded border border-amber-900/60 text-center">
+                                <p class="text-amber-300 text-lg">$$\\vec p = m\\vec v$$</p>
+                                <p class="text-xs text-gray-400">SI unit: kg m/s</p>
+                            </div>
+                            <p class="text-sm text-gray-300 font-semibold">Derivation of $F = ma$ (for constant mass):</p>
+                            <ol class="list-decimal list-inside space-y-2 text-sm text-gray-300">
+                                <li>Let mass be $m$, initial velocity be $u$, final velocity be $v$, and time taken be $t$.</li>
+                                <li>Initial momentum: $p_1 = mu$; final momentum: $p_2 = mv$.</li>
+                                <li>Change in momentum: $\\Delta p = mv - mu = m(v-u)$.</li>
+                                <li>Rate of change of momentum: $\\frac{\\Delta p}{t} = m\\frac{v-u}{t} = ma$, because $a = \\frac{v-u}{t}$.</li>
+                                <li>Since force is proportional to this rate, choosing SI units gives the proportionality constant as 1.</li>
+                            </ol>
+                            <div class="p-4 bg-[#220308] text-amber-300 font-bold text-center rounded border border-amber-500">
+                                <p class="text-xl">$$\\boxed{\\vec F_{net} = m\\vec a}$$</p>
+                                <p class="text-xs text-amber-100 mt-1">Net force = mass × acceleration</p>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                                <div class="p-3 bg-[#0F0103] rounded border border-cyan-500/30">
+                                    <strong class="text-cyan-200 block mb-1">1 Newton (1 N)</strong>
+                                    The force that produces an acceleration of 1 m/s² in a mass of 1 kg.
+                                    <p class="text-amber-300 mt-1">$$1\\,N = 1\\,kg\\,m/s^2$$</p>
+                                </div>
+                                <div class="p-3 bg-[#0F0103] rounded border border-cyan-500/30">
+                                    <strong class="text-cyan-200 block mb-1">What the law tells us</strong>
+                                    For the same mass, greater net force gives greater acceleration. For the same force, greater mass gives smaller acceleration.
+                                </div>
+                            </div>
+                            <div class="p-3 rounded-lg bg-amber-950/30 border border-amber-500/20 text-xs text-gray-300">
+                                <strong class="text-amber-200">Everyday examples:</strong> An empty trolley accelerates more easily than a loaded trolley under the same push; kicking a football changes its motion; catching a fast-moving ball requires bringing its momentum to zero.
+                            </div>
+                            <p class="text-xs text-gray-400"><strong class="text-amber-200">Important:</strong> $F=ma$ is the constant-mass form of the second law. The more general statement is $\\vec F_{net}=\\frac{d\\vec p}{dt}$.</p>
+                        </div>
 
-                            <div class="p-3 bg-[#220308] text-amber-300 font-bold text-center text-lg rounded border border-amber-500">
-                                $$F = m \cdot a \quad \text{[SI Unit: Newton (N) = 1 kg}\cdot\text{m/s}^2\text{]}$$
+                        <!-- Newton's Third Law -->
+                        <div class="p-5 bg-gurukul-card rounded-xl border border-purple-500/40 space-y-3">
+                            <div class="flex flex-wrap items-center justify-between gap-2">
+                                <h4 class="text-lg font-bold text-purple-300"><i class="fa-solid fa-3 mr-2"></i> Newton's Third Law of Motion</h4>
+                                <span class="text-xs px-3 py-1 rounded-full bg-purple-950/60 text-purple-200 border border-purple-500/30">Law of Action and Reaction</span>
+                            </div>
+                            <p class="text-sm text-gray-200 leading-relaxed"><strong class="text-amber-200">Definition:</strong> Whenever one object exerts a force on another object, the second object simultaneously exerts a force of equal magnitude and opposite direction on the first object.</p>
+                            <div class="p-4 rounded-lg bg-[#0F0103] border border-purple-500/30 text-center">
+                                <p class="text-amber-300 text-lg">$$\\vec F_{AB} = -\\vec F_{BA}$$</p>
+                                <p class="text-xs text-gray-400">Force by A on B = negative of force by B on A</p>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                                <div class="p-3 bg-[#0F0103] rounded border border-purple-500/30">
+                                    <strong class="text-purple-200 block mb-1">Walking</strong>
+                                    Your foot pushes the ground backward; the ground pushes you forward.
+                                </div>
+                                <div class="p-3 bg-[#0F0103] rounded border border-purple-500/30">
+                                    <strong class="text-purple-200 block mb-1">Swimming</strong>
+                                    A swimmer pushes water backward; water pushes the swimmer forward.
+                                </div>
+                                <div class="p-3 bg-[#0F0103] rounded border border-purple-500/30">
+                                    <strong class="text-purple-200 block mb-1">Rocket motion</strong>
+                                    A rocket pushes exhaust gases backward; the gases exert a forward force on the rocket.
+                                </div>
+                                <div class="p-3 bg-[#0F0103] rounded border border-purple-500/30">
+                                    <strong class="text-purple-200 block mb-1">Recoil</strong>
+                                    A gun pushes a bullet forward; the bullet exerts an equal and opposite force on the gun.
+                                </div>
+                            </div>
+                            <div class="p-3 rounded-lg bg-purple-950/30 border border-purple-500/20 text-xs text-gray-300">
+                                <strong class="text-purple-200">Why don't action and reaction cancel each other?</strong> They act on two different objects. Forces can cancel only when equal and opposite forces act on the same object.
                             </div>
                         </div>
 
-                        <!-- Third Law -->
-                        <div class="p-5 bg-gurukul-card rounded-xl border border-amber-500/40 space-y-2">
-                            <h4 class="text-lg font-bold text-amber-400"><i class="fa-solid fa-3 mr-2 text-cyan-400"></i> Newton's Third Law of Motion</h4>
-                            <p class="text-sm text-gray-300 italic">"To every action, there is an equal and opposite reaction, and they act on two different bodies simultaneously."</p>
-                            <p class="text-xs text-amber-200 mt-2">$$\vec{F}_{AB} = -\vec{F}_{BA}$$</p>
-                            <p class="text-xs text-gray-400">Examples: Rocket propulsion, walking on ground, recoil velocity of gun when bullet fired.</p>
+                        <!-- Comparison of all three laws -->
+                        <div class="space-y-3">
+                            <h4 class="text-lg font-bold text-amber-300">Difference Between Newton's Three Laws</h4>
+                            <div class="overflow-x-auto rounded-xl border border-amber-500/30">
+                                <table class="w-full min-w-[620px] text-xs text-left">
+                                    <thead class="bg-[#3B0810] text-amber-200">
+                                        <tr><th class="p-3">Basis</th><th class="p-3">First Law</th><th class="p-3">Second Law</th><th class="p-3">Third Law</th></tr>
+                                    </thead>
+                                    <tbody class="text-gray-300 divide-y divide-amber-900/50">
+                                        <tr><td class="p-3 font-semibold text-amber-200">Main idea</td><td class="p-3">Inertia; resists change in motion</td><td class="p-3">Force changes momentum</td><td class="p-3">Forces occur in pairs</td></tr>
+                                        <tr><td class="p-3 font-semibold text-amber-200">What it explains</td><td class="p-3">When velocity remains constant</td><td class="p-3">How much acceleration is produced</td><td class="p-3">Interaction between two bodies</td></tr>
+                                        <tr><td class="p-3 font-semibold text-amber-200">Key relation</td><td class="p-3">$\\sum F=0 \\Rightarrow a=0$</td><td class="p-3">$F_{net}=ma$</td><td class="p-3">$F_{AB}=-F_{BA}$</td></tr>
+                                        <tr><td class="p-3 font-semibold text-amber-200">Example</td><td class="p-3">Passenger jerks when bus starts</td><td class="p-3">Loaded trolley accelerates less</td><td class="p-3">Walking or swimming</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
 
+                        <div class="p-4 rounded-xl bg-[#0F0103] border border-amber-500/30 space-y-2">
+                            <h4 class="font-bold text-amber-300"><i class="fa-solid fa-lightbulb text-cyan-300 mr-2"></i>Common Exam Confusions</h4>
+                            <ul class="list-disc list-inside text-xs text-gray-300 space-y-1">
+                                <li>Zero net force does not always mean the object is at rest; it may move with constant velocity.</li>
+                                <li>Action and reaction are equal and opposite, but they act on different bodies.</li>
+                                <li>Acceleration is in the direction of the net force, not necessarily the direction of motion.</li>
+                                <li>Mass measures inertia; weight is the gravitational force acting on an object.</li>
+                            </ul>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-gradient-to-r from-[#220308] to-[#0F0103] border border-cyan-500/30">
+                            <h4 class="font-bold text-cyan-300 mb-2">Quick Revision: Remember the Three Laws</h4>
+                            <p class="text-sm text-gray-200"><strong class="text-amber-300">First:</strong> No net force → no change in velocity.</p>
+                            <p class="text-sm text-gray-200"><strong class="text-amber-300">Second:</strong> Net force produces acceleration → $F=ma$ (constant mass).</p>
+                            <p class="text-sm text-gray-200"><strong class="text-amber-300">Third:</strong> Every interaction involves equal and opposite forces on two different objects.</p>
+                        </div>
                         <h3 class="text-xl font-bold text-amber-300 border-b border-amber-900/50 pb-2 pt-6">2.3 Law of Conservation of Momentum (Complete Proof)</h3>
                         <div class="p-5 bg-derivation-box rounded-xl space-y-3">
                             <p class="text-sm text-gray-300">Consider two objects $A$ and $B$ of masses $m_1$ and $m_2$ colliding with initial velocities $u_1, u_2$ and final velocities $v_1, v_2$ after collision time $t$.</p>
