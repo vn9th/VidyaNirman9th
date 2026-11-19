@@ -168,7 +168,7 @@
                             <i class="fa-solid fa-house mr-1 text-xs"></i> Home
                         </a>
                         <a href="#chapters" class="text-amber-300 hover:text-amber-200 transition">
-                            <i class="fa-solid fa-book-open mr-1 text-xs"></i> 5 Vast Chapters
+                            <i class="fa-solid fa-book-open mr-1 text-xs"></i> 4 Core Chapters + Bonus Topic
                         </a>
                         <a href="#tools" class="text-cyan-400 hover:text-cyan-300 transition">
                             <i class="fa-solid fa-calculator mr-1 text-xs"></i> Physics Tools
@@ -240,42 +240,36 @@
             <div id="chapters" class="mb-10">
                 <div class="text-center mb-6">
                     <h2 class="text-2xl sm:text-3xl font-bold font-cinzel text-gold-gradient">
-                        <i class="fa-solid fa-book-bookmark text-cyan-400 mr-2"></i> Select Physics Chapter
+                        <i class="fa-solid fa-book-bookmark text-cyan-400 mr-2"></i> Explore Physics Chapters
                     </h2>
-                    <p class="text-xs text-gray-400 mt-1">Click on any chapter below to load complete deep explanation, mathematical derivations, diagrams & solved numericals.</p>
+                    <p class="text-xs text-gray-400 mt-1">Choose a chapter to open its explanations, key concepts, formulas, examples and practice material.</p>
                 </div>
 
-                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-                    <button onclick="switchChapter(1)" id="tab-btn-1" class="chapter-btn chapter-btn-active p-3.5 rounded-xl border border-[#D4AF37]/30 text-left transition duration-200 flex flex-col justify-between h-24 group">
-                        <div class="flex items-center justify-between w-full">
-                            <span class="text-xs font-bold text-amber-500">CHAPTER 01</span>
-                            <i class="fa-solid fa-person-running text-cyan-400 text-sm"></i>
-                        </div>
-                        <span class="font-bold text-sm leading-tight text-amber-100 group-hover:text-amber-300"> Describing Motion around us</span>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+                    <button onclick="switchChapter(1)" id="tab-btn-1" class="chapter-btn chapter-btn-active p-4 rounded-xl border border-[#D4AF37]/30 text-left transition duration-200 flex flex-col gap-2 min-h-32 group">
+                        <div class="flex items-center justify-between w-full"><span class="text-xs font-bold text-amber-500">CHAPTER 01</span><i class="fa-solid fa-person-running text-cyan-400 text-sm"></i></div>
+                        <span class="font-bold text-sm leading-tight text-amber-100 group-hover:text-amber-300">Describing Motion Around Us</span>
+                        <span class="text-xs leading-relaxed text-gray-400">Rest and motion, distance, displacement, speed, velocity, acceleration and motion graphs.</span>
                     </button>
-
-                    <button onclick="switchChapter(2)" id="tab-btn-2" class="chapter-btn p-3.5 rounded-xl border border-[#D4AF37]/30 text-left transition duration-200 bg-[#220308]/60 text-gray-300 hover:border-amber-400 flex flex-col justify-between h-24 group">
-                        <div class="flex items-center justify-between w-full">
-                            <span class="text-xs font-bold text-amber-500">CHAPTER 02</span>
-                            <i class="fa-solid fa-bow-arrow text-cyan-400 text-sm"></i>
-                        </div>
-                        <span class="font-bold text-sm leading-tight text-amber-100 group-hover:text-amber-300">How forces affect motion</span>
+                    <button onclick="switchChapter(2)" id="tab-btn-2" class="chapter-btn p-4 rounded-xl border border-[#D4AF37]/30 text-left transition duration-200 bg-[#220308]/60 text-gray-300 hover:border-amber-400 flex flex-col gap-2 min-h-32 group">
+                        <div class="flex items-center justify-between w-full"><span class="text-xs font-bold text-amber-500">CHAPTER 02</span><i class="fa-solid fa-hand-fist text-cyan-400 text-sm"></i></div>
+                        <span class="font-bold text-sm leading-tight text-amber-100 group-hover:text-amber-300">How Forces Affect Motion</span>
+                        <span class="text-xs leading-relaxed text-gray-400">Balanced and unbalanced forces, inertia, Newton’s laws, momentum and everyday effects of force.</span>
                     </button>
-
-                    <button onclick="switchChapter(3)" id="tab-btn-3" class="chapter-btn p-3.5 rounded-xl border border-[#D4AF37]/30 text-left transition duration-200 bg-[#220308]/60 text-gray-300 hover:border-amber-400 flex flex-col justify-between h-24 group">
-                        <div class="flex items-center justify-between w-full">
-                            <span class="text-xs font-bold text-amber-500">CHAPTER 03</span>
-                            <i class="fa-solid fa-globe text-cyan-400 text-sm"></i>
-                        </div>
-                        <span class="font-bold text-sm leading-tight text-amber-100 group-hover:text-amber-300">Work,Energy and Simple Machines</span>
+                    <button onclick="switchChapter(3)" id="tab-btn-3" class="chapter-btn p-4 rounded-xl border border-[#D4AF37]/30 text-left transition duration-200 bg-[#220308]/60 text-gray-300 hover:border-amber-400 flex flex-col gap-2 min-h-32 group">
+                        <div class="flex items-center justify-between w-full"><span class="text-xs font-bold text-amber-500">CHAPTER 03</span><i class="fa-solid fa-gears text-cyan-400 text-sm"></i></div>
+                        <span class="font-bold text-sm leading-tight text-amber-100 group-hover:text-amber-300">Work, Energy and Simple Machines</span>
+                        <span class="text-xs leading-relaxed text-gray-400">Work, kinetic and potential energy, conservation of energy, power, levers, pulleys and inclined planes.</span>
                     </button>
-
-                    <button onclick="switchChapter(4)" id="tab-btn-4" class="chapter-btn p-3.5 rounded-xl border border-[#D4AF37]/30 text-left transition duration-200 bg-[#220308]/60 text-gray-300 hover:border-amber-400 flex flex-col justify-between h-24 group">
-                        <div class="flex items-center justify-between w-full">
-                            <span class="text-xs font-bold text-amber-500">CHAPTER 04</span>
-                            <i class="fa-solid fa-bolt text-cyan-400 text-sm"></i>
-                        </div>
-                        <span class="font-bold text-sm leading-tight text-amber-100 group-hover:text-amber-300">Sound Waves: Characteristics and Appilication</span>
+                    <button onclick="switchChapter(4)" id="tab-btn-4" class="chapter-btn p-4 rounded-xl border border-[#D4AF37]/30 text-left transition duration-200 bg-[#220308]/60 text-gray-300 hover:border-amber-400 flex flex-col gap-2 min-h-32 group">
+                        <div class="flex items-center justify-between w-full"><span class="text-xs font-bold text-amber-500">CHAPTER 04</span><i class="fa-solid fa-wave-square text-cyan-400 text-sm"></i></div>
+                        <span class="font-bold text-sm leading-tight text-amber-100 group-hover:text-amber-300">Sound Waves</span>
+                        <span class="text-xs leading-relaxed text-gray-400">Vibrations, longitudinal waves, frequency, wavelength, echo, ultrasound, SONAR and the human ear.</span>
+                    </button>
+                    <button onclick="switchChapter('bonus')" id="tab-btn-bonus" class="chapter-btn p-4 rounded-xl border border-cyan-500/30 text-left transition duration-200 bg-cyan-950/20 text-gray-300 hover:border-cyan-400 flex flex-col gap-2 min-h-32 group">
+                        <div class="flex items-center justify-between w-full"><span class="text-xs font-bold text-cyan-400">BONUS TOPIC</span><i class="fa-solid fa-earth-asia text-cyan-300 text-sm"></i></div>
+                        <span class="font-bold text-sm leading-tight text-amber-100 group-hover:text-amber-300">Gravitation and Floatation</span>
+                        <span class="text-xs leading-relaxed text-gray-400">Universal gravitation, gravity, mass and weight, pressure, buoyancy and Archimedes’ principle.</span>
                     </button>
                 </div>
             </div>
@@ -542,12 +536,12 @@
             </div>
 
             <!-- CHAPTER 3: GRAVITATION & FLOATATION CONTENT -->
-            <div id="chapter-3" class="chapter-content hidden space-y-10">
+            <div id="chapter-bonus" class="chapter-content hidden space-y-10">
                 <div class="bg-gurukul-card p-6 sm:p-8 rounded-2xl border-gold-glow">
                     <div class="flex flex-wrap items-center justify-between gap-4 mb-6 border-b border-[#D4AF37]/30 pb-4">
                         <div>
-                            <span class="text-cyan-400 font-semibold text-xs tracking-widest uppercase">Class 9th Physics • Chapter 3</span>
-                            <h2 class="text-3xl font-extrabold font-cinzel text-gold-gradient mt-1">3. Universal Gravitation & Floatation Hydrostatics</h2>
+                            <span class="text-cyan-400 font-semibold text-xs tracking-widest uppercase">Class 9th Physics • Bonus Topic</span>
+                            <h2 class="text-3xl font-extrabold font-cinzel text-gold-gradient mt-1">Bonus: Gravitation & Floatation</h2>
                         </div>
                         <span class="px-3 py-1 rounded-full bg-amber-950/80 border border-amber-500 text-amber-300 text-xs font-bold">Vast Astrophysics & Fluids</span>
                     </div>
@@ -602,26 +596,26 @@
                 </div>
             </div>
 
-            <!-- CHAPTER 4: WORK, ENERGY & POWER CONTENT -->
-            <div id="chapter-4" class="chapter-content hidden space-y-10">
+            <!-- CHAPTER 3: WORK, ENERGY & SIMPLE MACHINES CONTENT -->
+            <div id="chapter-3" class="chapter-content hidden space-y-10">
                 <div class="bg-gurukul-card p-6 sm:p-8 rounded-2xl border-gold-glow">
                     <div class="flex flex-wrap items-center justify-between gap-4 mb-6 border-b border-[#D4AF37]/30 pb-4">
                         <div>
-                            <span class="text-cyan-400 font-semibold text-xs tracking-widest uppercase">Class 9th Physics • Chapter 4</span>
-                            <h2 class="text-3xl font-extrabold font-cinzel text-gold-gradient mt-1">4. Work, Kinetic/Potential Energy & Power</h2>
+                            <span class="text-cyan-400 font-semibold text-xs tracking-widest uppercase">Class 9th Physics • Chapter 3</span>
+                            <h2 class="text-3xl font-extrabold font-cinzel text-gold-gradient mt-1">3. Work, Energy & Simple Machines</h2>
                         </div>
-                        <span class="px-3 py-1 rounded-full bg-amber-950/80 border border-amber-500 text-amber-300 text-xs font-bold">Vast Thermodynamics & Work Mechanics</span>
+                        <span class="px-3 py-1 rounded-full bg-amber-950/80 border border-amber-500 text-amber-300 text-xs font-bold">Work, Energy & Machine Concepts</span>
                     </div>
 
                     <div class="space-y-6 text-gray-200">
-                        <h3 class="text-xl font-bold text-amber-300 border-b border-amber-900/50 pb-2">4.1 Scientific Concept of Work</h3>
+                        <h3 class="text-xl font-bold text-amber-300 border-b border-amber-900/50 pb-2">3.1 Scientific Concept of Work</h3>
                         <p class="leading-relaxed">
                             Work is said to be done by a force acting on an object when there is a displacement in the direction of force. 
                             $$\text{Work } W = F \cdot s \cdot \cos\theta$$
                             SI Unit of Work is <strong>Joule ($\text{J}$)</strong>: $1\text{ Joule} = 1\text{ Newton} \times 1\text{ meter}$.
                         </p>
 
-                        <h3 class="text-xl font-bold text-amber-300 border-b border-amber-900/50 pb-2 pt-4">4.2 Kinetic Energy Derivation ($E_k = \frac{1}{2}mv^2$)</h3>
+                        <h3 class="text-xl font-bold text-amber-300 border-b border-amber-900/50 pb-2 pt-4">3.2 Kinetic Energy Derivation ($E_k = \frac{1}{2}mv^2$)</h3>
                         <div class="p-5 bg-derivation-box rounded-xl space-y-3">
                             <p class="text-sm text-gray-300">Consider an object of mass $m$ initially at rest ($u=0$). A force $F$ accelerates it uniformly to velocity $v$ over displacement $s$.</p>
                             <p class="text-sm text-gray-300">Work done $W = F \cdot s = (ma) \cdot s$. From third equation $v^2 = u^2 + 2as \implies s = \frac{v^2}{2a}$ (since $u=0$).</p>
@@ -633,7 +627,7 @@
                             </div>
                         </div>
 
-                        <h3 class="text-xl font-bold text-amber-300 border-b border-amber-900/50 pb-2 pt-6">4.3 Proof of Conservation of Energy (Free Fall Body)</h3>
+                        <h3 class="text-xl font-bold text-amber-300 border-b border-amber-900/50 pb-2 pt-6">3.3 Proof of Conservation of Energy (Free Fall Body)</h3>
                         <p class="text-sm text-gray-300">Total Mechanical Energy $E = E_k + E_p$ remains constant at all points during free fall of mass $m$ from height $h$:</p>
                         <ul class="list-disc list-inside text-xs space-y-2 text-gray-300 p-4 bg-physics-box rounded-xl border border-cyan-500/30">
                             <li><strong>At Top Point A ($height = h, v=0$):</strong> $E_k = 0, E_p = mgh \implies E_{\text{total}} = mgh$.</li>
@@ -641,29 +635,43 @@
                             <li><strong>At Ground Point C ($height = 0$):</strong> $v^2 = 2gh \implies E_k = mgh, E_p = 0 \implies E_{\text{total}} = mgh$.</li>
                         </ul>
 
-                        <h3 class="text-xl font-bold text-amber-300 border-b border-amber-900/50 pb-2 pt-4">4.4 Power & Commercial Energy Unit</h3>
+                        <h3 class="text-xl font-bold text-amber-300 border-b border-amber-900/50 pb-2 pt-4">3.4 Power & Commercial Energy Unit</h3>
                         <p class="text-sm text-gray-300">Power is the rate of doing work: $P = \frac{W}{t}$. SI Unit: Watt ($\text{W} = \text{J/s}$).</p>
                         <div class="p-4 bg-gurukul-card rounded-xl border border-amber-500/40 text-center">
                             <span class="text-amber-400 font-bold text-sm">Commercial Energy Conversion Proof:</span>
                             <p class="text-lg font-mono text-cyan-300 my-1">$$1\text{ kWh} = 1000\text{ W} \times 3600\text{ s} = 3.6 \times 10^6\text{ Joules}$$</p>
+                        
+
+                        <h3 class="text-xl font-bold text-amber-300 border-b border-amber-900/50 pb-2 pt-4">3.5 Simple Machines: Making Work Easier</h3>
+                        <p class="leading-relaxed text-sm text-gray-300">A <strong>simple machine</strong> helps us apply a force more conveniently by changing its magnitude or direction. It does not reduce the total work in an ideal system; real machines lose some useful energy due to friction.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div class="p-4 rounded-xl bg-physics-box border-cyan-glow"><h4 class="font-bold text-cyan-300 mb-2">Lever</h4><p class="text-xs text-gray-300">A rigid bar that turns about a fixed point called the fulcrum. Examples: seesaw, crowbar and scissors.</p></div>
+                            <div class="p-4 rounded-xl bg-physics-box border-cyan-glow"><h4 class="font-bold text-cyan-300 mb-2">Pulley</h4><p class="text-xs text-gray-300">A grooved wheel with a rope that can change the direction of effort and help lift loads.</p></div>
+                            <div class="p-4 rounded-xl bg-physics-box border-cyan-glow"><h4 class="font-bold text-cyan-300 mb-2">Inclined Plane</h4><p class="text-xs text-gray-300">A sloping surface that helps raise a load using a smaller force over a longer distance.</p></div>
+                        </div>
+                        <div class="p-4 rounded-xl bg-gurukul-card border border-amber-500/40">
+                            <p class="text-sm text-amber-300 font-bold mb-1">Key machine relations</p>
+                            <p class="text-sm text-gray-200">Mechanical Advantage (MA) = Load / Effort</p>
+                            <p class="text-sm text-gray-200">Efficiency = (Useful output work / Input work) × 100%</p>
+                            <p class="text-xs text-gray-400 mt-2">An ideal machine has 100% efficiency; actual machines have lower efficiency because of energy losses such as friction.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- CHAPTER 5: SOUND CONTENT -->
-            <div id="chapter-5" class="chapter-content hidden space-y-10">
+            <!-- CHAPTER 4: SOUND WAVES CONTENT -->
+            <div id="chapter-4" class="chapter-content hidden space-y-10">
                 <div class="bg-gurukul-card p-6 sm:p-8 rounded-2xl border-gold-glow">
                     <div class="flex flex-wrap items-center justify-between gap-4 mb-6 border-b border-[#D4AF37]/30 pb-4">
                         <div>
-                            <span class="text-cyan-400 font-semibold text-xs tracking-widest uppercase">Class 9th Physics • Chapter 5</span>
-                            <h2 class="text-3xl font-extrabold font-cinzel text-gold-gradient mt-1">5. Sound Wave Mechanics, Echo & Ear Structure</h2>
+                            <span class="text-cyan-400 font-semibold text-xs tracking-widest uppercase">Class 9th Physics • Chapter 4</span>
+                            <h2 class="text-3xl font-extrabold font-cinzel text-gold-gradient mt-1">4. Sound Waves</h2>
                         </div>
                         <span class="px-3 py-1 rounded-full bg-amber-950/80 border border-amber-500 text-amber-300 text-xs font-bold">Vast Acoustics & Human Physiology</span>
                     </div>
 
                     <div class="space-y-6 text-gray-200">
-                        <h3 class="text-xl font-bold text-amber-300 border-b border-amber-900/50 pb-2">5.1 Production & Propagation of Longitudinal Sound Waves</h3>
+                        <h3 class="text-xl font-bold text-amber-300 border-b border-amber-900/50 pb-2">4.1 Production & Propagation of Longitudinal Sound Waves</h3>
                         <p class="leading-relaxed">
                             Sound is a form of mechanical energy that propagates as longitudinal pressure waves consisting of alternating <strong>Compressions ($C$)</strong> (high density/pressure) and <strong>Rarefactions ($R$)</strong> (low density/pressure) requiring a material medium.
                         </p>
@@ -674,7 +682,7 @@
                             <p class="text-xs text-gray-300">Where $v$ = Speed of wave, $f$ = Frequency ($\text{Hz}$), $\lambda$ = Wavelength ($\text{m}$), $T$ = Time Period ($\text{s}$).</p>
                         </div>
 
-                        <h3 class="text-xl font-bold text-amber-300 border-b border-amber-900/50 pb-2 pt-4">5.2 Reflection, Echo & Minimum Distance Calculation</h3>
+                        <h3 class="text-xl font-bold text-amber-300 border-b border-amber-900/50 pb-2 pt-4">4.2 Reflection, Echo & Minimum Distance Calculation</h3>
                         <p class="text-sm text-gray-300">
                             An <strong>Echo</strong> is the repetition of sound caused by reflection from a hard surface. The persistence of hearing in the human brain lasts for approximately $0.1\text{ seconds}$.
                         </p>
@@ -687,7 +695,7 @@
                             </div>
                         </div>
 
-                        <h3 class="text-xl font-bold text-amber-300 border-b border-amber-900/50 pb-2 pt-6">5.3 Applications of Ultrasound & SONAR</h3>
+                        <h3 class="text-xl font-bold text-amber-300 border-b border-amber-900/50 pb-2 pt-6">4.3 Applications of Ultrasound & SONAR</h3>
                         <p class="text-sm text-gray-300">Ultrasound refers to sound frequencies above $20,000\text{ Hz} (20\text{ kHz})$.</p>
                         <div class="p-4 bg-gurukul-card rounded-xl border border-amber-900/50">
                             <h4 class="font-bold text-cyan-300 text-sm mb-1"><i class="fa-solid fa-ship mr-2"></i> SONAR (Sound Navigation and Ranging)</h4>
@@ -695,7 +703,7 @@
                             <p class="text-sm font-mono text-amber-300 mt-2 text-center">$$2 d = v \cdot t \implies d = \frac{v \cdot t}{2}$$</p>
                         </div>
 
-                        <h3 class="text-xl font-bold text-amber-300 border-b border-amber-900/50 pb-2 pt-6">5.4 Detailed Structure & Functioning of Human Ear</h3>
+                        <h3 class="text-xl font-bold text-amber-300 border-b border-amber-900/50 pb-2 pt-6">4.4 Detailed Structure & Functioning of Human Ear</h3>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
                             <div class="p-4 bg-[#0F0103] rounded-xl border border-amber-900/40">
                                 <h4 class="font-bold text-amber-300 text-sm mb-2">1. Outer Ear</h4>
@@ -722,6 +730,7 @@
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     
+                        
                     <!-- Kinematics Solver -->
                     <div class="p-6 bg-[#0F0103] rounded-xl border border-amber-900/60 shadow-xl space-y-4">
                         <h3 class="text-lg font-bold text-amber-300 flex items-center gap-2">
