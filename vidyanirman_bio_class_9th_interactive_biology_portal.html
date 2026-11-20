@@ -208,7 +208,9 @@
         .bio-microscope-window{position:relative;width:min(100%,330px);aspect-ratio:1;border-radius:50%;overflow:hidden;border:11px solid #9b7227;background:#07110c;box-shadow:inset 0 0 0 2px #f4d77b,inset 0 0 28px #000,0 0 0 4px #30230f,0 0 0 6px #d7b65b66,0 0 32px #10b98128}
         .bio-microscope-view{position:absolute;inset:0;overflow:hidden;background:#080d0b;touch-action:none;cursor:grab;user-select:none}
         .bio-microscope-view.is-dragging{cursor:grabbing}
-        .bio-microscope-view img{width:100%;height:100%;display:block;object-fit:cover;transform:translate3d(0,0,0) scale(1);transform-origin:50% 50%;transition:none;user-select:none;-webkit-user-drag:none;pointer-events:none;filter:contrast(1.04) saturate(1.04);backface-visibility:hidden}
+        .bio-microscope-view img{display:none}
+        .bio-microscope-view canvas.bio-specimen-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;image-rendering:auto}
+        .bio-microscope-view .bio-micro-focus-overlay{position:absolute;inset:0;pointer-events:none;border-radius:50%;box-shadow:inset 0 0 18px #0009;z-index:1}
         .bio-microscope-view canvas.bio-micro-cell-3d{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab;z-index:1}
         .bio-microscope-view canvas.bio-micro-cell-3d:active{cursor:grabbing}
         .bio-micro-crosshair{position:absolute;inset:0;pointer-events:none;background:linear-gradient(transparent calc(50% - .5px),#d1fae544 50%,transparent calc(50% + .5px)),linear-gradient(90deg,transparent calc(50% - .5px),#d1fae544 50%,transparent calc(50% + .5px));border-radius:50%}
@@ -1309,7 +1311,10 @@
 </article>
           <article class="bio-arcade-card">
             <div class="flex items-center justify-between gap-2"><div><span class="text-[10px] text-cyan-300 font-bold tracking-widest">LAB 03</span><h3 class="text-lg font-bold text-amber-100">Virtual Microscope</h3></div><i class="fa-solid fa-microscope text-2xl text-cyan-300"></i></div>
-            <div class="rounded-xl bg-[#090205] p-3 mt-4 relative overflow-hidden"><div class="bio-microscope-body"><div class="flex w-full items-center justify-between px-2"><span class="text-[9px] tracking-[.2em] text-emerald-200">VN OPTICAL LAB • 3D MICROSCOPE</span><span class="text-[9px] text-amber-300">INTERACTIVE MODEL</span></div><div class="bio-micro-instrument-grid"><div class="bio-micro-3d-wrap"><canvas id="bioMicroscope3D" aria-label="Interactive three-dimensional microscope model"></canvas><span class="bio-micro-model-hint">DRAG TO ORBIT 360° · WHEEL TO ZOOM</span><div class="flex flex-wrap justify-center gap-2 mt-2 text-[9px] text-emerald-100/80"><span class="rounded-full border border-emerald-300/20 px-2 py-1">EYEPIECE · view through</span><span class="rounded-full border border-emerald-300/20 px-2 py-1">NOSEPIECE · rotates objectives</span><span class="rounded-full border border-emerald-300/20 px-2 py-1">STAGE · holds slide</span><span class="rounded-full border border-emerald-300/20 px-2 py-1">FOCUS KNOBS · sharpen image</span></div><button type="button" onclick="resetBioMicroscope3D()" class="absolute top-2 right-2 z-10 rounded-lg border border-amber-300/40 bg-[#090e0d]/85 px-2 py-1 text-[9px] font-bold text-amber-100">RESET 3D VIEW</button></div><div class="bio-micro-view-column"><div class="bio-microscope-window"><div id="bioMicroView" class="bio-microscope-view" tabindex="0" role="img" aria-label="Microscope specimen view. Drag to move, use mouse wheel or plus and minus keys to zoom, arrow keys to pan, and double-click to centre."></div><div class="bio-micro-crosshair"></div></div><div class="bio-micro-readout"><span>SIMULATED TOTAL MAGNIFICATION</span><strong id="bioMicroZoomReadout">40×</strong></div><p id="bioMicroImageStatus" class="text-[9px] text-emerald-300/80 text-center tracking-wider">LOADING SPECIMEN IMAGE…</p><p class="text-[9px] text-slate-400 text-center">Drag to pan · Scroll / + − to zoom · Arrow keys to move · Double-click to centre</p><p id="bioMicroLabel" class="text-center text-xs text-emerald-200">Onion epidermis • educational specimen</p></div></div></div></div><div class="bio-micro-panel mt-3"><div class="flex items-center justify-between gap-2"><span class="text-[10px] tracking-widest text-amber-200 font-bold">OBJECTIVE LENS</span><button type="button" class="bio-lab-control" onclick="resetBioMicroscope()">Reset microscope</button></div><div class="flex flex-wrap gap-2 mt-3"><button type="button" class="bio-micro-objective" data-objective="4" onclick="setBioObjective(4)">4× SCAN</button><button type="button" class="bio-micro-objective" data-objective="10" onclick="setBioObjective(10)">10× LOW</button><button type="button" class="bio-micro-objective active" data-objective="40" onclick="setBioObjective(40)">40× HIGH</button></div><div class="flex flex-wrap items-center justify-between gap-2 mt-3"><span class="text-[10px] tracking-widest text-amber-200 font-bold">EYEPIECE</span><div class="flex gap-2"><button type="button" class="bio-micro-objective active" data-eyepiece="10" onclick="setBioEyepiece(10)">10×</button><button type="button" class="bio-micro-objective" data-eyepiece="15" onclick="setBioEyepiece(15)">15×</button></div></div><div class="flex justify-between mt-3 text-xs text-slate-300"><label for="bioMicroZoom">Fine zoom</label><strong id="bioMicroZoomLabel" class="text-amber-300">40×</strong></div><div class="flex items-center gap-2 mt-2"><button type="button" class="bio-micro-objective" aria-label="Decrease digital zoom" onclick="stepBioMicroZoom(-.25)">−</button><input id="bioMicroZoom" type="range" min="1" max="4" value="1" step="0.05" class="bio-micro-slider mt-2" oninput="setBioMicroZoom(this.value)"/><button type="button" class="bio-micro-objective" aria-label="Increase digital zoom" onclick="stepBioMicroZoom(.25)">+</button></div><p class="text-[10px] text-slate-400 mt-3">All objectives show the selected specimen photomicrograph. Higher settings enlarge the same image digitally; this is an educational simulation, not a change in optical resolution. Total displayed magnification = objective × eyepiece × fine zoom.</p></div>
+            <div class="rounded-xl bg-[#090205] p-3 mt-4 relative overflow-hidden"><div class="bio-microscope-body"><div class="flex w-full items-center justify-between px-2"><span class="text-[9px] tracking-[.2em] text-emerald-200">VN OPTICAL LAB • 3D MICROSCOPE</span><span class="text-[9px] text-amber-300">INTERACTIVE MODEL</span></div><div class="bio-micro-instrument-grid"><div class="bio-micro-3d-wrap"><canvas id="bioMicroscope3D" aria-label="Interactive three-dimensional microscope model"></canvas><span class="bio-micro-model-hint">DRAG TO ORBIT 360° · WHEEL TO ZOOM</span><div class="flex flex-wrap justify-center gap-2 mt-2 text-[9px] text-emerald-100/80"><span class="rounded-full border border-emerald-300/20 px-2 py-1">EYEPIECE · view through</span><span class="rounded-full border border-emerald-300/20 px-2 py-1">NOSEPIECE · rotates objectives</span><span class="rounded-full border border-emerald-300/20 px-2 py-1">STAGE · holds slide</span><span class="rounded-full border border-emerald-300/20 px-2 py-1">FOCUS KNOBS · sharpen image</span></div><button type="button" onclick="resetBioMicroscope3D()" class="absolute top-2 right-2 z-10 rounded-lg border border-amber-300/40 bg-[#090e0d]/85 px-2 py-1 text-[9px] font-bold text-amber-100">RESET 3D VIEW</button></div><div class="bio-micro-view-column"><div class="bio-microscope-window"><div id="bioMicroView" class="bio-microscope-view" tabindex="0" role="img" aria-label="Microscope specimen view. Drag to move, use mouse wheel or plus and minus keys to zoom, arrow keys to pan, and double-click to centre."></div><div class="bio-micro-crosshair"></div></div><div class="bio-micro-readout"><span>OPTICAL MAGNIFICATION</span><strong id="bioMicroZoomReadout">40×</strong></div><p id="bioMicroImageStatus" class="text-[9px] text-emerald-300/80 text-center tracking-wider">LOADING SPECIMEN IMAGE…</p><p class="text-[9px] text-slate-400 text-center">Drag to pan · Scroll / + − to zoom · Arrow keys to move · Double-click to centre</p><p id="bioMicroLabel" class="text-center text-xs text-emerald-200">Onion epidermis • educational specimen</p></div></div></div></div><div class="bio-micro-panel mt-3"><div class="flex items-center justify-between gap-2"><span class="text-[10px] tracking-widest text-amber-200 font-bold">OBJECTIVE LENS</span><button type="button" class="bio-lab-control" onclick="resetBioMicroscope()">Reset microscope</button></div><div class="flex flex-wrap gap-2 mt-3"><button type="button" class="bio-micro-objective active" data-objective="4" onclick="setBioObjective(4)">4× SCAN</button><button type="button" class="bio-micro-objective" data-objective="10" onclick="setBioObjective(10)">10× LOW</button><button type="button" class="bio-micro-objective" data-objective="40" onclick="setBioObjective(40)">40× HIGH</button></div><div class="flex flex-wrap items-center justify-between gap-2 mt-3"><span class="text-[10px] tracking-widest text-amber-200 font-bold">EYEPIECE</span><div class="flex gap-2"><button type="button" class="bio-micro-objective active" data-eyepiece="10" onclick="setBioEyepiece(10)">10×</button><button type="button" class="bio-micro-objective" data-eyepiece="15" onclick="setBioEyepiece(15)">15×</button></div></div><div class="flex justify-between mt-3 text-xs text-slate-300"><label for="bioMicroZoom">Fine zoom</label><strong id="bioMicroZoomLabel" class="text-amber-300">40×</strong></div><div class="flex items-center gap-2 mt-2"><button type="button" class="bio-micro-objective" aria-label="Decrease digital zoom" onclick="stepBioMicroZoom(-.25)">−</button><input id="bioMicroZoom" type="range" min="1" max="4" value="1" step="0.05" class="bio-micro-slider mt-2" oninput="setBioMicroZoom(this.value)"/><button type="button" class="bio-micro-objective" aria-label="Increase digital zoom" onclick="stepBioMicroZoom(.25)">+</button></div><p class="text-[10px] text-slate-400 mt-3">Objective changes the field of view; the eyepiece sets optical magnification. Fine zoom is digital only and cannot reveal detail missing from the source specimen.</p>
+                <div class="flex justify-between mt-3 text-xs text-slate-300"><label for="bioMicroFocus">Fine focus</label><strong id="bioMicroFocusLabel" class="text-amber-300">78%</strong></div>
+                <input id="bioMicroFocus" type="range" min="0" max="100" value="78" step="1" class="bio-micro-slider mt-2 w-full" oninput="setBioMicroFocus(this.value)"/>
+                <p id="bioMicroFieldReadout" class="text-[10px] text-emerald-200 mt-2">FIELD OF VIEW • WIDE</p></div>
             <div class="flex flex-wrap gap-2 mt-3"><button class="bio-lab-control" type="button" onclick="setBioMicroSample('plant')">Plant cells</button><button class="bio-lab-control" type="button" onclick="setBioMicroSample('animal')">Animal cells</button><button class="bio-lab-control" type="button" onclick="setBioMicroSample('blood')">Blood cells</button></div>
             <p id="bioMicroFact" class="text-xs text-slate-300 mt-3 min-h-8">Compare specimen photomicrographs of plant, cheek and blood cells. Higher zoom enlarges the image and cannot reveal detail absent from the source photograph.</p>
           </article>
@@ -1483,11 +1488,11 @@
 <script>
 
         const bioMicroSamples={
-          plant:{label:'Onion epidermis • real microscope photograph',fact:'Real optical-microscope photograph of onion epidermis. The long, brick-like boundaries are cell walls. Image: SaraKasa, Wikimedia Commons, CC BY 4.0.',kind:'plant',src:'https://commons.wikimedia.org/wiki/Special:FilePath/Onion_epidermis.jpg'},
-          animal:{label:'Human cheek epithelial cells • real microscope photograph',fact:'Real stained human cheek epithelial cells. The blue stain helps show cell outlines and nuclei. Image: Aholderfield, Wikimedia Commons, CC BY 4.0.',kind:'animal',src:'https://commons.wikimedia.org/wiki/Special:FilePath/Microscopic_Image_of_Human_Cheek_Cells.jpg'},
-          blood:{label:'Human blood smear • real microscope photograph',fact:'Real human blood-smear photograph at 400×. Red blood cells appear as numerous small discs. Image: Olena Hohulia et al., Wikimedia Commons, CC BY 4.0.',kind:'blood',src:'https://commons.wikimedia.org/wiki/Special:FilePath/Human_blood.jpg'}
+          plant:{label:'Onion epidermis • high-resolution photomicrograph',fact:'Onion epidermis under an optical microscope. Cell walls form the brick-like boundaries. Original image: 4,032 × 2,268 px • SaraKasa • CC BY 4.0 • Wikimedia Commons.',kind:'plant',src:'https://commons.wikimedia.org/wiki/Special:FilePath/Onion_epidermis.jpg'},
+          animal:{label:'Human cheek epithelial cells • high-resolution photomicrograph',fact:'Stained human cheek epithelial cells. The stain makes the cell boundaries and nuclei easier to see. Original image: 3,024 × 4,032 px • Aholderfield • CC BY 4.0 • Wikimedia Commons.',kind:'animal',src:'https://commons.wikimedia.org/wiki/Special:FilePath/Microscopic_Image_of_Human_Cheek_Cells.jpg'},
+          blood:{label:'Human blood smear • high-resolution photomicrograph',fact:'Human blood smear with red blood cells. Original image: 3,048 × 4,064 px • Shbier • CC0 • Wikimedia Commons.',kind:'blood',src:'https://commons.wikimedia.org/wiki/Special:FilePath/Blood_smears.jpg'}
         };
-        let bioMicroCurrentSample='plant',bioMicroZoomLevel=1,bioMicroObjective=40,bioMicroEyepiece=10,bioMicroPanX=0,bioMicroPanY=0,bioMicroDrag=null,bioMicroPaintFrame=0;
+        let bioMicroCurrentSample='plant',bioMicroZoomLevel=1,bioMicroObjective=4,bioMicroEyepiece=10,bioMicroFocus=78,bioMicroPanX=0,bioMicroPanY=0,bioMicroDrag=null,bioMicroPaintFrame=0;
         let bioCell3DState=null;
         function disposeBioCell3D(){
           if(!bioCell3DState)return;
@@ -1575,46 +1580,63 @@
           render();return state;
         }
         function drawBioCellDetail(view,data){
-          // Always retain the selected specimen photomicrograph in the microscope.
-          // A schematic organelle model is not what an optical microscope reveals.
-          const existing=view.querySelector('.bio-micro-cell-3d');
-          if(existing)disposeBioCell3D();
-          const img=view.querySelector('img');
-          if(img)img.style.visibility='visible';
+          const img=view.querySelector('img'),canvas=view.querySelector('canvas.bio-specimen-canvas');
+          if(!img||!canvas||!img.complete||!img.naturalWidth)return;
+          const rect=view.getBoundingClientRect(),cssW=Math.max(1,Math.round(rect.width)),cssH=Math.max(1,Math.round(rect.height));
+          const dpr=Math.min(window.devicePixelRatio||1,2),w=Math.max(1,Math.round(cssW*dpr)),hh=Math.max(1,Math.round(cssH*dpr));
+          if(canvas.width!==w||canvas.height!==hh){canvas.width=w;canvas.height=hh;}
+          const ctx=canvas.getContext('2d');if(!ctx)return;
+          const aspect=cssW/cssH,iw=img.naturalWidth,ih=img.naturalHeight;
+          let baseW,baseH;if(iw/ih>aspect){baseH=ih;baseW=ih*aspect;}else{baseW=iw;baseH=iw/aspect;}
+          const opticalObjectiveScale=bioMicroObjective/4,ocularScale=bioMicroEyepiece/10;
+          const digitalScale=bioMicroZoomLevel,scale=opticalObjectiveScale*ocularScale*digitalScale;
+          const cropW=Math.min(iw,baseW/scale),cropH=Math.min(ih,baseH/scale);
+          const maxPanX=Math.max(0,(scale-1)*cssW/2),maxPanY=Math.max(0,(scale-1)*cssH/2);
+          bioMicroPanX=Math.max(-maxPanX,Math.min(maxPanX,bioMicroPanX));bioMicroPanY=Math.max(-maxPanY,Math.min(maxPanY,bioMicroPanY));
+          const centerX=iw/2-bioMicroPanX*baseW/(cssW*scale),centerY=ih/2-bioMicroPanY*baseH/(cssH*scale);
+          const sx=Math.max(0,Math.min(iw-cropW,centerX-cropW/2)),sy=Math.max(0,Math.min(ih-cropH,centerY-cropH/2));
+          const focusBlur=((100-bioMicroFocus)/100)*3.2;
+          ctx.clearRect(0,0,w,hh);ctx.save();ctx.scale(dpr,dpr);
+          ctx.beginPath();ctx.arc(cssW/2,cssH/2,Math.min(cssW,cssH)/2-1,0,Math.PI*2);ctx.clip();
+          ctx.filter='blur('+focusBlur.toFixed(2)+'px) contrast(1.08) saturate(1.06)';
+          ctx.drawImage(img,sx,sy,cropW,cropH,0,0,cssW,cssH);ctx.restore();
+          const field=document.getElementById('bioMicroFieldReadout');
+          if(field)field.textContent='FIELD OF VIEW • '+(bioMicroObjective===4?'WIDE':bioMicroObjective===10?'MEDIUM':'NARROW')+' · '+(bioMicroObjective*bioMicroEyepiece)+'× OPTICAL';
         }
         function paintBioMicroscope(){
           if(bioMicroPaintFrame)return;
           bioMicroPaintFrame=requestAnimationFrame(()=>{
             bioMicroPaintFrame=0;
-            const view=document.getElementById('bioMicroView'),img=view&&view.querySelector('img');
-            if(!view||!img)return;
-            const w=view.clientWidth,h=view.clientHeight,scale=(bioMicroObjective/4)*bioMicroZoomLevel;
-            const maxX=(scale-1)*w/2,maxY=(scale-1)*h/2;
-            bioMicroPanX=Math.max(-maxX,Math.min(maxX,bioMicroPanX));bioMicroPanY=Math.max(-maxY,Math.min(maxY,bioMicroPanY));
-            img.style.transform='translate3d('+bioMicroPanX+'px,'+bioMicroPanY+'px,0) scale('+scale+')';
+            const view=document.getElementById('bioMicroView');
+            if(!view)return;
             drawBioCellDetail(view,bioMicroSamples[bioMicroCurrentSample]);
           });
         }
         function updateBioMicroReadout(){
-          const total=bioMicroObjective*bioMicroEyepiece*bioMicroZoomLevel;
-          const label=(total>=100?Math.round(total):Math.round(total*10)/10)+'×';
+          const opticalTotal=bioMicroObjective*bioMicroEyepiece;
+          const label=opticalTotal+'×';
           ['bioMicroZoomLabel','bioMicroZoomReadout'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=label;});
+          const focusLabel=document.getElementById('bioMicroFocusLabel');if(focusLabel)focusLabel.textContent=bioMicroFocus+'%';
           document.querySelectorAll('[data-eyepiece]').forEach(b=>b.classList.toggle('active',Number(b.dataset.eyepiece)===bioMicroEyepiece));
-          const img=document.querySelector('#bioMicroView img'),status=document.getElementById('bioMicroImageStatus');if(status){if(img&&img.complete&&img.naturalWidth)status.textContent='SPECIMEN PHOTOMICROGRAPH • '+img.naturalWidth+' × '+img.naturalHeight+' px'+(bioMicroObjective>=40||bioMicroZoomLevel>1?' • DIGITAL CROP — FINE DETAIL IS LIMITED':'');}
+          const img=document.querySelector('#bioMicroView img'),status=document.getElementById('bioMicroImageStatus');
+          if(status&&img&&img.complete&&img.naturalWidth)status.textContent='SOURCE IMAGE • '+img.naturalWidth+' × '+img.naturalHeight+' PX · '+(bioMicroZoomLevel>1?'DIGITAL ZOOM '+bioMicroZoomLevel.toFixed(1)+'×':'OPTICAL VIEW');
           document.querySelectorAll('[data-objective]').forEach(b=>b.classList.toggle('active',Number(b.dataset.objective)===bioMicroObjective));
+          paintBioMicroscope();
         }
-        function setBioObjective(value){bioMicroObjective=Number(value)||4;bioMicroPanX=0;bioMicroPanY=0;updateBioMicroReadout();paintBioMicroscope();}
+        function setBioMicroFocus(value){bioMicroFocus=Math.max(0,Math.min(100,Number(value)||0));updateBioMicroReadout();}
+
+        function setBioObjective(value){bioMicroObjective=Number(value)||4;bioMicroPanX=0;bioMicroPanY=0;updateBioMicroReadout();}
         function setBioEyepiece(value){bioMicroEyepiece=Number(value)||10;updateBioMicroReadout();}
         function setBioMicroZoom(value){bioMicroZoomLevel=Math.max(1,Math.min(4,Number(value)||1));const s=document.getElementById('bioMicroZoom');if(s)s.value=String(bioMicroZoomLevel);if(bioMicroZoomLevel===1){bioMicroPanX=0;bioMicroPanY=0;}updateBioMicroReadout();paintBioMicroscope();}
         function stepBioMicroZoom(delta){setBioMicroZoom(bioMicroZoomLevel+delta);}
-        function resetBioMicroscope(){bioMicroPanX=0;bioMicroPanY=0;bioMicroZoomLevel=1;bioMicroObjective=40;bioMicroEyepiece=10;const s=document.getElementById('bioMicroZoom');if(s)s.value='1';document.querySelectorAll('[data-eyepiece]').forEach(b=>b.classList.toggle('active',Number(b.dataset.eyepiece)===10));updateBioMicroReadout();paintBioMicroscope();}
+        function resetBioMicroscope(){bioMicroPanX=0;bioMicroPanY=0;bioMicroZoomLevel=1;bioMicroObjective=4;bioMicroEyepiece=10;bioMicroFocus=78;const s=document.getElementById('bioMicroZoom');if(s)s.value='1';const f=document.getElementById('bioMicroFocus');if(f)f.value='78';document.querySelectorAll('[data-eyepiece]').forEach(b=>b.classList.toggle('active',Number(b.dataset.eyepiece)===10));updateBioMicroReadout();}
         function setBioMicroSample(sample){
           if(!bioMicroSamples[sample])return;
           const data=bioMicroSamples[sample],view=document.getElementById('bioMicroView');bioMicroCurrentSample=sample;
-          view.innerHTML='<img src="'+data.src+'" alt="'+data.label+'" draggable="false" loading="eager" decoding="async">';
-          const specimenImage=view.querySelector('img');specimenImage.addEventListener('load',()=>{const status=document.getElementById('bioMicroImageStatus');if(status)status.textContent='IMAGE READY • '+specimenImage.naturalWidth+' × '+specimenImage.naturalHeight+' px';paintBioMicroscope();},{once:true});
+          view.innerHTML='<img src="'+data.src+'" alt="'+data.label+'" draggable="false" loading="eager" decoding="async"><canvas class="bio-specimen-canvas" aria-hidden="true"></canvas>';
+          const specimenImage=view.querySelector('img');specimenImage.addEventListener('load',()=>{updateBioMicroReadout();paintBioMicroscope();},{once:true});
           specimenImage.addEventListener('error',()=>{const status=document.getElementById('bioMicroImageStatus');if(status)status.textContent='IMAGE COULD NOT LOAD • CHECK CONNECTION';},{once:true});
-          const status=document.getElementById('bioMicroImageStatus');if(status)status.textContent='LOADING SPECIMEN IMAGE…';
+          const status=document.getElementById('bioMicroImageStatus');if(status)status.textContent='LOADING HIGH-RESOLUTION SPECIMEN…';
           document.getElementById('bioMicroLabel').textContent=data.label;
           document.getElementById('bioMicroFact').textContent=data.fact;
           resetBioMicroscope();
