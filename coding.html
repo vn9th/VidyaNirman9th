@@ -122,6 +122,10 @@
     @page certLandscape{size:A4 landscape;margin:8mm}
     @page certPortrait{size:A4 portrait;margin:8mm}
     @media print{
+      /* Isolate the certificate as the only printable document content. */
+      html:has(body.printing-certificate),body.printing-certificate{margin:0!important;padding:0!important;width:100%!important;min-height:0!important;height:auto!important;overflow:visible!important;background:#fff!important}
+      body.printing-certificate> :not(#certificatePaper){display:none!important}
+      body.printing-certificate>#certificatePaper{display:block!important;visibility:visible!important;position:relative!important;inset:auto!important;width:100%!important;height:auto!important;margin:0!important}
       body.printing-certificate.print-landscape{page:certLandscape}
       body.printing-certificate.print-portrait{page:certPortrait}
       body.printing-certificate *{visibility:hidden!important}
@@ -886,7 +890,7 @@ for step in range(1, 4):
     document.querySelectorAll('.lesson-done').forEach(btn=>btn.addEventListener('click',()=>setTimeout(certGate,0)));
     certGate();
     generateCert.addEventListener('click',()=>{const name=document.getElementById('certName').value.trim();if(completedLessons.length<8){certGate();return;}if(!name){certStatus.textContent='Please enter your name first.';document.getElementById('certName').focus();return;}document.getElementById('certStudentDisplay').textContent=name;document.getElementById('certCourseDisplay').textContent=document.getElementById('certCourse').value;document.getElementById('certDateDisplay').textContent='Completed on '+new Date().toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'});document.getElementById('certIdDisplay').textContent='VN-CA-'+new Date().getFullYear()+'-'+Math.random().toString(36).slice(2,8).toUpperCase();certificatePaper.classList.remove('hidden');printCert.disabled=false;certStatus.textContent='Certificate generated. Use Print / Save as PDF to keep a copy.';certificatePaper.scrollIntoView({behavior:'smooth',block:'center'});});
-    printCert.addEventListener('click',()=>{if(certificatePaper.classList.contains('hidden'))return;const orientation=document.getElementById('certOrientation')?.value==='portrait'?'portrait':'landscape';document.body.classList.remove('print-portrait','print-landscape');document.body.classList.add('printing-certificate','print-'+orientation);const cleanup=()=>{document.body.classList.remove('printing-certificate','print-portrait','print-landscape');window.removeEventListener('afterprint',cleanup)};window.addEventListener('afterprint',cleanup,{once:true});window.print();setTimeout(cleanup,1200);});
+    printCert.addEventListener('click',()=>{if(certificatePaper.classList.contains('hidden'))return;const orientation=document.getElementById('certOrientation')?.value==='portrait'?'portrait':'landscape';const placeholder=document.createComment('VN certificate print position');certificatePaper.parentNode.insertBefore(placeholder,certificatePaper);document.body.appendChild(certificatePaper);document.body.classList.remove('print-portrait','print-landscape');document.body.classList.add('printing-certificate','print-'+orientation);let restored=false;const cleanup=()=>{if(restored)return;restored=true;document.body.classList.remove('printing-certificate','print-portrait','print-landscape');if(placeholder.parentNode){placeholder.parentNode.insertBefore(certificatePaper,placeholder);placeholder.remove()}window.removeEventListener('afterprint',cleanup)};window.addEventListener('afterprint',cleanup,{once:true});window.print();setTimeout(cleanup,10000);});
 
   
     // VN Project Showcase: student portfolio stored locally on this device.
