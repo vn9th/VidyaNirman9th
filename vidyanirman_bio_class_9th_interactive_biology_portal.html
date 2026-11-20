@@ -1317,6 +1317,15 @@
                 <p id="bioMicroFieldReadout" class="text-[10px] text-emerald-200 mt-2">FIELD OF VIEW • WIDE</p></div>
             <div class="flex flex-wrap gap-2 mt-3"><button class="bio-lab-control" type="button" onclick="setBioMicroSample('plant')">Plant cells</button><button class="bio-lab-control" type="button" onclick="setBioMicroSample('animal')">Animal cells</button><button class="bio-lab-control" type="button" onclick="setBioMicroSample('blood')">Blood cells</button></div>
             <p id="bioMicroFact" class="text-xs text-slate-300 mt-3 min-h-8">Compare specimen photomicrographs of plant, cheek and blood cells. Higher zoom enlarges the image and cannot reveal detail absent from the source photograph.</p>
+            <section id="bioBloodDeepZoom" class="mt-4 overflow-hidden rounded-xl border border-cyan-300/30 bg-[#050b12]">
+              <div class="border-b border-cyan-300/20 bg-[#0b1722] p-4">
+                <p class="text-[10px] font-bold tracking-[.2em] text-cyan-300">REAL PREPARED SLIDE • VIRTUAL MICROSCOPY</p>
+                <h4 class="mt-1 text-base font-bold text-white">Onion Epidermis (Whole Mount)</h4>
+                <p class="mt-2 text-xs leading-relaxed text-slate-300">Select Plant, Animal or Blood cells above to load the matching prepared-slide information and viewer.</p>
+                <a id="bioMicroViewerLink" href="https://thestudyscope.com/catalog/slide/onion-epidermis" target="_blank" rel="noopener noreferrer" class="bio-lab-control mt-3 inline-flex items-center gap-2">Open virtual microscope <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+              </div>
+              <p id="bioMicroViewerNote" class="p-3 text-[11px] text-slate-400">The original slide viewer opens separately. Zoom levels and slide access are provided by the source website.</p>
+            </section>
           </article>
           <article class="bio-arcade-card lg:col-span-2">
             <div class="flex items-center justify-between gap-2"><div><span class="text-[10px] text-amber-300 font-bold tracking-widest">LAB 04</span><h3 class="text-lg font-bold text-amber-100">Ecosystem Energy Flow Simulator</h3></div><i class="fa-solid fa-leaf text-2xl text-emerald-300"></i></div>
@@ -1649,10 +1658,16 @@
           }
           if(deepZoom){
             deepZoom.hidden=false;
-            deepZoom.innerHTML='<div class="border-b border-cyan-300/20 bg-[#0b1722] p-4"><p class="text-[10px] font-bold tracking-[.2em] text-cyan-300">REAL PREPARED SLIDE • VIRTUAL MICROSCOPY</p><h4 class="mt-1 text-base font-bold text-white">'+data.viewerName+'</h4><p class="mt-2 text-xs leading-relaxed text-slate-300">'+data.viewerNote+'</p><a href="'+data.viewerUrl+'" target="_blank" rel="noopener noreferrer" class="bio-lab-control mt-3 inline-flex items-center gap-2" aria-label="Open real virtual microscope slide in a new tab">Open virtual microscope <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div><p class="p-3 text-[11px] text-slate-400">Opens the original slide viewer in a new tab. Deep-zoom availability is controlled by the slide provider; this portal does not fake additional resolution by enlarging a photograph.</p>';
+            deepZoom.hidden=false;
+            const viewerTitle=deepZoom.querySelector('h4');
+            const viewerLink=deepZoom.querySelector('#bioMicroViewerLink');
+            const viewerNote=deepZoom.querySelector('#bioMicroViewerNote');
+            if(viewerTitle)viewerTitle.textContent=data.viewerName;
+            if(viewerLink){viewerLink.href=data.viewerUrl;viewerLink.setAttribute('aria-label','Open '+data.viewerName+' virtual microscope in a new tab');}
+            if(viewerNote)viewerNote.textContent=data.viewerNote+' The original slide viewer opens separately; its available zoom levels and access rules are controlled by the provider.';
           }
-          if(controls)controls.hidden=true;
-          if(instrumentGrid)instrumentGrid.hidden=true;
+          if(controls)controls.hidden=false;
+          if(instrumentGrid)instrumentGrid.hidden=false;
           if(status)status.textContent='REAL SPECIMEN SELECTED • OPEN VIRTUAL MICROSCOPE';
           document.getElementById('bioMicroLabel').textContent=data.label;
           document.getElementById('bioMicroFact').textContent=data.fact;
