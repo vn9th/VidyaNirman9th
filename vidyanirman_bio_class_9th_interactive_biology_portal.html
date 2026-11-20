@@ -1677,6 +1677,8 @@
           let legacy=view.querySelector('.bio-micro-cell-detail');if(legacy)legacy.hidden=true;
           const existing=view.querySelector('.bio-micro-cell-3d');
           if(!active){if(existing)disposeBioCell3D();return;}
+          const bounds=view.getBoundingClientRect();
+          if(bounds.bottom < -120 || bounds.top > window.innerHeight+120){if(existing)disposeBioCell3D();return;}
           const kind=data&&data.kind||'plant';
           if(!window.THREE){if(existing)existing.remove();return;}
           if(!bioCell3DState||bioCell3DState.kind!==kind||!existing)buildBioCell3D(view,kind);
