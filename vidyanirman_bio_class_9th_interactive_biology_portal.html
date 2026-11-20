@@ -1490,14 +1490,14 @@
           try{
             plantCellScene=new T.Scene();plantCellScene.background=new T.Color(0x07110f);
             plantCellCamera=new T.PerspectiveCamera(34,1,.1,100);plantCellCamera.position.set(6.2,4.5,9.2);plantCellCamera.lookAt(0,0,0);
-            plantCellRenderer=new T.WebGLRenderer({canvas,antialias:true,alpha:false,powerPreference:'high-performance'});
-            plantCellRenderer.setPixelRatio(Math.min(window.devicePixelRatio||1,window.innerWidth<700?1.2:1.6));
+            plantCellRenderer=new T.WebGLRenderer({canvas,antialias:true,alpha:false,powerPreference:'low-power'});
+            plantCellRenderer.setPixelRatio(Math.min(window.devicePixelRatio||1,Math.min(window.innerWidth<700?1.1:1.25,1.25)));
             plantCellRenderer.shadowMap.enabled=true;
             plantCellRenderer.shadowMap.type=T.PCFSoftShadowMap;
             plantCellRenderer.outputColorSpace=T.SRGBColorSpace;plantCellRenderer.toneMapping=T.ACESFilmicToneMapping;plantCellRenderer.toneMappingExposure=1.12;
             plantCellScene.add(new T.HemisphereLight(0xd8ffe9,0x18241b,1.65));
             const key=new T.DirectionalLight(0xfff0ce,3.2);key.position.set(-4,7,8);key.castShadow=true;
-            key.shadow.mapSize.set(window.innerWidth<700?768:1536,window.innerWidth<700?768:1536);
+            key.shadow.mapSize.set(512,512);
             key.shadow.camera.left=-5.5;key.shadow.camera.right=5.5;key.shadow.camera.top=4.5;key.shadow.camera.bottom=-4.5;
             key.shadow.camera.near=.5;key.shadow.camera.far=24;key.shadow.bias=-.00018;key.shadow.normalBias=.025;
             plantCellScene.add(key);
@@ -1574,12 +1574,12 @@
             canvas.addEventListener('pointerup',()=>drag.active=false);canvas.addEventListener('pointercancel',()=>drag.active=false);
             canvas.addEventListener('wheel',e=>{e.preventDefault();plantCellCamera.position.multiplyScalar(1+e.deltaY*.001);const d=plantCellCamera.position.length();if(d<6.5)plantCellCamera.position.setLength(6.5);if(d>14)plantCellCamera.position.setLength(14);plantCellCamera.lookAt(0,0,0);},{passive:false});
             const ray=new T.Raycaster(),pointer=new T.Vector2();
-            canvas.addEventListener('click',e=>{if(drag.moved){drag.moved=false;return;}const rect=canvas.getBoundingClientRect();pointer.x=((e.clientX-rect.left)/rect.width)*2-1;pointer.y=-((e.clientY-rect.top)/rect.height)*2+1;ray.setFromCamera(pointer,plantCellCamera);const hits=ray.intersectObjects(group.children,true);if(hits.length){let obj=hits[0].object;while(obj&&obj!==group&&!obj.name)obj=obj.parent;if(obj&&obj.name)explainPlantPart(obj.name);}});
+            canvas.addEventListener('click',e=>{if(drag.moved){drag.moved=false;return;}const rect=canvas.getBoundingClientRect();pointer.x=((e.clientX-rect.left)/rect.width)*2-1;pointer.y=-((e.clientY-rect.top)/rect.height)*2+1;ray.setFromCamera(pointer,plantCellCamera);const hits=ray.intersectObjects(group.children,true);let selected=null;for(const hit of hits){let obj=hit.object;while(obj&&obj!==group&&!obj.name)obj=obj.parent;if(!obj||obj===group)continue;if(obj.name==='wall'||obj.name==='membrane'||obj.name==='cytoplasm')continue;if(plantCellFacts[obj.name]){selected=obj.name;break;}}if(!selected){for(const hit of hits){let obj=hit.object;while(obj&&obj!==group&&!obj.name)obj=obj.parent;if(obj&&obj.name==='wall'){selected='wall';break;}}}if(selected)explainPlantPart(selected);});
             function resize(){const rect=canvas.getBoundingClientRect();if(!rect.width||!rect.height)return;plantCellCamera.aspect=rect.width/rect.height;plantCellCamera.updateProjectionMatrix();plantCellRenderer.setSize(rect.width,rect.height,false);}
             if(window.ResizeObserver)new ResizeObserver(resize).observe(canvas);else window.addEventListener('resize',resize);resize();
             const reducedMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             let plantCellInView=true;
-            const drawPlantCell=()=>{if(!plantCellPaused&&!reducedMotion&&group)group.rotation.y+=.00075;plantCellRenderer.render(plantCellScene,plantCellCamera);};
+            let plantCellLastFrame=0;const drawPlantCell=time=>{if(time-plantCellLastFrame<33)return;plantCellLastFrame=time;if(!plantCellPaused&&!reducedMotion&&group)group.rotation.y+=.00075;plantCellRenderer.render(plantCellScene,plantCellCamera);};
             const syncPlantCellRendering=()=>plantCellRenderer.setAnimationLoop(plantCellInView&&!document.hidden?drawPlantCell:null);
             document.addEventListener('visibilitychange',syncPlantCellRendering);
             if('IntersectionObserver' in window){
@@ -1595,9 +1595,6 @@
         function resetPlantCell3D(){if(plantCellGroup){if(plantCellGroup.userData.exploded)togglePlantCellExploded();if(plantCellGroup.userData.cutaway)togglePlantCellCutaway();plantCellGroup.rotation.set(-.25,.48,.08);plantCellCamera.position.set(6.2,4.5,9.2);plantCellCamera.lookAt(0,0,0);document.getElementById('bio3dPlantFact').textContent='View reset. Select a cell part to learn its function.';}}
         function togglePlantCellExploded(){if(!plantCellGroup)return;const exploded=plantCellGroup.userData.exploded=!plantCellGroup.userData.exploded;plantCellGroup.children.forEach((child,i)=>{if(['wall','membrane','cytoplasm','vacuole','nucleus','chloroplast','mitochondrion'].includes(child.name)){const base=child.userData.basePosition||(child.userData.basePosition=child.position.clone());const factor=exploded?1.18:1;child.position.copy(base).multiplyScalar(factor);}});document.getElementById('bio3dExplode').textContent=exploded?'Close exploded view':'Exploded view';}
         function togglePlantCellCutaway(){if(!plantCellGroup)return;const cut=plantCellGroup.userData.cutaway=!plantCellGroup.userData.cutaway;plantCellGroup.children.forEach(child=>{if(child.name==='wall'||child.name==='membrane'){child.material.transparent=true;child.material.opacity=cut?(child.name==='wall'?.08:.07):(child.name==='wall'?.26:.22);}});document.getElementById('bio3dCutaway').textContent=cut?'Restore membranes':'Cutaway view';}
-        function togglePlantCell3D(){plantCellPaused=!plantCellPaused;document.getElementById('bio3dToggle').textContent=plantCellPaused?'Resume rotation':'Pause rotation';}
-        function spinPlantCell3D(){if(plantCellGroup)plantCellGroup.rotation.y+=Math.PI/2;}
-        function resetPlantCell3D(){if(plantCellGroup){plantCellGroup.rotation.set(-.28,.42,.08);plantCellCamera.position.set(5.6,4.1,8.6);plantCellCamera.lookAt(0,0,0);}}
         const bioMicroSamples={
           plant:{label:'Onion epidermis • real microscope photograph',fact:'Real optical-microscope photograph of onion epidermis. The long, brick-like boundaries are cell walls. Image: SaraKasa, Wikimedia Commons, CC BY 4.0.',kind:'plant',src:'https://commons.wikimedia.org/wiki/Special:FilePath/Onion_epidermis.jpg'},
           animal:{label:'Human cheek epithelial cells • real microscope photograph',fact:'Real stained human cheek epithelial cells. The blue stain helps show cell outlines and nuclei. Image: Aholderfield, Wikimedia Commons, CC BY 4.0.',kind:'animal',src:'https://commons.wikimedia.org/wiki/Special:FilePath/Microscopic_Image_of_Human_Cheek_Cells.jpg'},
@@ -2762,11 +2759,11 @@ function makeAnimalCellModel(){
   animalCellScene=new T.Scene();animalCellScene.background=new T.Color(0x090d18);
   animalCellCamera=new T.PerspectiveCamera(34,1,.1,100);animalCellCamera.position.set(6.8,4.6,9.4);animalCellCamera.lookAt(0,0,0);
   animalCellRenderer=new T.WebGLRenderer({canvas:c,antialias:true,alpha:false,powerPreference:'high-performance'});
-  animalCellRenderer.setPixelRatio(Math.min(window.devicePixelRatio||1,window.innerWidth<700?1.2:1.65));
+  animalCellRenderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.25));
   animalCellRenderer.shadowMap.enabled=true;animalCellRenderer.shadowMap.type=T.PCFSoftShadowMap;
   animalCellRenderer.outputColorSpace=T.SRGBColorSpace;animalCellRenderer.toneMapping=T.ACESFilmicToneMapping;animalCellRenderer.toneMappingExposure=1.08;
   animalCellScene.add(new T.HemisphereLight(0xe8efff,0x17101f,1.65));
-  const key=new T.DirectionalLight(0xffe5cf,3.1);key.position.set(-5,7,8);key.castShadow=true;key.shadow.mapSize.set(1024,1024);animalCellScene.add(key);
+  const key=new T.DirectionalLight(0xffe5cf,3.1);key.position.set(-5,7,8);key.castShadow=true;key.shadow.mapSize.set(512,512);animalCellScene.add(key);
   const rim=new T.PointLight(0x8b79ff,2.4,18);rim.position.set(4,1,-5);animalCellScene.add(rim);
   const fill=new T.PointLight(0x63d6c7,1.25,16);fill.position.set(-4,-3,4);animalCellScene.add(fill);
   const floor=new T.Mesh(new T.CircleGeometry(5,64),new T.MeshStandardMaterial({color:0x111522,roughness:.95}));floor.rotation.x=-Math.PI/2;floor.position.y=-2.15;floor.receiveShadow=true;animalCellScene.add(floor);
@@ -2826,7 +2823,7 @@ function makeAnimalCellModel(){
   c.addEventListener('wheel',e=>{e.preventDefault();animalCellCamera.position.multiplyScalar(1+e.deltaY*.001);animalCellCamera.position.setLength(Math.max(6.5,Math.min(14,animalCellCamera.position.length())));animalCellCamera.lookAt(0,0,0);},{passive:false});
   const ray=new T.Raycaster(),p=new T.Vector2();c.addEventListener('click',e=>{if(drag.moved){drag.moved=false;return;}const r=c.getBoundingClientRect();p.x=(e.clientX-r.left)/r.width*2-1;p.y=-(e.clientY-r.top)/r.height*2+1;ray.setFromCamera(p,animalCellCamera);for(const hit of ray.intersectObjects(g.children,true)){let o=hit.object;while(o&&o!==g&&!o.name)o=o.parent;if(!o||o===g||o.userData.nonPickable||o.name==='membrane'||o.name==='cytoplasm')continue;if(animalFacts[o.name]){explainAnimalPart(o.name);return;}}});
   const resize=()=>{const r=c.getBoundingClientRect();if(!r.width||!r.height)return;animalCellCamera.aspect=r.width/r.height;animalCellCamera.updateProjectionMatrix();animalCellRenderer.setSize(r.width,r.height,false);};if(window.ResizeObserver)new ResizeObserver(resize).observe(c);else window.addEventListener('resize',resize);resize();
-  let visible=true;const draw=()=>{if(!animalCellPaused&&!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches))g.rotation.y+=.00045;animalCellRenderer.render(animalCellScene,animalCellCamera);};const sync=()=>animalCellRenderer.setAnimationLoop(visible&&!document.hidden?draw:null);document.addEventListener('visibilitychange',sync);if('IntersectionObserver'in window){const obs=new IntersectionObserver(es=>{visible=!!(es[0]&&es[0].isIntersecting);sync();},{threshold:.05});obs.observe(c);}sync();status.textContent='3D CELL LAB READY · Rotate · Zoom · Select organelles';
+  let visible=true,lastFrame=0;const draw=time=>{if(time-lastFrame<33)return;lastFrame=time;if(!animalCellPaused&&!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches))g.rotation.y+=.00045;animalCellRenderer.render(animalCellScene,animalCellCamera);};const sync=()=>animalCellRenderer.setAnimationLoop(visible&&!document.hidden?draw:null);document.addEventListener('visibilitychange',sync);if('IntersectionObserver'in window){const obs=new IntersectionObserver(es=>{visible=!!(es[0]&&es[0].isIntersecting);sync();},{threshold:.05});obs.observe(c);}sync();status.textContent='3D CELL LAB READY · Rotate · Zoom · Select organelles';
  }catch(e){status.textContent='3D model could not start: '+(e.message||'browser limitation');}
 }
 function toggleAnimalCell3D(){animalCellPaused=!animalCellPaused;document.getElementById('bioAnimalToggle').textContent=animalCellPaused?'Resume rotation':'Pause rotation';}
