@@ -1972,7 +1972,7 @@
           st.i++;if(st.i>=bioArcadeSets[type].length){const previous=bioArcadeSets[type][st.i-1].q;shuffleBioDeck(bioArcadeSets[type],previous);st.i=0;st.score=0;}
           renderArcadeGame(type);
         }
-        document.addEventListener('DOMContentLoaded',()=>{Object.keys(bioArcadeSets).forEach(renderArcadeGame);});
+        document.addEventListener('DOMContentLoaded',()=>{Object.keys(bioArcadeSets).forEach(type=>{shuffleBioDeck(bioArcadeSets[type]);renderArcadeGame(type);});});
 
 
 </script>
@@ -2615,7 +2615,7 @@
           const q=organelleGameQuestions[orgGameIndex];
           document.getElementById('orgGameQuestion').textContent=q.q;
           document.getElementById('orgGameOptions').innerHTML=q.o.map((v,i)=>'<button type="button" class="bio-game-option rounded-xl border border-amber-500/25 bg-[#0D0204] p-3 text-left text-xs text-amber-100" onclick="answerOrganelleGame('+i+')">'+v+'</button>').join('');
-          document.getElementById('orgGameScore').textContent='Score: '+orgGameScore+' / 5';
+          document.getElementById('orgGameScore').textContent='Score: '+orgGameScore+' / '+organelleGameQuestions.length;
           document.getElementById('orgGameFeedback').textContent='Choose the correct cell part.';
           orgGameAnswered=false;
         }
@@ -2624,12 +2624,12 @@
           orgGameAnswered=true;
           const q=organelleGameQuestions[orgGameIndex], correct=choice===q.a;
           if(correct)orgGameScore++;
-          document.getElementById('orgGameScore').textContent='Score: '+orgGameScore+' / 5';
+          document.getElementById('orgGameScore').textContent='Score: '+orgGameScore+' / '+organelleGameQuestions.length;
           document.getElementById('orgGameFeedback').textContent=(correct?'Correct! ':'Not quite. Correct answer: '+q.o[q.a]+'. ')+q.why;
           document.getElementById('orgGameFeedback').classList.remove('bio-game-feedback'); void document.getElementById('orgGameFeedback').offsetWidth; document.getElementById('orgGameFeedback').classList.add('bio-game-feedback');
           document.querySelectorAll('#orgGameOptions button').forEach((b,i)=>{b.disabled=true;b.classList.add('opacity-60');if(i===q.a)b.classList.add('border-emerald-400','text-emerald-200');});
         }
-        function nextOrganelleGame(){orgGameIndex++;if(orgGameIndex>=organelleGameQuestions.length){const previous=organelleGameQuestions[orgGameIndex-1].q;shuffleBioDeck(organelleGameQuestions,previous);orgGameIndex=0;orgGameScore=0;}renderOrganelleGame();}
+        function nextOrganelleGame(){if(!orgGameAnswered){document.getElementById('orgGameFeedback').textContent='Answer this clue before moving to the next one.';return;}orgGameIndex++;if(orgGameIndex>=organelleGameQuestions.length){const previous=organelleGameQuestions[orgGameIndex-1].q;shuffleBioDeck(organelleGameQuestions,previous);orgGameIndex=0;orgGameScore=0;}renderOrganelleGame();}
 
         /* Quick Game 2: classify reproduction examples */
         const reproGameQuestions=[
@@ -2648,9 +2648,9 @@
           {q:'A single parent forms offspring without gamete fusion. Which type?',a:'asexual',why:'Asexual reproduction does not involve fusion of gametes.'}
         );
         shuffleBioDeck(reproGameQuestions);
-        function renderReproGame(){document.getElementById('reproGameQuestion').textContent=reproGameQuestions[reproGameIndex].q;document.getElementById('reproGameScore').textContent='Score: '+reproGameScore+' / 5';document.getElementById('reproGameFeedback').textContent='Choose a category.';reproGameAnswered=false;document.querySelectorAll('#bio-quick-games button[onclick^="answerReproGame"]').forEach(b=>{b.disabled=false;b.classList.remove('opacity-50');});}
-        function answerReproGame(choice){if(reproGameAnswered)return;reproGameAnswered=true;const q=reproGameQuestions[reproGameIndex],correct=choice===q.a;if(correct)reproGameScore++;document.getElementById('reproGameScore').textContent='Score: '+reproGameScore+' / 5';document.getElementById('reproGameFeedback').textContent=(correct?'Correct! ':'Try again next round. Correct answer: '+q.a+'. ')+q.why;document.querySelectorAll('#bio-quick-games button[onclick^="answerReproGame"]').forEach(b=>{b.disabled=true;b.classList.add('opacity-50');});document.getElementById('reproGameFeedback').classList.remove('bio-game-feedback');void document.getElementById('reproGameFeedback').offsetWidth;document.getElementById('reproGameFeedback').classList.add('bio-game-feedback');}
-        function nextReproGame(){reproGameIndex++;if(reproGameIndex>=reproGameQuestions.length){const previous=reproGameQuestions[reproGameIndex-1].q;shuffleBioDeck(reproGameQuestions,previous);reproGameIndex=0;reproGameScore=0;}renderReproGame();}
+        function renderReproGame(){document.getElementById('reproGameQuestion').textContent=reproGameQuestions[reproGameIndex].q;document.getElementById('reproGameScore').textContent='Score: '+reproGameScore+' / '+reproGameQuestions.length;document.getElementById('reproGameFeedback').textContent='Choose a category.';reproGameAnswered=false;document.querySelectorAll('#bio-quick-games button[onclick^="answerReproGame"]').forEach(b=>{b.disabled=false;b.classList.remove('opacity-50');});}
+        function answerReproGame(choice){if(reproGameAnswered)return;reproGameAnswered=true;const q=reproGameQuestions[reproGameIndex],correct=choice===q.a;if(correct)reproGameScore++;document.getElementById('reproGameScore').textContent='Score: '+reproGameScore+' / '+reproGameQuestions.length;document.getElementById('reproGameFeedback').textContent=(correct?'Correct! ':'Try again next round. Correct answer: '+q.a+'. ')+q.why;document.querySelectorAll('#bio-quick-games button[onclick^="answerReproGame"]').forEach(b=>{b.disabled=true;b.classList.add('opacity-50');});document.getElementById('reproGameFeedback').classList.remove('bio-game-feedback');void document.getElementById('reproGameFeedback').offsetWidth;document.getElementById('reproGameFeedback').classList.add('bio-game-feedback');}
+        function nextReproGame(){if(!reproGameAnswered){document.getElementById('reproGameFeedback').textContent='Choose an answer before moving to the next example.';return;}reproGameIndex++;if(reproGameIndex>=reproGameQuestions.length){const previous=reproGameQuestions[reproGameIndex-1].q;shuffleBioDeck(reproGameQuestions,previous);reproGameIndex=0;reproGameScore=0;}renderReproGame();}
         renderOrganelleGame();renderReproGame();
 
         /* Respect reduced-motion preferences and animate sections as they enter view */
@@ -2724,8 +2724,8 @@
           document.getElementById('bioDetectiveProgress').style.width=((bioDetectiveIndex+1)/bioDetectiveQuestions.length*100)+'%';
         }
         function nextBioDetective(){
+          if(!bioDetectiveDone){document.getElementById('bioDetectiveFeedback').textContent='Choose an answer before moving to the next clue.';return;}
           if(bioDetectiveIndex===bioDetectiveQuestions.length-1){const previous=bioDetectiveQuestions[bioDetectiveIndex].q;shuffleBioDeck(bioDetectiveQuestions,previous);bioDetectiveIndex=0;bioDetectiveScore=0;bioDetectiveStreak=0;}
-          else if(!bioDetectiveDone){document.getElementById('bioDetectiveFeedback').textContent='Choose an answer before moving to the next clue.';return;}
           else bioDetectiveIndex++;
           renderBioDetective();
         }
