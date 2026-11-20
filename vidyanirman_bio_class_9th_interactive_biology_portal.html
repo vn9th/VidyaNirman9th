@@ -209,6 +209,8 @@
         .bio-microscope-view{position:absolute;inset:0;overflow:hidden;background:#080d0b;touch-action:none;cursor:grab;user-select:none}
         .bio-microscope-view.is-dragging{cursor:grabbing}
         .bio-microscope-view img{width:100%;height:100%;display:block;object-fit:cover;transform:translate3d(0,0,0) scale(1);transform-origin:50% 50%;transition:none;user-select:none;-webkit-user-drag:none;pointer-events:none;filter:contrast(1.04) saturate(1.04);backface-visibility:hidden}
+        .bio-microscope-view canvas.bio-micro-cell-3d{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab;z-index:1}
+        .bio-microscope-view canvas.bio-micro-cell-3d:active{cursor:grabbing}
         .bio-micro-crosshair{position:absolute;inset:0;pointer-events:none;background:linear-gradient(transparent calc(50% - .5px),#d1fae544 50%,transparent calc(50% + .5px)),linear-gradient(90deg,transparent calc(50% - .5px),#d1fae544 50%,transparent calc(50% + .5px));border-radius:50%}
         .bio-micro-readout{display:flex;gap:12px;align-items:center;color:#86efac;font:10px monospace;letter-spacing:.14em}
         .bio-micro-readout strong{color:#fcd34d;font-size:13px}
@@ -1568,7 +1570,7 @@
           renderer.domElement.addEventListener('pointermove',e=>{if(!state.drag)return;e.stopPropagation();const dx=e.clientX-state.drag.x,dy=e.clientY-state.drag.y;if(Math.abs(dx)+Math.abs(dy)>4)state.drag.moved=true;if(state.drag.moved){state.theta=state.drag.theta+dx*.008;state.phi=Math.max(-.8,Math.min(.8,state.drag.phi+dy*.008));root.rotation.set(state.phi,state.theta,0);render();}});
           const finish=e=>{if(!state.drag)return;e.stopPropagation();const moved=state.drag.moved;state.drag=null;if(!moved){const rect=renderer.domElement.getBoundingClientRect();pointer.set((e.clientX-rect.left)/rect.width*2-1,-(e.clientY-rect.top)/rect.height*2+1);raycaster.setFromCamera(pointer,camera);const hit=raycaster.intersectObjects(pickables,false)[0];if(hit){const name=hit.object.name;const info=document.getElementById('bioMicroFact');if(info)info.textContent=facts[name]||name+' — select another structure to explore its role.';}}render();};
           renderer.domElement.addEventListener('pointerup',finish);renderer.domElement.addEventListener('pointercancel',()=>{state.drag=null;});renderer.domElement.addEventListener('lostpointercapture',()=>{state.drag=null;});
-          renderer.domElement.addEventListener('wheel',e=>{e.preventDefault();e.stopPropagation();state.radius=Math.max(5.2,Math.min(13.5,state.radius+(e.deltaY>0?.45:-.45)));camera.position.set(0,.25,state.radius);camera.lookAt(0,0,0);render();},{passive:false});
+          renderer.domElement.addEventListener('wheel',e=>{e.preventDefault();e.stopPropagation();state.radius=Math.max(2.3,Math.min(14,state.radius+(e.deltaY>0?.45:-.45)));camera.position.set(0,.25,state.radius);camera.lookAt(0,0,0);render();},{passive:false});
           state.resize=()=>{if(bioCell3DState!==state)return;const w=Math.max(1,view.clientWidth),h=Math.max(1,view.clientHeight);renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();render();};
           render();return state;
         }
@@ -1583,7 +1585,7 @@
           if(!window.THREE){if(existing)existing.remove();return;}
           if(!bioCell3DState||bioCell3DState.kind!==kind||!existing)buildBioCell3D(view,kind);
           else bioCell3DState.resize();
-          if(bioCell3DState){bioCell3DState.radius=Math.max(5.1,Math.min(14,9.2/bioMicroZoomLevel));bioCell3DState.camera.position.set(0,.8,bioCell3DState.radius);bioCell3DState.camera.lookAt(0,0,0);bioCell3DState.render();}
+          if(bioCell3DState){bioCell3DState.radius=Math.max(2.3,Math.min(14,9.2/bioMicroZoomLevel));bioCell3DState.camera.position.set(0,.8,bioCell3DState.radius);bioCell3DState.camera.lookAt(0,0,0);bioCell3DState.render();}
         }
         function paintBioMicroscope(){
           if(bioMicroPaintFrame)return;
