@@ -1636,9 +1636,25 @@
           view.innerHTML='<img src="'+data.src+'" alt="'+data.label+'" draggable="false" loading="eager" decoding="async"><canvas class="bio-specimen-canvas" aria-hidden="true"></canvas>';
           const specimenImage=view.querySelector('img');specimenImage.addEventListener('load',()=>{updateBioMicroReadout();paintBioMicroscope();},{once:true});
           specimenImage.addEventListener('error',()=>{const status=document.getElementById('bioMicroImageStatus');if(status)status.textContent='IMAGE COULD NOT LOAD • CHECK CONNECTION';},{once:true});
-          const status=document.getElementById('bioMicroImageStatus');if(status)status.textContent='LOADING HIGH-RESOLUTION SPECIMEN…';
+          const status=document.getElementById('bioMicroImageStatus');
+          const instrumentGrid=view.closest('.bio-micro-view-column')?.parentElement;
+          const instrumentModel=instrumentGrid?.querySelector('.bio-micro-3d-wrap');
+          const controls=view.closest('article')?.querySelector('.bio-micro-panel');
+          let deepZoom=document.getElementById('bioBloodDeepZoom');
+          if(!deepZoom&&controls){
+            deepZoom=document.createElement('section');
+            deepZoom.id='bioBloodDeepZoom';
+            deepZoom.className='mt-4 overflow-hidden rounded-xl border border-cyan-300/30 bg-[#050b12]';
+            deepZoom.innerHTML='<div class="flex flex-wrap items-center justify-between gap-3 border-b border-cyan-300/20 bg-[#0b1722] p-3"><div><p class="text-[10px] font-bold tracking-[.2em] text-cyan-300">AUTHENTIC WHOLE-SLIDE VIRTUAL MICROSCOPY</p><h4 class="mt-1 text-sm font-bold text-white">Human peripheral blood · Wright stain</h4><p class="mt-1 text-[11px] text-slate-300">150,720 × 81,008 px scan · 40× objective · real tiled deep-zoom viewer</p></div><a href="https://histopathology.pennstatehealth.net/slideview/MH-033-blood-smear/07-slide-1.html" target="_blank" rel="noopener noreferrer" class="bio-lab-control inline-flex items-center gap-2">Open full viewer <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div><iframe title="Genuine multi-resolution virtual microscope: human peripheral blood smear" src="https://histopathology.pennstatehealth.net/slideview/MH-033-blood-smear/07-slide-1.html" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="fullscreen" allowfullscreen class="block h-[560px] min-h-[420px] w-full bg-[#080d12]"></iframe><p class="p-3 text-[11px] text-slate-400">This is the original hosted whole-slide microscope viewer. Drag to pan, click or tap to zoom, use the toolbar for magnification, and use the full-view link if the host prevents embedding. Source: University of Minnesota Medical Histology Collection.</p>';
+            controls.parentNode.insertBefore(deepZoom,controls);
+          }
+          const isBlood=sample==='blood';
+          if(deepZoom)deepZoom.hidden=!isBlood;
+          if(controls)controls.hidden=isBlood;
+          if(instrumentGrid)instrumentGrid.hidden=isBlood;
+          if(status)status.textContent=isBlood?'REAL WHOLE-SLIDE SCAN • DEEP-ZOOM VIEWER BELOW':'LOADING HIGH-RESOLUTION SPECIMEN…';
           document.getElementById('bioMicroLabel').textContent=data.label;
-          document.getElementById('bioMicroFact').textContent=data.fact;
+          document.getElementById('bioMicroFact').textContent=isBlood?'Explore a genuine whole-slide blood smear with independently loaded resolution levels. The viewer streams only the regions and detail levels you navigate to.':' '+data.fact;
           resetBioMicroscope();
         }
         function initBioMicroscopeControls(){
