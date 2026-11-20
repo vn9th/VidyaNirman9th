@@ -96,7 +96,36 @@
       .academy-command .grid{grid-template-columns:1fr}
     }
 
-    @media print{body.printing-certificate *{visibility:hidden!important}body.printing-certificate #certificatePaper,body.printing-certificate #certificatePaper *{visibility:visible!important}body.printing-certificate #certificatePaper{display:block!important;position:absolute;inset:0 auto auto 0;width:100%;margin:0!important;min-height:90vh;box-shadow:none!important;break-inside:avoid}body.printing-certificate{background:#fff!important}.no-print{display:none!important}}
+    /* Premium certificate artwork + clean landscape printing */
+    #certificatePaper{position:relative;isolation:isolate;overflow:hidden;min-height:520px;padding:clamp(22px,5vw,58px);background:radial-gradient(ellipse at 50% 0%,rgba(255,255,255,.98),rgba(255,249,230,.96) 48%,#f2e4bd 100%);box-shadow:0 22px 65px rgba(0,0,0,.32);color:#32101a}
+    #certificatePaper:before{content:"";position:absolute;inset:12px;border:1px solid rgba(153,101,21,.65);pointer-events:none}
+    #certificatePaper:after{content:"";position:absolute;inset:19px;border:3px double rgba(153,101,21,.42);pointer-events:none}
+    .cert-ornament{position:absolute;width:155px;height:155px;border:1px solid rgba(153,101,21,.22);border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(153,101,21,.09) 0deg 2deg,transparent 2deg 8deg);opacity:.7}
+    .cert-ornament.tl{top:-88px;left:-88px}.cert-ornament.br{right:-88px;bottom:-88px}
+    .cert-watermark{position:absolute;inset:0;display:grid;place-items:center;font:900 clamp(90px,18vw,190px) Cinzel,serif;color:rgba(111,28,40,.045);transform:rotate(-18deg);pointer-events:none;letter-spacing:.08em}
+    .cert-inner{position:relative;z-index:1;max-width:900px;margin:auto}
+    .cert-topline{display:flex;align-items:center;justify-content:center;gap:12px;color:#805b19;font-size:10px;font-weight:900;letter-spacing:.28em}
+    .cert-emblem{width:68px;height:68px;margin:20px auto 12px;display:grid;place-items:center;border:3px double #a77b25;border-radius:50%;background:radial-gradient(circle,#fff8df,#e9d49a);color:#8a641c;font-size:27px;box-shadow:0 0 0 7px rgba(167,123,37,.09),0 8px 22px rgba(80,45,10,.13)}
+    .cert-title{font:900 clamp(28px,5vw,52px)/1.12 Cinzel,serif;letter-spacing:.035em;color:#531321;text-shadow:0 2px 0 rgba(255,255,255,.8)}
+    .cert-subtitle{color:#936c27;font-size:10px;font-weight:900;letter-spacing:.34em;text-transform:uppercase}
+    .cert-recipient{display:inline-block;min-width:min(90%,380px);padding:8px 18px 12px;border-bottom:2px solid #b58b38;font:800 clamp(24px,4vw,39px) Cinzel,serif;color:#64182a;overflow-wrap:anywhere}
+    .cert-course{display:inline-block;padding:9px 22px;margin-top:10px;border:1px solid rgba(181,139,56,.55);background:rgba(255,255,255,.42);font:800 18px Cinzel,serif;color:#6c4a13}
+    .cert-meta{display:flex;justify-content:space-between;gap:20px;margin-top:32px;text-align:left;color:#654b25;font-size:10px}
+    .cert-sign{min-width:145px;padding-top:8px;border-top:1px solid rgba(101,75,37,.65);text-align:center;font-weight:800;letter-spacing:.08em}
+    .cert-smallprint{margin-top:22px;color:#806f51;font-size:9px;letter-spacing:.04em}
+    @media print{
+      @page{size:A4 landscape;margin:8mm}
+      body.printing-certificate *{visibility:hidden!important}
+      body.printing-certificate #certificatePaper,body.printing-certificate #certificatePaper *{visibility:visible!important}
+      body.printing-certificate #certificatePaper{display:block!important;position:absolute;inset:0 auto auto 0;width:100%;height:190mm;min-height:0;margin:0!important;padding:18mm!important;box-shadow:none!important;break-inside:avoid;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+      body.printing-certificate{background:#fff!important}
+      body.printing-certificate #certificatePaper:before{inset:4mm}
+      body.printing-certificate #certificatePaper:after{inset:7mm}
+      body.printing-certificate .cert-emblem{width:55px;height:55px;margin:10px auto}
+      body.printing-certificate .cert-meta{margin-top:18px}
+      .no-print{display:none!important}
+    }
+    @media(max-width:520px){.cert-meta{flex-direction:column;align-items:center;text-align:center;gap:18px}.cert-sign{width:180px}.cert-topline{font-size:8px;letter-spacing:.16em}}
 
     /* VN Academy information architecture refresh */
     html{scroll-padding-top:105px}
@@ -552,7 +581,25 @@ for step in range(1, 4):
           <p class="text-sm text-slate-300 mt-3 leading-7">Apna naam aur course choose karo. Certificate generate karne se pehle kam se kam 8 of 10 core lessons complete karna hoga. Ye locally generated learning certificate hai, official/accredited credential nahi hai.</p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4"><div><label for="certName" class="block text-xs text-amber-200 font-bold mb-2">Student name</label><input id="certName" maxlength="60" class="w-full rounded-xl border border-amber-500/30 bg-[#100206] p-3 text-sm text-amber-50" placeholder="Your full name"></div><div><label for="certCourse" class="block text-xs text-amber-200 font-bold mb-2">Course</label><select id="certCourse" class="w-full rounded-xl border border-amber-500/30 bg-[#100206] p-3 text-sm text-amber-50"><option>Web Development Basics</option><option>HTML Foundations</option><option>CSS Design Studio</option><option>JavaScript Essentials</option><option>Python Starter</option></select></div></div>
           <div class="flex flex-wrap gap-2 mt-4"><button id="generateCert" class="rounded-xl bg-gradient-to-r from-amber-400 to-yellow-600 px-5 py-3 text-sm font-black text-[#220308]" type="button">Generate certificate</button><button id="printCert" class="pill" type="button" disabled>Print / Save as PDF</button></div><p id="certStatus" class="text-xs text-amber-200 mt-3" role="status">Complete at least 8 lessons to unlock certificate generation.</p>
-          <div id="certificatePaper" class="hidden mt-6 border-4 border-double border-[#D4AF37] bg-[#fff9e6] text-[#220308] p-6 sm:p-10 text-center"><p class="text-xs tracking-[.3em] font-bold">VIDYA NIRMAN · CODING ACADEMY</p><div class="text-4xl mt-4">🏅</div><h3 class="font-cinzel text-3xl sm:text-4xl font-black mt-4">Certificate of Completion</h3><p class="mt-5">This certificate is presented to</p><p id="certStudentDisplay" class="font-cinzel text-2xl sm:text-3xl font-bold border-b border-[#D4AF37] inline-block px-5 py-3"></p><p class="mt-5">for completing the learning path</p><p id="certCourseDisplay" class="font-bold text-xl mt-2"></p><p id="certDateDisplay" class="text-sm mt-6"></p><p id="certIdDisplay" class="text-[10px] mt-5 text-slate-600"></p><p class="text-[10px] mt-5">Self-paced educational achievement · Not an accredited qualification</p></div>
+          <div id="certificatePaper" class="hidden mt-6 rounded-xl text-center">
+            <span class="cert-ornament tl" aria-hidden="true"></span><span class="cert-ornament br" aria-hidden="true"></span><div class="cert-watermark" aria-hidden="true">VN</div>
+            <div class="cert-inner">
+              <div class="cert-topline"><span>✦</span><span>VIDYA NIRMAN</span><span>·</span><span>CODING ACADEMY</span><span>✦</span></div>
+              <div class="cert-emblem" aria-hidden="true"><i class="fa-solid fa-award"></i></div>
+              <p class="cert-subtitle">A recognition of skill, effort & creativity</p>
+              <h3 class="cert-title mt-3">Certificate of<br class="sm:hidden"> Completion</h3>
+              <p class="mt-6 text-sm text-[#765d36]">This certificate is proudly presented to</p>
+              <p id="certStudentDisplay" class="cert-recipient mt-2"></p>
+              <p class="mt-5 text-sm text-[#765d36]">for successfully completing the learning path</p>
+              <p id="certCourseDisplay" class="cert-course"></p>
+              <div class="cert-meta">
+                <div><p class="font-bold" id="certDateDisplay"></p><p class="mt-1 text-[9px] uppercase tracking-widest">Date of completion</p></div>
+                <div class="cert-sign"><span class="block text-base mb-1" style="font-family:cursive">Vidya Nirman</span><span>ACADEMY</span></div>
+                <div class="text-right"><p id="certIdDisplay" class="font-bold"></p><p class="mt-1 text-[9px] uppercase tracking-widest">Certificate ID</p></div>
+              </div>
+              <p class="cert-smallprint">A self-paced educational achievement · Learning acknowledgement, not an accredited qualification</p>
+            </div>
+          </div>
         </section>
 
         <section id="cheatsheet" class="gold-card rounded-2xl p-5 sm:p-7">
