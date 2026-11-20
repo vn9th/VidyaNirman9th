@@ -1893,6 +1893,8 @@
                 ctx.fill();
             }
         }
+        /* Shared state must be declared before startBioParticles() runs; the lazy 3D iframe controller is defined later. */
+        let bioActiveScientificModel = null;
         const bioParticleCount = Math.min(24, Math.max(12, Math.floor((window.innerWidth * window.innerHeight) / 65000)));
         for (let i = 0; i < bioParticleCount; i++) particles.push(new Particle());
         let bioParticleFrame = 0, bioParticleLastTime = 0, bioParticleRunning = false, bioPageScrolling = false, bioScrollResumeTimer = 0;
@@ -2638,7 +2640,6 @@
 
 <script>
 /* Performance: only initialise one external WebGL cell scene when the student requests it. */
-let bioActiveScientificModel = null;
 const bioModelObservers = new WeakMap();
 function watchBioScientificModel(frame){
  if(!('IntersectionObserver' in window)||bioModelObservers.has(frame))return;
