@@ -82,13 +82,42 @@
 .sstQuickNav{position:sticky;top:68px;z-index:12;display:flex;gap:7px;overflow-x:auto;padding:10px 2px;margin:10px 0 18px;background:#100207ed;backdrop-filter:blur(12px);border-bottom:1px solid #d4af3733;scrollbar-width:thin}
 .sstQuickNav a{flex:0 0 auto;padding:9px 12px;border:1px solid #d4af3755;border-radius:30px;background:#200710;color:#f4d58f;font-size:9px;font-weight:900;white-space:nowrap}
 .sstQuickNav a:hover,.sstQuickNav a:focus{background:#ffe39a;color:#26090d;outline:2px solid #d4af37;outline-offset:2px}
-#units,#gameArena,#intellectualStudio,#researchLab,#caseLab,#adventureQuest,#sstMetaverse{scroll-margin-top:145px}
+#passportTitle,#dailyMission,#units,#knowledgeStudio,#gameArena,#intellectualStudio,#researchLab,#caseLab,#adventureQuest,#sstMetaverse{scroll-margin-top:145px}
 .room{scroll-margin-top:82px}
 @media(max-width:600px){.sstQuickNav{top:60px;margin-top:6px}.sstQuickNav a{font-size:8px;padding:8px 10px}}
+
+/* VN SST finishing pass: consistent spacing, hierarchy, focus and responsive grids */
+:root{scroll-padding-top:150px}
+body{line-height:1.55}
+main.wrap{padding-bottom:34px}
+.sstQuickNav{box-shadow:0 8px 22px #0004;border-radius:0 0 13px 13px}
+.sstQuickNav a{transition:background .18s ease,border-color .18s ease,transform .18s ease}
+.sstQuickNav a:active{transform:scale(.97)}
+.partbar{flex-wrap:wrap}
+.subjects{grid-template-columns:repeat(5,minmax(0,1fr))}
+.subject{min-height:105px}
+.units{align-items:stretch}
+.unit{min-width:0}
+.unit button,.action,.controls button,.option,.gameMode,.gameRestart,.visualTab,.intelTab,.researchTab,.caseTab,.adventureZone,.metaPin{transition:transform .16s ease,border-color .16s ease,background .16s ease}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #ffe39a;outline-offset:3px}
+button:disabled{cursor:not-allowed;opacity:.62}
+.passport,.dailyMission,.gameArena,.intelLab,.researchLab,.caseLab,.adventureQuest,.metaverse{scroll-margin-top:145px}
+.dailyMission{margin:18px 0 22px}
+.head{padding-bottom:10px;border-bottom:1px solid #d4af3725}
+.lesson,.aside{min-width:0}
+.lesson p{max-width:78ch}
+.visualCanvas{min-width:0}
+#chapterTestQuestions{display:grid;gap:12px}
+.gameModes,.intelTabs,.researchTabs,.caseTabs{align-items:center}
+footer{margin-top:30px}
+@media(max-width:980px){.subjects{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:650px){.subjects{grid-template-columns:repeat(2,minmax(0,1fr))}.sstQuickNav{border-radius:0 0 10px 10px}.passportStats{grid-template-columns:repeat(3,minmax(0,1fr))}.caseLab{padding:15px}.gameHeading{align-items:flex-start;gap:12px}}
+@media(max-width:390px){.subjects{grid-template-columns:1fr}.passportStats{grid-template-columns:1fr}.sstQuickNav a{font-size:8px}}
+
 </style></head>
 <body><header><div class="wrap nav"><a class="brand" href="index.html"><img src="logo.png" alt="Vidya Nirman">VIDYA NIRMAN · VN SST</a><a class="home" href="index.html"><i class="fa-solid fa-house"></i> HOME</a></div></header>
 <main class="wrap"><section class="hero"><div class="eyebrow">CLASS 9 · COMPLETE 15-CHAPTER LEARNING ENVIRONMENT</div><h1 class="serif gold">SOCIAL SCIENCE</h1><p>Explore the world through evidence, maps, systems, institutions and choices. Each chapter opens into a guided learning space with explanations, key concepts, real-world connections, activities and chapter checks.</p><div class="stats"><span class="stat"><b>04</b> DISCIPLINES</span><span class="stat"><b>15</b> CHAPTERS</span><span class="stat"><b id="completed">0</b> COMPLETED</span><span class="stat"><b id="percent">0%</b> PROGRESS</span></div></section>
-<nav class="sstQuickNav" aria-label="Social Science sections"><a href="#units">📚 CHAPTERS</a><a href="#gameArena">🎮 GAMES</a><a href="#intellectualStudio">🧠 INTELLECTUAL STUDIO</a><a href="#researchLab">🔬 RESEARCH LAB</a><a href="#caseLab">⚖️ CASE STUDIES</a><a href="#adventureQuest">🗺️ ADVENTURE</a><a href="#sstMetaverse">🌐 METAVERSE</a></nav>
+<nav class="sstQuickNav" aria-label="Social Science sections"><a href="#passportTitle">🏅 MY PROGRESS</a><a href="#dailyMission">⚡ DAILY MISSION</a><a href="#units">📚 CHAPTERS</a><a href="#knowledgeStudio">🧠 KNOWLEDGE STUDIO</a><a href="#gameArena">🎮 GAMES</a><a href="#intellectualStudio">💡 THINKING STUDIO</a><a href="#researchLab">🔬 RESEARCH LAB</a><a href="#caseLab">⚖️ CASE STUDIES</a><a href="#adventureQuest">🗺️ ADVENTURE</a><a href="#sstMetaverse">🌐 METAVERSE</a></nav>
 
 
 
@@ -111,7 +140,7 @@
 <section class="subjects"><button class="subject active" data-s="all" style="--accent:#eab308"><i class="fa-solid fa-compass"></i><b>All Subjects</b><small>15 chapters · Complete course</small></button><button class="subject" data-s="history" style="--accent:#eab308"><i class="fa-solid fa-landmark"></i><b>History</b><small>Past · Evidence · Change</small></button><button class="subject" data-s="geography" style="--accent:#38bdf8"><i class="fa-solid fa-earth-asia"></i><b>Geography</b><small>Earth · Environment · Life</small></button><button class="subject" data-s="civics" style="--accent:#c4b5fd"><i class="fa-solid fa-scale-balanced"></i><b>Political Science</b><small>Democracy · Governance</small></button><button class="subject" data-s="economics" style="--accent:#6ee7b7"><i class="fa-solid fa-chart-line"></i><b>Economics</b><small>Choices · Markets · Enterprise</small></button></section>
 <div class="head"><div><h2 id="subjectTitle">ALL CHAPTERS</h2><p id="subjectDesc">Choose a chapter to enter its interactive learning space.</p></div><span class="eyebrow">CHAPTER LIBRARY</span></div><section class="units" id="units"></section>
 <section class="room" id="room" aria-live="polite"><div class="roomtop"><div><div class="eyebrow" id="roomLabel"></div><h2 id="roomTitle"></h2></div><button class="close" id="close" aria-label="Close chapter"><i class="fa-solid fa-xmark"></i></button></div><div class="chaptermeta" id="chaptermeta"></div><div class="lessonGrid"><article class="lesson" id="lesson"></article><aside class="aside"><h3><i class="fa-solid fa-lightbulb"></i> CONCEPT TOOLKIT</h3><div id="vocab"></div><div class="idea" id="think"></div></aside></div><div class="activity" id="activity"></div><section class="visualLab" aria-label="Interactive visual explorer"><div class="visualHead"><h3><i class="fa-solid fa-diagram-project"></i> VISUAL EXPLORER</h3><span class="eyebrow">MAP · TIMELINE · CONCEPT MODEL</span></div><div class="visualTabs"><button class="visualTab active" data-visual="map">2D MAP</button><button class="visualTab" data-visual="globe">3D GLOBE</button><button class="visualTab" data-visual="timeline">TIMELINE</button><button class="visualTab" data-visual="model">CONCEPT MODEL</button></div><div class="visualCanvas" id="visualCanvas"></div></section><section class="chapterTest" id="chapterTest"><h3><i class="fa-solid fa-clipboard-check"></i> CHAPTER TEST</h3><p style="font-size:9px;color:#cbbba9;margin:5px 0 10px">Attempt both questions. Select an answer to see instant feedback and your score.</p><div id="chapterTestQuestions"></div><div class="testScore" id="chapterTestScore">0 / 2 answered</div><button class="testReset" id="resetChapterTest">RETRY TEST</button></section><div class="finish"><button id="mark"><i class="fa-solid fa-check"></i> MARK CHAPTER COMPLETE</button><span id="saved" style="font-size:9px;color:#a7f3d0"></span></div></section>
-<div class="head"><div><h2>KNOWLEDGE STUDIO</h2><p>Revise important ideas and practise across all four disciplines.</p></div></div><section class="studio"><article class="panel"><h3><i class="fa-solid fa-layer-group"></i> Concept Flashcards</h3><p>Tap the card or use the controls to reveal the explanation.</p><div class="flash" id="flash" role="button" tabindex="0">What is opportunity cost?</div><div class="controls"><button id="prev">← PREVIOUS</button><button id="flip">FLIP CARD</button><button id="next">NEXT →</button></div></article><article class="panel"><h3><i class="fa-solid fa-brain"></i> Challenge Arena</h3><p id="question"></p><div class="options" id="options"></div><p id="feedback" aria-live="polite"></p><div class="controls"><button id="nextQ">NEXT CHALLENGE →</button></div></article></section>
+<div class="head" id="knowledgeStudio"><div><h2>KNOWLEDGE STUDIO</h2><p>Revise important ideas and practise across all four disciplines.</p></div></div><section class="studio"><article class="panel"><h3><i class="fa-solid fa-layer-group"></i> Concept Flashcards</h3><p>Tap the card or use the controls to reveal the explanation.</p><div class="flash" id="flash" role="button" tabindex="0">What is opportunity cost?</div><div class="controls"><button id="prev">← PREVIOUS</button><button id="flip">FLIP CARD</button><button id="next">NEXT →</button></div></article><article class="panel"><h3><i class="fa-solid fa-brain"></i> Challenge Arena</h3><p id="question"></p><div class="options" id="options"></div><p id="feedback" aria-live="polite"></p><div class="controls"><button id="nextQ">NEXT CHALLENGE →</button></div></article></section>
 <section class="gameArena" id="gameArena">
  <div class="gameHeading"><div><span class="eyebrow">THINK · SOLVE · SCORE</span><h2>INTELLECTUAL GAME ZONE</h2><p>Train your Social Science thinking with quick challenges, matching puzzles, word clues and map detective rounds.</p></div><div class="gameScore"><b id="gamePoints">0</b><span>POINTS</span></div></div>
  <div class="gameModes">
