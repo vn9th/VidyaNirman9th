@@ -95,7 +95,8 @@
  <div class="adventureMission" id="adventureMission" aria-live="polite"><div class="adventureMissionHead"><span>WORLD 01 · MISSION 01</span><span>+25 XP</span></div><h3>THE MYSTERY OF THE OLD CITY</h3><p>Choose a world above to begin your first mission.</p></div>
  <div class="adventureReward" id="adventureReward">🎒 Your explorer's collection is waiting to be filled.</div>
 </section>
-\n
+
+
 <section class="metaverse" id="sstMetaverse">
  <div class="metaHead"><div><span class="eyebrow">ENTER · EXPLORE · INTERACT</span><h2>🌐 VN SOCIAL SCIENCE METAVERSE</h2><p>Explore a miniature 3D-inspired learning world. Visit an ancient settlement, a virtual parliament, a living market and a geography frontier. Each location contains a scenario and a decision challenge.</p></div><span class="questTag">INTERACTIVE WORLD · 4 LOCATIONS</span></div>
  <div class="metaWorld" id="metaWorld" aria-label="Interactive perspective learning world">
@@ -105,7 +106,8 @@
  <div class="metaControls"><button class="active" id="metaExplore">🧭 EXPLORE MODE</button><button id="metaChallenge">🎯 CHALLENGE MODE</button><button id="metaReset">↻ RESET LOCATION</button></div>
  <div class="metaInfo" id="metaInfo" aria-live="polite"><h3>🏺 Ancient Settlement</h3><p>Choose a glowing location marker in the world to begin exploring.</p></div>
 </section>
-\n<div class="toolbar"><label class="search"><i class="fa-solid fa-magnifying-glass"></i><input id="search" placeholder="Search all chapters, topics and concepts…" type="search"></label><div class="progress">YOUR PROGRESS <b id="progressText">0 / 15</b></div></div>
+
+<div class="toolbar"><label class="search"><i class="fa-solid fa-magnifying-glass"></i><input id="search" placeholder="Search all chapters, topics and concepts…" type="search"></label><div class="progress">YOUR PROGRESS <b id="progressText">0 / 15</b></div></div>
 <section class="passport" aria-labelledby="passportTitle">
  <div class="passportHead"><div><h2 id="passportTitle">🏅 EXPLORER'S LEARNING PASSPORT</h2><p>Your milestones and learning progress are saved on this device.</p></div><span class="questTag">PERSONAL ACHIEVEMENTS</span></div>
  <div class="passportStats"><div class="passportStat"><b id="passportDone">0/15</b><span>CHAPTERS MASTERED</span></div><div class="passportStat"><b id="passportBadges">0/5</b><span>BADGES EARNED</span></div><div class="passportStat"><b id="passportLevel">1</b><span>LEARNING LEVEL</span></div></div>
@@ -537,7 +539,8 @@ document.getElementById('caseReview').addEventListener('click',()=>{
  document.getElementById('caseResult').innerHTML='<b>ANALYSIS REVIEW · '+score+'/4 SKILLS</b><br>'+checks.map(x=>(x.ok?'✓ ':'○ ')+x.label).join('<br>')+'<br><br><b>Next improvement:</b> Name one specific detail from each case, explain how it supports your claim, and state what extra data could change your conclusion. This is a writing-skills guide, not an automatic judgement of historical or social truth.';
 });
 renderCaseStudy();
-\n/* SST Adventure World — local, replay-safe XP and collectible world stamps */
+
+/* SST Adventure World — local, replay-safe XP and collectible world stamps */
 (()=>{
  const bank={
   ancient:{name:'ANCIENT WORLD',icon:'🏺',missions:[
