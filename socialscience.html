@@ -477,7 +477,7 @@ function setGame(mode){gameMode=mode;gameIndex=0;matchedTerms.clear();wordSolved
 document.querySelectorAll('.gameMode').forEach(b=>b.onclick=()=>setGame(b.dataset.game));
 $('gameRestart').onclick=()=>{gameIndex=0;matchedTerms.clear();wordSolved=false;gameScore=0;$('gamePoints').textContent='0';renderGame();gameStatus('Fresh round started. Good luck!')};
 renderDailyMission();
-render();flash();showQuiz();setGame('quiz');renderIntel();
+render();flash();showQuiz();setGame('quiz');
 
 const intelPanel=$('intelPanel');let intelMode='source',intelStep=0;
 const intelData={
@@ -514,6 +514,7 @@ function renderIntel(){
  }
 }
 document.querySelectorAll('.intelTab').forEach(b=>b.addEventListener('click',()=>{intelMode=b.dataset.lab;intelStep=0;renderIntel()}));
+renderIntel();
 
 
 const researchPanel=$('researchPanel');let researchMode='data',researchQuestion=0,causesPicked=[];
