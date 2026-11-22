@@ -114,6 +114,17 @@ footer{margin-top:30px}
 @media(max-width:650px){.subjects{grid-template-columns:repeat(2,minmax(0,1fr))}.sstQuickNav{border-radius:0 0 10px 10px}.passportStats{grid-template-columns:repeat(3,minmax(0,1fr))}.caseLab{padding:15px}.gameHeading{align-items:flex-start;gap:12px}}
 @media(max-width:390px){.subjects{grid-template-columns:1fr}.passportStats{grid-template-columns:1fr}.sstQuickNav a{font-size:8px}}
 
+
+/* Advanced depth, motion and accessible reveal layer */
+.sst-depth{transform-style:preserve-3d;transition:transform .28s ease,box-shadow .28s ease;will-change:transform}
+.sst-depth:hover{transform:perspective(1100px) translateY(-4px) rotateX(1deg);box-shadow:0 24px 55px #0008,0 0 26px #d4af3717}
+.intelCard,.researchPanel,.caseEvidence,.adventureMission,.metaInfo{transform-style:preserve-3d;backface-visibility:hidden}
+.intelCard,.researchPanel,.caseEvidence,.adventureMission,.metaInfo{animation:sStDepthIn .48s cubic-bezier(.2,.75,.2,1) both}
+@keyframes sStDepthIn{from{opacity:0;transform:perspective(900px) translateY(12px) rotateX(-3deg)}to{opacity:1;transform:perspective(900px) translateY(0) rotateX(0)}}
+.sstRuntimeError{margin:12px 0;padding:13px 15px;border:1px solid #f59e0b88;border-radius:12px;background:#451a03;color:#ffdfaa;font:600 11px/1.7 'Plus Jakarta Sans',sans-serif;overflow-wrap:anywhere}
+.sstRuntimeError b{display:block;color:#ffe39a;margin-bottom:4px}
+@media(prefers-reduced-motion:reduce){.sst-depth,.intelCard,.researchPanel,.caseEvidence,.adventureMission,.metaInfo{animation:none!important;transition:none!important;transform:none!important}}
+
 </style></head>
 <body><header><div class="wrap nav"><a class="brand" href="index.html"><img src="logo.png" alt="Vidya Nirman">VIDYA NIRMAN · VN SST</a><a class="home" href="index.html"><i class="fa-solid fa-house"></i> HOME</a></div></header>
 <main class="wrap"><section class="hero"><div class="eyebrow">CLASS 9 · COMPLETE 15-CHAPTER LEARNING ENVIRONMENT</div><h1 class="serif gold">SOCIAL SCIENCE</h1><p>Explore the world through evidence, maps, systems, institutions and choices. Each chapter opens into a guided learning space with explanations, key concepts, real-world connections, activities and chapter checks.</p><div class="stats"><span class="stat"><b>04</b> DISCIPLINES</span><span class="stat"><b>15</b> CHAPTERS</span><span class="stat"><b id="completed">0</b> COMPLETED</span><span class="stat"><b id="percent">0%</b> PROGRESS</span></div></section>
@@ -206,6 +217,27 @@ footer{margin-top:30px}
 </section>
 </main><footer>VIDYA NIRMAN · LEARN · INVESTIGATE · THINK · APPLY</footer>
 <script>
+
+/* Isolate learning panels so one faulty widget cannot disable the others. */
+function safeSstInit(label,fn,targetId){
+ try{fn();return true}catch(error){
+  console.error('[VN SST] '+label+' initialisation failed:',error);
+  const target=document.getElementById(targetId);
+  if(target){const box=document.createElement('div');box.className='sstRuntimeError';const strong=document.createElement('b');strong.textContent=label+' needs attention';const msg=document.createElement('span');msg.textContent='A script error occurred: '+(error&&error.message?error.message:String(error))+'. Other learning sections should remain available.';box.append(strong,msg);target.replaceChildren(box)}
+  return false;
+ }
+}
+window.addEventListener('error',event=>{
+ const msg=event&&event.message?event.message:'Unknown JavaScript error';
+ console.error('[VN SST] Runtime error:',msg,event&&event.error);
+ const target=document.getElementById('intelPanel')||document.getElementById('researchPanel');
+ if(target&&!target.querySelector('.sstRuntimeError')){const box=document.createElement('div');box.className='sstRuntimeError';box.innerHTML='<b>Portal interaction error</b><span></span>';box.querySelector('span').textContent=msg;target.append(box)}
+});
+window.addEventListener('unhandledrejection',event=>{
+ const msg=event&&event.reason?(event.reason.message||String(event.reason)):'Unknown asynchronous error';
+ console.error('[VN SST] Unhandled promise:',msg);
+});
+
 const chapters=[
 {n:1,part:1,subject:'Foundations',key:'foundation',title:'Understanding Social Science',desc:'Build the foundations for studying people, places, institutions and economies.',sections:[['What is Social Science?','Social Science is the systematic study of human society and the relationships between people, places, institutions and resources. It brings together several disciplines. History investigates change over time; Geography studies places and human–environment relationships; Political Science examines power, citizenship and government; Economics explores choices, production and distribution. These perspectives overlap. For example, a river valley settlement can be studied through its physical landscape, its history, its governing arrangements and the livelihoods of its people.'],['Questions, evidence and perspectives','Social scientists ask questions, collect evidence and interpret patterns. Evidence may include maps, photographs, census tables, government records, oral accounts, surveys, objects and field observations. Every source has strengths and limits. A population table can show a pattern but may not explain why it occurred. Interviews can provide personal experiences but may not represent everyone. Comparing sources and checking who produced them helps build a balanced explanation.'],['Thinking across disciplines','A single issue often needs more than one lens. Consider access to clean water: Geography can examine rainfall and rivers; Economics can study costs and allocation; Political Science can investigate public responsibility and participation; History can trace how infrastructure developed. Social Science also encourages informed citizenship, respectful debate, critical thinking and responsible decisions.']],terms:[['Society','People living in organised relationships and communities.'],['Evidence','Information used to support or test an explanation.'],['Interdisciplinary','Combining ideas or methods from more than one subject.']],idea:'Choose one issue in your neighbourhood. Write one question each that a geographer, historian, political scientist and economist might ask.',activity:'Make a four-column investigation chart for a local issue. Put one discipline at the top of each column and list the evidence it could use.',check:['Which discipline mainly studies the relationship between people and places?','Why should a researcher compare more than one source?'],answers:[1,2]},
 ,{n:2,part:1,subject:'Geography',key:'geography',title:"Shaping of the Earth's Surface",desc:'Understand internal forces and external processes that create and reshape landforms.',sections:[['The restless planet','Earth has a layered structure: crust, mantle and core. The outer rigid layer is broken into large tectonic plates that move slowly. Their interactions can create mountains, earthquakes, rift valleys and volcanoes. These processes operate over long periods, although some events happen suddenly. The distribution of major mountain belts, earthquake zones and volcanoes is closely related to plate boundaries.'],['Weathering, erosion and deposition','The surface is also shaped by processes acting from outside. Weathering breaks rocks down in place through physical, chemical and biological action. Erosion removes and transports material by rivers, wind, waves and glaciers. Deposition occurs when transported material is laid down. A river may erode its upper course, carry sediment downstream and deposit it on a floodplain or delta. These processes work together to create varied landscapes.'],['Landforms and human life','Mountains, plateaus, plains, valleys and coastal features influence settlement, farming, transport and livelihoods. Landforms also create hazards and opportunities. Understanding slope, drainage, soil and rock helps communities plan roads, buildings and land use more safely. Maps, satellite images and field observations help geographers interpret these patterns.']],terms:[['Tectonic plate','A large moving section of Earth’s lithosphere.'],['Weathering','Breakdown of rock at or near its original location.'],['Deposition','The laying down of transported material.']],idea:'Explain how a river can both wear away land and build new landforms.',activity:'Draw a labelled sequence showing weathering → erosion → transport → deposition. Add one example of a landform created by running water.',check:['Which process breaks rock down in place?','A river delta is mainly formed by which process?'],answers:[0,1]},
@@ -514,7 +546,7 @@ function renderIntel(){
  }
 }
 document.querySelectorAll('.intelTab').forEach(b=>b.addEventListener('click',()=>{intelMode=b.dataset.lab;intelStep=0;renderIntel()}));
-renderIntel();
+safeSstInit('Intellectual Studio',renderIntel,'intelPanel');
 
 
 const researchPanel=$('researchPanel');let researchMode='data',researchQuestion=0,causesPicked=[];
@@ -554,7 +586,7 @@ function renderResearch(){
  }
 }
 document.querySelectorAll('.researchTab').forEach(b=>b.addEventListener('click',()=>{researchMode=b.dataset.research;researchQuestion=0;causesPicked=[];renderResearch()}));
-renderResearch();
+safeSstInit('Research Lab',renderResearch,'researchPanel');
 
 
 /* Comparative Case Study Lab */
@@ -587,7 +619,7 @@ document.getElementById('caseReview').addEventListener('click',()=>{
  const score=checks.filter(x=>x.ok).length;
  document.getElementById('caseResult').innerHTML='<b>ANALYSIS REVIEW · '+score+'/4 SKILLS</b><br>'+checks.map(x=>(x.ok?'✓ ':'○ ')+x.label).join('<br>')+'<br><br><b>Next improvement:</b> Name one specific detail from each case, explain how it supports your claim, and state what extra data could change your conclusion. This is a writing-skills guide, not an automatic judgement of historical or social truth.';
 });
-renderCaseStudy();
+safeSstInit('Comparative Case Study Lab',renderCaseStudy,'caseEvidence');
 
 /* SST Adventure World — local, replay-safe XP and collectible world stamps */
 (()=>{
@@ -651,7 +683,7 @@ renderCaseStudy();
   actions.append(next,replay);el('adventureMission').append(head,h,p,answers,feedback,actions);
  }
  document.querySelectorAll('.adventureZone').forEach(b=>b.addEventListener('click',()=>{zone=b.dataset.zone;mission=0;renderMission();renderStats()}));
- renderStats();renderMission();
+ safeSstInit('SST Adventure World',()=>{renderStats();renderMission()},'adventureMission');
 })();
 
 /* VN SST Metaverse: four location-based learning scenarios */
@@ -676,6 +708,6 @@ renderCaseStudy();
  document.getElementById('metaExplore').addEventListener('click',()=>{mode='explore';document.getElementById('metaExplore').classList.add('active');document.getElementById('metaChallenge').classList.remove('active');render()});
  document.getElementById('metaChallenge').addEventListener('click',()=>{mode='challenge';document.getElementById('metaChallenge').classList.add('active');document.getElementById('metaExplore').classList.remove('active');render()});
  document.getElementById('metaReset').addEventListener('click',()=>{place='ancient';mode='explore';document.getElementById('metaExplore').classList.add('active');document.getElementById('metaChallenge').classList.remove('active');render()});
- render();
+ safeSstInit('SST Metaverse',render,'metaInfo');
 })();
 </script></body></html>
