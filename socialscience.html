@@ -462,7 +462,7 @@ function openChapter(n){
   opened=String(n);
   $('roomLabel').textContent='CHAPTER '+String(c.n).padStart(2,'0')+' · '+c.subject.toUpperCase()+' · PART '+c.part;
   $('roomTitle').textContent=c.title;
-  $('chaptermeta').innerHTML='<span class="pill">'+c.subject+'</span><span class="pill">3 guided learning sections</span><span class="pill">Concept toolkit</span><span class="pill">Application activity</span>';
+  $('chaptermeta').innerHTML='<span class="pill">'+c.subject+'</span><span class="pill">'+sections.length+' guided learning sections</span><span class="pill">Concept toolkit</span><span class="pill">Application activity</span>';
 
   /* Render the essential lesson first. Optional features must never block it. */
   const sections=[...(Array.isArray(c.sections)?c.sections:[]),...(chapterExtensions[n]||[])];
