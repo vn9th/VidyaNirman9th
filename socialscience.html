@@ -125,6 +125,8 @@ footer{margin-top:30px}
 .sstRuntimeError b{display:block;color:#ffe39a;margin-bottom:4px}
 @media(prefers-reduced-motion:reduce){.sst-depth,.intelCard,.researchPanel,.caseEvidence,.adventureMission,.metaInfo{animation:none!important;transition:none!important;transform:none!important}}
 
+/* Delegated SST controls and accessible 3D motion */
+button{touch-action:manipulation} .intelTab,.researchTab,.caseTab,.adventureZone,.metaPin,.metaControls button{pointer-events:auto;position:relative;z-index:2}
 </style></head>
 <body><header><div class="wrap nav"><a class="brand" href="index.html"><img src="logo.png" alt="Vidya Nirman">VIDYA NIRMAN · VN SST</a><a class="home" href="index.html"><i class="fa-solid fa-house"></i> HOME</a></div></header>
 <main class="wrap"><section class="hero"><div class="eyebrow">CLASS 9 · COMPLETE 15-CHAPTER LEARNING ENVIRONMENT</div><h1 class="serif gold">SOCIAL SCIENCE</h1><p>Explore the world through evidence, maps, systems, institutions and choices. Each chapter opens into a guided learning space with explanations, key concepts, real-world connections, activities and chapter checks.</p><div class="stats"><span class="stat"><b>04</b> DISCIPLINES</span><span class="stat"><b>15</b> CHAPTERS</span><span class="stat"><b id="completed">0</b> COMPLETED</span><span class="stat"><b id="percent">0%</b> PROGRESS</span></div></section>
@@ -684,6 +686,7 @@ safeSstInit('Comparative Case Study Lab',renderCaseStudy,'caseEvidence');
  }
  document.querySelectorAll('.adventureZone').forEach(b=>b.addEventListener('click',()=>{zone=b.dataset.zone;mission=0;renderMission();renderStats()}));
  safeSstInit('SST Adventure World',()=>{renderStats();renderMission()},'adventureMission');
+ window.VNSSTAdventureControls={selectZone(z){if(!bank[z])return;zone=z;mission=0;renderMission();renderStats()},reset(){state={xp:0,done:[]};zone='ancient';mission=0;save();renderStats();renderMission()}};
 })();
 
 /* VN SST Metaverse: four location-based learning scenarios */
@@ -709,5 +712,41 @@ safeSstInit('Comparative Case Study Lab',renderCaseStudy,'caseEvidence');
  document.getElementById('metaChallenge').addEventListener('click',()=>{mode='challenge';document.getElementById('metaChallenge').classList.add('active');document.getElementById('metaExplore').classList.remove('active');render()});
  document.getElementById('metaReset').addEventListener('click',()=>{place='ancient';mode='explore';document.getElementById('metaExplore').classList.add('active');document.getElementById('metaChallenge').classList.remove('active');render()});
  safeSstInit('SST Metaverse',render,'metaInfo');
+ window.VNSSTMetaverseControls={selectPlace(p){if(!places[p])return;place=p;render()},setMode(m){mode=m==='challenge'?'challenge':'explore';render();document.getElementById('metaExplore').classList.toggle('active',mode==='explore');document.getElementById('metaChallenge').classList.toggle('active',mode==='challenge')},reset(){place='ancient';mode='explore';render();document.getElementById('metaExplore').classList.add('active');document.getElementById('metaChallenge').classList.remove('active')}};
 })();
+
+/* Reliable delegated controls: this remains active if a panel is re-rendered. */
+(function(){
+ const root=document;
+ root.querySelectorAll('button').forEach(b=>{if(!b.hasAttribute('type'))b.type='button'});
+ root.addEventListener('click',function(event){
+  const b=event.target&&event.target.closest?event.target.closest('button'):null;if(!b)return;
+  if(b.matches('.intelTab')){
+   event.preventDefault();event.stopImmediatePropagation();
+   const mode=b.dataset.lab;if(!['source','policy','debate'].includes(mode))return;
+   intelMode=mode;intelStep=0;safeSstInit('Intellectual Studio',renderIntel,'intelPanel');return;
+  }
+  if(b.matches('.researchTab')){
+   event.preventDefault();event.stopImmediatePropagation();
+   const mode=b.dataset.research;if(!['data','field','systems'].includes(mode))return;
+   researchMode=mode;researchQuestion=0;causesPicked=[];safeSstInit('Research Lab',renderResearch,'researchPanel');return;
+  }
+  if(b.matches('.caseTab')){
+   event.preventDefault();event.stopImmediatePropagation();
+   if(!caseStudies[b.dataset.case])return;
+   activeCase=b.dataset.case;root.querySelectorAll('.caseTab').forEach(x=>x.classList.toggle('active',x===b));
+   safeSstInit('Comparative Case Study Lab',renderCaseStudy,'caseEvidence');return;
+  }
+  if(b.matches('.adventureZone')&&window.VNSSTAdventureControls){
+   event.preventDefault();event.stopImmediatePropagation();window.VNSSTAdventureControls.selectZone(b.dataset.zone);return;
+  }
+  if(b.matches('.metaPin')&&window.VNSSTMetaverseControls){
+   event.preventDefault();event.stopImmediatePropagation();window.VNSSTMetaverseControls.selectPlace(b.dataset.place);return;
+  }
+  if(b.id==='metaExplore'&&window.VNSSTMetaverseControls){event.preventDefault();event.stopImmediatePropagation();window.VNSSTMetaverseControls.setMode('explore');return}
+  if(b.id==='metaChallenge'&&window.VNSSTMetaverseControls){event.preventDefault();event.stopImmediatePropagation();window.VNSSTMetaverseControls.setMode('challenge');return}
+  if(b.id==='metaReset'&&window.VNSSTMetaverseControls){event.preventDefault();event.stopImmediatePropagation();window.VNSSTMetaverseControls.reset();return}
+ },true);
+})();
+
 </script></body></html>
