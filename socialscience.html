@@ -731,6 +731,16 @@ safeSstInit('Comparative Case Study Lab',renderCaseStudy,'caseEvidence');
  root.querySelectorAll('button').forEach(b=>{if(!b.hasAttribute('type'))b.type='button'});
  root.addEventListener('click',function(event){
   const b=event.target&&event.target.closest?event.target.closest('button'):null;if(!b)return;
+  if(b.matches('.visualTab')){
+   event.preventDefault();event.stopImmediatePropagation();
+   if(opened)renderVisual(Number(opened),b.dataset.visual);
+   return;
+  }
+  if(b.matches('.gameMode')){
+   event.preventDefault();event.stopImmediatePropagation();
+   if(typeof setGame==='function')setGame(b.dataset.game);
+   return;
+  }
   if(b.matches('.intelTab')){
    event.preventDefault();event.stopImmediatePropagation();
    const mode=b.dataset.lab;if(!['source','policy','debate'].includes(mode))return;
@@ -759,4 +769,7 @@ safeSstInit('Comparative Case Study Lab',renderCaseStudy,'caseEvidence');
  },true);
 })();
 
-</script></body></html>
+</script><style id="vn-sst-interaction-hardening">
+.visualTab,.gameMode,.intelTab,.researchTab,.caseTab,.adventureZone,.metaPin,.metaControls button,.gameRestart,.gameChoice,.matchItem,.timelineCard,.ecoTile,.questOption,.intelAction,.researchAction,.caseAction,.adventureAnswer{pointer-events:auto!important;touch-action:manipulation;cursor:pointer}
+button:focus-visible,[role="button"]:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #ffe39a!important;outline-offset:3px}
+</style></body></html>
