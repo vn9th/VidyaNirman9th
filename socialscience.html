@@ -1061,35 +1061,42 @@ safeSstInit('Comparative Case Study Lab',renderCaseStudy,'caseEvidence');
   [...new Set([...Object.keys(remote),...Object.keys(local)])].filter(k=>k.startsWith('vnSstDaily_')).forEach(k=>out[k]=(local[k]==='1'||remote[k]==='1')?'1':(local[k]||remote[k]));
   return out;
  };
- let client=null,userId=null,pushTimer=null;
+ let client=null,userId=null,pushTimer=null,watchInstalled=false,hydrating=false;
  const push=async()=>{
   if(!client||!userId)return;
   try{const progress=getLocal();const {error}=await client.from('vn_sst_progress').upsert({user_id:userId,progress,updated_at:new Date().toISOString()},{onConflict:'user_id'});if(error)throw error;setStatus('✓ Progress synced to your account','synced')}
   catch(e){console.warn('[VN SST] Cloud progress sync:',e);setStatus('Cloud setup needed · see setup guide','error')}
  };
  const schedulePush=()=>{if(pushTimer)clearTimeout(pushTimer);pushTimer=setTimeout(push,900)};
+ const installLocalWatch=()=>{
+  if(watchInstalled)return;watchInstalled=true;
+  const originalSet=Storage.prototype.setItem;
+  Storage.prototype.setItem=function(k,v){originalSet.call(this,k,v);if(this===localStorage&&(keys.includes(String(k))||String(k).startsWith('vnSstDaily_')))schedulePush()};
+ };
+ const hydrateAccount=async session=>{
+  if(!session||!session.user){userId=null;setStatus('Local save active · sign in to sync','local');return}
+  if(hydrating)return;hydrating=true;userId=session.user.id;setStatus('Account connected · loading progress…','local');
+  try{
+   const {data:row,error:readError}=await client.from('vn_sst_progress').select('progress').eq('user_id',userId).maybeSingle();
+   if(readError)throw readError;
+   const local=getLocal(),merged=merge(local,row&&row.progress?row.progress:{}),before=JSON.stringify(local),after=JSON.stringify(merged);
+   Object.keys(merged).forEach(k=>{try{localStorage.setItem(k,merged[k])}catch(e){}});
+   if(before!==after&&!sessionStorage.getItem('vnSstCloudHydrated')){sessionStorage.setItem('vnSstCloudHydrated','1');location.reload();return}
+   sessionStorage.removeItem('vnSstCloudHydrated');
+   installLocalWatch();await push();
+  }catch(e){console.warn('[VN SST] Account sync unavailable:',e);setStatus('Local save active · cloud setup needed','error')}
+  finally{hydrating=false}
+ };
  const start=async()=>{
   if(!projectUrl||!anonKey||!window.supabase||!window.supabase.createClient){setStatus('Local save active · account sync unavailable','local');return}
   try{
    client=window.supabase.createClient(projectUrl,anonKey);
+   client.auth.onAuthStateChange((event,nextSession)=>{setTimeout(()=>{if(nextSession)hydrateAccount(nextSession);else{userId=null;setStatus('Local save active · sign in to sync','local')}},0)});
    const {data,error}=await client.auth.getSession();if(error)throw error;
-   const session=data.session;
-   if(!session){setStatus('Local save active · sign in to sync','local');return}
-   userId=session.user.id;
-   const {data:row,error:readError}=await client.from('vn_sst_progress').select('progress').eq('user_id',userId).maybeSingle();
-   if(readError)throw readError;
-   const merged=merge(getLocal(),row&&row.progress?row.progress:{});
-   const before=JSON.stringify(getLocal()),after=JSON.stringify(merged);
-   Object.keys(merged).forEach(k=>{try{localStorage.setItem(k,merged[k])}catch(e){}});
-   if(before!==after&&!sessionStorage.getItem('vnSstCloudHydrated')){sessionStorage.setItem('vnSstCloudHydrated','1');location.reload();return}
-   sessionStorage.removeItem('vnSstCloudHydrated');
-   await push();
-   const originalSet=Storage.prototype.setItem;
-   Storage.prototype.setItem=function(k,v){originalSet.call(this,k,v);if(this===localStorage&&(keys.includes(String(k))||String(k).startsWith('vnSstDaily_')))schedulePush()};
-   client.auth.onAuthStateChange((event,nextSession)=>{if(nextSession&&nextSession.user){userId=nextSession.user.id;setStatus('Account connected · syncing progress…','local');schedulePush()}else{userId=null;setStatus('Local save active · sign in to sync','local')}});
+   if(!data.session){setStatus('Local save active · sign in to sync','local');return}
+   await hydrateAccount(data.session);
   }catch(e){console.warn('[VN SST] Account sync unavailable:',e);setStatus('Local save active · cloud sync needs setup','error')}
- };
- start();
+ }; start();
 })();</script><style id="vn-sst-interaction-hardening">
 .visualTab,.gameMode,.intelTab,.researchTab,.caseTab,.adventureZone,.metaPin,.metaControls button,.gameRestart,.gameChoice,.matchItem,.timelineCard,.ecoTile,.questOption,.intelAction,.researchAction,.caseAction,.adventureAnswer{pointer-events:auto!important;touch-action:manipulation;cursor:pointer}
 button:focus-visible,[role="button"]:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #ffe39a!important;outline-offset:3px}
