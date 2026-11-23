@@ -562,7 +562,7 @@ function openChapter(n){
     const panels=document.createElement('div');panels.className='comicPanels';
     const beats=['THE QUESTION','THE DISCOVERY','THE EXPLANATION'];
     story.slice(1,4).forEach((line,i)=>{
-     const match=String(line).match(/^([^:]{2,32}):\\s*(.*)$/);
+     const match=String(line).match(/^([^:]{2,32}):\s*(.*)$/);
      const speaker=match?match[1].trim():(i===0?'Asha':i===1?'Kabir':'Teacher');
      const dialogue=match?match[2].trim():String(line);
      const key=speaker.toLowerCase();
