@@ -187,7 +187,7 @@ button{touch-action:manipulation} .intelTab,.researchTab,.caseTab,.adventureZone
  <div id="casePrompt" class="casePrompt"></div>
  <div class="caseForm">
   <label>1 · MAIN COMPARISON<select id="caseCompare"><option value="">Choose a comparison</option><option value="similar">Both cases share an important pattern</option><option value="different">The cases differ in a significant way</option><option value="mixed">They share some features but differ in others</option></select></label>
-  <label>2 · EVIDENCE COVERAGE<select id="caseEvidenceChoice"><option value="">Choose evidence coverage</option><option value="a">I will use Case A evidence</option><option value="b">I will use Case B evidence</option><option value="both">I will compare evidence from both cases</option></select></label>
+  <label>2 · EVIDENCE COVERAGE<select id="caseEvidenceChoice"><option value="">Choose evidence coverage</option><option value="a">Focus mainly on Case A, while comparing Case B</option><option value="b">Focus mainly on Case B, while comparing Case A</option><option value="both">Give both cases equal attention</option></select></label>
   <label>3 · SPECIFIC DETAIL FROM CASE A<select id="caseDetailA"><option value="">Select a detail from Case A</option></select></label>
   <label>4 · SPECIFIC DETAIL FROM CASE B<select id="caseDetailB"><option value="">Select a detail from Case B</option></select></label>
   <label>5 · WRITE YOUR ANALYSIS<textarea id="caseAnalysis" placeholder="Write a clear comparison. Refer to the selected details, explain why the cases are similar or different, and mention what extra information is needed..."></textarea></label>
@@ -876,6 +876,7 @@ $('caseReview').addEventListener('click',()=>{
  progress[activeCase]=Math.max(Number(progress[activeCase]||0),score);try{localStorage.setItem('vnSstCaseProgress',JSON.stringify(progress))}catch(e){}
  const result=$('caseResult');result.innerHTML='';
  const heading=document.createElement('div');heading.innerHTML='<span class="caseScore">REASONING REVIEW · '+score+'/6</span> <b>Skill checklist</b>';result.append(heading);
+ const cited=document.createElement('p');cited.textContent='Case A evidence: '+caseStudies[activeCase].a.evidence[Number(detailA)]+ ' · Case B evidence: '+caseStudies[activeCase].b.evidence[Number(detailB)];result.append(cited);
  const list=document.createElement('ul');checks.forEach(item=>{const li=document.createElement('li');li.textContent=(item.ok?'✓ ':'○ ')+item.label;list.append(li)});result.append(list);
  const next=document.createElement('p');next.textContent=score===6?'Excellent structure. Your comparison uses selected evidence, reasoning and a limitation. Now check whether the evidence really supports your claim.':'Next step: strengthen the unchecked skill(s). Quote exact details, explain the link to your claim, and avoid making conclusions that the case information cannot prove.';result.append(next);
  $('caseProgress').textContent='Best review: '+progress[activeCase]+'/6 skills';
