@@ -166,6 +166,22 @@ button{touch-action:manipulation} .intelTab,.researchTab,.caseTab,.adventureZone
 .sstCloudNote{color:#e7c77d}
 @media(max-width:700px){.sstSyncPill{font-size:8px;padding:7px 9px}.caseEvidence{padding:16px}.sstCloudSetupBody{padding:0 12px 13px}.sstCloudSetupBody pre{font-size:9px}}
 @media(prefers-reduced-motion:reduce){.earnedBadge,.passportStat,.caseEvidence,.caseAction,.caseTab,.intelTab,.researchTab,.adventureZone,.metaPin{transition:none}.caseEvidence:hover,.caseAction:hover,.caseTab:hover,.intelTab:hover,.researchTab:hover{transform:none}}
+
+/* Learning Command Centre */
+.activityHub{margin:18px 0 24px;padding:clamp(17px,3vw,25px);border:1px solid #d4af3777;border-radius:22px;background:radial-gradient(circle at 90% 0%,#9d702b24,transparent 36%),linear-gradient(140deg,#2d0d19,#13050b);box-shadow:0 17px 42px #0005}
+.activityHubHead{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap}
+.activityHubHead h2{margin:7px 0;color:#ffe39a;font:900 clamp(19px,3vw,27px) Cinzel,serif}
+.activityHubHead p{max-width:720px;margin:0;color:#d9c8b5;font-size:11px;line-height:1.8}
+.activityLive{padding:8px 11px;border:1px solid #65c89b66;border-radius:30px;background:#123126;color:#aaf0ce;font-size:8px;font-weight:900;letter-spacing:.1em}
+.activityTiles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:18px 0 13px}
+.activityTile{display:grid;gap:5px;min-height:105px;align-content:center;padding:13px;border:1px solid #d4af3744;border-radius:14px;background:linear-gradient(145deg,#401724,#1a0710);transition:transform .2s,border-color .2s}
+.activityTile:hover{transform:translateY(-3px);border-color:#f3d783}
+.activityTile span{font-size:19px}.activityTile b{color:#ffe39a;font:900 25px Cinzel,serif;font-variant-numeric:tabular-nums}.activityTile small{color:#cbb99f;font-size:8px;font-weight:900;letter-spacing:.09em}
+.activityHubFoot{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding-top:12px;border-top:1px solid #d4af372e}
+.activityHubFoot span{margin-right:auto;color:#d8c7b4;font-size:10px;line-height:1.6}
+.activityHubFoot a{color:#ffe39a;font-size:9px;font-weight:900;text-decoration:none}.activityHubFoot a:hover{text-decoration:underline}
+@media(max-width:720px){.activityTiles{grid-template-columns:repeat(2,minmax(0,1fr))}.activityTile:last-child{grid-column:1/-1;min-height:85px}.activityHubFoot{align-items:flex-start}.activityHubFoot span{width:100%}}
+@media(prefers-reduced-motion:reduce){.activityTile{transition:none}.activityTile:hover{transform:none}}
 </style></head>
 <body><header><div class="wrap nav"><a class="brand" href="index.html"><img src="logo.png" alt="Vidya Nirman">VIDYA NIRMAN · VN SST</a><a class="home" href="index.html"><i class="fa-solid fa-house"></i> HOME</a><span class="sstSyncPill" id="sstSyncStatus" role="status" aria-live="polite"><i class="fa-solid fa-cloud"></i> Checking account sync…</span></div></header>
 <main class="wrap"><section class="hero"><div class="eyebrow">CLASS 9 · COMPLETE 15-CHAPTER LEARNING ENVIRONMENT</div><h1 class="serif gold">SOCIAL SCIENCE</h1><p>Explore the world through evidence, maps, systems, institutions and choices. Each chapter opens into a guided learning space with explanations, key concepts, real-world connections, activities and chapter checks.</p><div class="stats"><span class="stat"><b>04</b> DISCIPLINES</span><span class="stat"><b>15</b> CHAPTERS</span><span class="stat"><b id="completed">0</b> COMPLETED</span><span class="stat"><b id="percent">0%</b> PROGRESS</span></div></section>
@@ -221,6 +237,17 @@ with check (auth.uid() = user_id);</code></pre>
   <p class="sstCloudNote">Do not put a Supabase service-role or secret key in the website. The public publishable key is intended for browser use with these Row Level Security policies enabled.</p>
  </div>
 </details>
+<section class="activityHub" id="activityHub" aria-labelledby="activityHubTitle">
+ <div class="activityHubHead"><div><span class="eyebrow">YOUR LEARNING · YOUR MOMENTUM</span><h2 id="activityHubTitle">📊 LEARNING COMMAND CENTRE</h2><p>Track practice across the interactive parts of VN SST. Counts update as you complete activities on this device and sync when account cloud sync is configured.</p></div><span class="activityLive">● ACTIVITY TRACKER</span></div>
+ <div class="activityTiles">
+  <article class="activityTile"><span>🎮</span><b id="hubGames">0</b><small>GAME POINTS</small></article>
+  <article class="activityTile"><span>💡</span><b id="hubThinking">0</b><small>THINKING REVIEWS</small></article>
+  <article class="activityTile"><span>🔬</span><b id="hubResearch">0</b><small>RESEARCH CHECKS</small></article>
+  <article class="activityTile"><span>⚖️</span><b id="hubCases">0</b><small>CASE REVIEWS</small></article>
+  <article class="activityTile"><span>🗺️</span><b id="hubMissions">0</b><small>MISSIONS CLEARED</small></article>
+ </div>
+ <div class="activityHubFoot"><span id="hubHint">Your activity summary will grow as you practise.</span><a href="#gameArena">PLAY GAMES →</a><a href="#intellectualStudio">THINKING STUDIO →</a><a href="#researchLab">RESEARCH LAB →</a></div>
+</section>
 <section class="dailyMission" id="dailyMission"><h3>⚡ DAILY THINKING MISSION</h3><p id="missionPrompt">A fresh question to sharpen your Social Science thinking.</p><div class="missionChoices" id="missionChoices"></div><div class="missionResult" id="missionResult" aria-live="polite"></div></section>
 <div class="partbar"><button class="partbtn active" data-part="1">PART 1 · CHAPTERS 1–9</button><button class="partbtn" data-part="2">PART 2 · CHAPTERS 10–15</button><button class="partbtn" data-part="all">ALL CHAPTERS</button></div>
 <section class="subjects"><button class="subject active" data-s="all" style="--accent:#eab308"><i class="fa-solid fa-compass"></i><b>All Subjects</b><small>15 chapters · Complete course</small></button><button class="subject" data-s="history" style="--accent:#eab308"><i class="fa-solid fa-landmark"></i><b>History</b><small>Past · Evidence · Change</small></button><button class="subject" data-s="geography" style="--accent:#38bdf8"><i class="fa-solid fa-earth-asia"></i><b>Geography</b><small>Earth · Environment · Life</small></button><button class="subject" data-s="civics" style="--accent:#c4b5fd"><i class="fa-solid fa-scale-balanced"></i><b>Political Science</b><small>Democracy · Governance</small></button><button class="subject" data-s="economics" style="--accent:#6ee7b7"><i class="fa-solid fa-chart-line"></i><b>Economics</b><small>Choices · Markets · Enterprise</small></button></section>
@@ -512,6 +539,9 @@ function renderPassport(){
  $('passportDone').textContent=count+'/15';$('passportBadges').textContent=badges.filter(b=>b[3]).length+'/5';$('passportLevel').textContent=1+Math.floor(count/3);$('passportFill').style.width=(count/15*100)+'%';
  $('badgeShelf').innerHTML=badges.map(b=>'<div class="earnedBadge '+(b[3]?'':'locked')+'"><div class="medal">'+b[0]+'</div><b>'+b[1]+'</b><small>'+b[2]+'</small></div>').join('');
 }
+function sstActivityStats(){try{return JSON.parse(localStorage.getItem('vnSstActivityStats')||'{}')}catch(e){return {}}}
+function sstRecordActivity(kind,amount=1){const stats=sstActivityStats();stats[kind]=Math.max(0,Number(stats[kind]||0)+amount);try{localStorage.setItem('vnSstActivityStats',JSON.stringify(stats))}catch(e){}renderSstActivityHub()}
+function renderSstActivityHub(){const stats=sstActivityStats(),values={hubGames:safeSstGet('vnSstGameScore')||0,hubThinking:stats.thinking||0,hubResearch:stats.research||0,hubCases:stats.cases||0,hubMissions:stats.missions||0};Object.entries(values).forEach(([id,value])=>{const node=document.getElementById(id);if(node)node.textContent=String(value)});const hint=document.getElementById('hubHint');if(hint){const total=Number(values.hubThinking)+Number(values.hubResearch)+Number(values.hubCases)+Number(values.hubMissions);hint.textContent=total?total+' learning reviews and missions recorded. Keep building your evidence and reasoning skills.':'Start with a game, a research question or a case study to begin your activity record.'}}
 function safeSstGet(key){try{return localStorage.getItem(key)}catch(e){return null}}
 function safeSstSet(key,value){try{localStorage.setItem(key,value);return true}catch(e){return false}}
 function renderDailyMission(){
@@ -724,7 +754,7 @@ function renderGame(){
   const prompt=document.createElement('div');prompt.className='gamePrompt';prompt.textContent=q[0];host.append(prompt);
   const choices=document.createElement('div');choices.className='gameChoices';host.append(choices);
   const feedback=document.createElement('div');feedback.className='gameFeedback';host.append(feedback);
-  q[1].forEach((v,i)=>{const b=document.createElement('button');b.className='gameChoice';b.textContent=String.fromCharCode(65+i)+'. '+v;b.onclick=()=>{if(gameAnswered)return;gameAnswered=true;choices.querySelectorAll('button').forEach((x,j)=>{x.disabled=true;if(j===q[2])x.classList.add('good')});if(i===q[2]){gamePoints(10);feedback.textContent='Correct! +10 points. '+q[3]}else{b.classList.add('bad');feedback.textContent='Not quite. '+q[3]}gameStatus('Score: '+gameScore+' points')};choices.append(b)});
+  q[1].forEach((v,i)=>{const b=document.createElement('button');b.className='gameChoice';b.textContent=String.fromCharCode(65+i)+'. '+v;b.onclick=()=>{if(gameAnswered)return;gameAnswered=true;sstRecordActivity('gameRounds');choices.querySelectorAll('button').forEach((x,j)=>{x.disabled=true;if(j===q[2])x.classList.add('good')});if(i===q[2]){gamePoints(10);feedback.textContent='Correct! +10 points. '+q[3]}else{b.classList.add('bad');feedback.textContent='Not quite. '+q[3]}gameStatus('Score: '+gameScore+' points')};choices.append(b)});
   host.append(gameButton('NEXT QUESTION →',()=>{gameIndex++;renderGame()}));
  }else if(gameMode==='match'){
   const prompt=document.createElement('div');prompt.className='gamePrompt';prompt.textContent='Match each concept with its correct meaning.';host.append(prompt);
@@ -847,7 +877,7 @@ function renderIntel(){
   const src=document.createElement('div');src.className='intelSource';src.style.whiteSpace='pre-line';src.textContent=q.src;intelPanel.append(src);
   const choices=document.createElement('div');choices.className='intelChoices';intelPanel.append(choices);
   const feedback=document.createElement('div');feedback.className='intelFeedback';feedback.textContent='Choose an answer and examine the reasoning.';intelPanel.append(feedback);
-  q.opts.forEach((v,i)=>{const b=document.createElement('button');b.textContent=v;b.onclick=()=>{if(b.disabled)return;choices.querySelectorAll('button').forEach((x,j)=>{x.disabled=true;if(j===q.ok)x.style.borderColor='#58c99a'});if(i!==q.ok)b.style.borderColor='#df8080';feedback.textContent=(i===q.ok?'Strong reasoning. ':'Consider this principle. ')+q.why};choices.append(b)});
+  q.opts.forEach((v,i)=>{const b=document.createElement('button');b.textContent=v;b.onclick=()=>{if(b.disabled)return;choices.querySelectorAll('button').forEach((x,j)=>{x.disabled=true;if(j===q.ok)x.style.borderColor='#58c99a'});if(i!==q.ok)b.style.borderColor='#df8080';sstRecordActivity('thinking');feedback.textContent=(i===q.ok?'Strong reasoning. ':'Consider this principle. ')+q.why};choices.append(b)});
   const next=document.createElement('button');next.className='intelAction';next.textContent='NEXT CASE →';next.onclick=()=>{intelStep++;renderIntel()};intelPanel.append(next);
  }else{
   const label=document.createElement('div');label.className='intelLabel';label.textContent='STRUCTURED ARGUMENT BUILDER · BUILD A BALANCED CASE';intelPanel.append(label);
@@ -855,11 +885,12 @@ function renderIntel(){
   const source=document.createElement('div');source.className='intelSource';source.textContent='A strong argument has a clear claim, relevant evidence, an explanation of how the evidence supports the claim, and a fair response to an opposing view.';intelPanel.append(source);
   const fields=document.createElement('div');fields.className='intelInputs';fields.innerHTML='<label>YOUR POSITION<select id="debatePosition"><option value="">Choose a position</option><option>Prioritise public transport</option><option>Balance both approaches</option><option>Prioritise road expansion</option></select></label><label>COUNTERARGUMENT<select id="debateCounter"><option value="">Choose a counterpoint</option><option>Public transport needs reliable funding</option><option>Roads are needed for deliveries and emergencies</option><option>Some areas have low passenger demand</option></select></label><label style="grid-column:1/-1">EVIDENCE OR EXAMPLE<textarea id="debateEvidence" placeholder="Add a relevant example, observation or reliable data point…"></textarea></label><label style="grid-column:1/-1">WHY DOES IT SUPPORT YOUR POSITION?<textarea id="debateReason" placeholder="Explain the connection between your evidence and your claim…"></textarea></label>';intelPanel.append(fields);
   const result=document.createElement('div');result.className='intelFeedback';result.textContent='Complete the four parts, then evaluate your argument.';intelPanel.append(result);
-  const assess=document.createElement('button');assess.className='intelAction';assess.textContent='EVALUATE MY ARGUMENT';assess.onclick=()=>{const p=$('debatePosition').value,c=$('debateCounter').value,e=$('debateEvidence').value.trim(),r=$('debateReason').value.trim();const score=[!!p,!!c,e.length>=20,r.length>=25].filter(Boolean).length;result.innerHTML='<span class="intelScore">STRUCTURE CHECK: '+score+'/4</span><br>'+(score===4?'You have all four building blocks. Now verify that your evidence is accurate and your reasoning is fair.':'Add the missing parts: a clear position, a counterargument, a specific piece of evidence and an explanation. This is a structure check, not a judgement of your opinion.')};intelPanel.append(assess);
+  const assess=document.createElement('button');assess.className='intelAction';assess.textContent='EVALUATE MY ARGUMENT';assess.onclick=()=>{const p=$('debatePosition').value,c=$('debateCounter').value,e=$('debateEvidence').value.trim(),r=$('debateReason').value.trim();const score=[!!p,!!c,e.length>=20,r.length>=25].filter(Boolean).length;sstRecordActivity('thinking');result.innerHTML='<span class="intelScore">STRUCTURE CHECK: '+score+'/4</span><br>'+(score===4?'You have all four building blocks. Now verify that your evidence is accurate and your reasoning is fair.':'Add the missing parts: a clear position, a counterargument, a specific piece of evidence and an explanation. This is a structure check, not a judgement of your opinion.')};intelPanel.append(assess);
  }
 }
 document.querySelectorAll('.intelTab').forEach(b=>b.addEventListener('click',()=>{intelMode=b.dataset.lab;intelStep=0;renderIntel()}));
 safeSstInit('Intellectual Studio',renderIntel,'intelPanel');
+renderSstActivityHub();
 
 
 const researchPanel=$('researchPanel');let researchMode='data',researchQuestion=0,causesPicked=[];
@@ -878,7 +909,7 @@ function renderResearch(){
   const q=document.createElement('div');q.className='researchQuestion';q.textContent=d.q;researchPanel.append(q);
   const choices=document.createElement('div');choices.className='researchChoice';researchPanel.append(choices);
   const feedback=document.createElement('div');feedback.className='researchFeedback';feedback.textContent='Choose the conclusion best supported by the data.';researchPanel.append(feedback);
-  d.opts.forEach((v,i)=>{const b=document.createElement('button');b.textContent=v;b.onclick=()=>{if(b.disabled)return;choices.querySelectorAll('button').forEach((x,j)=>{x.disabled=true;if(j===d.ok)x.style.borderColor='#69d1a7'});if(i!==d.ok)b.style.borderColor='#df8080';feedback.textContent=(i===d.ok?'Correct interpretation. ':'Check what the data can actually tell you. ')+d.why};choices.append(b)});
+  d.opts.forEach((v,i)=>{const b=document.createElement('button');b.textContent=v;b.onclick=()=>{if(b.disabled)return;choices.querySelectorAll('button').forEach((x,j)=>{x.disabled=true;if(j===d.ok)x.style.borderColor='#69d1a7'});if(i!==d.ok)b.style.borderColor='#df8080';sstRecordActivity('research');feedback.textContent=(i===d.ok?'Correct interpretation. ':'Check what the data can actually tell you. ')+d.why};choices.append(b)});
   const next=document.createElement('button');next.className='researchAction';next.textContent='NEXT DATASET →';next.onclick=()=>{researchQuestion++;renderResearch()};researchPanel.append(next);
  }else if(researchMode==='field'){
   const title=document.createElement('div');title.className='researchTitle';title.textContent='DESIGN A FAIR AND ETHICAL FIELD STUDY';researchPanel.append(title);
@@ -949,7 +980,7 @@ $('caseReview').addEventListener('click',()=>{
  ];
  const score=checks.filter(x=>x.ok).length;
  let progress={};try{progress=JSON.parse(localStorage.getItem('vnSstCaseProgress')||'{}')}catch(e){progress={}}
- progress[activeCase]=Math.max(Number(progress[activeCase]||0),score);try{localStorage.setItem('vnSstCaseProgress',JSON.stringify(progress))}catch(e){}
+ sstRecordActivity('cases');progress[activeCase]=Math.max(Number(progress[activeCase]||0),score);try{localStorage.setItem('vnSstCaseProgress',JSON.stringify(progress))}catch(e){}
  const result=$('caseResult');result.innerHTML='';
  const heading=document.createElement('div');heading.innerHTML='<span class="caseScore">REASONING REVIEW · '+score+'/6</span> <b>Skill checklist</b>';result.append(heading);
  const cited=document.createElement('p');cited.textContent='Case A evidence: '+caseStudies[activeCase].a.evidence[Number(detailA)]+ ' · Case B evidence: '+caseStudies[activeCase].b.evidence[Number(detailB)];result.append(cited);
@@ -1018,7 +1049,7 @@ safeSstInit('Comparative Case Study Lab',renderCaseStudy,'caseEvidence');
   const feedback=document.createElement('div');feedback.className='adventureFeedback';feedback.id='adventureFeedback';feedback.textContent=done?'Mission complete. You can revisit it any time.':'Choose the strongest answer to solve this mission.';
   item.opts.forEach((v,i)=>{const b=document.createElement('button');b.className='adventureAnswer';b.textContent=v;b.disabled=done;b.addEventListener('click',()=>{
     if(answered)return;
-    if(i===item.ok){answered=true;state.done.push(id);state.xp+=25;save();b.classList.add('good');answers.querySelectorAll('button').forEach((x,j)=>{x.disabled=true;if(j===item.ok)x.classList.add('good')});feedback.textContent='Mission cleared! +25 XP. '+item.why;right.textContent='✓ +25 XP EARNED';renderStats();next.hidden=false;}
+    if(i===item.ok){answered=true;state.done.push(id);state.xp+=25;sstRecordActivity('missions');save();b.classList.add('good');answers.querySelectorAll('button').forEach((x,j)=>{x.disabled=true;if(j===item.ok)x.classList.add('good')});feedback.textContent='Mission cleared! +25 XP. '+item.why;right.textContent='✓ +25 XP EARNED';renderStats();next.hidden=false;}
     else{b.classList.add('bad');feedback.textContent='Not yet. Re-read the clue and try another option.';}
    });answers.append(b)});
   const actions=document.createElement('div');actions.className='adventureActions';
