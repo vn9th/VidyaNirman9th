@@ -462,10 +462,11 @@ function openChapter(n){
   opened=String(n);
   $('roomLabel').textContent='CHAPTER '+String(c.n).padStart(2,'0')+' · '+c.subject.toUpperCase()+' · PART '+c.part;
   $('roomTitle').textContent=c.title;
+  /* Prepare the chapter sections before using their count in the interface. */
+  const sections=[...(Array.isArray(c.sections)?c.sections:[]),...((chapterExtensions&&chapterExtensions[n])||[])];
   $('chaptermeta').innerHTML='<span class="pill">'+c.subject+'</span><span class="pill">'+sections.length+' guided learning sections</span><span class="pill">Concept toolkit</span><span class="pill">Application activity</span>';
 
   /* Render the essential lesson first. Optional features must never block it. */
-  const sections=[...(Array.isArray(c.sections)?c.sections:[]),...(chapterExtensions[n]||[])];
   if(!sections.length)throw new Error('This chapter has no learning sections in its content data.');
   $('lesson').innerHTML='<h3>LEARN THE BIG IDEAS</h3>'+sections.map((section,i)=>{
    if(!Array.isArray(section)||section.length<2) return '<div class="sstRuntimeError">A learning section is incomplete.</div>';
