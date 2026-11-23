@@ -420,7 +420,7 @@ function openChapter(n){
 
   try{$('vocab').innerHTML=(c.terms||[]).map(v=>'<div class="vocab"><b>'+v[0]+'</b><br>'+v[1]+'</div>').join('')||'<p>Concept toolkit coming soon.</p>'}catch(e){$('vocab').textContent='Concept toolkit temporarily unavailable.'}
   try{$('think').innerHTML='<b>THINK FURTHER</b><br>'+(c.idea||'Think of a real-world example related to this chapter.')}catch(e){}
-  try{$('activity').innerHTML='<b><i class="fa-solid fa-flask"></i> APPLY & EXPLORE</b><p>'+(c.activity||'Create a short real-world example related to this chapter.')} </p>'}catch(e){}
+  try{$('activity').innerHTML='<b><i class="fa-solid fa-flask"></i> APPLY & EXPLORE</b><p>'+(c.activity||'Create a short real-world example related to this chapter.')+'</p>'}catch(e){}
   try{renderVisual(n,'map')}catch(e){console.warn('[VN SST] Visual explorer unavailable:',e)}
   try{renderChapterTest(n)}catch(e){console.warn('[VN SST] Chapter quiz unavailable:',e)}
   $('saved').textContent=done.has(opened)?'Completed on this device.':'';
