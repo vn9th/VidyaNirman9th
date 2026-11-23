@@ -21,7 +21,7 @@
 .caseForm select,.caseForm textarea{width:100%;background:#100308;color:var(--cream);border:1px solid #d4af3766;border-radius:10px;padding:11px}
 .caseForm textarea{min-height:115px;resize:vertical;grid-column:1/-1;line-height:1.5}
 .caseResult{margin-top:14px;padding:15px;border:1px solid #d4af3755;border-radius:12px;background:#100308;color:#f3e7d6;line-height:1.7}
-@media(max-width:700px){.caseGrid,.caseForm{grid-template-columns:1fr}.caseLab{padding:19px}.caseForm textarea{grid-column:auto}}
+@media(max-width:700px){.caseGrid,.caseForm{grid-template-columns:1fr}.caseLab{padding:19px}.caseForm textarea{grid-column:auto}}.caseTools{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:13px 0}.caseTools #caseProgress{font-size:10px;color:#e8cf8d;margin-left:auto}.caseAction{font-size:10px;font-weight:900}.caseSecondary{background:#1c0a11;color:#f4dfb9}.caseGuide{margin:12px 0;padding:15px 18px;border:1px dashed #d4af3780;border-radius:12px;background:#d4af370d;color:#f4e7d4;font-size:11px;line-height:1.75}.caseGuide[hidden]{display:none}.caseGuide>b{color:#ffe39a;letter-spacing:.1em}.caseGuide ol{padding-left:20px;margin:8px 0 0}.caseGuide strong{color:#f3d27b}.caseResult ul{padding-left:20px}.caseResult li{margin:5px 0}.caseScore{display:inline-block;padding:6px 10px;border-radius:8px;background:#d4af3720;color:#ffe39a;font-weight:900}.caseLens{display:inline-flex;gap:6px;flex-wrap:wrap;margin-top:10px}.caseLens span{padding:5px 8px;border:1px solid #d4af3755;border-radius:30px;color:#f1d98e;font-size:9px}.caseEvidence small{display:block;margin-top:12px;color:#e8c86d;font-size:9px;font-weight:900;letter-spacing:.08em}.caseEvidence ul{margin:7px 0 0;padding-left:18px;color:#e8d9c7;font-size:10px;line-height:1.65}.caseEvidence li{margin:3px 0}@media(max-width:700px){.caseTools #caseProgress{width:100%;margin-left:0}}
 
 /* SST Adventure Quest */
 .adventureQuest{position:relative;overflow:hidden;margin:18px 0 24px;padding:clamp(17px,3vw,27px);border:1px solid #d4af3788;border-radius:20px;background:radial-gradient(circle at 90% 0%,#8c5b2438,transparent 34%),linear-gradient(135deg,#35101d,#12040a 72%);box-shadow:0 18px 48px #0006}
@@ -186,12 +186,16 @@ button{touch-action:manipulation} .intelTab,.researchTab,.caseTab,.adventureZone
  <div id="caseEvidence" class="caseGrid" aria-live="polite"></div>
  <div id="casePrompt" class="casePrompt"></div>
  <div class="caseForm">
-  <label>MAIN COMPARISON<select id="caseCompare"><option value="">Choose a comparison</option><option value="similar">Both cases share an important pattern</option><option value="different">The cases differ in a significant way</option><option value="mixed">They share some features but differ in others</option></select></label>
-  <label>BEST EVIDENCE<select id="caseEvidenceChoice"><option value="">Choose evidence</option><option value="a">Evidence from Case A</option><option value="b">Evidence from Case B</option><option value="both">Evidence from both cases</option></select></label>
-  <label>WRITE YOUR ANALYSIS<textarea id="caseAnalysis" placeholder="Make a claim, cite a detail from the cases, explain the reason, and mention one limitation or alternative explanation..."></textarea></label>
+  <label>1 · MAIN COMPARISON<select id="caseCompare"><option value="">Choose a comparison</option><option value="similar">Both cases share an important pattern</option><option value="different">The cases differ in a significant way</option><option value="mixed">They share some features but differ in others</option></select></label>
+  <label>2 · EVIDENCE COVERAGE<select id="caseEvidenceChoice"><option value="">Choose evidence coverage</option><option value="a">I will use Case A evidence</option><option value="b">I will use Case B evidence</option><option value="both">I will compare evidence from both cases</option></select></label>
+  <label>3 · SPECIFIC DETAIL FROM CASE A<select id="caseDetailA"><option value="">Select a detail from Case A</option></select></label>
+  <label>4 · SPECIFIC DETAIL FROM CASE B<select id="caseDetailB"><option value="">Select a detail from Case B</option></select></label>
+  <label>5 · WRITE YOUR ANALYSIS<textarea id="caseAnalysis" placeholder="Write a clear comparison. Refer to the selected details, explain why the cases are similar or different, and mention what extra information is needed..."></textarea></label>
  </div>
+ <div class="caseTools"><button class="caseAction" id="caseShowGuide" type="button">SHOW WRITING FRAME ＋</button><button class="caseAction caseSecondary" id="caseReset" type="button">RESET RESPONSE ↻</button><span id="caseProgress" aria-live="polite">No reviewed attempts yet</span></div>
+ <div class="caseGuide" id="caseGuide" hidden><b>YOUR 5-STEP WRITING FRAME</b><ol><li><strong>Claim:</strong> State whether the cases are similar, different or mixed.</li><li><strong>Case A evidence:</strong> Mention one exact detail from the first case.</li><li><strong>Case B evidence:</strong> Mention one exact detail from the second case.</li><li><strong>Reasoning:</strong> Explain how the evidence supports your comparison.</li><li><strong>Limitation:</strong> Say what extra data or viewpoint could change your conclusion.</li></ol></div>
  <button class="caseAction" id="caseReview">REVIEW MY CASE ANALYSIS</button>
- <div class="caseResult" id="caseResult" aria-live="polite">Choose a case study and write your own evidence-based comparison. Your response stays in this browser session.</div>
+ <div class="caseResult" id="caseResult" aria-live="polite">Choose a case study, select details from both cases and write an evidence-based comparison. Your work is saved only on this device.</div>
 </section>
 
 <section class="adventureQuest" id="adventureQuest" aria-labelledby="adventureTitle">
@@ -825,33 +829,56 @@ safeSstInit('Research Lab',renderResearch,'researchPanel');
 
 /* Comparative Case Study Lab */
 const caseStudies={
- water:{prompt:'Compare how two communities respond to seasonal water stress. Which response appears more resilient, and what additional information would you need before judging?',a:{title:'CASE A · RIVER TOWN',body:'The town receives seasonal river flow. Its council repairs leaking pipes, monitors water quality and publishes a weekly supply schedule. Some neighbourhoods still report interruptions during the dry months.'},b:{title:'CASE B · HILL SETTLEMENT',body:'The settlement depends on rainfall and small reservoirs. Residents maintain traditional ponds and have started rooftop rainwater collection. Storage is limited after two weak monsoons.'},hint:'Think about infrastructure, local knowledge, reliability and unequal access. A single successful measure does not prove that every household benefits.'},
- markets:{prompt:'Two neighbourhood markets respond differently to a rise in the wholesale price of tomatoes. Explain how supply, alternatives and consumer choices may shape the outcome.',a:{title:'CASE A · CENTRAL MARKET',body:'Several sellers have multiple suppliers and can bring produce from nearby districts. Prices rise briefly, but fresh stock continues to arrive. Some buyers switch to other vegetables.'},b:{title:'CASE B · REMOTE MARKET',body:'Most sellers depend on one delivery route. A road disruption delays fresh stock. Fewer tomatoes are available, prices vary between shops and some households choose cheaper substitutes.'},hint:'Separate a change in demand from a change in supply. Consider transport, competition, substitutes and the information you would collect to test the explanation.'},
- mobility:{prompt:'Compare the transport choices in two growing towns. Which town seems better prepared for affordable and accessible mobility? Identify who might still be left out.',a:{title:'CASE A · TOWN WITH BUS NETWORK',body:'A frequent bus route connects the market, school and clinic. A student concession is available, but outer settlements have limited evening services and crowded peak-hour buses.'},b:{title:'CASE B · TOWN WITH ROAD EXPANSION',body:'The town has widened major roads and added parking. Travel by private vehicle is convenient for some residents, while pedestrians report difficult crossings and traffic near the school.'},hint:'Evaluate access, affordability, safety and environmental effects. Ask whether the available observations represent children, older people and people with disabilities.'}
+ water:{prompt:'Compare how two communities respond to seasonal water stress. Which response appears more resilient, and what additional information would you need before judging?',a:{title:'CASE A · RIVER TOWN',body:'The town receives seasonal river flow. Its council repairs leaking pipes, monitors water quality and publishes a weekly supply schedule. Some neighbourhoods still report interruptions during the dry months.',evidence:['Repairs leaking pipes','Monitors water quality','Publishes a weekly supply schedule','Dry-month interruptions continue']},b:{title:'CASE B · HILL SETTLEMENT',body:'The settlement depends on rainfall and small reservoirs. Residents maintain traditional ponds and have started rooftop rainwater collection. Storage is limited after two weak monsoons.',evidence:['Depends on rainfall and small reservoirs','Residents maintain traditional ponds','Rooftop rainwater collection has started','Storage is limited after two weak monsoons']},hint:'Think about infrastructure, local knowledge, reliability and unequal access. A single successful measure does not prove that every household benefits.',lenses:['Reliability','Local knowledge','Water access','Climate resilience']},
+ markets:{prompt:'Two neighbourhood markets respond differently to a rise in the wholesale price of tomatoes. Explain how supply, alternatives and consumer choices may shape the outcome.',a:{title:'CASE A · CENTRAL MARKET',body:'Several sellers have multiple suppliers and can bring produce from nearby districts. Prices rise briefly, but fresh stock continues to arrive. Some buyers switch to other vegetables.',evidence:['Sellers have multiple suppliers','Produce arrives from nearby districts','Fresh stock continues to arrive','Some buyers switch to other vegetables']},b:{title:'CASE B · REMOTE MARKET',body:'Most sellers depend on one delivery route. A road disruption delays fresh stock. Fewer tomatoes are available, prices vary between shops and some households choose cheaper substitutes.',evidence:['Sellers depend on one delivery route','A road disruption delays fresh stock','Fewer tomatoes are available','Prices vary and households choose substitutes']},hint:'Separate a change in demand from a change in supply. Consider transport, competition, substitutes and the information you would collect to test the explanation.',lenses:['Supply','Transport','Competition','Consumer choice']},
+ mobility:{prompt:'Compare the transport choices in two growing towns. Which town seems better prepared for affordable and accessible mobility? Identify who might still be left out.',a:{title:'CASE A · TOWN WITH BUS NETWORK',body:'A frequent bus route connects the market, school and clinic. A student concession is available, but outer settlements have limited evening services and crowded peak-hour buses.',evidence:['Frequent bus route links key services','Student concession is available','Outer settlements have limited evening services','Peak-hour buses are crowded']},b:{title:'CASE B · TOWN WITH ROAD EXPANSION',body:'The town has widened major roads and added parking. Travel by private vehicle is convenient for some residents, while pedestrians report difficult crossings and traffic near the school.',evidence:['Major roads have been widened','Parking has been added','Private vehicles are convenient for some','Pedestrians report difficult crossings near school']},hint:'Evaluate access, affordability, safety and environmental effects. Ask whether the available observations represent children, older people and people with disabilities.',lenses:['Affordability','Access','Road safety','Inclusion']}
 };
 let activeCase='water';
 function renderCaseStudy(){
- const c=caseStudies[activeCase];
- document.getElementById('caseEvidence').innerHTML='<article class="caseEvidence"><h3>'+c.a.title+'</h3><p>'+c.a.body+'</p></article><article class="caseEvidence"><h3>'+c.b.title+'</h3><p>'+c.b.body+'</p></article>';
- document.getElementById('casePrompt').textContent=c.prompt+' '+c.hint;
- document.getElementById('caseResult').textContent='Build a comparison using details from the cases. Strong answers explain evidence rather than simply choosing a winner.';
- document.getElementById('caseAnalysis').value='';
- document.getElementById('caseCompare').value='';
- document.getElementById('caseEvidenceChoice').value='';
+ const c=caseStudies[activeCase],host=$('caseEvidence');
+ host.innerHTML='';
+ [[c.a,'A'],[c.b,'B']].forEach(([item,label])=>{
+  const card=document.createElement('article');card.className='caseEvidence';
+  const title=document.createElement('h3');title.textContent=item.title;
+  const body=document.createElement('p');body.textContent=item.body;
+  const sub=document.createElement('small');sub.textContent='EVIDENCE YOU CAN CITE';
+  const list=document.createElement('ul');item.evidence.forEach(detail=>{const li=document.createElement('li');li.textContent=detail;list.append(li)});
+  card.append(title,body,sub,list);host.append(card);
+ });
+ const prompt=$('casePrompt');prompt.textContent=c.prompt+' '+c.hint;
+ const lenses=document.createElement('div');lenses.className='caseLens';c.lenses.forEach(x=>{const tag=document.createElement('span');tag.textContent=x;lenses.append(tag)});prompt.append(lenses);
+ [['caseDetailA',c.a.evidence],['caseDetailB',c.b.evidence]].forEach(([id,items])=>{
+  const select=$(id);select.innerHTML='<option value="">Select a detail</option>';
+  items.forEach((item,i)=>{const option=document.createElement('option');option.value=String(i);option.textContent=item;select.append(option)});
+ });
+ $('caseResult').textContent='Select one detail from each case, plan your comparison and write your reasoning. Your best score is saved on this device.';
+ $('caseAnalysis').value='';$('caseCompare').value='';$('caseEvidenceChoice').value='';$('caseDetailA').value='';$('caseDetailB').value='';
+ $('caseGuide').hidden=true;$('caseShowGuide').textContent='SHOW WRITING FRAME ＋';
+ const saved=(()=>{try{return JSON.parse(localStorage.getItem('vnSstCaseProgress')||'{}')}catch(e){return {}}})();
+ $('caseProgress').textContent=(saved[activeCase]?'Best review: '+saved[activeCase]+'/6 skills':'No reviewed attempts yet');
 }
-document.querySelectorAll('.caseTab').forEach(b=>b.addEventListener('click',()=>{activeCase=b.dataset.case;document.querySelectorAll('.caseTab').forEach(x=>x.classList.toggle('active',x===b));renderCaseStudy()}));
-document.getElementById('caseReview').addEventListener('click',()=>{
- const claim=document.getElementById('caseCompare').value,ev=document.getElementById('caseEvidenceChoice').value,answer=document.getElementById('caseAnalysis').value.trim();
- if(!claim||!ev||answer.length<35){document.getElementById('caseResult').textContent='Complete both selections and write at least a few sentences (35 characters or more) before reviewing.';return}
- const lower=answer.toLowerCase();
+document.querySelectorAll('.caseTab').forEach(b=>b.addEventListener('click',()=>{activeCase=b.dataset.case;document.querySelectorAll('.caseTab').forEach(x=>x.classList.toggle('active',x===b));safeSstInit('Comparative Case Study Lab',renderCaseStudy,'caseEvidence')}));
+$('caseShowGuide').addEventListener('click',()=>{$('caseGuide').hidden=!$('caseGuide').hidden;$('caseShowGuide').textContent=$('caseGuide').hidden?'SHOW WRITING FRAME ＋':'HIDE WRITING FRAME −'});
+$('caseReset').addEventListener('click',()=>{$('caseCompare').value='';$('caseEvidenceChoice').value='';$('caseDetailA').value='';$('caseDetailB').value='';$('caseAnalysis').value='';$('caseResult').textContent='Response cleared. The case details and your saved best score are unchanged.'});
+$('caseReview').addEventListener('click',()=>{
+ const claim=$('caseCompare').value,coverage=$('caseEvidenceChoice').value,detailA=$('caseDetailA').value,detailB=$('caseDetailB').value,answer=$('caseAnalysis').value.trim(),lower=answer.toLowerCase();
+ if(!claim||!coverage||!detailA||!detailB||answer.length<80){$('caseResult').textContent='Complete the comparison, evidence coverage, one detail from each case and an analysis of at least 80 characters. Use the writing frame if you need help.';return}
  const checks=[
-  {ok:answer.length>=100,label:'Developed explanation (aim for 100+ characters)'},
-  {ok:/because|therefore|since|leads to|result|caus|कारण|इसलिए/i.test(lower),label:'Explains a reason or relationship'},
-  {ok:/however|although|but|limit|uncertain|might|may|data|evidence|फिर भी|लेकिन/i.test(lower),label:'Recognises a limitation or alternative'},
-  {ok:ev==='both'?(/both|whereas|while|compared|similar|different|दोनों|जबकि/i.test(lower)):true,label:'Uses the selected evidence in the comparison'}
+  {ok:!!claim,label:'Clear comparison claim selected'},
+  {ok:!!detailA,label:'Specific evidence selected from Case A'},
+  {ok:!!detailB,label:'Specific evidence selected from Case B'},
+  {ok:answer.length>=140&&/because|therefore|since|leads to|results? in|caus|कारण|इसलिए/i.test(lower),label:'Developed explanation of why the cases differ or connect'},
+  {ok:/both|whereas|while|compared|similar|different|unlike|दोनों|जबकि/i.test(lower),label:'Direct comparison between the two cases'},
+  {ok:/however|although|but|limit|uncertain|might|may|more data|further evidence|cannot prove|फिर भी|लेकिन/i.test(lower),label:'Recognises a limitation or alternative explanation'}
  ];
  const score=checks.filter(x=>x.ok).length;
- document.getElementById('caseResult').innerHTML='<b>ANALYSIS REVIEW · '+score+'/4 SKILLS</b><br>'+checks.map(x=>(x.ok?'✓ ':'○ ')+x.label).join('<br>')+'<br><br><b>Next improvement:</b> Name one specific detail from each case, explain how it supports your claim, and state what extra data could change your conclusion. This is a writing-skills guide, not an automatic judgement of historical or social truth.';
+ let progress={};try{progress=JSON.parse(localStorage.getItem('vnSstCaseProgress')||'{}')}catch(e){progress={}}
+ progress[activeCase]=Math.max(Number(progress[activeCase]||0),score);try{localStorage.setItem('vnSstCaseProgress',JSON.stringify(progress))}catch(e){}
+ const result=$('caseResult');result.innerHTML='';
+ const heading=document.createElement('div');heading.innerHTML='<span class="caseScore">REASONING REVIEW · '+score+'/6</span> <b>Skill checklist</b>';result.append(heading);
+ const list=document.createElement('ul');checks.forEach(item=>{const li=document.createElement('li');li.textContent=(item.ok?'✓ ':'○ ')+item.label;list.append(li)});result.append(list);
+ const next=document.createElement('p');next.textContent=score===6?'Excellent structure. Your comparison uses selected evidence, reasoning and a limitation. Now check whether the evidence really supports your claim.':'Next step: strengthen the unchecked skill(s). Quote exact details, explain the link to your claim, and avoid making conclusions that the case information cannot prove.';result.append(next);
+ $('caseProgress').textContent='Best review: '+progress[activeCase]+'/6 skills';
 });
 safeSstInit('Comparative Case Study Lab',renderCaseStudy,'caseEvidence');
 
