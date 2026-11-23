@@ -134,6 +134,38 @@ button{touch-action:manipulation} .intelTab,.researchTab,.caseTab,.adventureZone
 .caseLab{padding:clamp(17px,3vw,32px);border-radius:25px;background:radial-gradient(ellipse at 100% 0%,#8d61221c,transparent 38%),linear-gradient(145deg,#2b0a15,#12050a 78%)}.caseLab>p{font-size:12px;max-width:900px}.caseWorkflow{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:20px 0 8px;padding:12px;border:1px solid #d4af3735;border-radius:12px;background:#ffffff06}.caseWorkflowStep{display:flex;align-items:center;gap:7px;color:#bba98f;font-size:9px;font-weight:900;letter-spacing:.06em}.caseWorkflowStep b{display:grid;place-items:center;width:23px;height:23px;border:1px solid #d4af3760;border-radius:50%;color:#f5d98f;font-size:9px}.caseWorkflowStep.active{color:#ffe39a}.caseWorkflowStep.active b{background:linear-gradient(140deg,#ffe39a,#b77c2d);color:#27100b}.caseWorkflow>i{height:1px;min-width:18px;flex:1;background:#d4af3740}.caseTabs{gap:8px}.caseTab{padding:11px 14px;border-radius:10px;font-size:10px}.caseTab.active{background:linear-gradient(120deg,#ffe39a,#c58a2d);color:#24100b;border-color:#ffe39a;box-shadow:0 5px 17px #d4af3725}.caseGrid{gap:14px}.caseEvidence{padding:18px;border-radius:16px;background:linear-gradient(145deg,#fff8e9,#e8d6b8);color:#32101b;border:1px solid #d4af37a0}.caseEvidence h3{font:900 13px Cinzel;color:#76213a;letter-spacing:.035em}.caseEvidence p{font-size:11px;line-height:1.75;color:#493327}.caseEvidence small{font-size:9px;letter-spacing:.1em;color:#8c6128}.caseEvidence ul{padding:0;list-style:none}.caseEvidence li{position:relative;padding:7px 8px 7px 23px;margin:5px 0;border-radius:8px;background:#6c49200c;color:#4a3529;font-size:10px;line-height:1.55}.caseEvidence li:before{content:"✓";position:absolute;left:8px;color:#8c6128;font-weight:1000}.casePrompt{padding:16px 18px;border-radius:14px;background:linear-gradient(110deg,#d4af371b,#ffffff05);border:1px solid #d4af3740;color:#fff0c9;font-size:12px;line-height:1.8}.caseForm{gap:12px}.caseForm label{padding:12px;border:1px solid #d4af3733;border-radius:12px;background:#ffffff06;color:#e8d6b8;font-size:9px;letter-spacing:.035em}.caseForm select,.caseForm textarea{margin-top:7px;border-radius:9px;border-color:#d4af3760;background:#13060b;color:#fff0d5;font-size:11px;padding:12px}.caseForm textarea{min-height:155px;line-height:1.7}.caseForm label:last-child{grid-column:1/-1}.caseTools{padding-top:4px}.caseAction{padding:11px 15px;border-radius:9px;background:linear-gradient(120deg,#ffe39a,#c58a2d);color:#24100b;border:0;box-shadow:0 6px 16px #0003}.caseAction:hover{filter:brightness(1.08)}.caseSecondary{background:#2a111b;color:#f5dca5;border:1px solid #d4af3760;box-shadow:none}.caseResult{margin-top:14px;padding:16px;border-radius:13px;border:1px solid #d4af3750;background:linear-gradient(120deg,#d4af3715,#ffffff05);color:#f5e6c8;font-size:11px;line-height:1.8}.caseScore{font-size:11px;padding:8px 11px}.caseGuide{background:#d4af3710}.caseLens span{background:#d4af3710}
 @media(max-width:700px){.sstSyncPill{font-size:8px;padding:7px 9px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.sstQuickNav{top:60px}.caseWorkflow{align-items:flex-start}.caseWorkflow>i{display:none}.caseWorkflowStep{flex:1 1 42%}.caseForm label:last-child{grid-column:auto}.caseEvidence{padding:14px}.caseLab{padding:15px}.hero{padding:21px;border-radius:18px}}
 @media(prefers-reduced-motion:reduce){.gameMode,.intelTab,.researchTab,.caseTab,.adventureZone,.metaPin{transition:none}.gameMode:hover,.intelTab:hover,.researchTab:hover,.caseTab:hover,.adventureZone:hover,.metaPin:hover{transform:none}}
+
+/* Clearer, more consistent learning dashboard surfaces */
+.sstSyncPill{display:inline-flex;align-items:center;gap:7px;max-width:100%;padding:9px 13px;border:1px solid #d4af3766;border-radius:999px;background:linear-gradient(120deg,#32101c,#19070d);color:#f6dfa0;font-size:10px;font-weight:800;letter-spacing:.025em;box-shadow:0 5px 18px #0004}
+.sstSyncPill[data-state="synced"]{border-color:#64c99c88;color:#b7f3d4;background:#103126}
+.sstSyncPill[data-state="error"]{border-color:#e6b45a99;color:#ffe1a0;background:#3a2410}
+.passport,.dailyMission,.caseLab,.adventureQuest{scroll-margin-top:90px}
+.passport{position:relative;overflow:hidden;border:1px solid #d4af3766;border-radius:22px;background:radial-gradient(circle at 100% 0%,#8e642a22,transparent 38%),linear-gradient(140deg,#2b0c17,#15050b);box-shadow:0 16px 40px #0004}
+.passportHead h2,.dailyMission h3{letter-spacing:.035em}
+.passportStat,.earnedBadge{transition:transform .2s,border-color .2s,background .2s}
+.earnedBadge:hover,.passportStat:hover{transform:translateY(-3px);border-color:#f0d783}
+.dailyMission{border:1px solid #d4af3766;border-radius:20px;background:linear-gradient(135deg,#2b0c17,#13050a);box-shadow:0 14px 35px #0004}
+.missionChoices button,.intelChoices button,.researchChoice button{min-height:44px;border-radius:12px;transition:transform .18s,border-color .18s,background .18s}
+.missionChoices button:hover,.intelChoices button:hover,.researchChoice button:hover{transform:translateY(-2px);border-color:#ffe39a}
+.caseLab{background:radial-gradient(circle at 0 0,#9b6d2c1c,transparent 35%),linear-gradient(145deg,#2a0b16,#120409);box-shadow:0 18px 50px #0006}
+.caseEvidence{position:relative;overflow:hidden;transition:transform .2s,border-color .2s,box-shadow .2s}
+.caseEvidence:before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(#ffe39a,#9c6a25)}
+.caseEvidence:hover{transform:translateY(-3px);border-color:#d4af3799;box-shadow:0 12px 28px #0005}
+.caseForm select,.caseForm textarea{min-height:44px;transition:border-color .2s,box-shadow .2s}
+.caseForm select:focus,.caseForm textarea:focus{outline:none;border-color:#ffe39a;box-shadow:0 0 0 3px #d4af3722}
+.caseAction,.caseTab,.intelTab,.researchTab,.adventureZone,.metaPin{transition:transform .18s,filter .18s,border-color .18s}
+.caseAction:hover,.caseTab:hover,.intelTab:hover,.researchTab:hover{filter:brightness(1.12);transform:translateY(-2px)}
+.caseWorkflowStep{border-radius:10px}
+.sstCloudSetup{margin:0 0 25px;border:1px solid #d4af3766;border-radius:15px;background:#1d0810;color:#e9d8bd;overflow:hidden}
+.sstCloudSetup summary{padding:14px 17px;color:#ffe39a;font-size:12px;font-weight:900;cursor:pointer;list-style:none}
+.sstCloudSetup summary::-webkit-details-marker{display:none}
+.sstCloudSetup summary:after{content:"＋";float:right;color:#ffe39a}
+.sstCloudSetup[open] summary:after{content:"−"}
+.sstCloudSetupBody{padding:0 17px 17px;font-size:11px;line-height:1.8}
+.sstCloudSetupBody pre{max-width:100%;overflow:auto;padding:14px;border:1px solid #d4af3744;border-radius:12px;background:#090205;color:#f6e7c7;font-size:10px;line-height:1.6;white-space:pre}
+.sstCloudNote{color:#e7c77d}
+@media(max-width:700px){.sstSyncPill{font-size:8px;padding:7px 9px}.caseEvidence{padding:16px}.sstCloudSetupBody{padding:0 12px 13px}.sstCloudSetupBody pre{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.earnedBadge,.passportStat,.caseEvidence,.caseAction,.caseTab,.intelTab,.researchTab,.adventureZone,.metaPin{transition:none}.caseEvidence:hover,.caseAction:hover,.caseTab:hover,.intelTab:hover,.researchTab:hover{transform:none}}
 </style></head>
 <body><header><div class="wrap nav"><a class="brand" href="index.html"><img src="logo.png" alt="Vidya Nirman">VIDYA NIRMAN · VN SST</a><a class="home" href="index.html"><i class="fa-solid fa-house"></i> HOME</a><span class="sstSyncPill" id="sstSyncStatus" role="status" aria-live="polite"><i class="fa-solid fa-cloud"></i> Checking account sync…</span></div></header>
 <main class="wrap"><section class="hero"><div class="eyebrow">CLASS 9 · COMPLETE 15-CHAPTER LEARNING ENVIRONMENT</div><h1 class="serif gold">SOCIAL SCIENCE</h1><p>Explore the world through evidence, maps, systems, institutions and choices. Each chapter opens into a guided learning space with explanations, key concepts, real-world connections, activities and chapter checks.</p><div class="stats"><span class="stat"><b>04</b> DISCIPLINES</span><span class="stat"><b>15</b> CHAPTERS</span><span class="stat"><b id="completed">0</b> COMPLETED</span><span class="stat"><b id="percent">0%</b> PROGRESS</span></div></section>
@@ -150,11 +182,45 @@ button{touch-action:manipulation} .intelTab,.researchTab,.caseTab,.adventureZone
 
 <div class="toolbar"><label class="search"><i class="fa-solid fa-magnifying-glass"></i><input id="search" placeholder="Search all chapters, topics and concepts…" type="search"></label><div class="progress">YOUR PROGRESS <b id="progressText">0 / 15</b></div></div>
 <section class="passport" aria-labelledby="passportTitle">
- <div class="passportHead"><div><h2 id="passportTitle">🏅 EXPLORER'S LEARNING PASSPORT</h2><p>Your milestones and learning progress are saved on this device.</p></div><span class="questTag">PERSONAL ACHIEVEMENTS</span></div>
+ <div class="passportHead"><div><h2 id="passportTitle">🏅 EXPLORER'S LEARNING PASSPORT</h2><p>Your progress saves on this device and can sync across devices when your Vidya Nirman Google sign-in and cloud sync are configured.</p></div><span class="questTag">PERSONAL ACHIEVEMENTS</span></div>
  <div class="passportStats"><div class="passportStat"><b id="passportDone">0/15</b><span>CHAPTERS MASTERED</span></div><div class="passportStat"><b id="passportBadges">0/5</b><span>BADGES EARNED</span></div><div class="passportStat"><b id="passportLevel">1</b><span>LEARNING LEVEL</span></div></div>
  <div class="passportBar"><i id="passportFill" style="width:0%"></i></div>
  <div class="badgeShelf" id="badgeShelf"></div>
 </section>
+<details class="sstCloudSetup" id="sstCloudSetup">
+ <summary><i class="fa-solid fa-cloud-arrow-up"></i> Google-account sync · one-time cloud setup</summary>
+ <div class="sstCloudSetupBody">
+  <p><strong>How it works:</strong> Sign in to Vidya Nirman with the same Google account. Your browser keeps an offline copy; when the account session is active, VN SST syncs saved progress to your private account row in Supabase.</p>
+  <p><strong>One-time database setup:</strong> Open your Supabase project → SQL Editor → New query, then run this SQL. It creates a row per signed-in user and prevents users from reading or changing anyone else's progress.</p>
+  <pre><code>create table if not exists public.vn_sst_progress (
+  user_id uuid primary key references auth.users(id) on delete cascade,
+  progress jsonb not null default '{}'::jsonb,
+  updated_at timestamptz not null default now()
+);
+
+alter table public.vn_sst_progress enable row level security;
+
+drop policy if exists "Users can read their own SST progress" on public.vn_sst_progress;
+create policy "Users can read their own SST progress"
+on public.vn_sst_progress for select
+to authenticated
+using (auth.uid() = user_id);
+
+drop policy if exists "Users can insert their own SST progress" on public.vn_sst_progress;
+create policy "Users can insert their own SST progress"
+on public.vn_sst_progress for insert
+to authenticated
+with check (auth.uid() = user_id);
+
+drop policy if exists "Users can update their own SST progress" on public.vn_sst_progress;
+create policy "Users can update their own SST progress"
+on public.vn_sst_progress for update
+to authenticated
+using (auth.uid() = user_id)
+with check (auth.uid() = user_id);</code></pre>
+  <p class="sstCloudNote">Do not put a Supabase service-role or secret key in the website. The public publishable key is intended for browser use with these Row Level Security policies enabled.</p>
+ </div>
+</details>
 <section class="dailyMission" id="dailyMission"><h3>⚡ DAILY THINKING MISSION</h3><p id="missionPrompt">A fresh question to sharpen your Social Science thinking.</p><div class="missionChoices" id="missionChoices"></div><div class="missionResult" id="missionResult" aria-live="polite"></div></section>
 <div class="partbar"><button class="partbtn active" data-part="1">PART 1 · CHAPTERS 1–9</button><button class="partbtn" data-part="2">PART 2 · CHAPTERS 10–15</button><button class="partbtn" data-part="all">ALL CHAPTERS</button></div>
 <section class="subjects"><button class="subject active" data-s="all" style="--accent:#eab308"><i class="fa-solid fa-compass"></i><b>All Subjects</b><small>15 chapters · Complete course</small></button><button class="subject" data-s="history" style="--accent:#eab308"><i class="fa-solid fa-landmark"></i><b>History</b><small>Past · Evidence · Change</small></button><button class="subject" data-s="geography" style="--accent:#38bdf8"><i class="fa-solid fa-earth-asia"></i><b>Geography</b><small>Earth · Environment · Life</small></button><button class="subject" data-s="civics" style="--accent:#c4b5fd"><i class="fa-solid fa-scale-balanced"></i><b>Political Science</b><small>Democracy · Governance</small></button><button class="subject" data-s="economics" style="--accent:#6ee7b7"><i class="fa-solid fa-chart-line"></i><b>Economics</b><small>Choices · Markets · Enterprise</small></button></section>
@@ -203,7 +269,7 @@ button{touch-action:manipulation} .intelTab,.researchTab,.caseTab,.adventureZone
  <div class="caseTools"><button class="caseAction" id="caseShowGuide" type="button">SHOW WRITING FRAME ＋</button><button class="caseAction caseSecondary" id="caseReset" type="button">RESET RESPONSE ↻</button><span id="caseProgress" aria-live="polite">No reviewed attempts yet</span></div>
  <div class="caseGuide" id="caseGuide" hidden><b>YOUR 5-STEP WRITING FRAME</b><ol><li><strong>Claim:</strong> State whether the cases are similar, different or mixed.</li><li><strong>Case A evidence:</strong> Mention one exact detail from the first case.</li><li><strong>Case B evidence:</strong> Mention one exact detail from the second case.</li><li><strong>Reasoning:</strong> Explain how the evidence supports your comparison.</li><li><strong>Limitation:</strong> Say what extra data or viewpoint could change your conclusion.</li></ol></div>
  <button class="caseAction" id="caseReview">REVIEW MY CASE ANALYSIS</button>
- <div class="caseResult" id="caseResult" aria-live="polite">Choose a case study, select details from both cases and write an evidence-based comparison. Your work is saved only on this device.</div>
+ <div class="caseResult" id="caseResult" aria-live="polite">Choose a case study, select details from both cases and write an evidence-based comparison. Your draft is saved on this device and syncs to your account when cloud sync is ready.</div>
 </section>
 
 <section class="adventureQuest" id="adventureQuest" aria-labelledby="adventureTitle">
@@ -895,7 +961,7 @@ $('caseReview').addEventListener('click',()=>{
  try{const drafts=JSON.parse(localStorage.getItem('vnSstCaseDraft')||'{}');drafts[activeCase]={claim:$('caseCompare').value,coverage:$('caseEvidenceChoice').value,detailA:$('caseDetailA').value,detailB:$('caseDetailB').value,answer:$('caseAnalysis').value,updatedAt:Date.now()};localStorage.setItem('vnSstCaseDraft',JSON.stringify(drafts))}catch(e){}
  const complete=[$('caseCompare').value,$('caseEvidenceChoice').value,$('caseDetailA').value,$('caseDetailB').value,$('caseAnalysis').value.trim().length>=80].filter(Boolean).length;
  const steps=document.querySelectorAll('.caseWorkflowStep');steps.forEach((el,i)=>el.classList.toggle('active',i===0?complete<2:i===1?complete>=2&&complete<5:complete===5));
- $('caseProgress').textContent=complete+'/5 response steps complete · draft saved on this device';
+ $('caseProgress').textContent=complete+'/5 response steps complete · draft saved locally · account sync when signed in';
 }));
 safeSstInit('Comparative Case Study Lab',renderCaseStudy,'caseEvidence');
 
@@ -1040,8 +1106,7 @@ safeSstInit('Comparative Case Study Lab',renderCaseStudy,'caseEvidence');
 (function(){
  const status=document.getElementById('sstSyncStatus');
  const projectUrl=window.VN_SUPABASE_URL,anonKey=window.VN_SUPABASE_ANON_KEY;
- const keys=['vnSst15Done','vnSstCaseProgress','vnSstCaseDraft','vnSstAdventureWorldV1','vnSstGameScore'];
- const getLocal=()=>{const out={};try{keys.forEach(k=>{const v=localStorage.getItem(k);if(v!==null)out[k]=v});for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('vnSstDaily_'))out[k]=localStorage.getItem(k)}}catch(e){}return out};
+ const getLocal=()=>{const out={};try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('vnSst')){const v=localStorage.getItem(k);if(v!==null)out[k]=v}}}catch(e){}return out};
  const setStatus=(message,state)=>{if(status){status.textContent=message;status.dataset.state=state||'local'}};
  const merge=(local,remote)=>{
   const out={...remote,...local};
@@ -1065,16 +1130,16 @@ safeSstInit('Comparative Case Study Lab',renderCaseStudy,'caseEvidence');
  const push=async()=>{
   if(!client||!userId)return;
   try{const progress=getLocal();const {error}=await client.from('vn_sst_progress').upsert({user_id:userId,progress,updated_at:new Date().toISOString()},{onConflict:'user_id'});if(error)throw error;setStatus('✓ Progress synced to your account','synced')}
-  catch(e){console.warn('[VN SST] Cloud progress sync:',e);setStatus('Cloud setup needed · see setup guide','error')}
+  catch(e){console.warn('[VN SST] Cloud progress sync:',e);setStatus('Cloud table/policy setup needed · open sync guide below','error')}
  };
  const schedulePush=()=>{if(pushTimer)clearTimeout(pushTimer);pushTimer=setTimeout(push,900)};
  const installLocalWatch=()=>{
   if(watchInstalled)return;watchInstalled=true;
   const originalSet=Storage.prototype.setItem;
-  Storage.prototype.setItem=function(k,v){originalSet.call(this,k,v);if(this===localStorage&&(keys.includes(String(k))||String(k).startsWith('vnSstDaily_')))schedulePush()};
+  Storage.prototype.setItem=function(k,v){originalSet.call(this,k,v);if(this===localStorage&&String(k).startsWith('vnSst'))schedulePush()};
  };
  const hydrateAccount=async session=>{
-  if(!session||!session.user){userId=null;setStatus('Local save active · sign in to sync','local');return}
+  if(!session||!session.user){userId=null;setStatus('Offline save active · sign in with Google to sync','local');return}
   if(hydrating)return;hydrating=true;userId=session.user.id;setStatus('Account connected · loading progress…','local');
   try{
    const {data:row,error:readError}=await client.from('vn_sst_progress').select('progress').eq('user_id',userId).maybeSingle();
@@ -1084,18 +1149,18 @@ safeSstInit('Comparative Case Study Lab',renderCaseStudy,'caseEvidence');
    if(before!==after&&!sessionStorage.getItem('vnSstCloudHydrated')){sessionStorage.setItem('vnSstCloudHydrated','1');location.reload();return}
    sessionStorage.removeItem('vnSstCloudHydrated');
    installLocalWatch();await push();
-  }catch(e){console.warn('[VN SST] Account sync unavailable:',e);setStatus('Local save active · cloud setup needed','error')}
+  }catch(e){console.warn('[VN SST] Account sync unavailable:',e);setStatus('Google account found · finish the cloud setup below','error')}
   finally{hydrating=false}
  };
  const start=async()=>{
-  if(!projectUrl||!anonKey||!window.supabase||!window.supabase.createClient){setStatus('Local save active · account sync unavailable','local');return}
+  if(!projectUrl||!anonKey||!window.supabase||!window.supabase.createClient){setStatus('Offline save active · account sync unavailable','local');return}
   try{
    client=window.supabase.createClient(projectUrl,anonKey);
    client.auth.onAuthStateChange((event,nextSession)=>{setTimeout(()=>{if(nextSession)hydrateAccount(nextSession);else{userId=null;setStatus('Local save active · sign in to sync','local')}},0)});
    const {data,error}=await client.auth.getSession();if(error)throw error;
    if(!data.session){setStatus('Local save active · sign in to sync','local');return}
    await hydrateAccount(data.session);
-  }catch(e){console.warn('[VN SST] Account sync unavailable:',e);setStatus('Local save active · cloud sync needs setup','error')}
+  }catch(e){console.warn('[VN SST] Account sync unavailable:',e);setStatus('Offline save active · cloud setup needed below','error')}
  }; start();
 })();</script><style id="vn-sst-interaction-hardening">
 .visualTab,.gameMode,.intelTab,.researchTab,.caseTab,.adventureZone,.metaPin,.metaControls button,.gameRestart,.gameChoice,.matchItem,.timelineCard,.ecoTile,.questOption,.intelAction,.researchAction,.caseAction,.adventureAnswer{pointer-events:auto!important;touch-action:manipulation;cursor:pointer}
