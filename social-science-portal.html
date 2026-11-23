@@ -1,117 +1,146 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#220308"><link rel="manifest" href="manifest.webmanifest">
-<title>Class 9 Social Science Part II | Vidya Nirman</title>
-<link rel="icon" type="image/png" href="logo.png">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0F0103">
+<title>Social Science Learning Hub | Vidya Nirman</title>
+<link rel="icon" href="logo.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--gold:#D4AF37}body{font-family:'Plus Jakarta Sans',sans-serif;background:#0F0103;color:#FFF9E6}
-.font-cinzel{font-family:Cinzel,serif}.gold{background:linear-gradient(135deg,#FFF0B3,#FFD700 35%,#D4AF37 65%,#996515);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.card{background:linear-gradient(145deg,rgba(48,5,12,.96),rgba(20,2,5,.98));border:1px solid rgba(212,175,55,.38);transition:.25s}
-.card:hover{transform:translateY(-4px);border-color:#FFD700;box-shadow:0 12px 35px #d4af3730}
-</style></head>
-<body class="min-h-screen">
-<header class="sticky top-0 z-20 border-b border-amber-500/30 bg-[#0F0103]/95 backdrop-blur">
-<div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
-<a href="index.html" class="flex items-center gap-3"><img src="logo.png" alt="Vidya Nirman" class="w-11 h-11 rounded-full object-cover border border-amber-400"><span class="font-cinzel font-black gold">VIDYA NIRMAN</span></a>
-<a href="index.html" class="text-xs sm:text-sm text-amber-200 hover:text-white"><i class="fa-solid fa-arrow-left mr-2"></i>Home</a>
+:root{--gold:#D4AF37;--cream:#FFF9E6}*{box-sizing:border-box}body{margin:0;background:#0F0103;color:var(--cream);font-family:'Plus Jakarta Sans',sans-serif;background-image:radial-gradient(circle at 15% 10%,#6b1b281f,transparent 28%),radial-gradient(circle at 85% 45%,#d4af3710,transparent 25%),radial-gradient(#d4af3714 1px,transparent 1px);background-size:auto,auto,28px 28px}.cinzel{font-family:Cinzel,serif}.gold{background:linear-gradient(120deg,#fff0b3,#ffd700 42%,#d4af37 72%,#996515);-webkit-background-clip:text;background-clip:text;color:transparent}.panel{background:linear-gradient(145deg,#30050cf2,#140205f5);border:1px solid #d4af3755;box-shadow:0 12px 35px #0005}.card{background:linear-gradient(145deg,#310710,#180207);border:1px solid #d4af374d;transition:.25s}.card:hover{transform:translateY(-4px);border-color:#ffd700;box-shadow:0 14px 35px #d4af3728}.btn{border:1px solid #d4af3766;border-radius:10px;padding:10px 14px;color:#ffe9a3;font-weight:700;font-size:12px;transition:.2s}.btn:hover,.btn.active{background:#d4af37;color:#170306}.goldbtn{background:linear-gradient(120deg,#ffd95e,#b8860b);color:#180306;font-weight:900}.tab{padding:10px 14px;border-bottom:2px solid transparent;color:#cbbd9a;font-size:12px;font-weight:800}.tab.active{color:#ffd95e;border-color:#ffd700}.section{scroll-margin-top:90px}.globe{width:170px;height:170px;border-radius:50%;background:radial-gradient(circle at 32% 28%,#a8dcff 0 3%,#277c9b 18%,#0b344e 58%,#061b31 78%);box-shadow:inset -22px -12px 30px #000b,inset 8px 5px 20px #ffffff50,0 0 35px #3ca6d655;position:relative;animation:rotate 18s linear infinite}.globe:before{content:'';position:absolute;inset:10px;border-radius:50%;background:repeating-linear-gradient(0deg,transparent 0 23px,#b5e6ff35 24px 25px),repeating-linear-gradient(90deg,transparent 0 27px,#b5e6ff35 28px 29px);}.globe:after{content:'';position:absolute;inset:0;border-radius:50%;background:linear-gradient(110deg,transparent 35%,#ffffff18 48%,transparent 62%)}@keyframes rotate{to{transform:rotate(360deg)}}.mapgrid{background-color:#122b35;background-image:linear-gradient(#78a99b22 1px,transparent 1px),linear-gradient(90deg,#78a99b22 1px,transparent 1px);background-size:26px 26px}.mapdot{position:absolute;width:10px;height:10px;border-radius:50%;background:#ffd45c;box-shadow:0 0 12px #ffd45c}.flash{min-height:135px;perspective:800px}.flash-inner{transition:transform .5s;transform-style:preserve-3d}.flash.flipped .flash-inner{transform:rotateY(180deg)}.face{backface-visibility:hidden}.back{transform:rotateY(180deg)}.progress{height:7px;background:#ffffff18;border-radius:20px;overflow:hidden}.progress span{display:block;height:100%;background:linear-gradient(90deg,#b8860b,#ffe17b);width:0;transition:width .3s}input,select{color:#fff;background:#21050b;border:1px solid #d4af3766;border-radius:9px;padding:10px}.muted{color:#b8ad9b}.hide{display:none!important}button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #ffd700;outline-offset:3px}@media(max-width:640px){.globe{width:135px;height:135px}}
+</style>
+</head>
+<body>
+<header class="sticky top-0 z-40 border-b border-amber-500/30 bg-[#0F0103]/95 backdrop-blur">
+<div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+<a href="index.html" class="flex items-center gap-3"><img src="logo.png" onerror="this.style.display='none'" alt="Vidya Nirman" class="w-10 h-10 rounded-full border border-amber-400"><span class="cinzel font-black gold tracking-wider">VIDYA NIRMAN</span></a>
+<nav class="hidden md:flex gap-2"><a class="btn" href="#chapters">Chapters</a><a class="btn" href="#labs">Learning Labs</a><a class="btn" href="#practice">Practice</a></nav>
+<a href="index.html" class="text-xs text-amber-200"><i class="fa fa-arrow-left mr-2"></i>Home</a>
 </div></header>
-<main class="max-w-7xl mx-auto px-4 py-10 sm:py-16">
-<div class="text-center mb-10">
-<span class="inline-block rounded-full border border-sky-400/40 bg-sky-400/10 px-4 py-2 text-xs font-bold tracking-widest text-sky-200">CLASS 9 • PART II</span>
-<h1 class="font-cinzel text-3xl sm:text-5xl font-black gold mt-4">SOCIAL SCIENCE PORTAL</h1>
-<p class="text-slate-300 max-w-2xl mx-auto mt-4 text-sm leading-6">Choose a subject chapter to open its notes. Each chapter has a dedicated PDF slot that you can connect to your own notes.</p>
+<main class="max-w-7xl mx-auto px-4 py-8 sm:py-12">
+<section class="text-center mb-10">
+<span class="inline-flex rounded-full border border-amber-400/40 bg-amber-400/10 px-4 py-2 text-[11px] tracking-[.2em] font-black text-amber-200">CLASS 9 • SOCIAL SCIENCE • PART II</span>
+<h1 class="cinzel text-3xl sm:text-5xl md:text-6xl font-black gold mt-5">SOCIAL SCIENCE<br class="sm:hidden"> LEARNING HUB</h1>
+<p class="muted max-w-3xl mx-auto mt-4 text-sm leading-7">Explore geography, history, political science and economics through chapter resources, visual labs, active recall and competency-based practice.</p>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl mx-auto mt-7">
+<div class="panel rounded-xl p-3"><div class="text-2xl font-black text-amber-300">04</div><div class="text-[10px] tracking-widest muted">DISCIPLINES</div></div>
+<div class="panel rounded-xl p-3"><div class="text-2xl font-black text-amber-300">06</div><div class="text-[10px] tracking-widest muted">CHAPTERS</div></div>
+<div class="panel rounded-xl p-3"><div class="text-2xl font-black text-amber-300">05</div><div class="text-[10px] tracking-widest muted">LEARNING LABS</div></div>
+<div class="panel rounded-xl p-3"><div id="scoreStat" class="text-2xl font-black text-amber-300">0</div><div class="text-[10px] tracking-widest muted">PRACTICE POINTS</div></div>
 </div>
-<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-
-
-<article class="card rounded-2xl p-6 flex flex-col min-h-[285px]">
-<div class="flex items-center justify-between mb-5"><span class="text-xs font-extrabold tracking-widest text-sky-300">GEOGRAPHY</span><span class="w-12 h-12 rounded-xl bg-sky-400/10 text-sky-300 flex items-center justify-center text-xl"><i class="fa-solid fa-water"></i></span></div>
-<div class="text-xs text-amber-400/80 font-bold mb-2">CHAPTER 01</div>
-<h2 class="text-xl font-bold leading-snug text-amber-50 mb-4">Oceans and Life</h2>
-<p class="text-xs text-slate-400 mb-5">PDF notes: <span class="font-mono">ocean and life.pdf</span></p>
-<div class="mt-auto flex gap-3">
-<a class="flex-1 text-center rounded-lg bg-amber-500 text-slate-950 font-extrabold text-xs py-3 hover:bg-yellow-300" href="ocean and life.pdf" target="_blank" rel="noopener"><i class="fa-solid fa-file-pdf mr-2"></i>Open PDF</a>
-<a class="rounded-lg border border-amber-500/40 text-amber-200 px-4 py-3 text-xs hover:bg-amber-500/10" href="ocean and life.pdf" download aria-label="Download Oceans and Life PDF"><i class="fa-solid fa-download"></i></a>
-</div></article>
-<article class="card rounded-2xl p-6 flex flex-col min-h-[285px]">
-<div class="flex items-center justify-between mb-5"><span class="text-xs font-extrabold tracking-widest text-sky-300">GEOGRAPHY</span><span class="w-12 h-12 rounded-xl bg-sky-400/10 text-sky-300 flex items-center justify-center text-xl"><i class="fa-solid fa-water"></i></span></div>
-<div class="text-xs text-amber-400/80 font-bold mb-2">CHAPTER 02</div>
-<h2 class="text-xl font-bold leading-snug text-amber-50 mb-4">Life on Earth</h2>
-<p class="text-xs text-slate-400 mb-5">PDF notes: <span class="font-mono">life on earth.pdf</span></p>
-<div class="mt-auto flex gap-3">
-<a class="flex-1 text-center rounded-lg bg-amber-500 text-slate-950 font-extrabold text-xs py-3 hover:bg-yellow-300" href="life on earth.pdf" target="_blank" rel="noopener"><i class="fa-solid fa-file-pdf mr-2"></i>Open PDF</a>
-<a class="rounded-lg border border-amber-500/40 text-amber-200 px-4 py-3 text-xs hover:bg-amber-500/10" href="life on earth.pdf" download aria-label="Download Life on Earth PDF"><i class="fa-solid fa-download"></i></a>
-</div></article>
-<article class="card rounded-2xl p-6 flex flex-col min-h-[285px]">
-<div class="flex items-center justify-between mb-5"><span class="text-xs font-extrabold tracking-widest text-amber-300">HISTORY</span><span class="w-12 h-12 rounded-xl bg-amber-400/10 text-amber-300 flex items-center justify-center text-xl"><i class="fa-solid fa-landmark"></i></span></div>
-<div class="text-xs text-amber-400/80 font-bold mb-2">CHAPTER 03</div>
-<h2 class="text-xl font-bold leading-snug text-amber-50 mb-4">Resistance and Resilience (1000–1700 CE)</h2>
-<p class="text-xs text-slate-400 mb-5">PDF notes: <span class="font-mono">history1.pdf</span></p>
-<div class="mt-auto flex gap-3">
-<a class="flex-1 text-center rounded-lg bg-amber-500 text-slate-950 font-extrabold text-xs py-3 hover:bg-yellow-300" href="history1.pdf" target="_blank" rel="noopener"><i class="fa-solid fa-file-pdf mr-2"></i>Open PDF</a>
-<a class="rounded-lg border border-amber-500/40 text-amber-200 px-4 py-3 text-xs hover:bg-amber-500/10" href="history1.pdf" download aria-label="Download Resistance and Resilience (1000–1700 CE) PDF"><i class="fa-solid fa-download"></i></a>
-</div></article>
-<article class="card rounded-2xl p-6 flex flex-col min-h-[285px]">
-<div class="flex items-center justify-between mb-5"><span class="text-xs font-extrabold tracking-widest text-violet-300">POLITICAL SCIENCE</span><span class="w-12 h-12 rounded-xl bg-violet-400/10 text-violet-300 flex items-center justify-center text-xl"><i class="fa-solid fa-scale-balanced"></i></span></div>
-<div class="text-xs text-amber-400/80 font-bold mb-2">CHAPTER 04</div>
-<h2 class="text-xl font-bold leading-snug text-amber-50 mb-4">Governance and Public Policy</h2>
-<p class="text-xs text-slate-400 mb-5">PDF notes: <span class="font-mono">political-science-governance-and-public-policy.pdf</span></p>
-<div class="mt-auto flex gap-3">
-<a class="flex-1 text-center rounded-lg bg-amber-500 text-slate-950 font-extrabold text-xs py-3 hover:bg-yellow-300" href="governance and policy.pdf" target="_blank" rel="noopener"><i class="fa-solid fa-file-pdf mr-2"></i>Open PDF</a>
-<a class="rounded-lg border border-amber-500/40 text-amber-200 px-4 py-3 text-xs hover:bg-amber-500/10" href="governance and policy.pdf" download aria-label="Download Governance and Public Policy PDF"><i class="fa-solid fa-download"></i></a>
-</div></article>
-<article class="card rounded-2xl p-6 flex flex-col min-h-[285px]">
-<div class="flex items-center justify-between mb-5"><span class="text-xs font-extrabold tracking-widest text-cyan-300">ECONOMICS</span><span class="w-12 h-12 rounded-xl bg-cyan-400/10 text-cyan-300 flex items-center justify-center text-xl"><i class="fa-solid fa-wallet"></i></span></div>
-<div class="text-xs text-amber-400/80 font-bold mb-2">CHAPTER 05</div>
-<h2 class="text-xl font-bold leading-snug text-amber-50 mb-4">Managing Your Personal Finances</h2>
-<p class="text-xs text-slate-400 mb-5">PDF notes: <span class="font-mono">economics-managing-personal-finances.pdf</span></p>
-<div class="mt-auto flex gap-3">
-<a class="flex-1 text-center rounded-lg bg-amber-500 text-slate-950 font-extrabold text-xs py-3 hover:bg-yellow-300" href="pdf-notes/social-science/economics-managing-personal-finances.pdf" target="_blank" rel="noopener"><i class="fa-solid fa-file-pdf mr-2"></i>Open PDF</a>
-<a class="rounded-lg border border-amber-500/40 text-amber-200 px-4 py-3 text-xs hover:bg-amber-500/10" href="pdf-notes/social-science/economics-managing-personal-finances.pdf" download aria-label="Download Managing Your Personal Finances PDF"><i class="fa-solid fa-download"></i></a>
-</div></article>
-<article class="card rounded-2xl p-6 flex flex-col min-h-[285px]">
-<div class="flex items-center justify-between mb-5"><span class="text-xs font-extrabold tracking-widest text-rose-300">ECONOMICS</span><span class="w-12 h-12 rounded-xl bg-rose-400/10 text-rose-300 flex items-center justify-center text-xl"><i class="fa-solid fa-lightbulb"></i></span></div>
-<div class="text-xs text-amber-400/80 font-bold mb-2">CHAPTER 06</div>
-<h2 class="text-xl font-bold leading-snug text-amber-50 mb-4">From Ideas to Startups</h2>
-<p class="text-xs text-slate-400 mb-5">PDF notes: <span class="font-mono">economics-from-ideas-to-startups.pdf</span></p>
-<div class="mt-auto flex gap-3">
-<a class="flex-1 text-center rounded-lg bg-amber-500 text-slate-950 font-extrabold text-xs py-3 hover:bg-yellow-300" href="pdf-notes/social-science/economics-from-ideas-to-startups.pdf" target="_blank" rel="noopener"><i class="fa-solid fa-file-pdf mr-2"></i>Open PDF</a>
-<a class="rounded-lg border border-amber-500/40 text-amber-200 px-4 py-3 text-xs hover:bg-amber-500/10" href="pdf-notes/social-science/economics-from-ideas-to-startups.pdf" download aria-label="Download From Ideas to Startups PDF"><i class="fa-solid fa-download"></i></a>
-</div></article>
+</section>
+<section id="chapters" class="section mb-14">
+<div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-5"><div><p class="text-amber-400 text-xs font-black tracking-[.2em]">YOUR CURRICULUM</p><h2 class="cinzel text-2xl sm:text-3xl font-bold gold">Chapter Library</h2></div><input id="chapterSearch" class="w-full sm:w-64" placeholder="Search chapter or subject..." aria-label="Search chapters"></div>
+<div class="flex flex-wrap gap-2 mb-5" id="filters"><button class="btn active" data-filter="all">All subjects</button><button class="btn" data-filter="Geography">Geography</button><button class="btn" data-filter="History">History</button><button class="btn" data-filter="Political Science">Political Science</button><button class="btn" data-filter="Economics">Economics</button></div>
+<div id="chapterGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+</section>
+<section id="labs" class="section mb-14">
+<div class="mb-5"><p class="text-amber-400 text-xs font-black tracking-[.2em]">EXPLORE • VISUALISE • UNDERSTAND</p><h2 class="cinzel text-2xl sm:text-3xl font-bold gold">Interactive Learning Labs</h2></div>
+<div class="grid lg:grid-cols-2 gap-5">
+<article class="panel rounded-2xl p-5 sm:p-7">
+<div class="flex items-center justify-between gap-3"><div><span class="text-xs text-sky-300 font-black tracking-widest">GEOGRAPHY LAB</span><h3 class="cinzel text-xl font-bold mt-1">Our Blue Planet</h3></div><div class="globe shrink-0" aria-label="Animated illustrative globe"></div></div>
+<p class="muted text-xs leading-6 mt-4">Earth is often called the Blue Planet because oceans cover most of its surface. Use the explorer to review the major ocean basins and their locations.</p>
+<div class="grid grid-cols-2 gap-2 mt-4"><button class="btn" data-ocean="Pacific">Pacific Ocean</button><button class="btn" data-ocean="Atlantic">Atlantic Ocean</button><button class="btn" data-ocean="Indian">Indian Ocean</button><button class="btn" data-ocean="Arctic">Arctic Ocean</button></div>
+<div id="oceanInfo" class="mt-3 rounded-xl bg-black/25 border border-sky-300/20 p-3 text-xs text-sky-100" aria-live="polite">Select an ocean to explore its location and key facts.</div>
+</article>
+<article class="panel rounded-2xl p-5 sm:p-7">
+<span class="text-emerald-300 text-xs font-black tracking-widest">MAP SKILLS STUDIO</span><h3 class="cinzel text-xl font-bold mt-1">Map Reading Practice</h3>
+<p class="muted text-xs leading-6 mt-2">A schematic learning map for practising direction, coordinates and map symbols. It is an educational illustration, not a navigational map.</p>
+<div class="mapgrid relative rounded-xl mt-4 h-52 overflow-hidden border border-emerald-300/30">
+<div class="absolute left-[18%] top-[22%] text-[10px] text-emerald-100">NORTH</div><div class="absolute right-[12%] bottom-[15%] text-[10px] text-emerald-100">SOUTH</div>
+<div class="mapdot" style="left:27%;top:37%"></div><div class="mapdot" style="left:62%;top:58%"></div><div class="mapdot" style="left:76%;top:25%"></div>
+<div class="absolute left-[20%] top-[43%] text-[10px]">A</div><div class="absolute left-[65%] top-[63%] text-[10px]">B</div><div class="absolute left-[79%] top-[29%] text-[10px]">C</div>
 </div>
-
-        <!-- Leadership Section (Exclusively Anmol Tiwari & Amrit Singh) -->
-    <section class="py-16 relative z-10 bg-[#0F0103] border-t border-amber-500/20">
-        <div class="max-w-5xl mx-auto px-4">
-            <div class="text-center mb-12">
-                <span class="text-amber-400 text-xs font-black uppercase tracking-widest bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/30">Academic Guidance</span>
-                <h2 class="font-cinzel text-3xl font-black text-gold-gradient mt-2">Vidya Nirman Leadership</h2>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-maroon-card p-6 rounded-2xl border-gold-glow flex items-center gap-4">
-                    <img src="anmol-image.png" alt="Anmol Tiwari" class="w-20 h-20 rounded-full object-cover border-2 border-amber-400">
-                    <div>
-                        <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-bold">FOUNDER</span>
-                        <h3 class="font-cinzel text-lg font-bold text-amber-100 mt-1">ANMOL TIWARI</h3>
-                        <p class="text-xs text-amber-300/80">Chief Visionary &amp; Curriculum Architect</p>
-                    </div>
-                </div>
-
-                <div class="bg-maroon-card p-6 rounded-2xl border-gold-glow flex items-center gap-4">
-                    <img src="amrit image.jpg" alt="Amrit Singh" class="w-20 h-20 rounded-full object-cover border-2 border-amber-400">
-                    <div>
-                        <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-bold">CO-FOUNDER</span>
-                        <h3 class="font-cinzel text-lg font-bold text-amber-100 mt-1">AMRIT SINGH</h3>
-                        <p class="text-xs text-amber-300/80">Academic Strategist &amp; Tech Innovator</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
+<div class="grid grid-cols-2 gap-2 mt-3"><button class="btn" data-map="A">Locate A</button><button class="btn" data-map="B">Locate B</button><button class="btn" data-map="C">Locate C</button><button class="btn" id="mapQuestion">Map challenge</button></div>
+<div id="mapInfo" class="text-xs text-emerald-100 mt-3" aria-live="polite">Choose a marker to reveal its grid position.</div>
+</article>
+<article class="panel rounded-2xl p-5 sm:p-7">
+<span class="text-amber-300 text-xs font-black tracking-widest">HISTORY LAB</span><h3 class="cinzel text-xl font-bold mt-1">Timeline Explorer</h3>
+<p class="muted text-xs mt-2 leading-6">Place historical developments in sequence and connect events with their wider context.</p>
+<div class="space-y-3 mt-5" id="timeline">
+<div class="border-l-2 border-amber-400 pl-4 py-1"><div class="text-amber-300 text-xs font-bold">c. 1000 CE</div><p class="text-xs muted">Regional kingdoms and changing political landscapes.</p></div>
+<div class="border-l-2 border-amber-400 pl-4 py-1"><div class="text-amber-300 text-xs font-bold">1200–1500 CE</div><p class="text-xs muted">Expansion of regional states, trade networks and cultural exchange.</p></div>
+<div class="border-l-2 border-amber-400 pl-4 py-1"><div class="text-amber-300 text-xs font-bold">1500–1700 CE</div><p class="text-xs muted">Major shifts in imperial power and regional resistance.</p></div>
+</div>
+<p class="text-[10px] muted mt-3">Broad study-period guide; consult your textbook for exact event dates and chapter-specific detail.</p>
+</article>
+<article class="panel rounded-2xl p-5 sm:p-7">
+<span class="text-cyan-300 text-xs font-black tracking-widest">ECONOMICS SIMULATOR</span><h3 class="cinzel text-xl font-bold mt-1">Personal Budget Planner</h3>
+<p class="muted text-xs mt-2 leading-6">Allocate a sample monthly allowance and see how needs, savings and wants affect a budget.</p>
+<label class="block text-xs text-amber-200 mt-4 mb-1" for="budget">Sample monthly allowance (₹)</label><input id="budget" type="number" min="0" value="2000" class="w-full">
+<div class="grid grid-cols-2 gap-3 mt-3"><div><label class="text-xs muted" for="needs">Needs (%)</label><input id="needs" type="number" min="0" max="100" value="50" class="w-full mt-1"></div><div><label class="text-xs muted" for="savings">Savings (%)</label><input id="savings" type="number" min="0" max="100" value="30" class="w-full mt-1"></div></div>
+<div class="mt-3"><label class="text-xs muted" for="wants">Wants (%)</label><input id="wants" type="number" min="0" max="100" value="20" class="w-full mt-1"></div>
+<button class="btn goldbtn mt-4" id="budgetCalc">Calculate my budget</button><div id="budgetResult" class="text-xs mt-3 muted" aria-live="polite">Enter allocations totalling 100% to calculate.</div>
+</article>
+</div>
+</section>
+<section id="practice" class="section mb-14">
+<div class="mb-5"><p class="text-amber-400 text-xs font-black tracking-[.2em]">ACTIVE RECALL & ASSESSMENT</p><h2 class="cinzel text-2xl sm:text-3xl font-bold gold">Practice Arena</h2></div>
+<div class="grid lg:grid-cols-2 gap-5">
+<article class="panel rounded-2xl p-5 sm:p-7">
+<div class="flex justify-between items-center"><h3 class="font-bold text-lg">Quick Knowledge Check</h3><span class="text-xs text-amber-300" id="quizCount">Question 1 / 5</span></div>
+<div class="progress mt-3"><span id="quizProgress"></span></div>
+<p id="quizQuestion" class="text-sm font-semibold leading-6 mt-5 min-h-12"></p>
+<div id="quizOptions" class="grid gap-2 mt-3"></div>
+<div id="quizFeedback" class="text-xs mt-3 min-h-5" aria-live="polite"></div>
+<button id="nextQuestion" class="btn goldbtn mt-3" disabled>Next question <i class="fa fa-arrow-right ml-2"></i></button>
+</article>
+<article class="panel rounded-2xl p-5 sm:p-7">
+<h3 class="font-bold text-lg">Flashcard Deck</h3><p class="muted text-xs mt-1">Try to recall the answer before flipping the card.</p>
+<div id="flashcard" class="flash mt-4 rounded-xl cursor-pointer" role="button" tabindex="0" aria-label="Flip flashcard"><div class="flash-inner relative h-full min-h-[135px]">
+<div class="face absolute inset-0 rounded-xl border border-amber-400/40 bg-[#26060d] p-5 flex flex-col justify-center text-center"><span class="text-[10px] text-amber-300 tracking-widest">QUESTION</span><p id="flashFront" class="font-bold mt-2"></p><span class="text-[10px] muted mt-3">Tap to reveal</span></div>
+<div class="face back absolute inset-0 rounded-xl border border-emerald-400/40 bg-[#09251e] p-5 flex flex-col justify-center text-center"><span class="text-[10px] text-emerald-300 tracking-widest">ANSWER</span><p id="flashBack" class="font-semibold mt-2 text-sm"></p></div>
+</div></div>
+<div class="flex gap-2 mt-3"><button class="btn flex-1" id="prevFlash">Previous</button><button class="btn goldbtn flex-1" id="nextFlash">Next card</button></div>
+</article>
+</div>
+</section>
+<section class="panel rounded-2xl p-5 sm:p-7 mb-12">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4"><div><p class="text-amber-400 text-xs font-black tracking-widest">YOUR LEARNING JOURNEY</p><h2 class="cinzel text-2xl font-bold gold mt-1">Study Progress</h2><p class="muted text-xs mt-2">Your practice score is stored only in this browser session.</p></div><div class="min-w-48"><div class="flex justify-between text-xs mb-2"><span class="muted">Quiz accuracy</span><strong id="accuracy">0%</strong></div><div class="progress"><span id="accuracyBar"></span></div></div></div>
+<div class="flex flex-wrap gap-2 mt-5"><button class="btn" id="resetProgress">Reset session score</button><a class="btn" href="index.html">Return to Vidya Nirman</a></div>
+</section>
+<section class="border-t border-amber-500/20 pt-8 text-center">
+<p class="cinzel gold font-black tracking-widest">VIDYA NIRMAN</p><p class="text-xs muted mt-2">Traditional knowledge • Modern exploration</p>
+<div class="flex justify-center gap-5 mt-4 text-xs"><a class="text-amber-200" href="index.html">Home</a><a class="text-amber-200" href="#chapters">Chapters</a><a class="text-amber-200" href="#labs">Labs</a><a class="text-amber-200" href="#practice">Practice</a></div>
+</section>
+</main>
+<div id="chapterModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm p-4 hidden items-center justify-center" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+<div class="panel rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-5 sm:p-7 relative"><button id="closeModal" class="btn absolute top-4 right-4" aria-label="Close chapter"><i class="fa fa-times"></i></button><p id="modalSubject" class="text-xs text-amber-300 font-black tracking-widest"></p><h2 id="modalTitle" class="cinzel text-2xl font-bold gold mt-2 pr-10"></h2><div id="modalBody" class="text-sm leading-7 muted mt-5"></div><div class="flex flex-wrap gap-2 mt-6"><a id="modalPdf" class="btn goldbtn" href="#" target="_blank" rel="noopener"><i class="fa fa-file-pdf mr-2"></i>Open chapter PDF</a><button id="modalDone" class="btn">Mark reviewed</button></div><p id="reviewStatus" class="text-xs text-emerald-300 mt-3"></p></div>
+</div>
+<script>
+const chapters=[
+{n:1,subject:'Geography',title:'Oceans and Life',icon:'fa-water',color:'sky',pdf:'ocean and life.pdf',intro:'Oceans regulate Earth’s climate, support biodiversity and connect people through transport and trade.',topics:['Five major ocean basins and their distribution','Waves, tides and ocean currents','Marine ecosystems, food webs and biodiversity','Human dependence on oceans: fisheries, transport and resources','Ocean pollution, conservation and sustainable use'],learn:'Oceans cover about 71% of Earth’s surface. They absorb and redistribute heat, influence rainfall and provide habitats for an extraordinary range of organisms.'},
+{n:2,subject:'Geography',title:'Life on Earth',icon:'fa-earth-asia',color:'emerald',pdf:'life on earth.pdf',intro:'Explore the connections among land, water, air, organisms and the ecosystems that make life possible.',topics:['Ecosystems and the biosphere','Biotic and abiotic components','Food chains, food webs and energy flow','Biomes: forests, grasslands, deserts and tundra','Biodiversity, human impact and conservation'],learn:'An ecosystem includes living organisms and the non-living environment interacting as one system. Energy flows through food chains while nutrients are recycled.'},
+{n:3,subject:'History',title:'Resistance and Resilience (1000–1700 CE)',icon:'fa-landmark',color:'amber',pdf:'history1.pdf',intro:'Study how communities, regional powers and individuals responded to changing political authority between 1000 and 1700 CE.',topics:['Regional kingdoms and political change','Forms of resistance and negotiation','Fortifications, resources and strategy as historical evidence','Cultural exchange and regional identities','How historians interpret sources and perspectives'],learn:'Historical change is rarely a single story. Compare written records, monuments, inscriptions and material evidence, and consider whose perspectives are represented.'},
+{n:4,subject:'Political Science',title:'Governance and Public Policy',icon:'fa-scale-balanced',color:'violet',pdf:'governance and policy.pdf',intro:'Understand how public institutions make decisions, deliver services and respond to citizens’ needs.',topics:['Meaning and purpose of governance','Constitutional values and institutions','Public policy: identifying problems and setting goals','Implementation, accountability and transparency','Citizen participation and evaluating outcomes'],learn:'Public policy is a course of action adopted by public authorities to address a shared issue. Good evaluation asks whether a policy is effective, fair and accountable.'},
+{n:5,subject:'Economics',title:'Managing Your Personal Finances',icon:'fa-wallet',color:'cyan',pdf:'pdf-notes/social-science/economics-managing-personal-finances.pdf',intro:'Build practical financial literacy through budgeting, saving, needs, wants and informed choices.',topics:['Income, expenses and opportunity cost','Needs versus wants','Making a simple budget','Saving goals and emergency funds','Digital payment awareness and responsible financial decisions'],learn:'A budget is a plan for income and spending. Tracking expenses helps people make choices, prepare for goals and avoid spending more than they can afford.'},
+{n:6,subject:'Economics',title:'From Ideas to Startups',icon:'fa-lightbulb',color:'rose',pdf:'pdf-notes/social-science/economics-from-ideas-to-startups.pdf',intro:'Discover how entrepreneurs identify problems, test ideas and create value for people and communities.',topics:['Identifying a real problem or unmet need','Design thinking and idea generation','Customer research and simple prototypes','Costs, revenue and a basic business model','Responsible entrepreneurship and social impact'],learn:'A startup begins with a hypothesis about a problem and a possible solution. Entrepreneurs test assumptions with users, learn from feedback and improve their model.'}
+];
+let filter='all',points=0,answered=0,correct=0,reviewed=new Set();
+const $=id=>document.getElementById(id);
+function renderChapters(){const q=$('chapterSearch').value.toLowerCase();$('chapterGrid').innerHTML=chapters.filter(c=>(filter==='all'||c.subject===filter)&&((c.title+' '+c.subject+' '+c.intro).toLowerCase().includes(q))).map(c=>`<article class="card rounded-2xl p-5 flex flex-col"><div class="flex justify-between items-center"><span class="text-[10px] font-black tracking-widest text-amber-300">${c.subject.toUpperCase()}</span><span class="w-11 h-11 rounded-xl bg-amber-400/10 text-amber-300 flex items-center justify-center text-lg"><i class="fa ${c.icon}"></i></span></div><p class="text-[10px] text-amber-500 mt-4 font-bold">CHAPTER ${String(c.n).padStart(2,'0')}</p><h3 class="text-lg font-bold mt-1 min-h-14">${c.title}</h3><p class="muted text-xs leading-6 mt-2 flex-1">${c.intro}</p><div class="flex justify-between items-center mt-4"><span class="text-[10px] ${reviewed.has(c.n)?'text-emerald-300':'text-slate-500'}">${reviewed.has(c.n)?'✓ Reviewed':'Study resource'}</span><button class="btn goldbtn" data-open="${c.n}">Explore <i class="fa fa-arrow-right ml-1"></i></button></div></article>`).join('')||'<p class="muted text-sm">No chapters match your search.</p>';}
+$('filters').addEventListener('click',e=>{const b=e.target.closest('[data-filter]');if(!b)return;filter=b.dataset.filter;document.querySelectorAll('[data-filter]').forEach(x=>x.classList.toggle('active',x===b));renderChapters();});
+$('chapterSearch').addEventListener('input',renderChapters);
+$('chapterGrid').addEventListener('click',e=>{const b=e.target.closest('[data-open]');if(!b)return;const c=chapters.find(x=>x.n===Number(b.dataset.open));$('modalSubject').textContent=c.subject+' • CHAPTER '+String(c.n).padStart(2,'0');$('modalTitle').textContent=c.title;$('modalBody').innerHTML='<p>'+c.intro+'</p><h3 class="text-amber-200 font-bold mt-4">Key learning areas</h3><ul class="list-disc pl-5 mt-2 space-y-1">'+c.topics.map(t=>'<li>'+t+'</li>').join('')+'</ul><div class="rounded-xl border border-amber-400/25 bg-amber-400/5 p-4 mt-4"><strong class="text-amber-200">Concept brief</strong><p class="mt-2">'+c.learn+'</p></div>';$('modalPdf').href=c.pdf;$('reviewStatus').textContent=reviewed.has(c.n)?'Already marked as reviewed.':'';$('modalDone').dataset.chapter=c.n;$('chapterModal').classList.remove('hidden');$('chapterModal').classList.add('flex');});
+function closeModal(){$('chapterModal').classList.add('hidden');$('chapterModal').classList.remove('flex');}
+$('closeModal').onclick=closeModal;$('chapterModal').addEventListener('click',e=>{if(e.target===$('chapterModal'))closeModal();});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+$('modalDone').onclick=()=>{reviewed.add(Number($('modalDone').dataset.chapter));$('reviewStatus').textContent='Chapter marked as reviewed for this session.';renderChapters();};
+const oceans={Pacific:'The Pacific is the largest and deepest ocean basin, extending between Asia–Australia and the Americas.',Atlantic:'The Atlantic lies between the Americas and Europe–Africa and has long been an important route for global trade.',Indian:'The Indian Ocean connects eastern Africa, southern Asia and western Australia; monsoon winds shape many regional patterns.',Arctic:'The Arctic Ocean surrounds the North Pole and is the smallest of the major ocean basins.'};
+document.querySelectorAll('[data-ocean]').forEach(b=>b.onclick=()=>{$('oceanInfo').textContent=oceans[b.dataset.ocean];});
+const maps={A:'Marker A is in the north-west part of this schematic grid.',B:'Marker B is in the south-east part of this schematic grid.',C:'Marker C is in the north-east part of this schematic grid.'};
+document.querySelectorAll('[data-map]').forEach(b=>b.onclick=()=>{$('mapInfo').textContent=maps[b.dataset.map];});
+$('mapQuestion').onclick=()=>{$('mapInfo').textContent='Challenge: Which marker is farthest east? Answer: C, because it is plotted farthest to the right.';};
+$('budgetCalc').onclick=()=>{const amount=Number($('budget').value),n=Number($('needs').value),s=Number($('savings').value),w=Number($('wants').value);if(!Number.isFinite(amount)||amount<0||[n,s,w].some(x=>!Number.isFinite(x)||x<0)||n+s+w!==100){$('budgetResult').textContent='Please enter non-negative percentages that add up to exactly 100.';return;}$('budgetResult').innerHTML='<div class="grid grid-cols-3 gap-2">'+[['Needs',n],['Savings',s],['Wants',w]].map(([k,v])=>'<div class="rounded-lg bg-white/5 p-3"><div class="text-amber-200">'+k+'</div><strong class="text-base">₹'+(amount*v/100).toFixed(2)+'</strong><div class="muted">'+v+'%</div></div>').join('')+'</div><p class="mt-2 text-emerald-200">Total allocated: ₹'+amount.toFixed(2)+'</p>';};
+const quiz=[{q:'Which ocean is the largest by area?',o:['Atlantic','Indian','Pacific','Arctic'],a:2,e:'The Pacific Ocean is the largest ocean basin.'},{q:'Which term describes all living organisms and their environments on Earth?',o:['Lithosphere','Biosphere','Atmosphere','Hydrosphere'],a:1,e:'The biosphere includes regions of Earth where life exists.'},{q:'Why do historians compare different kinds of sources?',o:['To avoid all questions','To check perspectives and evidence','To make dates disappear','To use only one viewpoint'],a:1,e:'Comparing sources helps identify perspective, context and reliability.'},{q:'What is a public policy?',o:['A private shopping list','A public authority’s course of action','A weather forecast','A personal diary'],a:1,e:'Public policy is an approach adopted by public authorities to address issues.'},{q:'What is the main purpose of a personal budget?',o:['To plan income and spending','To remove all needs','To guarantee profit','To avoid saving'],a:0,e:'A budget helps plan spending and saving in line with available income.'}];
+let qi=0,locked=false;function showQuestion(){locked=false;const q=quiz[qi];$('quizCount').textContent='Question '+(qi+1)+' / '+quiz.length;$('quizProgress').style.width=(qi/quiz.length*100)+'%';$('quizQuestion').textContent=q.q;$('quizOptions').innerHTML=q.o.map((o,i)=>'<button class="btn text-left" data-answer="'+i+'">'+String.fromCharCode(65+i)+'. '+o+'</button>').join('');$('quizFeedback').textContent='';$('nextQuestion').disabled=true;$('nextQuestion').textContent=qi===quiz.length-1?'Finish quiz':'Next question';}
+$('quizOptions').onclick=e=>{const b=e.target.closest('[data-answer]');if(!b||locked)return;locked=true;answered++;const ok=Number(b.dataset.answer)===quiz[qi].a;if(ok){correct++;points+=10;$('quizFeedback').textContent='Correct! '+quiz[qi].e;$('quizFeedback').className='text-xs mt-3 min-h-5 text-emerald-300';}else{$('quizFeedback').textContent='Not quite. '+quiz[qi].e;$('quizFeedback').className='text-xs mt-3 min-h-5 text-rose-300';}Array.from($('quizOptions').children).forEach((x,i)=>{x.disabled=true;if(i===quiz[qi].a)x.classList.add('active');});updateStats();$('nextQuestion').disabled=false;};
+$('nextQuestion').onclick=()=>{if(qi<quiz.length-1){qi++;showQuestion();}else{$('quizQuestion').textContent='Quiz complete! You scored '+correct+' out of '+quiz.length+'.';$('quizOptions').innerHTML='';$('quizFeedback').textContent='You earned '+(correct*10)+' points. Reset the page to try the quiz again.';$('nextQuestion').disabled=true;$('quizProgress').style.width='100%';}};
+function updateStats(){$('scoreStat').textContent=points;$('accuracy').textContent=(answered?Math.round(correct/answered*100):0)+'%';$('accuracyBar').style.width=(answered?correct/answered*100:0)+'%';}
+const flash=[['What is an ecosystem?','A community of organisms interacting with one another and with their non-living environment.'],['What is a food web?','A network of interconnected food chains in an ecosystem.'],['What is public policy?','A course of action adopted by public authorities to address a public issue.'],['What is a budget?','A plan for how income will be allocated to spending and saving.'],['What is entrepreneurship?','The process of developing and organising an idea or venture to create value.'],['Why use multiple historical sources?','To compare evidence, perspectives and context before drawing conclusions.']];
+let fi=0;function showFlash(){$('flashFront').textContent=flash[fi][0];$('flashBack').textContent=flash[fi][1];$('flashcard').classList.remove('flipped');}$('flashcard').onclick=()=> $('flashcard').classList.toggle('flipped');$('flashcard').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('flashcard').classList.toggle('flipped');}};$('nextFlash').onclick=()=>{fi=(fi+1)%flash.length;showFlash();};$('prevFlash').onclick=()=>{fi=(fi-1+flash.length)%flash.length;showFlash();};
+$('resetProgress').onclick=()=>{points=0;answered=0;correct=0;reviewed.clear();qi=0;updateStats();renderChapters();showQuestion();};
+renderChapters();showQuestion();showFlash();updateStats();
+</script>
+</body></html>
