@@ -232,7 +232,7 @@ function safeSstInit(label,fn,targetId){
 window.addEventListener('error',event=>{
  const msg=event&&event.message?event.message:'Unknown JavaScript error';
  console.error('[VN SST] Runtime error:',msg,event&&event.error);
- const target=document.getElementById('intelPanel')||document.getElementById('researchPanel');
+ const target=document.getElementById('intelPanel')||document.getElementById('researchPanel')||document.getElementById('visualCanvas')||document.getElementById('lesson');
  if(target&&!target.querySelector('.sstRuntimeError')){const box=document.createElement('div');box.className='sstRuntimeError';box.innerHTML='<b>Portal interaction error</b><span></span>';box.querySelector('span').textContent=msg;target.append(box)}
 });
 window.addEventListener('unhandledrejection',event=>{
@@ -343,22 +343,29 @@ function renderVisual(n,mode='map'){
   const status=$('vnSstMapStatus');
   if(!window.L){status.textContent='The map library did not load. Check your internet connection and reload this chapter.'}
   else{
-   vnSstLeafletMap=L.map('vnSstMap',{scrollWheelZoom:false}).setView(cfg.center,cfg.zoom);
-   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a>'}).addTo(vnSstLeafletMap);
-   L.control.scale({imperial:false,metric:true}).addTo(vnSstLeafletMap);
-   (cfg.points||[]).forEach(p=>L.marker([p[1],p[2]]).addTo(vnSstLeafletMap).bindPopup('<b>'+p[0]+'</b><br>'+p[3]));
-   if(n===3){
-    const belts=[
-     {name:'Arctic / Antarctic polar zone',bounds:[[-90,-180],[-66.5,180]],color:'#9cc9df'},
-     {name:'Temperate zone',bounds:[[-66.5,-180],[-23.5,180]],color:'#e5c875'},
-     {name:'Tropical zone',bounds:[[-23.5,-180],[23.5,180]],color:'#e59d58'},
-     {name:'Temperate zone',bounds:[[23.5,-180],[66.5,180]],color:'#e5c875'},
-     {name:'Arctic polar zone',bounds:[[66.5,-180],[90,180]],color:'#9cc9df'}
-    ];
-    belts.forEach(b=>L.rectangle(b.bounds,{color:b.color,weight:1,fillColor:b.color,fillOpacity:.12}).addTo(vnSstLeafletMap).bindPopup(b.name+' (latitude-based climatic belt)'));
+   try{
+    const mapInstance=L.map('vnSstMap',{scrollWheelZoom:false}).setView(cfg.center,cfg.zoom);
+    vnSstLeafletMap=mapInstance;
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a>'}).addTo(mapInstance);
+    L.control.scale({imperial:false,metric:true}).addTo(mapInstance);
+    (cfg.points||[]).forEach(p=>L.marker([p[1],p[2]]).addTo(mapInstance).bindPopup('<b>'+p[0]+'</b><br>'+p[3]));
+    if(n===3){
+     const belts=[
+      {name:'Arctic / Antarctic polar zone',bounds:[[-90,-180],[-66.5,180]],color:'#9cc9df'},
+      {name:'Temperate zone',bounds:[[-66.5,-180],[-23.5,180]],color:'#e5c875'},
+      {name:'Tropical zone',bounds:[[-23.5,-180],[23.5,180]],color:'#e59d58'},
+      {name:'Temperate zone',bounds:[[23.5,-180],[66.5,180]],color:'#e5c875'},
+      {name:'Arctic polar zone',bounds:[[66.5,-180],[90,180]],color:'#9cc9df'}
+     ];
+     belts.forEach(b=>L.rectangle(b.bounds,{color:b.color,weight:1,fillColor:b.color,fillOpacity:.12}).addTo(mapInstance).bindPopup(b.name+' (latitude-based climatic belt)'));
+    }
+    status.textContent=(cfg.points&&cfg.points.length?'Select a marker for location notes. ':'')+'Drag to pan; use + / − to zoom. Geographic base map by OpenStreetMap. '+(n===3?'Climate belts are broad latitude zones, not local climate classifications.':'');
+    setTimeout(()=>{if(vnSstLeafletMap===mapInstance&&mapInstance.getContainer().isConnected)mapInstance.invalidateSize()},120);
+   }catch(mapError){
+    console.error('[VN SST] Map initialisation failed:',mapError);
+    vnSstLeafletMap=null;
+    status.textContent='The interactive map could not start in this browser. Your chapter remains available; try the Timeline or Concept Model tab.';
    }
-   status.textContent=(cfg.points&&cfg.points.length?'Select a marker for location notes. ':'')+'Drag to pan; use + / − to zoom. Geographic base map by OpenStreetMap. '+(n===3?'Climate belts are broad latitude zones, not local climate classifications.':'');
-   setTimeout(()=>{if(vnSstLeafletMap)vnSstLeafletMap.invalidateSize()},120);
   }
  }else if(mode==='globe'){
   const cfg=chapterMapViews[n]||chapterMapViews[1];
