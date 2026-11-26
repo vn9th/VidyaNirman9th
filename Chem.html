@@ -93,6 +93,13 @@
 
         .animate-float { animation: floatUpDown 4.2s ease-in-out infinite; }
 
+
+        .chem-built-atom { animation: chemAtomPop .35s cubic-bezier(.2,.8,.2,1) both; }
+        @keyframes chemAtomPop { from { opacity:0; transform:scale(.35) translateY(12px); } to { opacity:1; transform:scale(1) translateY(0); } }
+        .chem-diffusion-dot { position:absolute; width:9px; height:9px; border-radius:50%; background:#67e8f9; box-shadow:0 0 12px #22d3ee; animation: chemDrift var(--particle-speed,1.4s) ease-in-out infinite alternate; }
+        @keyframes chemDrift { from { transform:translate(-10px,-8px); } to { transform:translate(18px,14px); } }
+        .chem-mission:focus-visible,.chem-lab-game:focus-visible,.chem-atom-pick:focus-visible { outline:2px solid #fcd34d; outline-offset:3px; }
+
         .chem-lab-pulse { animation: chemLabPulse 1.1s ease-in-out 2; }
         @keyframes chemLabPulse { 0%,100% { filter:brightness(1); transform:scale(1); } 50% { filter:brightness(1.35); transform:scale(1.012); } }
 
@@ -483,87 +490,90 @@
     </section>
 
 
-    <!-- VN Chemistry: Interactive Molecular Studio -->
+
+    <!-- VN Chemistry: Chemistry Arcade -->
     <section id="molecular-studio" class="py-16 relative z-10 border-t border-amber-500/20 bg-[#160206]">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-9">
-          <span class="text-amber-400 text-xs font-black uppercase tracking-widest bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/30">Interactive 3D Explorer</span>
-          <h2 class="font-cinzel text-3xl sm:text-4xl font-black text-gold-gradient mt-3">Molecular Studio</h2>
-          <p class="text-slate-400 text-sm max-w-2xl mx-auto mt-3">Explore how atoms are arranged and connected. Choose a molecule, then drag the model to rotate it in three dimensions.</p>
+        <div class="text-center mb-8">
+          <span class="text-amber-300 text-xs font-black uppercase tracking-[.25em]">VN Chemistry Arcade • Build • Discover • Master</span>
+          <h2 class="font-cinzel text-3xl sm:text-5xl font-black text-gold-gradient mt-3">Molecule Maker Arena</h2>
+          <p class="text-slate-300 text-sm max-w-2xl mx-auto mt-3">Become a molecule architect. Pick a mission, add the right atoms and build the molecule. Earn XP for every correct build.</p>
         </div>
-        <div class="grid lg:grid-cols-[minmax(0,1.45fr)_minmax(280px,0.8fr)] gap-5">
-          <div class="rounded-2xl border border-amber-500/30 bg-[#090103] p-3 sm:p-5 shadow-2xl shadow-black/30">
-            <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
-              <label for="chemMoleculeSelect" class="text-xs uppercase tracking-widest font-black text-amber-300">Select molecule</label>
-              <select id="chemMoleculeSelect" class="bg-[#26060d] border border-amber-500/40 rounded-lg text-amber-100 px-3 py-2 text-sm focus:outline-none focus:border-amber-300">
-                <option value="water">Water · H₂O</option><option value="carbonDioxide">Carbon dioxide · CO₂</option><option value="methane">Methane · CH₄</option><option value="ammonia">Ammonia · NH₃</option><option value="oxygen">Oxygen · O₂</option><option value="nitrogen">Nitrogen · N₂</option><option value="hydrogenChloride">Hydrogen chloride · HCl</option><option value="ethene">Ethene · C₂H₄</option>
-              </select>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+          <div class="rounded-2xl p-4 border border-amber-400/30 bg-black/30"><p class="text-[10px] uppercase tracking-widest text-slate-400">Your XP</p><strong id="chemArcadeXP" class="text-2xl text-amber-300">0</strong></div>
+          <div class="rounded-2xl p-4 border border-amber-400/30 bg-black/30"><p class="text-[10px] uppercase tracking-widest text-slate-400">Missions cleared</p><strong id="chemArcadeWins" class="text-2xl text-amber-300">0</strong></div>
+          <div class="rounded-2xl p-4 border border-amber-400/30 bg-black/30"><p class="text-[10px] uppercase tracking-widest text-slate-400">Current rank</p><strong id="chemArcadeRank" class="text-lg text-amber-300">Rookie</strong></div>
+          <div class="rounded-2xl p-4 border border-amber-400/30 bg-black/30"><p class="text-[10px] uppercase tracking-widest text-slate-400">Daily streak</p><strong id="chemArcadeStreak" class="text-2xl text-amber-300">0</strong></div>
+        </div>
+        <div class="grid lg:grid-cols-[.8fr_1.2fr] gap-5">
+          <div class="rounded-2xl border border-amber-500/30 bg-maroon-card p-5">
+            <div class="flex justify-between items-center gap-3"><span class="text-xs font-black uppercase tracking-widest text-amber-300">Mission board</span><span class="text-[10px] text-emerald-300">3 missions available</span></div>
+            <div id="chemMissionList" class="space-y-3 mt-4">
+              <button type="button" data-mission="water" class="chem-mission w-full text-left p-4 rounded-xl border border-amber-400/60 bg-amber-500/10"><span class="text-[10px] text-amber-300 font-black">MISSION 01 • EASY</span><strong class="block text-amber-100 mt-1">Build Water</strong><span class="text-xs text-slate-400">2 Hydrogen + 1 Oxygen</span></button>
+              <button type="button" data-mission="carbonDioxide" class="chem-mission w-full text-left p-4 rounded-xl border border-white/10 bg-black/20"><span class="text-[10px] text-amber-300 font-black">MISSION 02 • MEDIUM</span><strong class="block text-amber-100 mt-1">Build Carbon Dioxide</strong><span class="text-xs text-slate-400">1 Carbon + 2 Oxygen</span></button>
+              <button type="button" data-mission="ammonia" class="chem-mission w-full text-left p-4 rounded-xl border border-white/10 bg-black/20"><span class="text-[10px] text-amber-300 font-black">MISSION 03 • CHALLENGE</span><strong class="block text-amber-100 mt-1">Build Ammonia</strong><span class="text-xs text-slate-400">1 Nitrogen + 3 Hydrogen</span></button>
             </div>
-            <div class="relative rounded-xl overflow-hidden border border-amber-500/20 bg-[radial-gradient(ellipse_at_center,_#3a101a_0%,_#130309_58%,_#070103_100%)]">
-              <canvas id="chemMoleculeCanvas" width="900" height="480" class="block w-full touch-none cursor-grab active:cursor-grabbing" aria-label="Interactive ball-and-stick molecular model. Drag to rotate."></canvas>
-              <div class="absolute left-3 top-3 text-[10px] tracking-widest uppercase text-amber-200/70 pointer-events-none">Drag to rotate · Ball-and-stick model</div>
-              <div class="absolute right-3 bottom-3 text-[10px] text-amber-100/60 pointer-events-none">Schematic • not to scale</div>
-            </div>
-            <div class="flex flex-wrap gap-2 mt-4">
-              <button id="chemRotateToggle" type="button" class="rounded-lg px-4 py-2 text-xs font-bold bg-amber-500/15 border border-amber-400/40 text-amber-200 hover:bg-amber-500/25">Pause rotation</button>
-              <button id="chemResetView" type="button" class="rounded-lg px-4 py-2 text-xs font-bold bg-white/5 border border-white/15 text-slate-200 hover:border-amber-400/50">Reset view</button>
+            <div class="mt-5 rounded-xl bg-black/30 p-4 border border-amber-500/20">
+              <p class="text-[10px] uppercase tracking-widest text-amber-400 font-black">Mission objective</p>
+              <h3 id="chemMissionTitle" class="text-xl text-amber-100 font-bold mt-1">Build Water</h3>
+              <p id="chemMissionHint" class="text-xs text-slate-300 mt-2">Water has two hydrogen atoms and one oxygen atom. Select the atoms below to assemble the correct formula.</p>
+              <p class="text-xs text-amber-200 mt-3">Target formula: <strong id="chemMissionFormula" class="text-lg">H₂O</strong></p>
             </div>
           </div>
-          <aside class="rounded-2xl border border-amber-500/25 bg-maroon-card p-5 sm:p-6">
-            <span class="text-[10px] font-black tracking-widest uppercase text-amber-400">Molecule profile</span>
-            <h3 id="chemMoleculeName" class="font-cinzel text-2xl font-bold text-amber-100 mt-2">Water</h3>
-            <p id="chemMoleculeFormula" class="text-amber-300 font-mono text-lg mt-1">H₂O</p>
-            <p id="chemMoleculeDescription" class="text-sm leading-relaxed text-slate-300 mt-4">A bent molecule with one oxygen atom bonded to two hydrogen atoms.</p>
-            <div class="grid grid-cols-2 gap-3 mt-5">
-              <div class="rounded-xl bg-black/30 border border-amber-500/15 p-3"><span class="block text-[10px] text-slate-400 uppercase">Atoms</span><strong id="chemAtomCount" class="text-xl text-amber-200">3</strong></div>
-              <div class="rounded-xl bg-black/30 border border-amber-500/15 p-3"><span class="block text-[10px] text-slate-400 uppercase">Connections</span><strong id="chemBondCount" class="text-xl text-amber-200">2</strong></div>
+          <div class="rounded-2xl border border-amber-500/30 bg-[#090103] p-4 sm:p-6">
+            <div class="flex justify-between items-center gap-3 mb-4"><span class="text-xs uppercase tracking-widest font-black text-amber-300">Molecular workbench</span><span class="text-[10px] text-slate-400">Tap atoms to add</span></div>
+            <div id="chemBuildStage" class="min-h-[210px] rounded-2xl border border-amber-400/20 bg-[radial-gradient(ellipse_at_center,_#48101e,_#100207_75%)] p-4 flex flex-wrap items-center justify-center gap-3 content-center">
+              <p class="text-sm text-slate-400">Your molecule will appear here.</p>
             </div>
-            <div class="mt-5">
-              <p class="text-[10px] uppercase tracking-widest font-black text-amber-400 mb-2">Atom colour key</p>
-              <div class="flex flex-wrap gap-x-4 gap-y-2 text-xs text-slate-300"><span><i class="inline-block w-2.5 h-2.5 rounded-full bg-slate-100 mr-1"></i>Hydrogen</span><span><i class="inline-block w-2.5 h-2.5 rounded-full bg-red-500 mr-1"></i>Oxygen</span><span><i class="inline-block w-2.5 h-2.5 rounded-full bg-slate-500 mr-1"></i>Carbon</span><span><i class="inline-block w-2.5 h-2.5 rounded-full bg-blue-500 mr-1"></i>Nitrogen</span><span><i class="inline-block w-2.5 h-2.5 rounded-full bg-green-500 mr-1"></i>Chlorine</span></div>
+            <div class="grid grid-cols-3 gap-2 mt-4">
+              <button type="button" data-atom="H" class="chem-atom-pick rounded-xl border border-white/20 bg-white/5 p-3 hover:bg-white/10"><span class="mx-auto flex w-10 h-10 rounded-full bg-slate-100 text-slate-900 items-center justify-center font-black text-lg">H</span><span class="block text-xs text-slate-300 mt-2">Hydrogen</span></button>
+              <button type="button" data-atom="O" class="chem-atom-pick rounded-xl border border-red-400/40 bg-red-500/10 p-3 hover:bg-red-500/20"><span class="mx-auto flex w-10 h-10 rounded-full bg-red-500 text-white items-center justify-center font-black text-lg">O</span><span class="block text-xs text-slate-300 mt-2">Oxygen</span></button>
+              <button type="button" data-atom="C" class="chem-atom-pick rounded-xl border border-slate-400/40 bg-slate-500/10 p-3 hover:bg-slate-500/20"><span class="mx-auto flex w-10 h-10 rounded-full bg-slate-500 text-white items-center justify-center font-black text-lg">C</span><span class="block text-xs text-slate-300 mt-2">Carbon</span></button>
+              <button type="button" data-atom="N" class="chem-atom-pick rounded-xl border border-blue-400/40 bg-blue-500/10 p-3 hover:bg-blue-500/20"><span class="mx-auto flex w-10 h-10 rounded-full bg-blue-500 text-white items-center justify-center font-black text-lg">N</span><span class="block text-xs text-slate-300 mt-2">Nitrogen</span></button>
+              <button type="button" data-atom="Cl" class="chem-atom-pick rounded-xl border border-green-400/40 bg-green-500/10 p-3 hover:bg-green-500/20"><span class="mx-auto flex w-10 h-10 rounded-full bg-green-500 text-white items-center justify-center font-black text-lg">Cl</span><span class="block text-xs text-slate-300 mt-2">Chlorine</span></button>
+              <button type="button" id="chemUndoAtom" class="rounded-xl border border-amber-400/30 bg-amber-500/10 p-3 hover:bg-amber-500/20"><span class="mx-auto flex w-10 h-10 rounded-full items-center justify-center text-amber-200 text-2xl">↶</span><span class="block text-xs text-slate-300 mt-2">Undo</span></button>
             </div>
-            <p class="mt-5 text-[11px] text-slate-400 leading-relaxed">The model is a learning illustration. Real bond lengths, electron clouds and molecular motion are more complex than this simplified display.</p>
-          </aside>
+            <div class="flex flex-wrap gap-2 mt-4">
+              <button type="button" id="chemCheckBuild" class="flex-1 rounded-xl bg-gold-gradient text-[#25050a] font-black text-sm px-4 py-3 hover:brightness-110">Check my molecule ✦</button>
+              <button type="button" id="chemClearBuild" class="rounded-xl border border-white/20 text-slate-200 px-4 py-3 text-sm">Clear</button>
+            </div>
+            <p id="chemBuildFeedback" class="text-sm text-center text-slate-300 mt-3 min-h-6" aria-live="polite">Choose your first atom to begin.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- VN Chemistry: Safe Virtual Concept Lab -->
     <section id="virtual-lab" class="py-16 relative z-10 border-t border-amber-500/20 bg-[#100205]">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-9">
-          <span class="text-amber-400 text-xs font-black uppercase tracking-widest bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/30">Visual Learning Environment</span>
-          <h2 class="font-cinzel text-3xl sm:text-4xl font-black text-gold-gradient mt-3">Virtual Chemistry Lab</h2>
-          <p class="text-slate-400 text-sm max-w-2xl mx-auto mt-3">Explore the science behind common laboratory techniques through safe, on-screen concept models. These are visual explanations, not instructions for performing experiments.</p>
+        <div class="text-center mb-8">
+          <span class="text-xs font-black uppercase tracking-[.25em] text-amber-300">Interactive Discovery Zone</span>
+          <h2 class="font-cinzel text-3xl sm:text-5xl font-black text-gold-gradient mt-3">Chemistry Lab: Control the Science</h2>
+          <p class="text-slate-300 text-sm max-w-2xl mx-auto mt-3">Change the conditions and see how the model responds. Every activity explains the science behind the result.</p>
         </div>
-        <div class="rounded-2xl border border-amber-500/25 bg-maroon-card p-4 sm:p-6">
-          <div class="flex flex-wrap gap-2 mb-5" role="group" aria-label="Choose a virtual lab simulation">
-            <button type="button" data-chem-lab="filtration" class="chem-lab-tab rounded-lg px-3 py-2 text-xs font-bold border border-amber-400 bg-amber-500/20 text-amber-100" aria-pressed="true">Filtration</button>
-            <button type="button" data-chem-lab="chromatography" class="chem-lab-tab rounded-lg px-3 py-2 text-xs font-bold border border-amber-500/25 bg-black/20 text-slate-300" aria-pressed="false">Chromatography</button>
-            <button type="button" data-chem-lab="evaporation" class="chem-lab-tab rounded-lg px-3 py-2 text-xs font-bold border border-amber-500/25 bg-black/20 text-slate-300" aria-pressed="false">Evaporation</button>
-            <button type="button" data-chem-lab="diffusion" class="chem-lab-tab rounded-lg px-3 py-2 text-xs font-bold border border-amber-500/25 bg-black/20 text-slate-300" aria-pressed="false">Diffusion</button>
+        <div class="grid lg:grid-cols-[.75fr_1.25fr] gap-5">
+          <div class="space-y-3">
+            <button type="button" data-lab-game="solution" class="chem-lab-game w-full text-left rounded-2xl p-4 border border-amber-400/50 bg-amber-500/10"><span class="text-[10px] text-amber-300 font-black">LAB 01</span><strong class="block text-amber-100 mt-1">Solution Challenge</strong><span class="text-xs text-slate-400">Explore concentration & saturation</span></button>
+            <button type="button" data-lab-game="diffusion" class="chem-lab-game w-full text-left rounded-2xl p-4 border border-white/10 bg-black/20"><span class="text-[10px] text-amber-300 font-black">LAB 02</span><strong class="block text-amber-100 mt-1">Particle Rush</strong><span class="text-xs text-slate-400">See diffusion and temperature</span></button>
+            <button type="button" data-lab-game="separation" class="chem-lab-game w-full text-left rounded-2xl p-4 border border-white/10 bg-black/20"><span class="text-[10px] text-amber-300 font-black">LAB 03</span><strong class="block text-amber-100 mt-1">Separation Mission</strong><span class="text-xs text-slate-400">Choose the right separation method</span></button>
+            <div class="rounded-2xl border border-amber-500/20 bg-black/30 p-4"><p class="text-[10px] uppercase tracking-widest text-amber-400 font-black">Lab XP</p><strong id="chemLabXP" class="text-2xl text-amber-200">0</strong><p class="text-xs text-slate-400 mt-1">Complete lab challenges to earn points.</p></div>
           </div>
-          <div class="grid lg:grid-cols-[minmax(0,1.2fr)_minmax(260px,0.8fr)] gap-5 items-stretch">
-            <div id="chemLabStage" class="min-h-[280px] rounded-xl border border-amber-500/20 bg-[radial-gradient(ellipse_at_top,_#42101b,_#100207_75%)] p-4 sm:p-6 flex items-center justify-center overflow-hidden" aria-live="polite">
-              <div class="w-full max-w-lg flex items-center justify-center gap-5">
-                <div class="w-24 h-32 border-2 border-slate-300/60 border-t-0 rounded-b-2xl relative bg-sky-400/10"><div class="absolute bottom-0 inset-x-0 h-1/2 bg-amber-200/30 rounded-b-xl"></div></div>
-                <span class="text-amber-300 text-2xl">→</span><div class="w-24 h-32 border-2 border-slate-300/60 border-t-0 rounded-b-2xl bg-sky-400/10"></div>
-              </div>
+          <div class="rounded-2xl border border-amber-500/30 bg-maroon-card p-4 sm:p-6">
+            <div class="flex justify-between items-center"><span class="text-xs uppercase tracking-widest text-amber-300 font-black">Live simulation</span><span id="chemLabLevel" class="text-[10px] text-emerald-300">INTERACTIVE MODEL</span></div>
+            <h3 id="chemLabGameTitle" class="font-cinzel text-2xl text-amber-100 font-bold mt-2">Solution Challenge</h3>
+            <p id="chemLabGameDesc" class="text-xs leading-relaxed text-slate-300 mt-2">Adjust the amount of dissolved solute and observe how concentration changes in this simplified model.</p>
+            <div id="chemLabGameVisual" class="my-5 min-h-[220px] rounded-xl border border-amber-500/20 bg-[#0c0205] p-4 flex items-center justify-center">
+              <div class="w-40 h-44 relative border-x-2 border-b-2 border-sky-200/60 rounded-b-3xl overflow-hidden"><div id="chemSolutionFill" class="absolute bottom-0 inset-x-0 h-1/2 bg-sky-400/20 transition-all duration-300"></div><div id="chemSolutionParticles" class="absolute inset-2"></div></div>
             </div>
-            <div class="flex flex-col justify-center">
-              <span id="chemLabTag" class="text-[10px] uppercase tracking-widest font-black text-amber-400">Separation technique</span>
-              <h3 id="chemLabTitle" class="font-cinzel text-2xl font-bold text-amber-100 mt-2">Filtration</h3>
-              <p id="chemLabDescription" class="text-sm leading-relaxed text-slate-300 mt-3">Filtration separates an insoluble solid from a liquid using a porous barrier. The liquid that passes through is called the filtrate; the solid left behind is the residue.</p>
-              <div class="rounded-xl border border-amber-500/20 bg-black/25 p-4 mt-4">
-                <p class="text-[10px] uppercase tracking-widest font-black text-amber-400 mb-1">What to notice</p>
-                <p id="chemLabObservation" class="text-xs leading-relaxed text-slate-300">The liquid passes through the filter while the larger insoluble particles are retained.</p>
-              </div>
-              <button id="chemLabAnimate" type="button" class="mt-4 rounded-lg px-4 py-3 bg-gold-gradient text-[#26060d] font-black text-xs hover:brightness-110">Replay visual simulation</button>
-              <p id="chemLabStatus" class="text-[10px] text-slate-400 mt-2" aria-live="polite">Select a technique, then replay its visual model.</p>
+            <div id="chemLabControls" class="space-y-4">
+              <label class="block text-xs text-slate-300">Solute amount <span id="chemSoluteValue" class="text-amber-300 font-bold">5 units</span><input id="chemSoluteSlider" type="range" min="0" max="20" value="5" class="w-full mt-2 accent-amber-400"></label>
+              <label class="block text-xs text-slate-300">Solvent amount <span id="chemSolventValue" class="text-amber-300 font-bold">10 units</span><input id="chemSolventSlider" type="range" min="5" max="20" value="10" class="w-full mt-2 accent-amber-400"></label>
             </div>
+            <div class="rounded-xl bg-black/30 border border-amber-500/20 p-4 mt-4"><p class="text-[10px] uppercase tracking-widest text-amber-400 font-black">Scientist's observation</p><p id="chemLabGameResult" class="text-sm text-slate-200 mt-2" aria-live="polite">Move a slider to explore how concentration changes.</p></div>
+            <div class="flex flex-wrap gap-2 mt-4"><button type="button" id="chemLabTask" class="rounded-xl bg-gold-gradient text-[#25050a] font-black text-sm px-5 py-3">Complete lab task +20 XP</button><button type="button" id="chemLabReset" class="rounded-xl border border-white/20 text-slate-200 px-5 py-3 text-sm">Reset simulation</button></div>
+            <p id="chemLabTaskFeedback" class="text-xs text-amber-200 mt-3 min-h-5" aria-live="polite"></p>
           </div>
         </div>
-        <p class="text-center text-[11px] text-slate-500 mt-4">All simulations are conceptual animations. Do not use this page as a guide for handling chemicals, heating substances or carrying out laboratory procedures.</p>
+        <p class="text-center text-[11px] text-slate-500 mt-5">These are educational simulations, not instructions for conducting experiments or handling chemicals.</p>
       </div>
     </section>
 
@@ -785,125 +795,118 @@
               '<h4 class="font-cinzel text-lg font-bold text-amber-100 mb-2">'+m.title+'</h4><p class="text-xs leading-relaxed text-slate-300">'+m.intro+'</p>' +
               '<button type="button" class="chem-module-open mt-4 w-full rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs font-bold text-amber-200 hover:bg-amber-500/20" aria-expanded="false">Open lesson <span aria-hidden="true">＋</span></button>' +
               '<div class="chem-module-detail hidden mt-4 border-t border-amber-500/20 pt-4 space-y-3"><ul class="list-disc pl-5 space-y-2 text-xs leading-relaxed text-slate-300">'+m.points.map(p=>'<li>'+p+'</li>').join('')+'</ul>' +
-              '<div class="rounded-xl bg-[#0F0103] border border-amber-500/20 p-3"><p class="text-[10px] uppercase tracking-widest text-amber-400 font-black mb-1">Worked example</p><p class="text-xs text-slate-200">'+m.example+'</p></div>' +
-              '<div class="rounded-xl bg-amber-500/5 border border-amber-500/20 p-3"><p class="text-[10px] uppercase tracking-widest text-amber-400 font-black mb-1">Quick checkpoint</p><p class="text-xs text-amber-100 font-semibold mb-2">'+m.check+'</p><button type="button" class="chem-answer-toggle text-xs text-amber-300 underline underline-offset-4">Reveal answer</button><p class="chem-answer hidden text-xs text-slate-300 mt-2">'+m.answer+'</p></div>' +
-              '<button type="button" class="chem-module-done w-full rounded-lg px-3 py-2 text-xs font-black '+(done?'bg-emerald-900/50 text-emerald-200 border border-emerald-500/40':'bg-gold-gradient text-slate-950')+'">'+(done?'✓ Completed':'Mark topic complete')+'</button></div></article>';
-          }).join('');
-          chemEmpty.classList.toggle('hidden', shown.length !== 0);
-          const count = Object.values(chemDone).filter(Boolean).length;
-          chemProgress.textContent = count + ' / 11 topics completed';
+              '<div class="rounded-xl bg-[#0F0103] border border-amber-500/20 p-3"><p class="text-[10px] uppercase tracking-widest text-amber-40
+        /* VN Chemistry Arcade: saved XP, missions and atom-building */
+        const chemArcadeKey='vn-chem-arcade-v2';
+        let chemArcade={xp:0,wins:[],streak:0,lastDay:''};
+        try{chemArcade={...chemArcade,...JSON.parse(localStorage.getItem(chemArcadeKey)||'{}')};}catch(_){}
+        const chemMissionData={
+          water:{title:'Build Water',formula:'H₂O',hint:'Water has two hydrogen atoms and one oxygen atom.',target:{H:2,O:1},reward:30},
+          carbonDioxide:{title:'Build Carbon Dioxide',formula:'CO₂',hint:'Carbon dioxide contains one carbon atom and two oxygen atoms.',target:{C:1,O:2},reward:45},
+          ammonia:{title:'Build Ammonia',formula:'NH₃',hint:'Ammonia contains one nitrogen atom and three hydrogen atoms.',target:{N:1,H:3},reward:60}
+        };
+        let chemMission='water',chemBuild=[];
+        const chemAtomStyle={H:'bg-slate-100 text-slate-900',O:'bg-red-500 text-white',C:'bg-slate-500 text-white',N:'bg-blue-500 text-white',Cl:'bg-green-500 text-white'};
+        function chemSaveArcade(){try{localStorage.setItem(chemArcadeKey,JSON.stringify(chemArcade));}catch(_){}}
+        function chemRenderStats(){
+          document.getElementById('chemArcadeXP').textContent=chemArcade.xp||0;
+          document.getElementById('chemArcadeWins').textContent=(chemArcade.wins||[]).length;
+          document.getElementById('chemArcadeRank').textContent=chemArcade.xp>=300?'Lab Legend':chemArcade.xp>=150?'Molecule Master':chemArcade.xp>=60?'Atom Explorer':'Rookie';
+          document.getElementById('chemArcadeStreak').textContent=chemArcade.streak||0;
+          document.getElementById('chemLabXP').textContent=chemArcade.xp||0;
         }
-        chemGrid.addEventListener('click', (event) => {
-          const card = event.target.closest('[data-module]');
-          if (!card) return;
-          const num = card.dataset.module;
-          const module = chemistryModules.find(m => m.n === Number(num));
-          if (event.target.closest('.chem-module-open')) {
-            const detail = card.querySelector('.chem-module-detail');
-            const open = detail.classList.toggle('hidden') === false;
-            const btn = card.querySelector('.chem-module-open');
-            btn.setAttribute('aria-expanded', String(open));
-            btn.innerHTML = open ? 'Close lesson <span aria-hidden="true">－</span>' : 'Open lesson <span aria-hidden="true">＋</span>';
-          } else if (event.target.closest('.chem-answer-toggle')) {
-            const answer = card.querySelector('.chem-answer');
-            const open = answer.classList.toggle('hidden') === false;
-            event.target.textContent = open ? 'Hide answer' : 'Reveal answer';
-          } else if (event.target.closest('.chem-module-done')) {
-            chemDone[num] = !chemDone[num];
-            try { localStorage.setItem(chemDoneKey, JSON.stringify(chemDone)); } catch (_) {}
-            renderChemModules();
-            const updated = chemGrid.querySelector('[data-module="'+num+'"]');
-            if (updated) {
-              updated.querySelector('.chem-module-detail').classList.remove('hidden');
-              updated.querySelector('.chem-module-open').setAttribute('aria-expanded','true');
-              updated.querySelector('.chem-module-open').innerHTML = 'Close lesson <span aria-hidden="true">－</span>';
-            }
+        function chemFormulaFromAtoms(atoms){
+          const order=['C','H','N','O','Cl'];const counts={};atoms.forEach(a=>counts[a]=(counts[a]||0)+1);
+          return order.filter(a=>counts[a]).map(a=>a+(counts[a]>1?String(counts[a]):'')).join('');
+        }
+        function chemRenderBuild(){
+          const stage=document.getElementById('chemBuildStage');
+          if(!chemBuild.length){stage.innerHTML='<p class="text-sm text-slate-400">Your molecule will appear here.</p>';return;}
+          stage.innerHTML=chemBuild.map((atom,i)=>'<div class="chem-built-atom flex flex-col items-center" style="animation-delay:'+i*60+'ms"><span class="w-14 h-14 rounded-full flex items-center justify-center text-xl font-black shadow-lg '+chemAtomStyle[atom]+'">'+atom+'</span><span class="text-[9px] text-slate-400 mt-1">Atom '+(i+1)+'</span></div>').join('<span class="text-amber-300/70 text-xl">·</span>');
+        }
+        function chemSetMission(id){
+          chemMission=id;chemBuild=[];const m=chemMissionData[id];
+          document.getElementById('chemMissionTitle').textContent=m.title;
+          document.getElementById('chemMissionHint').textContent=m.hint;
+          document.getElementById('chemMissionFormula').textContent=m.formula;
+          document.getElementById('chemBuildFeedback').textContent='Mission selected. Start adding atoms!';
+          document.querySelectorAll('.chem-mission').forEach(b=>{const active=b.dataset.mission===id;b.classList.toggle('border-amber-400',active);b.classList.toggle('bg-amber-500/10',active);b.classList.toggle('border-white/10',!active);b.classList.toggle('bg-black/20',!active);});
+          chemRenderBuild();
+        }
+        document.querySelectorAll('.chem-mission').forEach(b=>b.addEventListener('click',()=>chemSetMission(b.dataset.mission)));
+        document.querySelectorAll('.chem-atom-pick').forEach(b=>b.addEventListener('click',()=>{
+          if(chemBuild.length>=6){document.getElementById('chemBuildFeedback').textContent='Workbench full! Undo an atom or clear the board.';return;}
+          chemBuild.push(b.dataset.atom);chemRenderBuild();document.getElementById('chemBuildFeedback').textContent='Current formula: '+chemFormulaFromAtoms(chemBuild);
+        }));
+        document.getElementById('chemUndoAtom').addEventListener('click',()=>{chemBuild.pop();chemRenderBuild();document.getElementById('chemBuildFeedback').textContent='Last atom removed.';});
+        document.getElementById('chemClearBuild').addEventListener('click',()=>{chemBuild=[];chemRenderBuild();document.getElementById('chemBuildFeedback').textContent='Workbench cleared. Try again!';});
+        document.getElementById('chemCheckBuild').addEventListener('click',()=>{
+          const target=chemMissionData[chemMission].target,got={};chemBuild.forEach(a=>got[a]=(got[a]||0)+1);
+          const good=Object.keys(target).every(a=>got[a]===target[a])&&Object.keys(got).every(a=>target[a]===got[a]);
+          const feedback=document.getElementById('chemBuildFeedback');
+          if(good){
+            if(!chemArcade.wins.includes(chemMission)){chemArcade.wins.push(chemMission);chemArcade.xp+=chemMissionData[chemMission].reward;chemArcade.streak=(chemArcade.streak||0)+1;chemSaveArcade();}
+            feedback.textContent='✦ Mission cleared! '+chemMissionData[chemMission].formula+' built correctly. +'+chemMissionData[chemMission].reward+' XP';
+            feedback.className='text-sm text-center text-emerald-300 mt-3 min-h-6';
+            chemRenderStats();
+          }else{
+            feedback.textContent='Not quite! Your build is '+(chemBuild.length?' '+chemFormulaFromAtoms(chemBuild):'empty')+'. Check the target atom counts and try again.';
+            feedback.className='text-sm text-center text-amber-200 mt-3 min-h-6';
           }
         });
-        chemSearch.addEventListener('input', renderChemModules);
-        renderChemModules();
+        chemRenderStats();chemSetMission('water');
 
-
-        /* VN Chemistry Molecular Studio: interactive 3D-style ball-and-stick models */
-        const chemMolecules = {
-          water:{name:"Water",formula:"H₂O",description:"A bent molecule with one oxygen atom bonded to two hydrogen atoms. The H–O–H angle is about 104.5°.",atoms:[["O",0,0,0],["H",-1.25,0.55,0],["H",1.25,0.55,0]],bonds:[[0,1,1],[0,2,1]]},
-          carbonDioxide:{name:"Carbon dioxide",formula:"CO₂",description:"A linear molecule. A carbon atom sits between two oxygen atoms, with two double bonds.",atoms:[["C",0,0,0],["O",-1.5,0,0],["O",1.5,0,0]],bonds:[[0,1,2],[0,2,2]]},
-          methane:{name:"Methane",formula:"CH₄",description:"A carbon atom is surrounded by four hydrogen atoms in a tetrahedral arrangement.",atoms:[["C",0,0,0],["H",1,1,1],["H",-1,-1,1],["H",-1,1,-1],["H",1,-1,-1]],bonds:[[0,1,1],[0,2,1],[0,3,1],[0,4,1]]},
-          ammonia:{name:"Ammonia",formula:"NH₃",description:"A nitrogen atom is bonded to three hydrogen atoms in a trigonal-pyramidal arrangement.",atoms:[["N",0,0.45,0],["H",-1,-0.45,0.7],["H",1,-0.45,0.7],["H",0,-0.45,-1]],bonds:[[0,1,1],[0,2,1],[0,3,1]]},
-          oxygen:{name:"Oxygen",formula:"O₂",description:"An oxygen molecule contains two oxygen atoms joined by a double covalent bond.",atoms:[["O",-0.85,0,0],["O",0.85,0,0]],bonds:[[0,1,2]]},
-          nitrogen:{name:"Nitrogen",formula:"N₂",description:"A nitrogen molecule contains two nitrogen atoms joined by a triple covalent bond.",atoms:[["N",-0.85,0,0],["N",0.85,0,0]],bonds:[[0,1,3]]},
-          hydrogenChloride:{name:"Hydrogen chloride",formula:"HCl",description:"A diatomic molecule with one hydrogen atom covalently bonded to one chlorine atom.",atoms:[["H",-0.8,0,0],["Cl",0.8,0,0]],bonds:[[0,1,1]]},
-          ethene:{name:"Ethene",formula:"C₂H₄",description:"Two carbon atoms share a double bond. Each carbon is also bonded to two hydrogen atoms.",atoms:[["C",-0.7,0,0],["C",0.7,0,0],["H",-1.35,0.95,0],["H",-1.35,-0.95,0],["H",1.35,0.95,0],["H",1.35,-0.95,0]],bonds:[[0,1,2],[0,2,1],[0,3,1],[1,4,1],[1,5,1]]}
+        /* Interactive chemistry lab games */
+        let chemLabMode='solution',chemLabClaimed={};
+        const chemLabData={
+          solution:{title:'Solution Challenge',desc:'Adjust the amount of dissolved solute and solvent. The model updates concentration and shows when the solution becomes highly concentrated.',level:'MIXTURE SCIENCE'},
+          diffusion:{title:'Particle Rush',desc:'Change temperature to compare slower and faster particle motion in a conceptual diffusion model.',level:'PARTICLE MOTION'},
+          separation:{title:'Separation Mission',desc:'Choose a method for each mixture. Correct choices earn lab XP and explain the scientific reason.',level:'SCIENTIST CHALLENGE'}
         };
-        const chemCanvas=document.getElementById('chemMoleculeCanvas');
-        const chemCtx=chemCanvas.getContext('2d');
-        const chemSelect=document.getElementById('chemMoleculeSelect');
-        let chemCurrent=chemMolecules.water, chemRotX=-0.18, chemRotY=0.45, chemAutoRotate=true, chemDragging=false, chemLast={x:0,y:0};
-        const chemAtomColors={H:"#f8fafc",O:"#ef4444",C:"#64748b",N:"#3b82f6",Cl:"#22c55e"};
-        const chemAtomNames={H:"Hydrogen",O:"Oxygen",C:"Carbon",N:"Nitrogen",Cl:"Chlorine"};
-        function chemResizeMoleculeCanvas(){
-          const rect=chemCanvas.getBoundingClientRect(), ratio=Math.min(window.devicePixelRatio||1,2);
-          chemCanvas.width=Math.max(1,Math.round(rect.width*ratio)); chemCanvas.height=Math.max(1,Math.round(rect.height*ratio));
-          chemCtx.setTransform(ratio,0,0,ratio,0,0); drawChemMolecule();
+        function chemRenderSolution(){
+          const solute=Number(document.getElementById('chemSoluteSlider').value),solvent=Number(document.getElementById('chemSolventSlider').value);
+          document.getElementById('chemSoluteValue').textContent=solute+' units';document.getElementById('chemSolventValue').textContent=solvent+' units';
+          const percent=solute+solvent?Math.round(solute/(solute+solvent)*100):0;
+          document.getElementById('chemSolutionFill').style.height=Math.min(90,25+solvent*3)+'%';
+          const holder=document.getElementById('chemSolutionParticles');holder.innerHTML='';
+          const count=Math.min(30,solute*2);for(let i=0;i<count;i++){const dot=document.createElement('i');dot.style.cssText='position:absolute;width:7px;height:7px;border-radius:50%;background:#fbbf24;left:'+(5+(i*37%88))+'%;top:'+(10+(i*23%75))+'%;box-shadow:0 0 8px #f59e0b;';holder.appendChild(dot);}
+          document.getElementById('chemLabGameResult').textContent='Model concentration: '+percent+'% solute by total units. '+(percent>=65?'Highly concentrated model: the solution is approaching its displayed saturation limit.':percent>=35?'Moderately concentrated: more solute is present relative to solvent.':'Dilute model: solute makes up a smaller fraction of the mixture.');
         }
-        function drawChemMolecule(){
-          if(!chemCanvas||!chemCtx)return;
-          const w=chemCanvas.clientWidth,h=chemCanvas.clientHeight;
-          if(!w||!h)return;
-          chemCtx.clearRect(0,0,w,h);
-          const cx=w/2,cy=h/2+5,scale=Math.min(w/5.2,h/3.25);
-          const points=chemCurrent.atoms.map(a=>{
-            let [x,y,z]=a.slice(1);
-            const x1=x*Math.cos(chemRotY)-z*Math.sin(chemRotY),z1=x*Math.sin(chemRotY)+z*Math.cos(chemRotY);
-            const y1=y*Math.cos(chemRotX)-z1*Math.sin(chemRotX),z2=y*Math.sin(chemRotX)+z1*Math.cos(chemRotX);
-            const perspective=4.8/(4.8+z2*0.12);
-            return {x:cx+x1*scale*perspective,y:cy-y1*scale*perspective,z:z2,r:Math.max(0.7,perspective)};
-          });
-          chemCurrent.bonds.forEach(b=>{
-            const a=points[b[0]],c=points[b[1]],dx=c.x-a.x,dy=c.y-a.y,len=Math.hypot(dx,dy)||1,ox=-dy/len,oy=dx/len;
-            for(let k=0;k<b[2];k++){
-              const off=(k-(b[2]-1)/2)*5;
-              chemCtx.beginPath();chemCtx.moveTo(a.x+ox*off,a.y+oy*off);chemCtx.lineTo(c.x+ox*off,c.y+oy*off);
-              chemCtx.strokeStyle="rgba(255,225,160,.88)";chemCtx.lineWidth=5;chemCtx.lineCap="round";chemCtx.stroke();
-              chemCtx.strokeStyle="rgba(255,255,255,.25)";chemCtx.lineWidth=1.2;chemCtx.stroke();
-            }
-          });
-          points.map((p,i)=>({p,i})).sort((a,b)=>a.p.z-b.p.z).forEach(({p,i})=>{
-            const atom=chemCurrent.atoms[i],radius=(atom[0]==="H"?13:19)*p.r;
-            const grad=chemCtx.createRadialGradient(p.x-radius*.35,p.y-radius*.4,2,p.x,p.y,radius);
-            grad.addColorStop(0,"#ffffff");grad.addColorStop(.18,chemAtomColors[atom[0]]||"#d4af37");grad.addColorStop(1,"#16060b");
-            chemCtx.beginPath();chemCtx.arc(p.x,p.y,radius,0,Math.PI*2);chemCtx.fillStyle=grad;chemCtx.fill();
-            chemCtx.lineWidth=1.5;chemCtx.strokeStyle="rgba(255,230,170,.8)";chemCtx.stroke();
-            chemCtx.fillStyle=atom[0]==="H"||atom[0]==="O"?"#24070b":"#fff7df";chemCtx.font="bold "+Math.max(11,radius*.85)+"px Arial";chemCtx.textAlign="center";chemCtx.textBaseline="middle";chemCtx.fillText(atom[0],p.x,p.y+.5);
-          });
-          chemCtx.fillStyle="rgba(255,225,170,.65)";chemCtx.font="11px Arial";chemCtx.textAlign="center";chemCtx.fillText(chemCurrent.formula,cx,h-15);
+        function chemSetLabMode(mode){
+          chemLabMode=mode;const d=chemLabData[mode];
+          document.getElementById('chemLabGameTitle').textContent=d.title;document.getElementById('chemLabGameDesc').textContent=d.desc;document.getElementById('chemLabLevel').textContent=d.level;
+          document.querySelectorAll('.chem-lab-game').forEach(b=>{const active=b.dataset.labGame===mode;b.classList.toggle('border-amber-400',active);b.classList.toggle('bg-amber-500/10',active);b.classList.toggle('border-white/10',!active);b.classList.toggle('bg-black/20',!active);});
+          const controls=document.getElementById('chemLabControls'),visual=document.getElementById('chemLabGameVisual'),task=document.getElementById('chemLabTask');
+          if(mode==='solution'){
+            controls.innerHTML='<label class="block text-xs text-slate-300">Solute amount <span id="chemSoluteValue" class="text-amber-300 font-bold">5 units</span><input id="chemSoluteSlider" type="range" min="0" max="20" value="5" class="w-full mt-2 accent-amber-400"></label><label class="block text-xs text-slate-300">Solvent amount <span id="chemSolventValue" class="text-amber-300 font-bold">10 units</span><input id="chemSolventSlider" type="range" min="5" max="20" value="10" class="w-full mt-2 accent-amber-400"></label>';
+            visual.innerHTML='<div class="w-40 h-44 relative border-x-2 border-b-2 border-sky-200/60 rounded-b-3xl overflow-hidden"><div id="chemSolutionFill" class="absolute bottom-0 inset-x-0 h-1/2 bg-sky-400/20 transition-all duration-300"></div><div id="chemSolutionParticles" class="absolute inset-2"></div></div>';
+            document.getElementById('chemSoluteSlider').addEventListener('input',chemRenderSolution);document.getElementById('chemSolventSlider').addEventListener('input',chemRenderSolution);chemRenderSolution();
+          }else if(mode==='diffusion'){
+            controls.innerHTML='<label class="block text-xs text-slate-300">Temperature model <span id="chemTempValue" class="text-amber-300 font-bold">25°C</span><input id="chemTempSlider" type="range" min="0" max="100" value="25" class="w-full mt-2 accent-amber-400"></label><p class="text-xs text-slate-400">Higher temperature represents greater average particle kinetic energy in this simplified model.</p>';
+            visual.innerHTML='<div id="chemDiffusionCloud" class="relative w-full max-w-md h-44 rounded-xl border border-sky-300/30 bg-sky-300/5 overflow-hidden"></div>';
+            const cloud=document.getElementById('chemDiffusionCloud');for(let i=0;i<32;i++){const p=document.createElement('i');p.className='chem-diffusion-dot';p.style.left=(8+(i*29%84))+'%';p.style.top=(8+(i*41%84))+'%';p.style.animationDelay=(i%8)*-.23+'s';cloud.appendChild(p);}
+            document.getElementById('chemTempSlider').addEventListener('input',e=>{document.getElementById('chemTempValue').textContent=e.target.value+'°C';cloud.style.setProperty('--particle-speed',(1.8-e.target.value/100*1.45)+'s');document.getElementById('chemLabGameResult').textContent='At '+e.target.value+'°C, the model shows '+(e.target.value>60?'faster random particle motion and quicker spreading.':'slower random particle motion and more gradual spreading.');});
+            document.getElementById('chemTempValue').textContent='25°C';cloud.style.setProperty('--particle-speed','1.4s');document.getElementById('chemLabGameResult').textContent='Move the temperature slider and compare the particle motion.';
+          }else{
+            controls.innerHTML='<p class="text-xs text-slate-300">Choose the best technique for each mixture. You can try again if needed.</p><div class="space-y-2" id="chemSeparationChoices"></div>';
+            visual.innerHTML='<div class="text-center"><div class="text-5xl mb-3">🧪</div><p class="text-amber-200 font-bold">Separation Mission</p><p class="text-xs text-slate-400 mt-2">Three mixtures. Three scientific decisions.</p></div>';
+            const qs=[{q:'Sand mixed with water',opts:['Filtration','Evaporation','Chromatography'],a:0,why:'Sand is insoluble and can be retained by a filter.'},{q:'Different dyes in ink',opts:['Filtration','Chromatography','Magnetic separation'],a:1,why:'Dyes travel at different rates through the paper.'},{q:'Salt dissolved in water',opts:['Filtration','Evaporation','Sieving'],a:1,why:'The solvent can evaporate, leaving dissolved salt behind.'}];
+            document.getElementById('chemSeparationChoices').innerHTML=qs.map((q,i)=>'<div class="rounded-lg border border-amber-500/20 p-3"><p class="text-xs text-amber-100 font-bold mb-2">'+(i+1)+'. '+q.q+'</p><div class="flex flex-wrap gap-2">'+q.opts.map((o,j)=>'<button type="button" class="chem-sep-choice text-[10px] px-3 py-2 rounded-lg border border-white/20 text-slate-200" data-q="'+i+'" data-a="'+j+'">'+o+'</button>').join('')+'</div><p id="chemSepFeedback'+i+'" class="text-[10px] mt-2 text-slate-400"></p></div>').join('');
+            document.querySelectorAll('.chem-sep-choice').forEach(btn=>btn.addEventListener('click',()=>{const q=qs[Number(btn.dataset.q)],correct=Number(btn.dataset.a)===q.a;const out=document.getElementById('chemSepFeedback'+btn.dataset.q);out.textContent=correct?'✓ Correct. '+q.why:'Not quite. Try another method.';out.className='text-[10px] mt-2 '+(correct?'text-emerald-300':'text-amber-200');btn.classList.toggle('bg-emerald-500/20',correct);if(correct&&!chemLabClaimed['sep'+btn.dataset.q]){chemLabClaimed['sep'+btn.dataset.q]=true;chemArcade.xp+=10;chemSaveArcade();chemRenderStats();}}));
+          }
+          document.getElementById('chemLabTaskFeedback').textContent='Explore the model, then complete the task to earn XP.';
+          task.textContent=mode==='separation'?'Finish separation mission':'Complete lab task +20 XP';
         }
-        function updateChemMolecule(){
-          chemCurrent=chemMolecules[chemSelect.value]||chemMolecules.water;
-          document.getElementById('chemMoleculeName').textContent=chemCurrent.name;
-          document.getElementById('chemMoleculeFormula').textContent=chemCurrent.formula;
-          document.getElementById('chemMoleculeDescription').textContent=chemCurrent.description;
-          document.getElementById('chemAtomCount').textContent=chemCurrent.atoms.length;
-          document.getElementById('chemBondCount').textContent=chemCurrent.bonds.length;
-          drawChemMolecule();
-        }
-        chemSelect.addEventListener('change',updateChemMolecule);
-        chemCanvas.addEventListener('pointerdown',e=>{chemDragging=true;chemLast={x:e.clientX,y:e.clientY};chemCanvas.setPointerCapture(e.pointerId);});
-        chemCanvas.addEventListener('pointermove',e=>{if(!chemDragging)return;chemRotY+=(e.clientX-chemLast.x)*.012;chemRotX+=(e.clientY-chemLast.y)*.012;chemLast={x:e.clientX,y:e.clientY};drawChemMolecule();});
-        function stopChemDrag(){chemDragging=false;}
-        chemCanvas.addEventListener('pointerup',stopChemDrag);chemCanvas.addEventListener('pointercancel',stopChemDrag);
-        document.getElementById('chemRotateToggle').addEventListener('click',e=>{chemAutoRotate=!chemAutoRotate;e.currentTarget.textContent=chemAutoRotate?"Pause rotation":"Resume rotation";});
-        document.getElementById('chemResetView').addEventListener('click',()=>{chemRotX=-.18;chemRotY=.45;drawChemMolecule();});
-        window.addEventListener('resize',chemResizeMoleculeCanvas);
-        chemResizeMoleculeCanvas();updateChemMolecule();
-        function animateChemMolecule(){if(chemAutoRotate&&!chemDragging){chemRotY+=.004;drawChemMolecule();}requestAnimationFrame(animateChemMolecule);}
-        animateChemMolecule();
+        document.querySelectorAll('.chem-lab-game').forEach(b=>b.addEventListener('click',()=>chemSetLabMode(b.dataset.labGame)));
+        document.getElementById('chemLabTask').addEventListener('click',()=>{
+          if(chemLabClaimed[chemLabMode]){document.getElementById('chemLabTaskFeedback').textContent='This lab reward has already been collected. Try another mission!';return;}
+          if(chemLabMode==='separation'&&![0,1,2].every(i=>chemLabClaimed['sep'+i])){document.getElementById('chemLabTaskFeedback').textContent='Answer all three separation questions correctly first.';return;}
+          chemLabClaimed[chemLabMode]=true;chemArcade.xp+=20;chemSaveArcade();chemRenderStats();document.getElementById('chemLabTaskFeedback').textContent='Lab complete! +20 XP earned. Keep exploring, scientist!';
+        });
+        document.getElementById('chemLabReset').addEventListener('click',()=>{chemLabClaimed={};chemSetLabMode(chemLabMode);document.getElementById('chemLabTaskFeedback').textContent='Model reset. Explore again!';});
+        chemSetLabMode('solution');
 
-        /* Safe conceptual virtual chemistry lab */
-        const chemLabModes={
-          filtration:{title:"Filtration",tag:"Separation technique",description:"Filtration separates an insoluble solid from a liquid using a porous barrier. The liquid that passes through is called the filtrate; the solid left behind is the residue.",observation:"The liquid passes through the filter while the larger insoluble particles are retained.",visual:'<div class="flex items-center justify-center gap-3 sm:gap-6 w-full"><div class="text-center"><div class="w-20 h-24 rounded-b-2xl border-2 border-slate-300/60 bg-amber-200/20 relative overflow-hidden"><div class="absolute bottom-0 inset-x-0 h-3/5 bg-amber-300/30"></div><span class="absolute top-2 left-3 text-amber-100 text-xs">• · •</span></div><p class="text-[10px] text-slate-300 mt-2">Mixture</p></div><div class="text-amber-300 text-2xl">→</div><div class="text-center"><div class="w-20 h-28 relative"><div class="absolute top-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[35px] border-r-[35px] border-t-[44px] border-l-transparent border-r-transparent border-t-amber-100/70"></div><div class="absolute top-10 left-1/2 -translate-x-1/2 w-1 h-8 bg-sky-300/70"></div><div class="absolute bottom-0 inset-x-0 h-10 border-2 border-slate-300/60 rounded-b-xl bg-sky-300/30"></div></div><p class="text-[10px] text-slate-300 mt-2">Filter + flask</p></div><div class="text-amber-300 text-2xl">→</div><div class="text-center"><div class="w-20 h-24 rounded-b-2xl border-2 border-slate-300/60 bg-sky-300/25 relative"><div class="absolute bottom-0 inset-x-0 h-2/3 bg-sky-300/30 rounded-b-xl"></div></div><p class="text-[10px] text-slate-300 mt-2">Filtrate</p></div></div>'},
-          chromatography:{title:"Paper chromatography",tag:"Mixture analysis",description:"Chromatography separates substances because different components travel at different rates through a stationary material while carried by a moving solvent.",observation:"The coloured components separate into bands at different heights. A component that travels farther has moved more with the solvent in this model.",visual:'<div class="flex items-center justify-center gap-8 w-full"><div class="relative w-24 h-48 border border-amber-100/50 bg-amber-50/10 rounded-sm overflow-hidden"><div class="absolute bottom-0 inset-x-0 h-8 bg-sky-400/30 border-t border-sky-300/50"></div><div class="absolute bottom-8 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-violet-500"></div><div class="absolute bottom-14 left-1/2 -translate-x-1/2 w-3 h-2 rounded-full bg-pink-400"></div><div class="absolute bottom-24 left-1/2 -translate-x-1/2 w-3 h-2 rounded-full bg-yellow-300"></div><div class="absolute bottom-32 left-1/2 -translate-x-1/2 w-3 h-2 rounded-full bg-cyan-300"></div></div><div class="max-w-[180px] text-xs leading-relaxed text-slate-300">A single sample spot separates into several coloured bands as components move at different rates.</div></div>'},
-          evaporation:{title:"Evaporation",tag:"Recovering a dissolved solid",description:"Evaporation changes a liquid into vapour. In a separation concept model, the solvent leaves as vapour while a dissolved non-volatile solute remains behind.",observation:"The amount of liquid shown decreases while the dissolved solid is represented as remaining in the container.",visual:'<div class="flex items-center justify-center gap-8 w-full"><div class="relative w-36 h-36"><div class="absolute bottom-2 left-1/2 -translate-x-1/2 w-32 h-20 rounded-b-2xl border-2 border-slate-300/70 bg-sky-300/20 overflow-hidden"><div class="absolute bottom-0 inset-x-0 h-1/2 bg-sky-300/30"></div><div class="absolute bottom-2 inset-x-0 h-1 border-t border-amber-200"></div></div><div class="absolute top-2 left-10 text-sky-200 text-2xl">〰</div><div class="absolute top-0 right-8 text-sky-200 text-xl">↑</div></div><div class="text-xs text-slate-300 max-w-[150px]">Solvent vapour moves away; dissolved solid remains in the model.</div></div>'},
+bsolute top-0 right-8 text-sky-200 text-xl">↑</div></div><div class="text-xs text-slate-300 max-w-[150px]">Solvent vapour moves away; dissolved solid remains in the model.</div></div>'},
           diffusion:{title:"Diffusion",tag:"Particle motion",description:"Diffusion is the net movement of particles from a region of higher concentration to a region of lower concentration due to random particle motion.",observation:"Over time, the initially concentrated group spreads through the available space until the distribution becomes more uniform.",visual:'<div class="w-full max-w-lg"><div class="grid grid-cols-2 gap-3"><div class="rounded-xl border border-amber-200/30 bg-black/20 p-3"><p class="text-center text-[10px] text-amber-200 mb-2">Initially concentrated</p><div class="grid grid-cols-5 gap-2 place-items-center">'+Array.from({length:25},(_,i)=>'<i class="w-2.5 h-2.5 rounded-full '+(i<18?'bg-pink-400':'bg-white/10')+'"></i>').join('')+'</div></div><div class="rounded-xl border border-amber-200/30 bg-black/20 p-3"><p class="text-center text-[10px] text-amber-200 mb-2">More evenly spread</p><div class="grid grid-cols-5 gap-2 place-items-center">'+Array.from({length:25},(_,i)=>'<i class="w-2.5 h-2.5 rounded-full '+(i%3===0?'bg-pink-400':'bg-white/10')+'"></i>').join('')+'</div></div></div></div>'}
         };
         const chemLabStage=document.getElementById('chemLabStage');
