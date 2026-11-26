@@ -134,6 +134,7 @@
                 <a href="#chapters" class="text-amber-100 hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-book-open text-amber-400"></i> Syllabus</a>
                 <a href="#simulators" class="text-amber-100 hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-flask text-amber-400"></i> Simulators</a>
                 <a href="#periodic" class="text-amber-100 hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-table-cells text-amber-400"></i> Elements</a>
+                <a href="#vn-extended-modules" class="text-amber-100 hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-atom text-amber-400"></i> Advanced Topics</a>
                 <a href="#quiz" class="text-amber-100 hover:text-amber-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-vial-circle-check text-amber-400"></i> Test Quiz</a>
             </nav>
 
@@ -181,7 +182,7 @@
 
             <div class="flex flex-wrap justify-center gap-4">
                 <a href="#chapters" class="px-8 py-3.5 rounded-xl bg-gold-gradient text-slate-950 font-black text-xs uppercase tracking-wider shadow-lg shadow-amber-500/20 hover:scale-105 transition-all">
-                    Explore 4 Core Chapters <i class="fa-solid fa-arrow-down ml-2"></i>
+                    Explore 15 Learning Modules <i class="fa-solid fa-arrow-down ml-2"></i>
                 </a>
                 <a href="chemistry-quest.html" class="px-8 py-3.5 rounded-xl bg-amber-950/80 text-amber-300 border border-amber-500/40 hover:border-amber-300 text-xs font-bold transition-all">
                     Open Chem-Quest Arena <i class="fa-solid fa-gamepad ml-2"></i>
@@ -395,6 +396,22 @@
                     <p class="font-mono text-amber-200">n = Given Mass / Molar Mass = 52 / 4 = 13 moles of He.</p>
                 </div>
             </div>
+
+
+            <!-- EXTENDED LEARNING PATH: modules 5-15 -->
+            <section id="vn-extended-modules" class="space-y-6 pt-4">
+                <div class="text-center space-y-3">
+                    <span class="text-amber-400 text-xs font-black uppercase tracking-widest bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/30">Beyond the Core Textbook</span>
+                    <h3 class="font-cinzel text-2xl sm:text-3xl font-black text-gold-gradient">11 Advanced Chemistry Topics</h3>
+                    <p class="max-w-3xl mx-auto text-xs sm:text-sm text-slate-300 leading-relaxed">The four core NCERT chapters above remain intact. These additional learning modules extend them with connected concepts, worked examples and revision checkpoints. They are supplementary topics, not additional official NCERT chapter titles.</p>
+                    <div class="max-w-2xl mx-auto flex flex-col sm:flex-row gap-3">
+                        <input id="chemModuleSearch" type="search" placeholder="Search a chemistry topic..." aria-label="Search chemistry topics" class="flex-1 bg-[#0F0103] text-amber-100 border border-amber-500/30 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-400">
+                        <div id="chemModuleProgress" class="rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-amber-200 text-xs font-bold whitespace-nowrap" aria-live="polite">0 / 11 topics completed</div>
+                    </div>
+                </div>
+                <div id="chemModuleGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
+                <p id="chemModuleEmpty" class="hidden text-center text-slate-400 text-sm py-6">No matching topics. Try another search.</p>
+            </section>
 
             <!-- CHAPTER 4 -->
             <div class="bg-maroon-card p-8 rounded-2xl border-gold-glow space-y-6">
@@ -641,6 +658,76 @@
                 </div>
             `;
         }
+
+
+        /* VN Chemistry extended learning modules (5-15) */
+        const chemistryModules = [
+          {n:5,title:"Elements, Compounds & Mixtures",tag:"Classification",intro:"Matter can be classified by composition. An element contains one kind of atom; a compound contains elements chemically combined in a fixed proportion; a mixture contains substances physically combined in variable proportions.",points:["Elements cannot be broken into simpler substances by ordinary chemical methods.","Compounds have properties different from the elements that form them.","Mixtures retain the properties of their components and can often be separated physically."],example:"Water is a compound with hydrogen and oxygen chemically combined. Air is a mixture of gases whose proportions can vary.",check:"Why is air classified as a mixture rather than a compound?",answer:"Because its gases are physically mixed in variable proportions and are not chemically combined in a fixed ratio."},
+          {n:6,title:"Separation Techniques",tag:"Methods & applications",intro:"Different separation methods use differences in physical properties such as particle size, solubility, density, boiling point and attraction to a surface.",points:["Filtration separates an insoluble solid from a liquid.","Evaporation and crystallisation can recover a dissolved solid.","Distillation separates liquids using differences in boiling points; chromatography separates components by different movement through a medium."],example:"A mixture of sand and water can be separated by filtration because sand particles do not pass through the filter pores.",check:"Which method is suitable for separating the different coloured dyes in ink?",answer:"Paper chromatography."},
+          {n:7,title:"Solutions & Solubility",tag:"Concentration",intro:"A solution is a homogeneous mixture. The solute is the substance dissolved, and the solvent is the medium that dissolves it. Solubility describes how much solute can dissolve under specified conditions.",points:["A dilute solution has relatively little solute; a concentrated solution has relatively more.","A saturated solution contains the maximum amount of dissolved solute at a given temperature.","For many solids, solubility changes with temperature; gas solubility often decreases as temperature rises."],example:"If 5 g of salt is dissolved in 95 g of water, the mass of solution is 100 g and the mass percentage is 5%.",check:"What is the mass percentage of 8 g solute in 72 g solvent?",answer:"Total solution mass = 80 g; mass percentage = (8/80) × 100 = 10%."},
+          {n:8,title:"Colloids, Suspensions & Tyndall Effect",tag:"Dispersed systems",intro:"Mixtures can also be compared by dispersed particle size, stability and their interaction with light.",points:["A true solution is transparent at the particle scale and does not show the Tyndall effect.","Colloids scatter a beam of light, making its path visible; this is the Tyndall effect.","Suspensions contain larger particles that may settle on standing and can often be separated by filtration."],example:"A beam becoming visible in a dusty room is an everyday illustration of light scattering by particles.",check:"Which type of mixture shows the Tyndall effect?",answer:"A colloid."},
+          {n:9,title:"Laws of Chemical Combination",tag:"Foundations",intro:"Chemical combination follows measurable patterns. These laws helped establish chemistry as a quantitative science.",points:["Law of conservation of mass: in a closed system, total mass remains constant during a chemical reaction.","Law of constant proportions: a pure compound contains the same elements in the same fixed proportion by mass.","These laws support the use of balanced chemical equations and chemical formulae."],example:"If 12 g of carbon reacts completely with 32 g of oxygen, 44 g of carbon dioxide is formed.",check:"A reaction starts with 18 g of reactants in a closed system. What is the total mass of products?",answer:"18 g, by the law of conservation of mass."},
+          {n:10,title:"Atomic & Molecular Mass",tag:"Relative masses",intro:"Atomic mass compares the mass of an atom with a standard reference. Molecular mass is the sum of the atomic masses of all atoms in a molecule.",points:["Relative atomic masses are commonly expressed in unified atomic mass units (u).","For water, H₂O: molecular mass = 2(1) + 16 = 18 u.","For carbon dioxide, CO₂: molecular mass = 12 + 2(16) = 44 u."],example:"Calculate the molecular mass of NH₃: 14 + 3(1) = 17 u.",check:"What is the molecular mass of CH₄ if C = 12 u and H = 1 u?",answer:"12 + 4 = 16 u."},
+          {n:11,title:"Writing Chemical Formulae",tag:"Valency & ions",intro:"A chemical formula represents the elements and relative numbers of atoms in a substance. For ionic compounds, the total positive and negative charges must balance.",points:["Write the symbols of the positive and negative ions, then use their charge numbers to determine the simplest whole-number ratio.","Use brackets around a polyatomic ion when more than one copy is needed.","Reduce subscripts to the simplest ratio and do not write a subscript of 1."],example:"Magnesium has charge 2+ and chloride has charge 1−, so the formula is MgCl₂.",check:"What formula is formed by Al³⁺ and O²⁻?",answer:"Al₂O₃: two aluminium ions (+6) balance three oxide ions (−6)."},
+          {n:12,title:"The Mole Concept",tag:"Counting particles",intro:"Atoms and molecules are too small to count individually in ordinary samples. The mole links a measurable amount of substance to a fixed number of entities.",points:["One mole contains approximately 6.022 × 10²³ specified entities (Avogadro constant).","Moles = given mass ÷ molar mass.","Number of particles = moles × Avogadro constant."],example:"For 36 g of water with molar mass 18 g mol⁻¹: amount = 36 ÷ 18 = 2 mol.",check:"How many moles are present in 22 g of CO₂ (molar mass 44 g mol⁻¹)?",answer:"22 ÷ 44 = 0.5 mol."},
+          {n:13,title:"Subatomic Particles & Atomic Models",tag:"Atomic structure",intro:"Experiments revealed that atoms have internal structure. Different models were proposed as new evidence became available.",points:["Electrons carry negative charge; protons carry positive charge; neutrons have no electric charge.","Rutherford's scattering experiment supported the idea of a small, dense, positively charged nucleus.","Bohr proposed that electrons occupy specific permitted energy levels around the nucleus."],example:"A neutral atom has equal numbers of protons and electrons, so its total electric charge is zero.",check:"Which subatomic particle determines the atomic number?",answer:"The number of protons."},
+          {n:14,title:"Electronic Configuration & Valency",tag:"Shells & stability",intro:"Electrons are arranged in shells around the nucleus. The outermost-shell arrangement helps explain how atoms combine.",points:["For the first 20 elements, the commonly used shell distribution follows 2, 8, 8, 2 as the maximum filling pattern used at this level.","Valency describes an atom's combining capacity and is related to gaining, losing or sharing electrons.","Noble gases have complete outer shells and are generally less reactive."],example:"Sodium has electronic configuration 2,8,1 and commonly forms Na⁺ by losing one outer electron.",check:"What is the shell configuration of chlorine (atomic number 17)?",answer:"2, 8, 7."},
+          {n:15,title:"Isotopes, Isobars & Atomic Applications",tag:"Nuclear composition",intro:"Atoms of the same element can differ in neutron number. The atomic number identifies the element, while the mass number counts protons plus neutrons.",points:["Isotopes have the same atomic number but different mass numbers.","Isobars have the same mass number but different atomic numbers.","Some isotopes have applications in medicine, scientific research and dating materials; their use requires appropriate expert controls."],example:"Carbon-12 and carbon-14 are isotopes: both have 6 protons, but they have different neutron numbers.",check:"Do isotopes of one element have the same number of protons or neutrons?",answer:"They have the same number of protons and different numbers of neutrons."}
+        ];
+        const chemGrid = document.getElementById('chemModuleGrid');
+        const chemSearch = document.getElementById('chemModuleSearch');
+        const chemProgress = document.getElementById('chemModuleProgress');
+        const chemEmpty = document.getElementById('chemModuleEmpty');
+        const chemDoneKey = 'vn-chemistry-module-progress-v1';
+        let chemDone = {};
+        try { chemDone = JSON.parse(localStorage.getItem(chemDoneKey) || '{}') || {}; } catch (_) { chemDone = {}; }
+        function renderChemModules() {
+          const q = (chemSearch.value || '').trim().toLowerCase();
+          const shown = chemistryModules.filter(m => (m.title + ' ' + m.tag + ' ' + m.intro).toLowerCase().includes(q));
+          chemGrid.innerHTML = shown.map(m => {
+            const done = !!chemDone[m.n];
+            return '<article class="bg-maroon-card rounded-2xl border border-amber-500/25 p-5 shadow-lg shadow-black/20" data-module="'+m.n+'">' +
+              '<div class="flex items-start justify-between gap-3 mb-3"><span class="text-[10px] font-black tracking-widest text-amber-400">MODULE '+String(m.n).padStart(2,'0')+'</span><span class="text-[10px] rounded-full px-2 py-1 border border-amber-500/30 text-amber-200">'+m.tag+'</span></div>' +
+              '<h4 class="font-cinzel text-lg font-bold text-amber-100 mb-2">'+m.title+'</h4><p class="text-xs leading-relaxed text-slate-300">'+m.intro+'</p>' +
+              '<button type="button" class="chem-module-open mt-4 w-full rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs font-bold text-amber-200 hover:bg-amber-500/20" aria-expanded="false">Open lesson <span aria-hidden="true">＋</span></button>' +
+              '<div class="chem-module-detail hidden mt-4 border-t border-amber-500/20 pt-4 space-y-3"><ul class="list-disc pl-5 space-y-2 text-xs leading-relaxed text-slate-300">'+m.points.map(p=>'<li>'+p+'</li>').join('')+'</ul>' +
+              '<div class="rounded-xl bg-[#0F0103] border border-amber-500/20 p-3"><p class="text-[10px] uppercase tracking-widest text-amber-400 font-black mb-1">Worked example</p><p class="text-xs text-slate-200">'+m.example+'</p></div>' +
+              '<div class="rounded-xl bg-amber-500/5 border border-amber-500/20 p-3"><p class="text-[10px] uppercase tracking-widest text-amber-400 font-black mb-1">Quick checkpoint</p><p class="text-xs text-amber-100 font-semibold mb-2">'+m.check+'</p><button type="button" class="chem-answer-toggle text-xs text-amber-300 underline underline-offset-4">Reveal answer</button><p class="chem-answer hidden text-xs text-slate-300 mt-2">'+m.answer+'</p></div>' +
+              '<button type="button" class="chem-module-done w-full rounded-lg px-3 py-2 text-xs font-black '+(done?'bg-emerald-900/50 text-emerald-200 border border-emerald-500/40':'bg-gold-gradient text-slate-950')+'">'+(done?'✓ Completed':'Mark topic complete')+'</button></div></article>';
+          }).join('');
+          chemEmpty.classList.toggle('hidden', shown.length !== 0);
+          const count = Object.values(chemDone).filter(Boolean).length;
+          chemProgress.textContent = count + ' / 11 topics completed';
+        }
+        chemGrid.addEventListener('click', (event) => {
+          const card = event.target.closest('[data-module]');
+          if (!card) return;
+          const num = card.dataset.module;
+          const module = chemistryModules.find(m => m.n === Number(num));
+          if (event.target.closest('.chem-module-open')) {
+            const detail = card.querySelector('.chem-module-detail');
+            const open = detail.classList.toggle('hidden') === false;
+            const btn = card.querySelector('.chem-module-open');
+            btn.setAttribute('aria-expanded', String(open));
+            btn.innerHTML = open ? 'Close lesson <span aria-hidden="true">－</span>' : 'Open lesson <span aria-hidden="true">＋</span>';
+          } else if (event.target.closest('.chem-answer-toggle')) {
+            const answer = card.querySelector('.chem-answer');
+            const open = answer.classList.toggle('hidden') === false;
+            event.target.textContent = open ? 'Hide answer' : 'Reveal answer';
+          } else if (event.target.closest('.chem-module-done')) {
+            chemDone[num] = !chemDone[num];
+            try { localStorage.setItem(chemDoneKey, JSON.stringify(chemDone)); } catch (_) {}
+            renderChemModules();
+            const updated = chemGrid.querySelector('[data-module="'+num+'"]');
+            if (updated) {
+              updated.querySelector('.chem-module-detail').classList.remove('hidden');
+              updated.querySelector('.chem-module-open').setAttribute('aria-expanded','true');
+              updated.querySelector('.chem-module-open').innerHTML = 'Close lesson <span aria-hidden="true">－</span>';
+            }
+          }
+        });
+        chemSearch.addEventListener('input', renderChemModules);
+        renderChemModules();
 
         /* Quiz Check */
         function checkQuiz(btn, isCorrect) {
