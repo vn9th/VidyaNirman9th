@@ -795,7 +795,15 @@
               '<h4 class="font-cinzel text-lg font-bold text-amber-100 mb-2">'+m.title+'</h4><p class="text-xs leading-relaxed text-slate-300">'+m.intro+'</p>' +
               '<button type="button" class="chem-module-open mt-4 w-full rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs font-bold text-amber-200 hover:bg-amber-500/20" aria-expanded="false">Open lesson <span aria-hidden="true">＋</span></button>' +
               '<div class="chem-module-detail hidden mt-4 border-t border-amber-500/20 pt-4 space-y-3"><ul class="list-disc pl-5 space-y-2 text-xs leading-relaxed text-slate-300">'+m.points.map(p=>'<li>'+p+'</li>').join('')+'</ul>' +
-              '<div class="rounded-xl bg-[#0F0103] border border-amber-500/20 p-3"><p class="text-[10px] uppercase tracking-widest text-amber-40
+              '<div class="rounded-xl bg-[#0F0103] border border-amber-500/20 p-3"><p class="text-[10px] uppercase tracking-widest text-amber-400 mb-2">KEY IDEA</p><p class="text-xs text-slate-200">'+m.example+'</p><p class="text-[10px] uppercase tracking-widest text-amber-400 mt-4 mb-2">QUICK CHECK</p><p class="text-xs text-slate-200">'+m.check+'</p><p class="text-xs text-emerald-300 mt-2">'+m.answer+'</p></div></div></article>';
+          }).join('');
+          chemGrid.innerHTML = shown.length ? shown : '';
+          chemEmpty.classList.toggle('hidden', shown.length !== 0);
+          chemProgress.textContent = Object.keys(chemDone).filter(k=>chemDone[k]).length + ' / ' + chemistryModules.length + ' completed';
+        }
+        chemSearch.addEventListener('input', renderChemModules);
+        chemGrid.addEventListener('click', e=>{const btn=e.target.closest('.chem-module-open');if(!btn)return;const card=btn.closest('[data-module]');const detail=card.querySelector('.chem-module-detail');const open=detail.classList.toggle('hidden')===false;btn.setAttribute('aria-expanded',String(open));btn.innerHTML=open?'Close lesson <span aria-hidden="true">−</span>':'Open lesson <span aria-hidden="true">＋</span>';const n=card.dataset.module;if(open&&!chemDone[n]){chemDone[n]=true;try{localStorage.setItem(chemDoneKey,JSON.stringify(chemDone));}catch(_){}renderChemModules();const reopened=chemGrid.querySelector('[data-module="'+n+'"] .chem-module-detail');if(reopened)reopened.classList.remove('hidden');}});
+        renderChemModules();
         /* VN Chemistry Arcade: saved XP, missions and atom-building */
         const chemArcadeKey='vn-chem-arcade-v2';
         let chemArcade={xp:0,wins:[],streak:0,lastDay:''};
@@ -905,23 +913,6 @@
         });
         document.getElementById('chemLabReset').addEventListener('click',()=>{chemSetLabMode(chemLabMode);document.getElementById('chemLabTaskFeedback').textContent='Model reset. Explore again!';});
         chemSetLabMode('solution');
-
-bsolute top-0 right-8 text-sky-200 text-xl">↑</div></div><div class="text-xs text-slate-300 max-w-[150px]">Solvent vapour moves away; dissolved solid remains in the model.</div></div>'},
-          diffusion:{title:"Diffusion",tag:"Particle motion",description:"Diffusion is the net movement of particles from a region of higher concentration to a region of lower concentration due to random particle motion.",observation:"Over time, the initially concentrated group spreads through the available space until the distribution becomes more uniform.",visual:'<div class="w-full max-w-lg"><div class="grid grid-cols-2 gap-3"><div class="rounded-xl border border-amber-200/30 bg-black/20 p-3"><p class="text-center text-[10px] text-amber-200 mb-2">Initially concentrated</p><div class="grid grid-cols-5 gap-2 place-items-center">'+Array.from({length:25},(_,i)=>'<i class="w-2.5 h-2.5 rounded-full '+(i<18?'bg-pink-400':'bg-white/10')+'"></i>').join('')+'</div></div><div class="rounded-xl border border-amber-200/30 bg-black/20 p-3"><p class="text-center text-[10px] text-amber-200 mb-2">More evenly spread</p><div class="grid grid-cols-5 gap-2 place-items-center">'+Array.from({length:25},(_,i)=>'<i class="w-2.5 h-2.5 rounded-full '+(i%3===0?'bg-pink-400':'bg-white/10')+'"></i>').join('')+'</div></div></div></div>'}
-        };
-        const chemLabStage=document.getElementById('chemLabStage');
-        let chemLabCurrent='filtration';
-        function showChemLab(mode){
-          chemLabCurrent=mode;const item=chemLabModes[mode];if(!item)return;
-          document.querySelectorAll('.chem-lab-tab').forEach(btn=>{const active=btn.dataset.chemLab===mode;btn.setAttribute('aria-pressed',String(active));btn.className='chem-lab-tab rounded-lg px-3 py-2 text-xs font-bold border '+(active?'border-amber-400 bg-amber-500/20 text-amber-100':'border-amber-500/25 bg-black/20 text-slate-300');});
-          document.getElementById('chemLabTag').textContent=item.tag;document.getElementById('chemLabTitle').textContent=item.title;document.getElementById('chemLabDescription').textContent=item.description;document.getElementById('chemLabObservation').textContent=item.observation;chemLabStage.innerHTML=item.visual;document.getElementById('chemLabStatus').textContent='Concept model ready: '+item.title+'.';
-        }
-        document.querySelectorAll('.chem-lab-tab').forEach(btn=>btn.addEventListener('click',()=>showChemLab(btn.dataset.chemLab)));
-        document.getElementById('chemLabAnimate').addEventListener('click',()=>{
-          chemLabStage.classList.remove('chem-lab-pulse');void chemLabStage.offsetWidth;chemLabStage.classList.add('chem-lab-pulse');
-          document.getElementById('chemLabStatus').textContent='Visual replayed: '+chemLabModes[chemLabCurrent].title+'. Observe the particle or material changes shown.';
-        });
-        showChemLab('filtration');
 
         /* Quiz Check */
         function checkQuiz(btn, isCorrect) {
