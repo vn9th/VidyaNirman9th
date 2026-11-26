@@ -102,7 +102,16 @@
         @keyframes chemDrift { from { transform:translate(-10px,-8px); } to { transform:translate(18px,14px); } }
         .chem-mission:focus-visible,.chem-lab-game:focus-visible,.chem-atom-pick:focus-visible { outline:2px solid #fcd34d; outline-offset:3px; }
 
+        .chem-module-card { isolation:isolate; backdrop-filter:blur(12px); }
+        .chem-module-card:before { content:"";position:absolute;inset:0;pointer-events:none;opacity:.32;background:linear-gradient(125deg,transparent 15%,rgba(251,191,36,.08) 48%,transparent 72%);transform:translateX(-100%);transition:transform .8s ease; }
+        .chem-module-card:hover:before { transform:translateX(100%); }
         .chem-reaction-chamber { --reaction-speed:1.5s; }
+        .chem-reaction-particle { will-change:transform; }
+        .chem-lab-glass { position:relative; isolation:isolate; background:linear-gradient(110deg,rgba(255,255,255,.13),rgba(255,255,255,.015) 28%,rgba(56,189,248,.08) 72%,rgba(255,255,255,.12)); box-shadow:inset 8px 0 12px rgba(255,255,255,.06),inset -8px 0 12px rgba(255,255,255,.04),0 18px 45px rgba(0,0,0,.35); }
+        .chem-lab-glass:after { content:"";position:absolute;top:8%;bottom:12%;left:12%;width:5px;border-radius:99px;background:linear-gradient(transparent,rgba(255,255,255,.35),transparent);filter:blur(1px);pointer-events:none; }
+        .chem-liquid { background:linear-gradient(90deg,rgba(14,165,233,.35),rgba(56,189,248,.58) 45%,rgba(125,211,252,.32));box-shadow:inset 0 8px 12px rgba(255,255,255,.12),0 0 22px rgba(56,189,248,.16); }
+        .chem-liquid:before { content:"";position:absolute;left:0;right:0;top:-4px;height:8px;border-radius:50%;background:rgba(125,211,252,.5);border-top:1px solid rgba(224,242,254,.7); }
+
         .chem-reaction-particle { position:absolute;width:13px;height:13px;border-radius:50%;background:radial-gradient(circle at 32% 28%,#e0f2fe,#38bdf8 48%,#075985 100%);box-shadow:0 0 13px #38bdf8;animation:chemParticleTravel var(--reaction-speed,1.5s) ease-in-out infinite alternate;animation-delay:var(--delay,0s); }
         @keyframes chemParticleTravel { 0%{transform:translate(-10px,-8px)} 100%{transform:translate(24px,18px)} }
         .chem-reaction-burst:after { content:'EFFECTIVE COLLISION';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:10px;letter-spacing:.2em;color:#fde68a;text-shadow:0 0 12px #f59e0b;animation:chemBurst .8s ease-out both;pointer-events:none; }
@@ -794,18 +803,31 @@
         const chemDoneKey = 'vn-chemistry-module-progress-v1';
         let chemDone = {};
         try { chemDone = JSON.parse(localStorage.getItem(chemDoneKey) || '{}') || {}; } catch (_) { chemDone = {}; }
+        function chemModuleText(value) {
+          if (value == null) return '';
+          if (typeof value === 'string' || typeof value === 'number') return String(value);
+          if (Array.isArray(value)) return value.map(chemModuleText).filter(Boolean).join(' · ');
+          if (typeof value === 'object') return chemModuleText(value.title || value.name || value.label || value.text || value.value || value.content || '');
+          return '';
+        }
+        function chemEscape(value) {
+          return chemModuleText(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+        }
         function renderChemModules() {
           const q = (chemSearch.value || '').trim().toLowerCase();
-          const shown = chemistryModules.filter(m => (m.title + ' ' + m.tag + ' ' + m.intro).toLowerCase().includes(q));
-          chemGrid.innerHTML = shown.map(m => {
-            const done = !!chemDone[m.n];
-            return '<article class="bg-maroon-card rounded-2xl border border-amber-500/25 p-5 shadow-lg shadow-black/20" data-module="'+m.n+'">' +
-              '<div class="flex items-start justify-between gap-3 mb-3"><span class="text-[10px] font-black tracking-widest text-amber-400">MODULE '+String(m.n).padStart(2,'0')+'</span><span class="text-[10px] rounded-full px-2 py-1 border border-amber-500/30 text-amber-200">'+m.tag+'</span></div>' +
-              '<div class="flex items-center gap-2 mb-3"><span class="text-[9px] uppercase tracking-widest '+(done?'text-emerald-300':'text-slate-500')+'">'+(done?'✓ Completed':'● Learning module')+'</span></div>' +
-              '<h4 class="font-cinzel text-lg font-bold text-amber-100 mb-2">'+m.title+'</h4><p class="text-xs leading-relaxed text-slate-300">'+m.intro+'</p>' +
-              '<button type="button" class="chem-module-open mt-4 w-full rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs font-bold text-amber-200 hover:bg-amber-500/20" aria-expanded="false">Open lesson <span aria-hidden="true">＋</span></button>' +
-              '<div class="chem-module-detail hidden mt-4 border-t border-amber-500/20 pt-4 space-y-3"><ul class="list-disc pl-5 space-y-2 text-xs leading-relaxed text-slate-300">'+m.points.map(p=>'<li>'+p+'</li>').join('')+'</ul>' +
-              '<div class="rounded-xl bg-[#0F0103] border border-amber-500/20 p-3"><p class="text-[10px] uppercase tracking-widest text-amber-400 mb-2">KEY IDEA</p><p class="text-xs text-slate-200">'+m.example+'</p><p class="text-[10px] uppercase tracking-widest text-amber-400 mt-4 mb-2">QUICK CHECK</p><p class="text-xs text-slate-200">'+m.check+'</p><p class="text-xs text-emerald-300 mt-2">'+m.answer+'</p></div></div></article>';
+          const shown = chemistryModules.filter(m => [m.title,m.tag,m.intro].map(chemModuleText).join(' ').toLowerCase().includes(q));
+          chemGrid.innerHTML = shown.map((m,index) => {
+            const done = !!chemDone[m.n], title=chemEscape(m.title), tag=chemEscape(m.tag || 'CHEMISTRY'), intro=chemEscape(m.intro);
+            const points = (Array.isArray(m.points) ? m.points : []).map(p => '<li class="pl-1">'+chemEscape(p)+'</li>').join('');
+            return '<article class="chem-module-card group relative overflow-hidden rounded-2xl border border-amber-500/25 bg-gradient-to-br from-[#35101a] via-[#21070e] to-[#100308] p-5 shadow-xl shadow-black/30 transition-all duration-300 hover:-translate-y-1 hover:border-amber-300/60" data-module="'+chemEscape(m.n)+'">' +
+              '<div class="absolute -right-8 -top-8 h-28 w-28 rounded-full border border-amber-300/10 bg-amber-300/5 transition-transform duration-500 group-hover:scale-150"></div>' +
+              '<div class="relative flex items-center justify-between gap-3 mb-4"><span class="text-[10px] font-black tracking-[.22em] text-amber-400">VN LAB NOTES · '+String(index+1).padStart(2,'0')+'</span><span class="rounded-full border border-amber-400/30 bg-amber-400/10 px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider text-amber-100">'+tag+'</span></div>' +
+              '<div class="relative flex items-center gap-2 mb-3"><span class="h-2 w-2 rounded-full '+(done?'bg-emerald-400':'bg-amber-400')+' shadow-[0_0_12px_currentColor]"></span><span class="text-[9px] uppercase tracking-[.18em] '+(done?'text-emerald-300':'text-slate-400')+'">'+(done?'Completed':'Advanced learning path')+'</span></div>' +
+              '<h4 class="relative font-cinzel text-xl font-bold leading-snug text-amber-100 mb-3">'+title+'</h4><p class="relative text-sm leading-6 text-slate-300 min-h-[5.5rem]">'+intro+'</p>' +
+              '<div class="relative mt-4 flex items-center justify-between border-t border-white/10 pt-3"><span class="text-[10px] text-slate-400">'+(Array.isArray(m.points)?m.points.length:0)+' key concepts · example · checkpoint</span><button type="button" class="chem-module-open rounded-xl border border-amber-400/40 bg-amber-400/10 px-4 py-2.5 text-xs font-black text-amber-100 transition hover:bg-amber-400 hover:text-[#21070e]" aria-expanded="false">Explore topic <span aria-hidden="true">↗</span></button></div>' +
+              '<div class="chem-module-detail hidden relative mt-5 border-t border-amber-400/20 pt-5 space-y-4"><div class="flex items-center gap-2 text-[10px] font-black uppercase tracking-[.2em] text-amber-400"><span class="h-px w-6 bg-amber-400"></span>Concept map</div><ul class="list-disc pl-5 space-y-3 text-sm leading-6 text-slate-200">'+points+'</ul>' +
+              '<div class="rounded-xl border border-cyan-300/20 bg-[#07131b] p-4"><p class="text-[10px] font-black uppercase tracking-[.2em] text-cyan-300 mb-2">Worked example</p><p class="text-sm leading-6 text-slate-100">'+chemEscape(m.example)+'</p></div>' +
+              '<div class="rounded-xl border border-amber-400/20 bg-black/30 p-4"><p class="text-[10px] font-black uppercase tracking-[.2em] text-amber-400 mb-2">Think like a chemist</p><p class="text-sm text-slate-100">'+chemEscape(m.check)+'</p><details class="mt-3"><summary class="cursor-pointer text-xs font-bold text-emerald-300">Reveal explanation</summary><p class="mt-2 text-sm leading-6 text-emerald-100">'+chemEscape(m.answer)+'</p></details></div></div></article>';
           }).join('');
           chemEmpty.classList.toggle('hidden', shown.length !== 0);
           chemProgress.textContent = Object.keys(chemDone).filter(k=>chemDone[k]).length + ' / ' + chemistryModules.length + ' topics completed';
