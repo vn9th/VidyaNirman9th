@@ -1452,7 +1452,7 @@ img,svg,video,canvas{max-width:100%}
  const scroll=()=>{messages.scrollTop=messages.scrollHeight};
  restoreHistory();
  function toggle(open){panel.classList.toggle('vn-open',open);launcher.setAttribute('aria-expanded',String(open));if(open)input.focus()}
- launcher.addEventListener('click',()=>toggle(!panel.classList.contains('vn-open')));close.addEventListener('click',()=>toggle(false));
+ launcher.addEventListener('click',()=>{window.location.href='ai.html'});close.addEventListener('click',()=>toggle(false));
  function setLanguage(next){language=next==='english'?'english':'hinglish';languageButtons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.vnLanguage===language)))}
  languageButtons.forEach(b=>b.addEventListener('click',()=>setLanguage(b.dataset.vnLanguage)));
  function welcome(){messages.innerHTML='';const box=document.createElement('div');box.className='vn-ai-welcome';const h=document.createElement('strong'),p=document.createElement('p');h.textContent='Namaste! Welcome to Vidya AI 🙏';p.textContent='Ask me to explain a Class 9 topic, solve a numerical step by step, make revision notes, or prepare practice questions. Choose your response language above.';box.append(h,p);messages.appendChild(box)}
