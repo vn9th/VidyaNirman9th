@@ -984,6 +984,64 @@
             <section class="mt-8 rounded-2xl border border-cyan-400/30 bg-gradient-to-br from-[#102332]/90 to-[#16070b] p-5 sm:p-7" aria-labelledby="vn-sound-lab-title"><div class="mb-5"><span class="text-cyan-300 text-xs font-bold tracking-widest">CHAPTER 04 • INTERACTIVE LAB</span><h3 id="vn-sound-lab-title" class="text-2xl font-bold text-amber-200 mt-1">Sound Wave Explorer</h3><p class="text-sm text-slate-300 mt-1">See how frequency changes pitch and amplitude changes loudness. This is a visual teaching model, not audio output.</p></div><div class="grid lg:grid-cols-2 gap-5"><div class="space-y-4"><label class="block text-sm text-slate-200">Frequency: <b id="vn-s-f-v" class="text-cyan-200">4 Hz</b><input id="vn-s-f" type="range" min="1" max="12" value="4" class="w-full accent-cyan-400 mt-2"></label><label class="block text-sm text-slate-200">Amplitude: <b id="vn-s-a-v" class="text-cyan-200">60%</b><input id="vn-s-a" type="range" min="10" max="100" value="60" class="w-full accent-cyan-400 mt-2"></label><div class="rounded-xl bg-black/30 p-4 border border-cyan-400/20"><small class="text-slate-400">Time period · T = 1/f</small><strong id="vn-s-period" class="block text-2xl text-amber-200 mt-1">0.25 s</strong><small class="text-slate-400">Speed of sound in air (approx. 20°C)</small><strong class="block text-lg text-cyan-200 mt-1">343 m/s</strong></div></div><div class="rounded-xl bg-black/30 p-3 border border-cyan-400/20"><canvas id="vn-s-wave" width="640" height="260" class="w-full rounded-lg" style="height:220px"></canvas><p id="vn-s-insight" class="text-sm text-slate-300 mt-2">Higher frequency means higher pitch; greater amplitude means louder sound.</p></div></div></section>
 </div>
 
+            <section id="advanced-chapter-clinic" class="mt-14 space-y-5">
+                <div class="text-center max-w-3xl mx-auto">
+                    <span class="text-cyan-300 text-xs font-bold tracking-[.25em] uppercase">Beyond the basics · Concept clinic</span>
+                    <h2 class="font-cinzel text-2xl sm:text-3xl text-gold-gradient mt-2">Advanced Physics Mastery</h2>
+                    <p class="text-sm text-slate-300 mt-3">Extend each chapter with connected ideas, carefully worked examples, common misconceptions and challenge questions. Open a topic to study it.</p>
+                </div>
+                <div class="space-y-3">
+                    <details class="bg-gurukul-card border border-amber-400/25 rounded-xl p-5 group">
+                        <summary class="cursor-pointer list-none flex items-center justify-between gap-4 text-amber-200 font-bold"><span>01 · Motion — graphs, relative motion and sign convention</span><i class="fa-solid fa-chevron-down text-cyan-300 group-open:rotate-180 transition-transform"></i></summary>
+                        <div class="pt-4 space-y-3 text-sm text-slate-200 leading-relaxed">
+                            <p><b class="text-cyan-200">Reading a velocity–time graph:</b> its slope gives acceleration, while the signed area between the graph and the time axis gives displacement. Area below the time axis is negative; total distance is found by adding the magnitudes of the separate areas.</p>
+                            <p><b class="text-cyan-200">Relative velocity:</b> for motion along one straight line, velocity of A relative to B is v<sub>AB</sub> = v<sub>A</sub> − v<sub>B</sub>. Choose a positive direction first and keep the signs consistent.</p>
+                            <div class="rounded-lg bg-black/30 border border-cyan-400/20 p-4"><b class="text-amber-200">Worked example</b><p class="mt-1">A cyclist changes velocity from 4 m/s to 16 m/s in 6 s. Average acceleration = (16 − 4)/6 = <b>2 m/s²</b>.</p></div>
+                            <p><b class="text-amber-200">Check your understanding:</b> If an object returns to its starting point, its displacement is zero, but its total distance travelled is not necessarily zero.</p>
+                        </div>
+                    </details>
+                    <details class="bg-gurukul-card border border-amber-400/25 rounded-xl p-5 group">
+                        <summary class="cursor-pointer list-none flex items-center justify-between gap-4 text-amber-200 font-bold"><span>02 · Force — inertia, impulse and momentum conservation</span><i class="fa-solid fa-chevron-down text-cyan-300 group-open:rotate-180 transition-transform"></i></summary>
+                        <div class="pt-4 space-y-3 text-sm text-slate-200 leading-relaxed">
+                            <p><b class="text-cyan-200">Inertia:</b> the tendency of a body to resist a change in its state of rest or uniform straight-line motion. Mass is a measure of inertia; a larger mass requires a larger net force for the same acceleration.</p>
+                            <p><b class="text-cyan-200">Impulse:</b> for a constant net force, impulse J = FΔt = Δp. It equals the change in momentum. Increasing the time over which a momentum change occurs reduces the average force for that same change.</p>
+                            <p><b class="text-cyan-200">Conservation:</b> when the net external force on a system is zero, its total momentum remains constant. Momentum before interaction equals momentum after interaction, with direction included.</p>
+                            <div class="rounded-lg bg-black/30 border border-cyan-400/20 p-4"><b class="text-amber-200">Worked example</b><p class="mt-1">A 2 kg trolley moving at 3 m/s is brought to rest. Its momentum changes from 6 kg·m/s to 0, so the impulse is <b>−6 N·s</b> (opposite the initial motion).</p></div>
+                            <p><b class="text-amber-200">Common confusion:</b> action and reaction are equal and opposite, but they act on different bodies; they do not cancel each other on a single-body free-body diagram.</p>
+                        </div>
+                    </details>
+                    <details class="bg-gurukul-card border border-amber-400/25 rounded-xl p-5 group">
+                        <summary class="cursor-pointer list-none flex items-center justify-between gap-4 text-amber-200 font-bold"><span>03 · Work and Energy — work angle, efficiency and machines</span><i class="fa-solid fa-chevron-down text-cyan-300 group-open:rotate-180 transition-transform"></i></summary>
+                        <div class="pt-4 space-y-3 text-sm text-slate-200 leading-relaxed">
+                            <p><b class="text-cyan-200">Work and direction:</b> W = Fs cosθ. Work is positive when force has a component along displacement, negative when it acts against displacement, and zero when force is perpendicular to displacement or displacement is zero.</p>
+                            <p><b class="text-cyan-200">Mechanical advantage:</b> MA = load/effort. For an ideal machine, efficiency is 100% and MA equals velocity ratio. In a real machine, friction and other energy transfers make efficiency less than 100%.</p>
+                            <p><b class="text-cyan-200">Efficiency:</b> η = (useful output work ÷ input work) × 100%. A machine makes a task easier by changing the size or direction of the applied force; it does not create energy.</p>
+                            <div class="rounded-lg bg-black/30 border border-cyan-400/20 p-4"><b class="text-amber-200">Worked example</b><p class="mt-1">A machine receives 500 J and gives 400 J of useful output. Its efficiency is (400/500) × 100 = <b>80%</b>.</p></div>
+                            <p><b class="text-amber-200">Challenge:</b> Explain why a ramp can reduce the effort force needed to raise a load while increasing the distance over which the force acts.</p>
+                        </div>
+                    </details>
+                    <details class="bg-gurukul-card border border-amber-400/25 rounded-xl p-5 group">
+                        <summary class="cursor-pointer list-none flex items-center justify-between gap-4 text-amber-200 font-bold"><span>04 · Sound — wave relationships, echoes and limits</span><i class="fa-solid fa-chevron-down text-cyan-300 group-open:rotate-180 transition-transform"></i></summary>
+                        <div class="pt-4 space-y-3 text-sm text-slate-200 leading-relaxed">
+                            <p><b class="text-cyan-200">Wave relationship:</b> v = fλ and T = 1/f. In the same medium and under unchanged conditions, wave speed is approximately fixed; increasing frequency therefore decreases wavelength.</p>
+                            <p><b class="text-cyan-200">Echo calculation:</b> the sound travels to the reflecting surface and back, so distance to the surface d = vt/2. At 343 m/s and a 0.10 s delay, d = 343 × 0.10 ÷ 2 = <b>17.15 m</b> (approximately).</p>
+                            <p><b class="text-cyan-200">Pitch and loudness:</b> frequency is associated with pitch; amplitude is associated with loudness. They describe different properties of a sound wave.</p>
+                            <p><b class="text-amber-200">Important:</b> sound needs a material medium and cannot propagate through a vacuum. Its speed depends on the medium and its physical conditions.</p>
+                        </div>
+                    </details>
+                    <details class="bg-gurukul-card border border-cyan-400/25 rounded-xl p-5 group">
+                        <summary class="cursor-pointer list-none flex items-center justify-between gap-4 text-amber-200 font-bold"><span>05 · Gravitation and Floatation — pressure, density and buoyancy</span><i class="fa-solid fa-chevron-down text-cyan-300 group-open:rotate-180 transition-transform"></i></summary>
+                        <div class="pt-4 space-y-3 text-sm text-slate-200 leading-relaxed">
+                            <p><b class="text-cyan-200">Universal gravitation:</b> F = Gm₁m₂/r². The force increases with either mass and decreases with the square of the separation between the centres of the two bodies.</p>
+                            <p><b class="text-cyan-200">Mass and weight:</b> mass measures inertia and is measured in kilograms; weight is the gravitational force W = mg and is measured in newtons. Mass stays the same when location changes, while weight can change with g.</p>
+                            <p><b class="text-cyan-200">Pressure and buoyancy:</b> pressure P = F/A. A fluid exerts an upward buoyant force on an immersed body. Archimedes’ principle states that this upthrust equals the weight of the fluid displaced.</p>
+                            <div class="rounded-lg bg-black/30 border border-cyan-400/20 p-4"><b class="text-amber-200">Worked example</b><p class="mt-1">A 5 kg object has weight 5 × 9.8 = <b>49 N</b> near Earth’s surface. On the Moon, where g is about 1/6 of Earth’s, its weight is about <b>8.2 N</b>; its mass remains 5 kg.</p></div>
+                            <p><b class="text-amber-200">Concept check:</b> floating depends on the balance of weight and buoyant force; comparing average object density with fluid density is a useful shortcut for a uniform object in a uniform fluid.</p>
+                        </div>
+                    </details>
+                </div>
+            </section>
+
             <section id="tools" class="mt-16 bg-gurukul-card p-6 sm:p-8 rounded-2xl border-cyan-glow">
                 <div class="text-center mb-8">
                     <span class="px-3 py-1 rounded-full bg-cyan-950 border border-cyan-500 text-cyan-300 text-xs font-bold">INTERACTIVE PHYSICS LABORATORY</span>
