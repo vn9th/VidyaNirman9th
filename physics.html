@@ -141,6 +141,28 @@
         #motion3dMount canvas { display:block; width:100%; height:100%; touch-action:pan-y; }
         #motion3dMount { min-height:300px; }
         @media (prefers-reduced-motion: reduce) { #motion3dMount * { animation:none !important; } }
+
+        /* Physics Visual Atlas — responsive scientific illustration system */
+        .vn-atlas-card {
+            position:relative; overflow:hidden; isolation:isolate;
+            background:linear-gradient(145deg,rgba(25,9,15,.96),rgba(7,13,22,.96));
+            border:1px solid rgba(212,175,55,.24);
+            box-shadow:0 16px 42px rgba(0,0,0,.25),inset 0 1px rgba(255,255,255,.035);
+            transition:transform .28s ease,border-color .28s ease,box-shadow .28s ease;
+        }
+        .vn-atlas-card:hover { transform:translateY(-4px); border-color:rgba(0,242,254,.48); box-shadow:0 18px 48px rgba(0,0,0,.38),0 0 24px rgba(0,242,254,.07); }
+        .vn-atlas-card:before { content:""; position:absolute; inset:0; pointer-events:none; opacity:.24; background-image:radial-gradient(rgba(255,215,0,.2) .7px,transparent .7px); background-size:18px 18px; mask-image:linear-gradient(135deg,#000,transparent 70%); z-index:-1; }
+        .vn-atlas-art { width:100%; height:auto; display:block; min-height:190px; }
+        .vn-atlas-art text { font-family:'Plus Jakarta Sans',sans-serif; }
+        .vn-atlas-kicker { color:#67e8f9; font-size:.67rem; letter-spacing:.2em; font-weight:800; text-transform:uppercase; }
+        .vn-atlas-equation { font-family:Georgia,serif; color:#ffe7a0; letter-spacing:.02em; }
+        .vn-atlas-line { stroke-dasharray:8 8; animation:vnAtlasFlow 18s linear infinite; }
+        .vn-atlas-pulse { transform-box:fill-box; transform-origin:center; animation:vnAtlasPulse 3s ease-in-out infinite; }
+        .vn-atlas-float { animation:vnAtlasFloat 5s ease-in-out infinite; }
+        @keyframes vnAtlasFlow { to { stroke-dashoffset:-320; } }
+        @keyframes vnAtlasPulse { 50% { opacity:.48; transform:scale(1.08); } }
+        @keyframes vnAtlasFloat { 50% { transform:translateY(-5px); } }
+        @media (prefers-reduced-motion:reduce) { .vn-atlas-card,.vn-atlas-line,.vn-atlas-pulse,.vn-atlas-float { animation:none!important; transition:none!important; } .vn-atlas-card:hover { transform:none; } }
     </style>
 </head>
 <body class="relative min-h-screen">
@@ -1040,6 +1062,101 @@
                         </div>
                     </details>
                 </div>
+            </section>
+
+            <section id="physics-visual-atlas" class="mt-16 space-y-7">
+                <div class="text-center max-w-3xl mx-auto">
+                    <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-400/30 bg-cyan-950/40 text-cyan-200 text-xs font-extrabold tracking-[.22em]"><i class="fa-solid fa-atom"></i> THE SCIENCE VISUAL ATLAS</span>
+                    <h2 class="font-cinzel text-3xl sm:text-4xl text-gold-gradient mt-4">Physics, Made Visible.</h2>
+                    <p class="text-slate-300 text-sm sm:text-base mt-3 leading-relaxed">Explore the invisible ideas behind everyday phenomena through original, labelled scientific diagrams. Each visual connects a physical model to the equation that describes it.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                    <article class="vn-atlas-card rounded-2xl p-4 sm:p-5">
+                        <div class="flex items-center justify-between gap-3"><span class="vn-atlas-kicker">01 / Kinematics</span><span class="text-[10px] text-amber-200 border border-amber-400/20 rounded-full px-2 py-1">MOTION MAP</span></div>
+                        <h3 class="text-xl font-bold text-white mt-2">Reading a Motion Graph</h3>
+                        <svg class="vn-atlas-art mt-3" viewBox="0 0 520 280" role="img" aria-label="Velocity time graph showing constant acceleration as a rising straight line, with slope representing acceleration">
+                            <defs><linearGradient id="vnGraphFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#00e5ff" stop-opacity=".3"/><stop offset="1" stop-color="#00e5ff" stop-opacity="0"/></linearGradient></defs>
+                            <g stroke="#64748b" stroke-opacity=".22" stroke-width="1"><path d="M70 35V230H475M70 180H475M70 130H475M70 80H475M170 35V230M270 35V230M370 35V230"/></g>
+                            <path d="M70 230V28M70 230H485" stroke="#d6b65b" stroke-width="2"/><path d="M70 230L70 28M485 230L475 224" stroke="#d6b65b" stroke-width="2"/>
+                            <path d="M70 190L430 55L430 230L70 230Z" fill="url(#vnGraphFill)"/>
+                            <path d="M70 190L430 55" stroke="#45e7f5" stroke-width="5" stroke-linecap="round"/>
+                            <path d="M70 190L430 55" class="vn-atlas-line" stroke="#d9fbff" stroke-width="1.5" fill="none"/>
+                            <circle cx="70" cy="190" r="6" fill="#ffd166"/><circle cx="430" cy="55" r="6" fill="#45e7f5" class="vn-atlas-pulse"/>
+                            <path d="M155 190V158H240" stroke="#ffd166" stroke-width="2" fill="none"/><text x="165" y="149" fill="#ffe6a0" font-size="13">Slope = acceleration</text>
+                            <text x="18" y="28" fill="#a5f3fc" font-size="13">v (m/s)</text><text x="420" y="258" fill="#a5f3fc" font-size="13">Time (s)</text>
+                            <text x="55" y="249" fill="#94a3b8" font-size="11">0</text><text x="265" y="249" fill="#94a3b8" font-size="11">t</text>
+                            <text x="80" y="178" fill="#fcd34d" font-size="12">Initial velocity</text><text x="340" y="43" fill="#a5f3fc" font-size="12">Final velocity</text>
+                        </svg>
+                        <div class="border-t border-white/10 pt-3 mt-2"><p class="text-sm text-slate-300">A steeper velocity–time line means greater acceleration. The area under the graph represents displacement.</p><p class="vn-atlas-equation text-lg mt-2">a = Δv / Δt</p></div>
+                    </article>
+                    <article class="vn-atlas-card rounded-2xl p-4 sm:p-5">
+                        <div class="flex items-center justify-between gap-3"><span class="vn-atlas-kicker">02 / Dynamics</span><span class="text-[10px] text-amber-200 border border-amber-400/20 rounded-full px-2 py-1">FORCE FIELD</span></div>
+                        <h3 class="text-xl font-bold text-white mt-2">Forces on a Moving Body</h3>
+                        <svg class="vn-atlas-art mt-3" viewBox="0 0 520 280" role="img" aria-label="Free body diagram of a block on a horizontal surface showing normal force, weight, applied force and friction">
+                            <defs><marker id="vnForceArrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="#5ee7f7"/></marker><marker id="vnGoldArrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="#fbbf24"/></marker></defs>
+                            <path d="M42 210H478" stroke="#b38a43" stroke-width="4"/><path d="M42 217H478" stroke="#b38a43" stroke-opacity=".25" stroke-width="12"/>
+                            <rect x="190" y="130" width="130" height="78" rx="12" fill="#4b2530" stroke="#f4d27a" stroke-width="2"/><path d="M203 143H307" stroke="#fff1c2" stroke-opacity=".25"/>
+                            <text x="255" y="176" fill="#fff1c2" font-size="18" text-anchor="middle" font-weight="700">m</text>
+                            <path d="M255 130V48" stroke="#5ee7f7" stroke-width="4" marker-end="url(#vnForceArrow)"/><text x="270" y="48" fill="#a5f3fc" font-size="15">Normal (N)</text>
+                            <path d="M255 208V263" stroke="#fbbf24" stroke-width="4" marker-end="url(#vnGoldArrow)"/><text x="270" y="264" fill="#fcd34d" font-size="15">Weight (mg)</text>
+                            <path d="M320 165H448" stroke="#5ee7f7" stroke-width="4" marker-end="url(#vnForceArrow)"/><text x="355" y="151" fill="#a5f3fc" font-size="14">Applied force</text>
+                            <path d="M190 188H82" stroke="#fbbf24" stroke-width="4" marker-end="url(#vnGoldArrow)"/><text x="55" y="171" fill="#fcd34d" font-size="14">Friction</text>
+                            <path d="M190 230H320" stroke="#e2e8f0" stroke-opacity=".25" stroke-dasharray="5 6"/>
+                            <text x="255" y="25" fill="#94a3b8" font-size="12" text-anchor="middle">FREE-BODY DIAGRAM · SCHEMATIC</text>
+                        </svg>
+                        <div class="border-t border-white/10 pt-3 mt-2"><p class="text-sm text-slate-300">The vector sum of all external forces determines acceleration. Vertical forces balance when there is no vertical acceleration.</p><p class="vn-atlas-equation text-lg mt-2">ΣF = ma</p></div>
+                    </article>
+                    <article class="vn-atlas-card rounded-2xl p-4 sm:p-5">
+                        <div class="flex items-center justify-between gap-3"><span class="vn-atlas-kicker">03 / Energy</span><span class="text-[10px] text-amber-200 border border-amber-400/20 rounded-full px-2 py-1">ENERGY FLOW</span></div>
+                        <h3 class="text-xl font-bold text-white mt-2">The Energy Transformation</h3>
+                        <svg class="vn-atlas-art mt-3" viewBox="0 0 520 280" role="img" aria-label="Roller coaster track showing potential energy at the top converting to kinetic energy at the bottom">
+                            <defs><linearGradient id="vnTrack" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fcd34d"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs>
+                            <path d="M34 220C90 220 105 52 190 52S270 220 340 220S430 102 490 102" stroke="#64748b" stroke-opacity=".2" stroke-width="24" fill="none"/>
+                            <path d="M34 220C90 220 105 52 190 52S270 220 340 220S430 102 490 102" stroke="url(#vnTrack)" stroke-width="5" fill="none" stroke-linecap="round"/>
+                            <path d="M190 52V220M340 220V245" stroke="#94a3b8" stroke-dasharray="4 6" stroke-opacity=".55"/>
+                            <circle cx="190" cy="52" r="12" fill="#fcd34d" stroke="#fff1c2" stroke-width="3" class="vn-atlas-pulse"/><circle cx="340" cy="220" r="12" fill="#22d3ee" stroke="#cffafe" stroke-width="3" class="vn-atlas-pulse"/>
+                            <path d="M190 74L190 118" stroke="#fcd34d" stroke-width="2"/><text x="205" y="99" fill="#fde68a" font-size="14">High PE</text><text x="205" y="118" fill="#cbd5e1" font-size="11">Lower speed</text>
+                            <path d="M340 194L340 156" stroke="#22d3ee" stroke-width="2"/><text x="355" y="163" fill="#a5f3fc" font-size="14">High KE</text><text x="355" y="181" fill="#cbd5e1" font-size="11">Higher speed</text>
+                            <text x="190" y="25" fill="#fcd34d" font-size="12" text-anchor="middle">TOP</text><text x="340" y="268" fill="#67e8f9" font-size="12" text-anchor="middle">BOTTOM</text>
+                        </svg>
+                        <div class="border-t border-white/10 pt-3 mt-2"><p class="text-sm text-slate-300">As the cart descends, gravitational potential energy decreases while kinetic energy increases. Total mechanical energy stays constant in an ideal frictionless model.</p><p class="vn-atlas-equation text-lg mt-2">E = mgh + ½mv²</p></div>
+                    </article>
+                    <article class="vn-atlas-card rounded-2xl p-4 sm:p-5">
+                        <div class="flex items-center justify-between gap-3"><span class="vn-atlas-kicker">04 / Waves</span><span class="text-[10px] text-amber-200 border border-amber-400/20 rounded-full px-2 py-1">WAVE ANATOMY</span></div>
+                        <h3 class="text-xl font-bold text-white mt-2">Inside a Sound Wave</h3>
+                        <svg class="vn-atlas-art mt-3" viewBox="0 0 520 280" role="img" aria-label="Longitudinal sound wave shown as alternating compressions and rarefactions with wavelength marked">
+                            <path d="M30 125H490" stroke="#64748b" stroke-opacity=".4" stroke-width="2" stroke-dasharray="4 7"/>
+                            <g fill="#67e8f9"><circle cx="60" cy="125" r="4"/><circle cx="78" cy="125" r="4"/><circle cx="96" cy="125" r="4"/><circle cx="114" cy="125" r="4"/><circle cx="132" cy="125" r="4"/><circle cx="150" cy="125" r="4"/><circle cx="168" cy="125" r="4"/><circle cx="186" cy="125" r="4"/><circle cx="204" cy="125" r="4"/><circle cx="222" cy="125" r="4"/><circle cx="240" cy="125" r="4"/><circle cx="258" cy="125" r="4"/><circle cx="276" cy="125" r="4"/><circle cx="294" cy="125" r="4"/><circle cx="312" cy="125" r="4"/><circle cx="330" cy="125" r="4"/><circle cx="348" cy="125" r="4"/><circle cx="366" cy="125" r="4"/><circle cx="384" cy="125" r="4"/><circle cx="402" cy="125" r="4"/><circle cx="420" cy="125" r="4"/><circle cx="438" cy="125" r="4"/><circle cx="456" cy="125" r="4"/></g>
+                            <g fill="#fcd34d" class="vn-atlas-float"><rect x="52" y="91" width="112" height="68" rx="12" fill-opacity=".12" stroke="#fcd34d" stroke-opacity=".45"/><rect x="215" y="91" width="112" height="68" rx="12" fill-opacity=".12" stroke="#fcd34d" stroke-opacity=".45"/><rect x="378" y="91" width="92" height="68" rx="12" fill-opacity=".12" stroke="#fcd34d" stroke-opacity=".45"/></g>
+                            <g stroke="#67e8f9" stroke-width="4"><path d="M64 95V155M76 95V155M88 95V155M100 95V155M112 95V155M124 95V155M136 95V155M148 95V155"/><path d="M227 95V155M239 95V155M251 95V155M263 95V155M275 95V155M287 95V155M299 95V155M311 95V155"/><path d="M390 95V155M402 95V155M414 95V155M426 95V155M438 95V155"/></g>
+                            <path d="M110 190V211H273V190" fill="none" stroke="#fcd34d" stroke-width="2"/><path d="M110 200H273" stroke="#fcd34d" stroke-width="2" class="vn-atlas-line"/>
+                            <text x="191" y="230" fill="#fde68a" font-size="14" text-anchor="middle">One wavelength (λ)</text>
+                            <text x="105" y="72" fill="#a5f3fc" font-size="13" text-anchor="middle">Compression</text><text x="270" y="72" fill="#a5f3fc" font-size="13" text-anchor="middle">Compression</text><text x="435" y="72" fill="#a5f3fc" font-size="13" text-anchor="middle">Compression</text>
+                            <text x="190" y="260" fill="#94a3b8" font-size="11" text-anchor="middle">Particle oscillations are parallel to wave travel</text>
+                        </svg>
+                        <div class="border-t border-white/10 pt-3 mt-2"><p class="text-sm text-slate-300">Sound in air is longitudinal: particles vibrate back and forth parallel to the direction in which the disturbance travels.</p><p class="vn-atlas-equation text-lg mt-2">v = fλ</p></div>
+                    </article>
+                    <article class="vn-atlas-card rounded-2xl p-4 sm:p-5 md:col-span-2 xl:col-span-2">
+                        <div class="flex items-center justify-between gap-3"><span class="vn-atlas-kicker">05 / Gravitation</span><span class="text-[10px] text-amber-200 border border-amber-400/20 rounded-full px-2 py-1">ORBITAL MODEL</span></div>
+                        <h3 class="text-xl font-bold text-white mt-2">Gravity Around a Planet</h3>
+                        <div class="grid md:grid-cols-[1.2fr_.8fr] gap-3 items-center">
+                            <svg class="vn-atlas-art" viewBox="0 0 520 280" role="img" aria-label="Planet with concentric gravitational field rings and inward arrows indicating gravitational attraction">
+                                <defs><radialGradient id="vnPlanet"><stop stop-color="#f9d976"/><stop offset=".55" stop-color="#b77937"/><stop offset="1" stop-color="#472a39"/></radialGradient></defs>
+                                <circle cx="250" cy="140" r="112" fill="none" stroke="#67e8f9" stroke-opacity=".16" stroke-width="1.5" stroke-dasharray="4 8"/><circle cx="250" cy="140" r="82" fill="none" stroke="#67e8f9" stroke-opacity=".28" stroke-width="1.5"/><circle cx="250" cy="140" r="52" fill="none" stroke="#fcd34d" stroke-opacity=".35" stroke-width="1.5"/>
+                                <circle cx="250" cy="140" r="40" fill="url(#vnPlanet)" stroke="#ffe7a0" stroke-width="2"/><path d="M222 131Q242 112 260 125T282 145M225 153Q245 137 274 158" stroke="#f9d976" stroke-opacity=".5" stroke-width="5" fill="none"/>
+                                <g stroke="#67e8f9" stroke-width="2.5" fill="none"><path d="M250 12V86M250 86L244 76M250 86L256 76"/><path d="M378 140H302M302 140L312 134M302 140L312 146"/><path d="M122 140H198M198 140L188 134M198 140L188 146"/><path d="M250 268V194M250 194L244 204M250 194L256 204"/></g>
+                                <circle cx="250" cy="12" r="7" fill="#fcd34d" class="vn-atlas-pulse"/><circle cx="378" cy="140" r="7" fill="#fcd34d" class="vn-atlas-pulse"/>
+                                <text x="270" y="22" fill="#fde68a" font-size="12">Attraction</text><text x="390" y="145" fill="#a5f3fc" font-size="12">Toward centre</text><text x="250" y="145" fill="#fff1c2" font-size="12" text-anchor="middle" font-weight="700">PLANET</text>
+                            </svg>
+                            <div class="space-y-3 px-2">
+                                <div class="rounded-xl border border-cyan-400/20 bg-cyan-950/20 p-3"><span class="text-xs text-cyan-200 font-bold tracking-wider">FIELD IDEA</span><p class="text-sm text-slate-300 mt-1">A test mass experiences an attractive force directed towards the planet’s centre.</p></div>
+                                <div class="rounded-xl border border-amber-400/20 bg-amber-950/20 p-3"><span class="text-xs text-amber-200 font-bold tracking-wider">UNIVERSAL LAW</span><p class="vn-atlas-equation text-xl mt-1">F = Gm₁m₂ / r²</p><p class="text-xs text-slate-400 mt-1">r is the centre-to-centre separation.</p></div>
+                                <p class="text-xs text-slate-400">Diagram is conceptual and not to scale. Field strength decreases with distance.</p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <p class="text-center text-xs text-slate-500">Visual models are educational illustrations. Not to scale unless stated; use the chapter explanations for definitions, assumptions and derivations.</p>
             </section>
 
             <section id="tools" class="mt-16 bg-gurukul-card p-6 sm:p-8 rounded-2xl border-cyan-glow">
